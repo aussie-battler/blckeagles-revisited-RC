@@ -6,7 +6,7 @@
 	Last modified 10/17/16
 */
 //blck_variablesLoaded = false;
-blck_debugON = true;
+blck_debugON = false;
 blck_debugLevel = 3;
 blck_minFPS = 13;
 
