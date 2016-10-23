@@ -7,6 +7,6 @@
 */
 
 params["_aiList","_timeDelay"];
-
+if (blck_debugON) then {diag_log format["_fnc_addLiveAIToQue::  -->> _aiList = %1 || _timeDelay = %2",_aiList,_timeDelay];};
 blck_liveMissionAI pushback [_aiList, (diag_tickTime + _timeDelay)];
 

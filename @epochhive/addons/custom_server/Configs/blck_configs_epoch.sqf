@@ -57,8 +57,8 @@ Last modified 8/1/15
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = -1;
-	blck_enableBlueMissions = -1;
+	blck_enableRedMissions = 1;
+	blck_enableBlueMissions = 1;
 	blck_enableHunterMissions = 2;
 	blck_enableScoutsMissions = 2;
 	

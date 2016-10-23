@@ -1,19 +1,14 @@
 /*
-  Delete alive AI after an appropriate period.
+  Delete alive AI.
+  Now called from the main thread which tracks the time elapsed so that we no longer need to wait a proscribed period of time (see changes on lines 9 and 12)
   by Ghostrider
-  Last updated 2/21/16   
+  Last updated 10/22/16   
 */
 
 private["_ai","_veh"];
-params["_aiList","_waitTime"];
-/*
-_aiList = _this select 0;
-_waitTime = _this select 1;
-*/
+params["_aiList"];
 
-//diag_log format["_fnc_cleanupAliveAI:: called with blck_AICleanUpTimer = %1 and count of alive AI = %2",_waitTime, count _aiList];
-uiSleep _waitTime;
-diag_log format["_fnc_cleanupAliveAI:: Starting AI Cleanup with _waitTime = %1",_waitTime];
+//diag_log format["_fnc_cleanupAliveAI:: called with blck_AICleanUpTimer = %1 and count of alive AI = %2",0, count _aiList];
 {
 	//diag_log format["cleanupAliveAI:: for unit _x, alive = %1, GMS_DiedAt = %2",(alive _x), _x getVariable["GMS_DiedAt", -1]];
 	if ( alive _x && (_x getVariable["GMS_DiedAt", -1] < 0)) then {  // The unit has not been processed by a kill handler.  This double test is probably not needed.

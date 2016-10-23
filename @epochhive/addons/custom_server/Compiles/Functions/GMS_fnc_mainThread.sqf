@@ -4,7 +4,7 @@
 	- whether it is time to delete the mission objects at a specific location
 	- whether it is time to delete live AI associated with a specific mission
 	By Ghostrider-DbD-
-	Last modified 10-14-16
+	Last modified 10-22-16
 */
 private _index = 0;
 while {true} do
@@ -25,6 +25,7 @@ while {true} do
 		};
 	}forEach blck_oldMissionObjects;
 	[] call GMS_fnc_cleanupDeadAI;
+	/*
 	{
 		if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned
 		{
@@ -45,5 +46,6 @@ while {true} do
 			};
 		};
 	}forEach blck_pendingMissions;
+	*/
 };
 

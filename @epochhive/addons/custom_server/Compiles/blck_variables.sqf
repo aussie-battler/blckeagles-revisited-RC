@@ -7,6 +7,7 @@
 */
 //blck_variablesLoaded = false;
 blck_debugON = true;
+blck_debugLevel = 3;
 blck_minFPS = 13;
 
 //Minimum distance for between missions
@@ -33,6 +34,5 @@ DBD_HeliCrashSites = [];
 blck_TriggerDistance = 1000;
 blck_mainThreadUpdateInterval = 60;
 blck_missionSpawning = false;
-
 diag_log "[blckeagls] Variables Loaded";
 blck_variablesLoaded = true;

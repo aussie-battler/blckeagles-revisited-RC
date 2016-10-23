@@ -8,8 +8,8 @@ Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 w
 Thanks to cyncrwler for testing and bug fixes.
 */
 private ["_version","_versionDate"];
-_blck_version = "6.2 Build 8";
-_blck_versionDate = "10-22-16  7:00 PM";
+_blck_version = "6.3 Build 9";
+_blck_versionDate = "10-23-16  1:00 AM";
 
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
@@ -84,11 +84,6 @@ if (blck_enableBlueMissions == 1) then
 {
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 };
-
-[] execVM "\q\addons\custom_server\init\broadcastServerFPS.sqf";
-//[] execVM "\x\addons\custom_server\Compiles\passToHCs.sqf";
-
-[] execVM "\q\addons\custom_server\TimeAccel\time.sqf";
 
 diag_log "[blckeagls] >>--- Completed initialization"; 
 

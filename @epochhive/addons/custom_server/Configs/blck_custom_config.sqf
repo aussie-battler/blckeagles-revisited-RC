@@ -82,7 +82,7 @@ if (blck_debugON) then
 	blck_TMax_Scouts = 45;
 	blck_TMax_Crashes = 15;
 	
-	//blck_MissionTimout = 60;  // 40 min
+	//blck_MissionTimout = 120;  // 40 min
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
 		["aimingShake",0.01],
