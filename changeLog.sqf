@@ -4,8 +4,13 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-10/22/16 Version 6.2 Build 8-14-16
-bug fixes
+10/25/16 Version 6.4 Build 8 
+Reworked the code to spawn vehicle patrols and static weapons and clean them up.
+Reworked the code that messages players to be sure that calling titleText does not hang the messaging function and delay hints or system chat notifications.
+
+10/22/16 v 6.3 Build 8-14-16
+Moved routines that delete dead AI, Alive AI and mission objects from individual loops to a single loop spawned by blck_init.sqf.
+Added functions to cache these data with time stamps for later time-based deletion.
 
 10/21/16 Version 6.2 Build 7
 Redid system for markers which are now defined in the mission template reducing dependence on client side configurations for each mission or marker type.

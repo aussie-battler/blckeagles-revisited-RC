@@ -10,7 +10,7 @@ if (hasInterface) then
 	blck_MarkerPeristTime = 300;  
 	blck_useHint = true;
 	blck_useSystemChat = true;
-	blck_useTitleText = false;
+	blck_useTitleText = true;
 	blck_useDynamic = false;
 	blck_aiKilluseSystemChat = true;
 	blck_aiKilluseDynamic = false;
@@ -43,7 +43,6 @@ if (hasInterface) then
 		params["_event","_message","_mission"];
 
 		if (blck_useSystemChat) then {systemChat format["%1",_message];};
-		if (blck_useTitleText) then {titleText [_message, "PLAIN DOWN",5];uiSleep 5; titleText ["", "PLAIN DOWN",5]};	
 		if (blck_useHint) then {
 			hint parseText format[
 			"<t align='center' size='2.0' color='#f29420'>%1</t><br/>
@@ -56,6 +55,12 @@ if (hasInterface) then
 		if (blck_useDynamic) then {
 			[_mission,_message] call fn_dynamicNotification;
 		};		
+		if (blck_useTitleText) then {
+			[_message] spawn {
+				params["_msg"];
+				titleText [_msg, "PLAIN DOWN",5];uiSleep 5; titleText ["", "PLAIN DOWN",5]
+			};
+		};
 		//diag_log format["_fn_missionNotification ====]  Paremeters _event %1  _message %2 _mission %3",_event,_message,_mission];
 	};
 

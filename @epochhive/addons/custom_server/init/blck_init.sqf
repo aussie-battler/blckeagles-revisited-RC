@@ -8,8 +8,8 @@ Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 w
 Thanks to cyncrwler for testing and bug fixes.
 */
 private ["_version","_versionDate"];
-_blck_version = "6.3 Build 9";
-_blck_versionDate = "10-23-16  1:00 AM";
+_blck_version = "6.4 Build 9";
+_blck_versionDate = "10-25-16  7:00 PM";
 
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
@@ -84,7 +84,7 @@ if (blck_enableBlueMissions == 1) then
 {
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 };
-
+[] execVM "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitorLoop.sqf";
 diag_log "[blckeagls] >>--- Completed initialization"; 
 
 blck_Initialized = true;

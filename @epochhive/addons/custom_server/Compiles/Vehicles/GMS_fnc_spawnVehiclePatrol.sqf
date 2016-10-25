@@ -7,20 +7,7 @@
 	Copyright 2016
 	Last updated 8-14-16
 */
-/*
-fn_setWaypoints =
-{
-	private["_group","_center"];
-	_group = _this select 0;  // The group to which waypoints should be assigned
-	_center = _this select 1;  // center of the mission area
-	
-	while {(count (waypoints _group)) > 0} do
-	{
-		deleteWaypoint ((waypoints _group) select 0);
-	};
-	[_center,50,100,_group] call blck_fnc_setupWaypoints;
-};
-*/
+
 private["_vehType","_safepos","_veh"];
 params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull] ];
 //_pos  Center of the mission area
@@ -28,9 +15,6 @@ params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_
 //_minDis = minimum distance from the center of the mission for vehicle waypoints
 //_maxDis = maximum distance from the center of the mission for vehicle waypoints
 //_groupForVehiclePatrol = The group with which to man the vehicle
-
-//diag_log format["spawnVehiclePatrol:: _pos %1 _vehTypes %2",_pos,_vehType];
-//diag_log format["spawnVehiclePatrol:: _minDis %1  _maxDis %2  _groupForVehiclePatrol %3",_minDis,_maxDis,_groupForVehiclePatrol];
 
 if (isNull _group) exitWith {};
  
@@ -74,5 +58,7 @@ for "_i" from 1 to _count do
 };
 _wp = _group addWaypoint [_pos, 25];
 _wp setWaypointType "CYCLE";
+waitUntil { count crew _veh > 0};
+blck_missionVehicles pushback _veh;
 
 _veh
