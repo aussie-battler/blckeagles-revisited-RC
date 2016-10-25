@@ -5,7 +5,7 @@
 	
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last updated 8-14-16
+	Last updated 10-24-16
 */
 
 private ["_unit","_units","_count","_group","_driver","_gunner","_cargo"];
@@ -15,7 +15,8 @@ _count = 0;
 
 waitUntil { count crew _veh > 0};
 //diag_log format["vehicle Manned %1",_veh];
-while { (getDammage _veh < 1.0) && ({alive  _x} count crew _veh > 0)} do 
+uiSleep 60;
+while { (getDammage _veh > 0) && ({alive  _x} count crew _veh > 0)} do 
 {		//diag_log format["vehicleMonitor: vehicle crew consists of %1", crew _veh];
 		//diag_log format["vehicleMonitor: number of crew alive is %1", {alive  _x} count crew _veh];
 		_veh setVehicleAmmo 1;
@@ -53,7 +54,7 @@ if (typeOf _veh in blck_staticWeapons) then // always destroy mounted weapons
 	{
 		private ["_v","_startTime"];
 		//diag_log format["vehicleMonitor.sqf: _veh %1 is about to be killed",_veh];
-		uiSleep 10;
+		uiSleep 60;
 		_veh setDamage 1;
 		_startTime = diag_ticktime;
 		waitUntil{sleep 5;(diag_tickTime - _startTime) > 120;};  // delete destroyed vehicles after 2 min

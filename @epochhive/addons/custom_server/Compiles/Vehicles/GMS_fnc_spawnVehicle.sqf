@@ -2,7 +2,7 @@
 	Spawn a vehicle and protect it against cleanup by Epoch
 	Returns the object (vehicle) created.
 	By Ghostrider-DBD-
-	Last modified 9-10-16
+	Last modified 10-24-16
 */
 
 private["_veh"];
@@ -30,7 +30,10 @@ _veh setVehicleLock "LOCKEDPLAYER";
 _veh addEventHandler ["GetIn",{  // forces player to be ejected if he/she tries to enter the vehicle
 	private ["_theUnit"];
 	_theUnit = _this select 2;
-	_theUnit action ["Eject", vehicle _theUnit];
+	if (isPlayer _theUnit) then
+	{
+		_theUnit action ["Eject", vehicle _theUnit];
+	};
 }];
 
 _veh
