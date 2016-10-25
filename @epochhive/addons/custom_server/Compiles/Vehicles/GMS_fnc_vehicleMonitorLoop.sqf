@@ -36,8 +36,8 @@ while {true} do
 						uiSleep 20;
 						{
 							_v setHitPointDamage [_x, 1];
-							diag_log format["vehicleMonitor: hitpart %1 for vehicle %1 set to 1",_x,_v];
-						} forEach ["HitLFWheel","HitRFWheel","HitEngine","HitLBWheel","HitRBWheel","HitTurret","HitGun"];
+							//diag_log format["vehicleMonitor: hitpart %1 for vehicle %1 set to 1",_x,_v];
+						} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
 						if (blck_debugOn) then
 						{
 							diag_log format["_fnc_vehicleMonitor:: damage applied to a patrol vehicle -- >> current damage for vehicle %1 is = %2",_v, (getAllHitPointsDamage _v)];

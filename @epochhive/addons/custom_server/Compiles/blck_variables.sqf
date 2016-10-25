@@ -3,10 +3,10 @@
 	For the Mission System originally coded by blckeagls
 	By Ghostrider
 	Functions and global variables used by the mission system.
-	Last modified 10/17/16
+	Last modified 10/25/16
 */
 //blck_variablesLoaded = false;
-blck_debugON = true;
+blck_debugON = false;
 blck_debugLevel = 3;
 blck_minFPS = 13;
 
