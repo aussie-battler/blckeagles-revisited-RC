@@ -4,6 +4,16 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+Version 6.4 10/25/16
+Reworked all code for spawning, monitoring and cleaning up vehicle patrols and static weapons.
+This consolidated a bunch of code used to spawn these items and eliminated quite a few spawned loops used to monitor the condition of vehicles.
+Switched from a system that simply destroyed a vehicle when all AI in it were dead to one that destroys wheels, motor and guns rendering the vehicle inoperable.
+Redid the code that blocks players from getting in unless that is allowed by blck_killEmptyAIVehicles = false
+
+Version 6.3-16
+system for cleanup of mission objects, live AI and dead AI was re-worked to minimize the number of spawned code running at one time and reduced the number of loops checked.
+
+
 10/22/16 Version 6.2 Build 8-14-16
 bug fixes
 
