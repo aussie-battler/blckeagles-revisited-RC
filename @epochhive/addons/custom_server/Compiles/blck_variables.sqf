@@ -6,7 +6,7 @@
 	Last modified 10/17/16
 */
 //blck_variablesLoaded = false;
-blck_debugON = false;
+blck_debugON = true;
 blck_debugLevel = 3;
 blck_minFPS = 13;
 
@@ -26,6 +26,7 @@ blck_oldMissionObjects = [];
 blck_pendingMissions = [];
 blck_activeMissions = [];
 blck_deadAI = [];
+blck_missionVehicles = [];
 
 // Arrays for use during cleanup of alive AI at some time after the end of a mission
 DBD_HeliCrashSites = [];

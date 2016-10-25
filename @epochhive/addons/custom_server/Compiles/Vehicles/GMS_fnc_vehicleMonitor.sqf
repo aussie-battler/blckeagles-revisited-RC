@@ -16,7 +16,7 @@ _count = 0;
 waitUntil { count crew _veh > 0};
 //diag_log format["vehicle Manned %1",_veh];
 uiSleep 60;
-while { (getDammage _veh > 0) && ({alive  _x} count crew _veh > 0)} do 
+while { (getDammage _veh < 1) && ({alive  _x} count crew _veh > 0)} do 
 {		//diag_log format["vehicleMonitor: vehicle crew consists of %1", crew _veh];
 		//diag_log format["vehicleMonitor: number of crew alive is %1", {alive  _x} count crew _veh];
 		_veh setVehicleAmmo 1;
@@ -44,7 +44,7 @@ while { (getDammage _veh > 0) && ({alive  _x} count crew _veh > 0)} do
 
 //diag_log format["vehiclemonitor.sqf all crew for vehicle %1 are dead",_veh];
 
-if (typeOf _veh in blck_staticWeapons) then // always destroy mounted weapons
+if (_veh getVariable["DBD_vehType","null"] isEqualTo "emplaced") then // always destroy mounted weapons
 {
 	//diag_log format["vehicleMonitor.sqf: _veh %1 is (in blck_staticWeapons) = true",_veh];
 	_veh setDamage 1;
