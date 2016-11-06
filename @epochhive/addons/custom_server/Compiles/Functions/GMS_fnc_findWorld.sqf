@@ -76,8 +76,18 @@ if (_modType isEqualTo "Epoch") then
 		blck_locationBlackList = blck_locationBlackList + [ [[24398.3, 13971.6,0],800],[[34751.5, 13431.9,0],800],[[19032.7, 33974.6, 0],800],[[4056.35, 19435.9, 0],800] ];
 		diag_log "Spawn black list locations added for Australia";
 		};
-	};  //
-	default {blck_mapCenter = [ (_blck_worldSize/2),(_blck_worldSize/2),0],blck_mapRange = _blck_worldSize;};
+	};
+	case "panthera2":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};
+	case "isladuala":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};
+	case "sauerland":{blck_mapCenter = [12800, 12800, 0];blck_mapRange = 12800;};
+	case "trinity":{blck_mapCenter = [6400, 6400, 0];blck_mapRange = 6400;};
+	case "utes":{blck_mapCenter = [3500, 3500, 0];blck_mapRange = 3500;};
+	case "zargabad":{blck_mapCenter = [4096, 4096, 0];blck_mapRange = 4096;};
+	case "fallujah":{blck_mapCenter = [3500, 3500, 0];blck_mapRange = 3500;};
+	case "tavi":{blck_mapCenter = [10370, 11510, 0];blck_mapRange = 14090;};
+	case "lingor":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};	
+	case "takistan":{blck_mapCenter = [5500, 6500, 0];blck_mapRange = 5000;};	
+	default {_blck_WorldName = "default";blck_mapCenter = [6322,7801,0]; blck_mapRange = 12000};
 	};
 };
 
@@ -120,17 +130,8 @@ if (_modType isEqualTo "Exile") then
 	case "fallujah":{blck_mapCenter = [3500, 3500, 0];blck_mapRange = 3500;};
 	case "tavi":{blck_mapCenter = [10370, 11510, 0];blck_mapRange = 14090;};
 	case "lingor":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};	
-	case "takistan":{
-		blck_mapCenter = [5500, 6500, 0];blck_mapRange = 5000;
-		if (blck_blacklistSpawns) then {
-			blck_locationBlackList = blck_locationBlackList + [ [[4695.13,9215.56,0.00141907],800],[[6028.83,1118.3,0.00149536],800],[[19032.7, 33974.6, 0],800],[[6817.97,4988.9,0.00137329],800] ];
-			diag_log "Spawn black list locations added for Takistan";
-			};
-	};	
-	default {blck_mapCenter = [ 			
-		_blck_WorldName = "default";  // provide the defaults for "altis"			
-		blck_mapCenter = [6322,7801,0]; 
-		blck_mapRange = 12000;};
+	case "takistan":{blck_mapCenter = [5500, 6500, 0];blck_mapRange = 5000;};	
+	default {_blck_WorldName = "default";blck_mapCenter = [6322,7801,0]; blck_mapRange = 12000;};
 	};
 };
 
