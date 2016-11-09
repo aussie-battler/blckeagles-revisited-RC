@@ -52,7 +52,8 @@ Last modified 8/1/15
 	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","DShKM","DSHKM","HMG_127_LSV_01"];  // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 	// GLOBAL MISSION PARAMETERS
-	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate.
+	blck_useKilledAIName = true; // When false, the name of the killer (player), weapon and distance are displayed; otherwise the name of the player and AI unit killed are shown.
+	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Note that this is a default and that mission-specific settings can be defined for each mission using the template
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
 	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_HMMWV_M2_Green","Exile_Car_HMMWV_M2_Desert","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo"]; // Type of vehicle spawned to defend AI bases
@@ -61,9 +62,9 @@ Last modified 8/1/15
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = -1;
-	blck_enableHunterMissions = 2;
-	blck_enableScoutsMissions = 2;
+	blck_enableBlueMissions = 1;
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
 
 	// AI VEHICLE PATROL PARAMETERS
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
@@ -216,6 +217,10 @@ Last modified 8/1/15
 		["aimingAccuracy",0.10],["aimingShake",0.2],["aimingSpeed",0.55],["endurance",0.50],["spotDistance",0.65],["spotTime",0.80],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
 	
+	blck_maxMoneyOrange = 25;
+	blck_maxMoneyGreen = 20;
+	blck_maxMoneyRed = 15;
+	blck_maxMoneyBlue = 10;
 /*********************************************************************************
 
 AI WEAPONS, UNIFORMS, VESTS AND GEAR

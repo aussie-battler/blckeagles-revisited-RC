@@ -25,10 +25,24 @@ _modType = call blck_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
+	switch(_skillLevel) do
+	{
+		case "blue":{_ai1 setVariable["Crypto",floor(random(blck_maxMoneyBlue)),true];};
+		case "red":{_ai1 setVariable["Crypto",floor(random(blck_maxMoneyRed)),true];};
+		case "green":{_ai1 setVariable["Crypto",floor(random(blck_maxMoneyGreen)),true];};
+		case "orange":{_ai1 setVariable["Crypto",floor(random(blck_maxMoneyOrange)),true];};
+	};	
 };
 if (_modType isEqualTo "Exile") then
 {
 	"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
+	switch(_skillLevel) do
+	{
+		case "blue":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyBlue)),true];};
+		case "red":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyRed)),true];};
+		case "green":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyGreen)),true];};
+		case "orange":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyOrange)),true];};
+	};
 };
 [_ai1] call blck_fnc_removeGear;
 _skin = selectRandom _uniforms;  // call BIS_fnc_selectRandom;
@@ -132,8 +146,9 @@ if (_Launcher != "none") then
 
 if(sunOrMoon < 0.2 && blck_useNVG)then
 {
-	_ai1 addWeapon "NVG_EPOCH";
+	_ai1 addWeapon selectRandom blck_NVG;
 	_ai1 setVariable ["hasNVG", true];
+
 }
 else
 {
