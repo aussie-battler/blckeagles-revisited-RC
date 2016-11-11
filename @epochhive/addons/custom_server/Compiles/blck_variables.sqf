@@ -8,7 +8,7 @@
 //blck_variablesLoaded = false;
 blck_debugON = false;
 blck_debugLevel = 3;
-blck_minFPS = 13;
+blck_minFPS = 10;
 
 //Minimum distance for between missions
 MinDistanceFromMission = 1500;

@@ -25,6 +25,9 @@ Last modified 8/1/15
 	GENERAL MISSION SYSTEM CONFIGURATION
 	
 	***********************************************************/
+	////////
+	//  Headless Client Configurations
+	blck_useHC = false; // Not Yet Working
 	
 	// MISSION MARKER CONFIGURATION
 	// blck_labelMapMarkers: Determines if when the mission composition provides text labels, map markers with have a text label indicating the mission type
@@ -52,7 +55,8 @@ Last modified 8/1/15
 	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","DShKM","DSHKM","HMG_127_LSV_01"];  // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 	// GLOBAL MISSION PARAMETERS
-	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate.
+	blck_useKilledAIName = true; // When false, the name of the killer (player), weapon and distance are displayed; otherwise the name of the player and AI unit killed are shown.
+	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Note that this is a default and that mission-specific settings can be defined for each mission using the template
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
 	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_HMMWV_M2_Green","Exile_Car_HMMWV_M2_Desert","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo"]; // Type of vehicle spawned to defend AI bases
@@ -61,9 +65,9 @@ Last modified 8/1/15
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = -1;
-	blck_enableHunterMissions = 2;
-	blck_enableScoutsMissions = 2;
+	blck_enableBlueMissions = 1;
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
 
 	// AI VEHICLE PATROL PARAMETERS
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
@@ -124,47 +128,25 @@ Last modified 8/1/15
 
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
+	blck_removeNVG = false; // When true, NVG will be removed from AI when they are killed.
 	blck_useLaunchers = false;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
+	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
+	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.	
 	//blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
 	blck_launcherTypes = ["launch_RPG32_F"];
 	blck_chanceAIBackpack = 0.33;  // the chance that AI will be spawned with a backpack from the list below.
-	blck_backpack = [			
-			"B_AssaultPack_blk",
-			"B_AssaultPack_cbr",
-			"B_AssaultPack_dgtl",
-			"B_AssaultPack_khk",
-			"B_AssaultPack_mcamo",
-			"B_AssaultPack_rgr",
-			"B_AssaultPack_sgg",
-			"B_Bergen_blk",
-			"B_Bergen_mcamo",
-			"B_Bergen_rgr",
-			"B_Bergen_sgg",
-			"B_Carryall_cbr",
-			"B_Carryall_khk",
-			"B_Carryall_mcamo",
-			"B_Carryall_ocamo",
-			"B_Carryall_oli",
-			"B_Carryall_oucamo",
-			"B_FieldPack_blk",
-			"B_FieldPack_cbr",
-			"B_FieldPack_ocamo",
-			"B_FieldPack_oucamo",
-			"B_HuntingBackpack",
-			"B_Kitbag_cbr",
-			"B_Kitbag_mcamo",
-			"B_Kitbag_sgg",
-			"B_OutdoorPack_blk",
-			"B_OutdoorPack_blu",
-			"B_OutdoorPack_tan",
-			"B_TacticalPack_blk",
-			"B_TacticalPack_mcamo",
-			"B_TacticalPack_ocamo",
-			"B_TacticalPack_oli",
-			"B_TacticalPack_rgr"
-		];  
-	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
-	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.
+	blck_baseBackpacks = [			
+			"B_AssaultPack_blk","B_AssaultPack_cbr","B_AssaultPack_dgtl","B_AssaultPack_khk","B_AssaultPack_mcamo","B_AssaultPack_rgr","B_AssaultPack_sgg",
+			"B_Bergen_blk","B_Bergen_mcamo","B_Bergen_rgr","B_Bergen_sgg",
+			"B_Carryall_cbr","B_Carryall_khk","B_Carryall_mcamo","B_Carryall_ocamo","B_Carryall_oli","B_Carryall_oucamo",
+			"B_FieldPack_blk","B_FieldPack_cbr","B_FieldPack_ocamo","B_FieldPack_oucamo",
+			"B_HuntingBackpack","B_Kitbag_cbr","B_Kitbag_mcamo","B_Kitbag_sgg",
+			"B_OutdoorPack_blk","B_OutdoorPack_blu","B_OutdoorPack_tan","B_TacticalPack_blk",
+			"B_TacticalPack_mcamo","B_TacticalPack_ocamo","B_TacticalPack_oli","B_TacticalPack_rgr"];  
+	blck_ApexBackpacks = ["B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
+						"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
+						"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"];
+	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;	
 
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 1200; // time in seconds after which dead AI bodies are deleted
@@ -216,12 +198,22 @@ Last modified 8/1/15
 		["aimingAccuracy",0.10],["aimingShake",0.2],["aimingSpeed",0.55],["endurance",0.50],["spotDistance",0.65],["spotTime",0.80],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
 	
+	blck_maxMoneyOrange = 25;
+	blck_maxMoneyGreen = 20;
+	blck_maxMoneyRed = 15;
+	blck_maxMoneyBlue = 10;
 /*********************************************************************************
 
 AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
-		blck_RifleSniper = [ 
+	// Blacklisted itesm
+	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
+	
+	// AI Weapons and Attachments
+	blck_bipods = ["bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli"];
+
+	blck_RifleSniper = [ 
 			"srifle_EBR_F","srifle_GM6_F","srifle_LRR_F","srifle_DMR_01_F" 		
 		];
 
@@ -577,7 +569,11 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["srifle_DMR_06_camo_F","10Rnd_338_Mag"],				
 				["srifle_DMR_04_F","10Rnd_127x54_Mag"],
 				["srifle_DMR_05_blk_F","10Rnd_93x64_DMR_05_Mag"],
-				["srifle_DMR_06_olive_F","20Rnd_762x51_Mag"]		
+				["srifle_DMR_06_olive_F","20Rnd_762x51_Mag"],
+				"arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
+				"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
+				"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
+				"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"				
 			],
 			[//Magazines
 				["3rnd_HE_Grenade_Shell",3,6],				
@@ -637,20 +633,10 @@ for examples of how you can do this see \Major\Compositions.sqf
 				// Format is ["Weapon Name","Magazine Name"],
 				["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
 				["arifle_Katiba_GL_F","30Rnd_65x39_caseless_green"],
-				["arifle_Mk20_F","30Rnd_556x45_Stanag"],
-				["arifle_Mk20_plain_F","30Rnd_556x45_Stanag"],
-				["arifle_Mk20C_F","30Rnd_556x45_Stanag"],
-				["arifle_Mk20_GL_F","30Rnd_556x45_Stanag"],
-				["arifle_Mk20_GL_plain_F","30Rnd_556x45_Stanag"],
 				["arifle_MX_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MX_GL_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MXC_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MXM_F","30Rnd_65x39_caseless_mag"],
-				["arifle_SDAR_F","20Rnd_556x45_UW_mag"],
-				["arifle_TRG20_F","30Rnd_556x45_Stanag"],
-				["SMG_02_F","30Rnd_9x21_Mag"],
-				["SMG_01_F","30Rnd_45ACP_Mag_SMG_01"],
-				["Hgun_PDW2000_F","30Rnd_9x21_Mag"],
 				["arifle_MXM_F","30Rnd_65x39_caseless_mag_Tracer"],
 				["arifle_MXM_Black_F","30Rnd_65x39_caseless_mag_Tracer"],				
 				["srifle_DMR_01_F","10Rnd_762x51_Mag"],
@@ -666,7 +652,11 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["srifle_DMR_03_F","10Rnd_338_Mag"],		
 				["srifle_DMR_04_Tan_F","10Rnd_338_Mag"],
 				["srifle_DMR_05_hex_F","10Rnd_338_Mag"],	
-				["srifle_DMR_06_camo_F","10Rnd_338_Mag"]				
+				["srifle_DMR_06_camo_F","10Rnd_338_Mag"],
+				"arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
+				"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
+				"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
+				"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"				
 			],
 			[//Magazines
 				// Format is ["Magazine name, Minimum number to add, Maximum number to add],

@@ -13,7 +13,7 @@ switch (_world) do
 	case"tanoa": {blck_maxCrashSites = 2};
 	case"namalsk": {
 					blck_enableOrangeMissions = 1;  
-					blck_enableGreenMissions = 1;
+					blck_enableGreenMissions = -1;
 					blck_enableRedMissions = 1;
 					blck_enableBlueMissions = -1;
 					blck_enableHunterMissions = 1;
@@ -36,12 +36,11 @@ if (blck_debugON) then
 	blck_enableBlueMissions = 1;
 	blck_enableHunterMissions = 1;
 	blck_enableScoutsMissions = 1;
-	//blck_maxCrashSites = -3; 
+	blck_maxCrashSites = 3; 
 	
-	blck_enabeUnderwaterMissions = 1;
+	blck_enabeUnderwaterMissions = -1;
 	
-	
-	blck_cleanupCompositionTimer = 5;  // Time after mission completion at which items in the composition are deleted.
+	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTime = 10;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_bodyCleanUpTimer = 20;
 	

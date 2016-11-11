@@ -170,7 +170,7 @@ if (_playerInRange) then
 		_crates = [_coords,[[selectRandom blck_crateTypes /*"Box_NATO_Wps_F"*/,[0,0,0],_crateLoot,_lootCounts]]] call blck_fnc_spawnMissionCrates;
 		
 	};
-	_objects append _crates;
+	_objects = _objects + _crates;
 	
 	if (blck_debugON) then
 	{
@@ -183,8 +183,7 @@ if (_playerInRange) then
 	{
 		private ["_temp"];
 		_temp = [_coords,blck_SmokeAtMissions select 1] call blck_fnc_smokeAtCrates;
-		_objects append _temp;
-		_temp = nil;
+		_objects = _objects + _temp;
 	};
 	uiSleep _delayTime;
 	if (_useMines) then
@@ -194,17 +193,13 @@ if (_playerInRange) then
 		uiSleep _delayTime;;
 	};
 	uiSleep _delayTime;
-	_obj = [];
+
 	if (_missionLandscapeMode isEqualTo "random") then
 	{
-		_obj = [_coords,_missionLandscape, 3, 15, 2] call blck_fnc_spawnRandomLandscape;
+		_objects = [_coords,_missionLandscape, 3, 15, 2] call blck_fnc_spawnRandomLandscape;
 	} else {
-		_obj = [_coords, floor(random(360)),_missionLandscape,true] call blck_fnc_spawnCompositionObjects;
+		_objects = [_coords, round(random(360)),_missionLandscape,true] call blck_fnc_spawnCompositionObjects;
 	};
-	//diag_log format["_fnc_missionSpawner::->> _obj = %1",_obj];
-	_objects append _obj;
-	//diag_log format["_fnc_missionSpawner::->> _objects = %1",_objects];
-	_obj= nil;
 	if (blck_debugON) then
 	{
 		diag_log format["[blckeagls] missionSpawner:: Landscape spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
@@ -222,9 +217,9 @@ if (_playerInRange) then
 			_vehs pushback _veh;
 			[_veh,_x select 2 /*loot array*/, _x select 3 /*array of values specifying number of items of each loot type to load*/] call blck_fnc_fillBoxes;
 		}forEach _missionLootVehicles;
-		
+		uiSleep _delayTime;
 	};
-	uiSleep _delayTime;
+
 	if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 	{
 		private["_static","_count"];
@@ -256,13 +251,13 @@ if (_playerInRange) then
 			diag_log format["[blckeagls] missionSpawner:: Static Weapons Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
 		};
 	};
-	uiSleep _delayTime;
+
 	//diag_log format["_fnc_missionSpawner:: after adding any static weapons, _blck_AllMissionAI is %1",_blck_AllMissionAI];
 	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 	{
 		private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns"];
 		_vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
-		//diag_log format["missionSpawner:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
+		diag_log format["missionSpawner:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
 		//for "_i" from 1 to _noVehiclePatrols do
 		{
 			_vehGroup = [_x,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
@@ -285,7 +280,7 @@ if (_playerInRange) then
 	};
 	//diag_log format["_fnc_missionSpawner:: after adding any vehicle patrols, _blck_AllMissionAI is %1",_blck_AllMissionAI];
 	//diag_log format["missionSpawner::  _noAIGroups = %1; spawning AI Groups now",_noAIGroups];
-	uiSleep _delayTime;
+
 	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup"];
 	_unitsToSpawn = round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
 	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
@@ -349,7 +344,7 @@ if (_playerInRange) then
 				}forEach _groupLocations;
 			};
 	};
-	uiSleep _delayTime;
+	
 	if (blck_debugON) then
 	{
 		diag_log format["[blckeagls] missionSpawner:: AI Patrols Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
@@ -367,7 +362,7 @@ if (_playerInRange) then
 			default {_weaponList = blck_WeaponList_Blue;};
 		};
 
-		//diag_log format["missionSpawner:: weaponList = %1",_weaponList];
+		diag_log format["missionSpawner:: weaponList = %1",_weaponList];
 		private["_grpReinforcements"];
 		_grpReinforcements = grpNull;
 		

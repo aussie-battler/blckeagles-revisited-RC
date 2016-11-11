@@ -10,7 +10,7 @@ params["_vehType","_pos"];
 //_vehType = _this select 0;  // type of vehicle to be spawned
 //_pos = _this select 1;  // position at which vehicle is to be spawned
 	
-diag_log format["spawnVehicle.sqf:   _this = %1",_this];
+//diag_log format["spawnVehicle.sqf:   _this = %1",_this];
 _veh = createVehicle[_vehType, _pos, [], 0, "NONE"];
 _modType = call blck_getModType;
 if (_modType isEqualTo "Epoch") then

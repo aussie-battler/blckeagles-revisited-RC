@@ -1,7 +1,6 @@
 /*
 	by Ghostrider
-	9-20-15
-	Because this is precompiled there is less concern about keeping comments in.
+	11-7-16
 */
 
 private["_missionType","_wasRunover","_launcher","_legal"];
@@ -32,7 +31,7 @@ _legal = true;
 fn_applyVehicleDamage = {  // apply a bit of damage 
 	private["_vd"];
 	params["_vk"];
-	_vk = _this select 0;
+	//_vk = _this select 0;
 	_vd = getDammage _vk;
 	_vk setDamage (_vd + blck_RunGearDamage);
 };
