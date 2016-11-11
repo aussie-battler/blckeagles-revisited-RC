@@ -36,14 +36,13 @@ if (blck_debugON) then
 	blck_enableBlueMissions = 1;
 	blck_enableHunterMissions = 1;
 	blck_enableScoutsMissions = 1;
-	//blck_maxCrashSites = -3; 
+	blck_maxCrashSites = 3; 
 	
-	blck_enabeUnderwaterMissions = 1;
+	blck_enabeUnderwaterMissions = -1;
 	
-	
-	blck_cleanupCompositionTimer = 5;  // Time after mission completion at which items in the composition are deleted.
+	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTime = 10;  // Time after mission completion at which any remaining live AI are deleted.
-	//blck_bodyCleanUpTimer = 20;
+	blck_bodyCleanUpTimer = 20;
 	
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions

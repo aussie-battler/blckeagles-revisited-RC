@@ -1,15 +1,12 @@
 /*
 AI Mission for Epoch and Exile Mods to Arma 3
-Originally Compiled by blckeagls @ Zombieville.net
-Code was modified by Narines fixing several bugs.
-Modified by Ghostrider with thanks to ctbcrwker for input, testing, and troubleshooting.
+by Ghostrider-DbD-
 Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 who wrote mission systems upon which this one is based and who's code is used with modification in some parts of this addon.
-
 Thanks to cyncrwler for testing and bug fixes.
 */
 private ["_version","_versionDate"];
-_blck_version = "6.4 Build 9";
-_blck_versionDate = "10-25-16  7:00 PM";
+_blck_version = "6.42 Build 10";
+_blck_versionDate = "11-11-16  11:00 AM";
 
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
@@ -25,11 +22,11 @@ call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\bl
 waitUntil {(isNil "blck_functionsCompiled") isEqualTo false;};
 waitUntil{blck_functionsCompiled};
 blck_functionsCompiled = nil;
-
-call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
-
 private["_modType"];
 _modType = [] call blck_getModType;
+diag_log format["[blckeagls] Loading version %1 Build %2 for mod = %3",_blck_versionDate,_blck_version,_modType];
+// this will be a feature of an upcoming release 
+//call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
 
 if (_modType isEqualTo "Epoch") then
 {
@@ -57,8 +54,7 @@ blck_worldSet = nil;
 // set up the lists of available missions for each mission category
 diag_log "[blckeagls] Loading Mission Lists";
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
-
-diag_log format["[blckeagls] version %1 Build %2 for mod = %3 Loaded in %4 seconds",_blck_versionDate,_blck_version,_modType,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
+diag_log format["[blckeagls] Loaded in %1 seconds",diag_tickTime - _blck_loadingStartTime]; 
 diag_log format["blckeagls] waiting for players to join ----    >>>>"];
 waitUntil{{isPlayer _x}count playableUnits > 0};
 diag_log "[blckeagls] Player Connected, loading mission system";

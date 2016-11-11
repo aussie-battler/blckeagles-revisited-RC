@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 9-4-16
+	Last Modified 11-11-16
 	Fill a crate with items
 */
 
@@ -27,8 +27,21 @@
 		// Add some randomly selected weapons and corresponding magazines
 		for "_i" from 1 to _wepCnt do {
 			_item = selectRandom _a1;
-			_crate addWeaponCargoGlobal [_item select 0,1];
-			_crate addMagazineCargoGlobal [_item select 1, 1 + round(random(3))];
+			if (typeName _item isEqualTo "ARRAY") then  //  Check whether weapon name is part of an array that might also specify an ammo to use
+			{ 
+				_crate addWeaponCargoGlobal [_item select 0,1];  // if yes then assume the first element in the array is the weapon name
+				if (count _item >1) then {  // if the array has more than one element assume the second is the ammo to use.
+					_crate addMagazineCargoGlobal [_item select 1, 1 + round(random(3))];
+				} else { // if the array has only one element then lets load random ammo for it
+					_crate addMagazineCargoGlobal [selectRandom (getArray (configFile >> "CfgWeapons" >> (_item select 0) >> "magazines")), 1 + round(random(3))];
+				};
+			} else {
+				if (_item isKindOf ["Rifle", configFile >> "CfgWeapons"]) then
+				{
+					_crate addWeaponCargoGlobal [_item, 1];
+					_crate addMagazineCargoGlobal [selectRandom (getArray (configFile >> "CfgWeapons" >> _item >> "magazines")), 1 + round(random(3))];
+				};
+			};
 		};
 	};
 	if (_magCnt > 0) then

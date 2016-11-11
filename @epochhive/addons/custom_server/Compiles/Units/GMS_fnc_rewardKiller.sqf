@@ -35,7 +35,7 @@ if (_modType isEqualTo "Epoch") then
 		if (_dist > 800) then { _reward = _maxReward - (_maxReward / 4); _reward };
 		
 		_reward=+(_kills*2);
-		diag_log format["fnd_rewardKiller:: _bonus returned will be %1",_reward];
+		//diag_log format["fnd_rewardKiller:: _bonus returned will be %1",_reward];
 		[_killer,_reward] call blck_fnc_giveTakeCrypto;
 	};
 };

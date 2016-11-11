@@ -19,12 +19,15 @@ while {true} do
 		};
 	}forEach blck_liveMissionAI;
 	{
+		//diag_log format["mainThread::-->> missionObjects  _x = %1",_x];
 		if (diag_tickTime > (_x select 1) ) then {
 			//diag_log format["_fnc_mainTread:: cleaning up mission objects %1",_x];
 			[_x select 0] call blck_fnc_cleanupObjects;
 		};
 	}forEach blck_oldMissionObjects;
 	[] call GMS_fnc_cleanupDeadAI;
+	//[] call blck_fnc_timeAcceleration;
+	//if (blck_useHC) then {[] call blck_fnc_monitorHC;};
 	/*
 	{
 		if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned

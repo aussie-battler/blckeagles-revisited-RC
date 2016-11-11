@@ -24,5 +24,5 @@ _objects = [];
 	_objects pushback _wreck;
 	sleep 0.1;
 } forEach _missionLandscape;
-
-_objects;
+diag_log format["_fnc_spawnRandomLandscape::-->> _objects = %1",_objects];
+_objects
