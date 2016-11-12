@@ -1,9 +1,11 @@
 /*
-	Code by blckeagls
+	Original Code by blckeagls
 	Modified by Ghostrider
-	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Vampire.
+	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Buttface (A3XAI).
+	Infinite Ammo fix by Narines.
 	Code to delete dead AI bodies moved to AIKilled.sqf
 	Everything having to do with spawning and configuring an AI should happen here
+	Last Modified 11/12/16
 */
 
 //Defines private variables so they don't interfere with other scripts
@@ -90,8 +92,11 @@ _weap = selectRandom _weaponList;
 
 _ai1 addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
-//_muzzles = = getArray (configFile >> "CfgWeapons" >> _weap >> "muzzles");
+//_muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "muzzles");
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
+_pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "PointerSlot" >> "compatibleItems");
+_muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
+_underbarrel = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "UnderBarrelSlot" >> "compatibleItems");
 _legalOptics = [];
 {
 	if !(_x in blck_blacklistedOptics) then {_legalOptics pushback _x};
@@ -102,16 +107,14 @@ for "_i" from 2 to (floor(random 3)) do {
 	_ai1 addMagazine _ammo;
 };
 //if (random 1 < 0.3) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
-if (random 1 < 0.3) then {
-	_ai1 addPrimaryWeaponItem (selectRandom _legalOptics); 
-};
-if (random 1 < 0.3) then {
-	_ai1 addPrimaryWeaponItem (selectRandom  blck_bipods);
-};
-// If the weapon has a GL, add some rounds for it: based on Vampires code
+_ai1 addPrimaryWeaponItem (selectRandom _legalOptics); 
+_ai1 addPrimaryWeaponItem (selectRandom  _pointers);
+_ai1 addPrimaryWeaponItem (selectRandom _muzzles);
+_ai1 addPrimaryWeaponItem (selectRandom _underbarrel);
 if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then {
 	_ai1 addMagazine "1Rnd_HE_Grenade_shell";
 };
+
 _weap = selectRandom blck_Pistols;
 //diag_log format["[spawnUnit.sqf] _weap os %1",_weap];
 _ai1 addWeaponGlobal  _weap; 

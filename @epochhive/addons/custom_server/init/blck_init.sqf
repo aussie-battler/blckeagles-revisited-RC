@@ -1,32 +1,34 @@
 /*
 AI Mission for Epoch and Exile Mods to Arma 3
-by Ghostrider-DbD-
-Credits to Vampire, Narines, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 who wrote mission systems upon which this one is based and who's code is used with modification in some parts of this addon.
-Thanks to cyncrwler for testing and bug fixes.
+Credist to blckeagls who wrote the initial mission script for A3 Epoch 
+To Narines for debugging that original version
+To cynwncler for many helpful comments along the way
+And mostly importantly, 
+To Vampire, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 and Buttface (Face) who wrote the pionering mission and roaming AI systems upon which this one is based and who's code is used with modification in some parts of this addon.
 */
-private ["_version","_versionDate"];
-_blck_version = "6.42 Build 10";
-_blck_versionDate = "11-11-16  11:00 AM";
-
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
+#include "\q\addons\custom_server\init\build.sqf";
+diag_log format["[blckeagls] Loading version %1 Build %2",_blck_versionDate,_blck_version];
 
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
 waitUntil{blck_variablesLoaded};
 blck_variablesLoaded = nil;
-//sleep 1;
+if !(blck_debugON) then {uiSleep 60;};
 
 // compile functions
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_functions.sqf";
 waitUntil {(isNil "blck_functionsCompiled") isEqualTo false;};
 waitUntil{blck_functionsCompiled};
 blck_functionsCompiled = nil;
+diag_log format["[blckeagls] debug mode settings:blck_debugON = %1",blck_debugON];
+
 private["_modType"];
 _modType = [] call blck_getModType;
-diag_log format["[blckeagls] Loading version %1 Build %2 for mod = %3",_blck_versionDate,_blck_version,_modType];
-// this will be a feature of an upcoming release 
-//call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
+
+// spawn map addons to give the server time to position them before spawning in crates etc.
+call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
 
 if (_modType isEqualTo "Epoch") then
 {
@@ -54,14 +56,15 @@ blck_worldSet = nil;
 // set up the lists of available missions for each mission category
 diag_log "[blckeagls] Loading Mission Lists";
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
-diag_log format["[blckeagls] Loaded in %1 seconds",diag_tickTime - _blck_loadingStartTime]; 
+
+// Load any user-defined specifications or overrides
+call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
+
+diag_log format["[blckeagls] version %1 Build %2 for mod = %3 Loaded in %4 seconds",_blck_versionDate,_blck_version,_modType,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
 diag_log format["blckeagls] waiting for players to join ----    >>>>"];
 waitUntil{{isPlayer _x}count playableUnits > 0};
 diag_log "[blckeagls] Player Connected, loading mission system";
 
-// Load any user-defined specifications or overrides
-_scriptDone = execVM "\q\addons\custom_server\Configs\blck_custom_config.sqf";
-waitUntil{scriptDone _scriptDone};
 //Start the mission timers
 
 if (blck_enableOrangeMissions == 1) then
@@ -80,7 +83,12 @@ if (blck_enableBlueMissions == 1) then
 {
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 };
+//  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
+[] execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_mainThread.sqf";
 [] execVM "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitorLoop.sqf";
+
+// start a little loop that sends clients the current serverFPS
+[] execVM "\q\addons\custom_server\Compiles\Functions\broadcastServerFPS.sqf";
 diag_log "[blckeagls] >>--- Completed initialization"; 
 
 blck_Initialized = true;

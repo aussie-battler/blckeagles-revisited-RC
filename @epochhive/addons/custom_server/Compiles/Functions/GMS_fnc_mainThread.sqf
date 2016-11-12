@@ -26,8 +26,8 @@ while {true} do
 		};
 	}forEach blck_oldMissionObjects;
 	[] call GMS_fnc_cleanupDeadAI;
-	//[] call blck_fnc_timeAcceleration;
-	//if (blck_useHC) then {[] call blck_fnc_monitorHC;};
+	[] call blck_fnc_timeAcceleration;
+	if (blck_useHC) then {[] call blck_fnc_monitorHC;};
 	/*
 	{
 		if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned
