@@ -17,7 +17,7 @@ if (_modType isEqualTo "Epoch") then
 {
 	switch (_blck_WorldName) do {// These may need some adjustment - including a test for shore or water should help as well to avoid missions spawning on water.
 	case "altis":{
-		diag_log "Altis-specific settings for Epoch loaded";
+		diag_log "[blckeagls] Altis-specific settings for Epoch loaded";
 		blck_mapCenter = [6322,7801,0]; 
 		blck_mapRange = 21000; 
 		if (blck_blacklistSpawns) then {
@@ -31,7 +31,7 @@ if (_modType isEqualTo "Epoch") then
 		};
 	}; // Add Central, East and West respawns/traders 
 	case "stratis":{
-		diag_log "Stratis-specific settings loaded";
+		diag_log "[blckeagls] Stratis-specific settings loaded";
 		blck_mapCenter = [6322,7801,0]; 
 		blck_mapRange = 4500; 
 		if (blck_blacklistSpawns) then {
@@ -40,7 +40,7 @@ if (_modType isEqualTo "Epoch") then
 		};
 	}; // Add Central, East and West respawns/traders 
 	case "chernarus":{
-		diag_log "Chernarus-specific settings loaded";
+		diag_log "[blckeagls] Chernarus-specific settings loaded";
 		blck_mapCenter = [7100, 7750, 0]; //centerPosition = {7100, 7750, 300};
 		blck_mapRange = 5300;
 		if (blck_blacklistSpawns) then {
@@ -55,7 +55,7 @@ if (_modType isEqualTo "Epoch") then
 		blck_mapRange = 14400;
 		if (blck_blacklistSpawns) then {
 			blck_locationBlackList = blck_locationBlackList + [[[10058.346680,9015.847656,117.542267],800],[[13812.688477, 6877.921387,80.874428],800],[[13812.661133, 6877.968262,80.876938],800]];
-			diag_log "Spawn black list locations added for Bornholm";
+			diag_log "[blckeagls] Spawn black list locations added for Bornholm";
 		};
 	};
 	case "esseker":{
@@ -64,7 +64,7 @@ if (_modType isEqualTo "Epoch") then
 		blck_mapRange = 5300;
 		if (blck_blacklistSpawns) then {
 			blck_locationBlackList = blck_locationBlackList + [ [[5073.31, 8903.09, 0],800],[[4407.77, 6054.78, 0],800],[[8692.93, 3854.72, 0],800]];  // {  }
-			diag_log "Spawn black list locations added for Esseker";
+			diag_log "[blckeagls] Spawn black list locations added for Esseker";
 		};
 	};
 	case "taviana":{blck_mapCenter = [10370, 11510, 0];blck_mapRange = 14400;};
@@ -74,7 +74,7 @@ if (_modType isEqualTo "Epoch") then
 		blck_mapCenter = [20480,20480, 150];blck_mapRange = 40960;
 		if (blck_blacklistSpawns) then {
 		blck_locationBlackList = blck_locationBlackList + [ [[24398.3, 13971.6,0],800],[[34751.5, 13431.9,0],800],[[19032.7, 33974.6, 0],800],[[4056.35, 19435.9, 0],800] ];
-		diag_log "Spawn black list locations added for Australia";
+		diag_log "[blckeagls] Spawn black list locations added for Australia";
 		};
 	};
 	case "panthera2":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};
@@ -99,7 +99,7 @@ if (_modType isEqualTo "Exile") then
 		blck_mapCenter = [6322,7801,0]; 
 		blck_mapRange = 21000; 
 		if (blck_blacklistSpawns) then {
-			diag_log "Spawn black list locations added for Altis";
+			diag_log "[blckeagls] Spawn black list locations added for Altis";
 			blck_locationBlackList = blck_locationBlackList + [
 				[[14939,15083,0],1000],  // trader
 				[[23600, 18000,0],1000],  // trader

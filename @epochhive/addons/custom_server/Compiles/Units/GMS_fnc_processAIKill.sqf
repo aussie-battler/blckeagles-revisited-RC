@@ -31,12 +31,7 @@ if ((diag_tickTime - _lastkill) < 240) then
 };
 if (_isLegal) then {[_unit,_killer,_kills] call blck_fnc_rewardKiller;};
 _weapon = currentWeapon _killer;
-if (_kills > 1) then
-{
-	_killstreakMsg = format[" %1X KILLSTREAK",_kills];
-}else{
-	_killstreakMsg = "";
-};
+_killstreakMsg = format[" %1X KILLSTREAK",_kills];
 if (blck_useKilledAIName) then
 {
 	_message = format["[blck] %2: killed by %1 from %3m",name _killer,name _unit,round(_unit distance _killer)];

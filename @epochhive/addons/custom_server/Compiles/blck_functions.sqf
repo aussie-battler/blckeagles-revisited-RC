@@ -2,7 +2,7 @@
 	AI Mission for Epoch Mod for Arma 3
 	By Ghostrider
 	Functions and global variables used by the mission system.
-	Last modified 11/10/16
+	Last modified 11/12/16
 */
 blck_functionsCompiled = false;
 
@@ -14,11 +14,10 @@ blck_fnc_findPositionsAlongARadius  = compileFinal  preprocessFileLineNumbers "\
 blck_fnc_giveTakeCrypto = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_giveTakeCrypto.sqf";
 blck_fnc_monitorHC = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_monitorHC.sqf";
 blck_fnc_timeAcceleration = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\TimeAccel\GMS_fnc_Time.sqf";
-
+blck_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_getModType.sqf";  // Test if Epoch or Exile is loaded
 // Player-related functions
 blck_fnc_rewardKiller = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_rewardKiller.sqf";
 blck_fnc_MessagePlayers = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_AIM.sqf";  // Send messages to players regarding Missions
-blck_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_getModType.sqf";  // Send messages to players regarding Missions
 
 // Mission-related functions
 blck_fnc_missionTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionTimer.sqf";
