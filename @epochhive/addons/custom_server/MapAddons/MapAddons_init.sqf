@@ -11,22 +11,17 @@ _addonsPath = "\q\addons\custom_server\MapAddons\mapcontent\";
 _addonsEpoch = [
 	//["mapName","subfolder","filename.sqf"]
 	// when "subfolder" equals "" then the spawner will look for the file in the mapcontent directory 
-	// See the examples below for an idea as to how to set these arrays up.
+	// See the examples below and in custom_server\MapAddons\mapcontent\Altis for an idea as to how to set these arrays up.
 	/*
-	["Altis","Altis","trader_ATMs.sqf"],
-	["Altis","Altis","DBD_EPOCH_Altis_Dump_SH.FINAL.sqf"],
-	["Altis","Altis","altis_epoch_beach_SH-DBD_final.sqf"],
-	["Tanoa","Tanoa","tanoaatmmil.sqf"]
+	["Altis","Altis","mobileRefuelSaltFlats.sqf"],
+	["Altis","Altis","smallbaseSaltFlats.sqf"]
 	*/
 ];
 
 _addonsExile = [
 	/*
-	["Altis","Altis","altis_epoch_beach_SH-DBD_final.sqf"],
-	["Altis","Altis","DBD_EPOCH_Altis_Dump_SH.FINAL.sqf"],
-	["Altis","Altis","packStronghold-1.sqf"],
-	["Altis","Altis","packStrongholdMolos.sqf"],
-	["Namalsk","Namalsk","namalsklockers.sqf"]	
+	["Altis","Altis","mobileRefuelSaltFlats-DBD_final.sqf"],
+	["Altis","Altis","smallbaseSaltFlats.sqf"]
 	*/
 ];
 
@@ -51,13 +46,14 @@ _fnc_runIt =
 		};
 	}forEach _addons;
 };
-_modType = call blck_getModType;
-if (_modType isEqualTo "Epoch") then
+
+if not (isNull( configFile >> "CfgPatches" >> "a3_epoch_server" )) then
 {
 	diag_log "[blckeagls] Running Map Addons for Epoch";
 	[_addonsEpoch] call _fnc_runIt;
 };
-if (_modType isEqualTo "Exile") then
+
+if not (isNull( configFile >> "CfgPatches" >> "exile_server" )) then
 {
 	diag_log "[blckeagls] Running Map Addons for Epoch";
 	[_addonsExile] call _fnc_runIt;

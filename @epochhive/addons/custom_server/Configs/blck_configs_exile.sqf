@@ -241,13 +241,17 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_DLC_Sniper = [
 			"srifle_DMR_02_camo_F","srifle_DMR_02_F","srifle_DMR_02_sniper_F","srifle_DMR_03_F","srifle_DMR_03_tan_F","srifle_DMR_04_F","srifle_DMR_04_Tan_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_05_tan_F","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F"
 		];
-		
+	blck_apexWeapons = ["arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
+						"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
+						"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
+						"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"];
+						
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
-	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG;
-	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault +blck_RifleLMG + blck_DLC_MMG;
+	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
 	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault +blck_RifleLMG;
-	blck_WeaponList_Red = blck_RifleOther + blck_RifleSniper + 	blck_RifleAsault + blck_RifleLMG;
+	blck_WeaponList_Red = blck_RifleOther + blck_RifleSniper + 	blck_RifleAsault + blck_RifleLMG;		
 	
 	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Item_CanOpener","Exile_Item_Handsaw","Exile_Item_Pliers"];
 	blck_buildingMaterials = ["Exile_Item_ExtensionCord","Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_MetalBoard","Exile_Item_MetalPole","Exile_Item_Cement","Exile_Item_Sand"];
