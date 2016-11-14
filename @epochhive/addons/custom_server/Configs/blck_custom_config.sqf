@@ -1,14 +1,13 @@
 	
-// Place any overrides of the default configurations here.
-// An example would be to move the center or change the dimensions for the map on which the missions are spawned so that only part of the map is used.
-// Or map-specific configurations if you run the mission system on multiple servers. Our configurations are shown below as an example
-
+/* 
+	Place any overrides of the default configurations here.
+	This is a convenient way to specify the configuration you like without worrying about going through the individual config files with each update.
+    Several Examples are shown below.
+*/
 
 diag_log "[blckeagls] Loading Configuration Overides";
 
-_world = toLower format ["%1", worldName];
-
-switch (_world) do
+switch (toLower (worldName)) do
 {
 	case"tanoa": {blck_maxCrashSites = 2};
 	case"namalsk": {
@@ -27,6 +26,7 @@ switch (_world) do
 
 if (blck_debugON) then 
 {
+	// Used primarily for debugging.
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 	
 	blck_mainThreadUpdateInterval = 10;

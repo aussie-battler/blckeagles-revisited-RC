@@ -6,10 +6,14 @@ To cynwncler for many helpful comments along the way
 And mostly importantly, 
 To Vampire, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 and Buttface (Face) who wrote the pionering mission and roaming AI systems upon which this one is based and who's code is used with modification in some parts of this addon.
 */
+if !(isNil "blck_Initialized") exitWith{};
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
 #include "\q\addons\custom_server\init\build.sqf";
 diag_log format["[blckeagls] Loading version %1 Build %2",_blck_versionDate,_blck_version];
+
+// spawn map addons to give the server time to position them before spawning in crates etc.
+call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
 
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
@@ -27,16 +31,15 @@ diag_log format["[blckeagls] debug mode settings:blck_debugON = %1",blck_debugON
 private["_modType"];
 _modType = [] call blck_getModType;
 
-// spawn map addons to give the server time to position them before spawning in crates etc.
-call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
-
 if (_modType isEqualTo "Epoch") then
 {
 	diag_log format["[blckeagls] Loading Mission System using Parameters for %1",_modType];
-	call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
+	execVM "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
 	waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
 	waitUntil{blck_configsLoaded};
 	blck_configsLoaded = nil;
+	diag_log "[blckeagles] Running getTraderCitiesEpoch to get location of trader cities";
+	execVM "\q\addons\custom_server\Compiles\Functions\getTraderCitesEpoch.sqf";;
 };
 if (_modType isEqualTo "Exile") then
 {
@@ -45,6 +48,7 @@ if (_modType isEqualTo "Exile") then
 	waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
 	waitUntil{blck_configsLoaded};
 	blck_configsLoaded = nil;
+	if (blck_blacklistTraderCities || blck_blacklistSpawns || blcklistConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\getTraderCitesExile.sqf";};
 };
 
 diag_log "[blckeagls] Loading Map-specific information";

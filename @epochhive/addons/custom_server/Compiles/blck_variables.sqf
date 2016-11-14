@@ -16,10 +16,10 @@ MinDistanceFromMission = 1500;
 ////////////////////////////////////////////////
 //  Do Not Touch Anything Below This Line
 ///////////////////////////////////////////////
-
+blck_townLocations = []; //nearestLocations [blck_mapCenter, ["NameCity","NameCityCapital"], 30000];
 blck_ActiveMissionCoords = [];
 blck_recentMissionCoords = [];
-//blck_emplacedWeapons = [];
+blck_locationBlackList = [];
 blck_monitoredVehicles = [];
 blck_liveMissionAI = [];
 blck_oldMissionObjects = [];

@@ -258,31 +258,7 @@ if (_playerInRange) then
 	};
 	uiSleep _delayTime;
 	//diag_log format["_fnc_missionSpawner:: after adding any static weapons, _blck_AllMissionAI is %1",_blck_AllMissionAI];
-	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
-	{
-		private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns"];
-		_vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
-		//diag_log format["missionSpawner:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
-		//for "_i" from 1 to _noVehiclePatrols do
-		{
-			_vehGroup = [_x,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
-			//diag_log format["missionSpawner:: group for AI Patrol vehicle spawn: group is %1 with units of %2",_vehGroup, units _vehGroup];
-			_blck_AllMissionAI = _blck_AllMissionAI + (units _vehGroup);
-			_randomVehicle = blck_AIPatrolVehicles call BIS_fnc_selectRandom;
-			//diag_log format["missionSpawner:: vehicle selected is %1", _randomVehicle];
-			_patrolVehicle = [_coords,_x,_randomVehicle,(_x distance _coords) -5,(_x distance _coords) + 5,_vehGroup] call blck_fnc_spawnVehiclePatrol;
-			//diag_log format["missionSpawner:: patrol vehicle spawned was %1",_patrolVehicle];
-			_vehGroup setVariable["groupVehicle",_patrolVehicle,true];
-			//uiSleep _delayTime;
-			_AI_Vehicles pushback _patrolVehicle;
-		}forEach _vehiclePatrolSpawns;
-		//diag_log format["missionSpawner:: vehicle patrols data: _AI_Vehicles %1  _blck_AllMissionAI %1",_AI_Vehicles,_blck_AllMissionAI];
-		uiSleep _delayTime;
-		if (blck_debugON) then
-		{
-			diag_log format["[blckeagls] missionSpawner:: Vehicle Patrols Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
-		};
-	};
+	
 	//diag_log format["_fnc_missionSpawner:: after adding any vehicle patrols, _blck_AllMissionAI is %1",_blck_AllMissionAI];
 	//diag_log format["missionSpawner::  _noAIGroups = %1; spawning AI Groups now",_noAIGroups];
 	uiSleep _delayTime;
@@ -384,6 +360,31 @@ if (_playerInRange) then
 		};
 	};
 	
+	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
+	{
+		private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns"];
+		_vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
+		//diag_log format["missionSpawner:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
+		//for "_i" from 1 to _noVehiclePatrols do
+		{
+			_vehGroup = [_x,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
+			//diag_log format["missionSpawner:: group for AI Patrol vehicle spawn: group is %1 with units of %2",_vehGroup, units _vehGroup];
+			_blck_AllMissionAI = _blck_AllMissionAI + (units _vehGroup);
+			_randomVehicle = blck_AIPatrolVehicles call BIS_fnc_selectRandom;
+			//diag_log format["missionSpawner:: vehicle selected is %1", _randomVehicle];
+			_patrolVehicle = [_coords,_x,_randomVehicle,(_x distance _coords) -5,(_x distance _coords) + 5,_vehGroup] call blck_fnc_spawnVehiclePatrol;
+			//diag_log format["missionSpawner:: patrol vehicle spawned was %1",_patrolVehicle];
+			_vehGroup setVariable["groupVehicle",_patrolVehicle,true];
+			//uiSleep _delayTime;
+			_AI_Vehicles pushback _patrolVehicle;
+		}forEach _vehiclePatrolSpawns;
+		//diag_log format["missionSpawner:: vehicle patrols data: _AI_Vehicles %1  _blck_AllMissionAI %1",_AI_Vehicles,_blck_AllMissionAI];
+		uiSleep _delayTime;
+		if (blck_debugON) then
+		{
+			diag_log format["[blckeagls] missionSpawner:: Vehicle Patrols Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+		};
+	};	
 	// Trigger for mission end
 	//diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
 	private["_missionComplete"];
