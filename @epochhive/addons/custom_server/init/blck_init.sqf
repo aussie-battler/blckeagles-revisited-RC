@@ -34,10 +34,12 @@ _modType = [] call blck_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	diag_log format["[blckeagls] Loading Mission System using Parameters for %1",_modType];
-	call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
+	execVM "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
 	waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
 	waitUntil{blck_configsLoaded};
 	blck_configsLoaded = nil;
+	diag_log "[blckeagles] Running getTraderCitiesEpoch to get location of trader cities";
+	execVM "\q\addons\custom_server\Compiles\Functions\getTraderCitesEpoch.sqf";;
 };
 if (_modType isEqualTo "Exile") then
 {
@@ -46,6 +48,7 @@ if (_modType isEqualTo "Exile") then
 	waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
 	waitUntil{blck_configsLoaded};
 	blck_configsLoaded = nil;
+	if (blck_blacklistTraderCities || blck_blacklistSpawns || blcklistConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\getTraderCitesExile.sqf";};
 };
 
 diag_log "[blckeagls] Loading Map-specific information";

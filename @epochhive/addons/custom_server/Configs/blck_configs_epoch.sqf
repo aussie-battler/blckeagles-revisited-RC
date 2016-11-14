@@ -4,20 +4,32 @@ Further modified by Ghostrider -
 This file contains most constants that define mission parameters, AI behavior and loot for mission system.
 Last modified 8/1/15
 */
-	blck_configsLoaded = false;
+
+	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_epoch.sqf";};
+
+	//blck_configsLoaded = false;
 	/**************************************************************
 	
 	BLACKLIST LOCATIONS
 	
 	**************************************************************/
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
-	blck_blacklistSpawns = true;
-	// list of locations that are protected against mission spawns	
-	blck_locationBlackList = [
-	//Add location as [xpos,ypos,0],minimumDistance],
-	// Note that there should not be a comma after the last item in this table
-		[[0,0,0],0]
-	];
+	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
+	// list of locations that are protected against mission spawns
+	
+	switch (toLower(worldName)) do
+	{
+		case "altis": {
+			blck_locationBlackList append [
+			//Add location as [[xpos,ypos,0],minimumDistance],
+			// Note that there should not be a comma after the last item in this table
+			[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
+			];
+		};
+		case "tanoa": {
+			blck_locationBlackList append [	];
+		};
+	};
 	
 	/***********************************************************
 	
@@ -128,11 +140,6 @@ Last modified 8/1/15
 	blck_useLaunchers = true;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
 	//blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
 	blck_launcherTypes = ["launch_RPG32_F"];
-	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
-	blck_ApexBackpacks = ["B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
-						"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
-						"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"];
-	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
 	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
 	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.
 
@@ -203,11 +210,58 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	
 	// AI Weapons and Attachments
 	blck_bipods = ["bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli"];
+
+	blck_Optics_Holo = ["optic_Hamr","optic_MRD","optic_Holosight","optic_Holosight_smg","optic_Aco","optic_ACO_grn","optic_ACO_grn_smg","optic_Aco_smg","optic_Yorris"];
+	blck_Optics_Reticule = ["optic_Arco","optic_MRCO"];
+	blck_Optics_Scopes = [
+		"optic_AMS","optic_AMS_khk","optic_AMS_snd",
+		"optic_DMS",
+		"optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan",
+		"optic_LRPS",
+		"optic_Nightstalker",
+		"optic_NVS",
+		"optic_SOS"
+		//"optic_tws",
+		//"optic_tws_mg",
+		];
+	blck_Optics_Apex = [
+		//Apex
+		"optic_Arco_blk_F",	"optic_Arco_ghex_F",
+		"optic_DMS_ghex_F",
+		"optic_Hamr_khk_F",
+		"optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F",
+		"optic_SOS_khk_F",
+		"optic_LRPS_tna_F","optic_LRPS_ghex_F",
+		"optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"
+		];	
+	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes + blck_Optics_Apex;
+
+	blck_bipods = [
+		"bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli",
+		//Apex
+		"bipod_01_F_khk"
+		];
 	
+	blck_silencers = [
+		"muzzle_snds_338_black","muzzle_snds_338_green","muzzle_snds_338_sand","muzzle_snds_93mmg","muzzle_snds_93mmg_tan","muzzle_snds_acp","muzzle_snds_B",
+		"muzzle_snds_H","muzzle_snds_H_MG","muzzle_snds_H_SW","muzzle_snds_L","muzzle_snds_M",
+		//Apex			
+		"muzzle_snds_H_khk_F","muzzle_snds_H_snd_F","muzzle_snds_58_blk_F","muzzle_snds_m_khk_F","muzzle_snds_m_snd_F","muzzle_snds_B_khk_F","muzzle_snds_B_snd_F",
+		"muzzle_snds_58_wdm_F","muzzle_snds_65_TI_blk_F","muzzle_snds_65_TI_hex_F","muzzle_snds_65_TI_ghex_F","muzzle_snds_H_MG_blk_F","muzzle_snds_H_MG_khk_F"
+		];		
+
 	blck_RifleSniper = [ 
 		"srifle_EBR_F","srifle_GM6_F","srifle_LRR_F","srifle_DMR_01_F" 		
 	];
 
+	blck_RifleAsault_556 = [
+		"arifle_SDAR_F","arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","arifle_Mk20_F","arifle_Mk20C_F","arifle_Mk20_GL_F","arifle_Mk20_plain_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_plain_F","arifle_SDAR_F"
+		];
+	
+	blck_RifleAsault_650 = [
+		"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F"
+		];
+	
 	blck_RifleAsault = [
 		"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F","arifle_SDAR_F",
 		"arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","arifle_Mk20_F","arifle_Mk20C_F","arifle_Mk20_GL_F","arifle_Mk20_plain_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_plain_F"
@@ -239,11 +293,19 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 						
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
-	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
-	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
-	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault +blck_RifleLMG;
-	blck_WeaponList_Red = blck_RifleOther + blck_RifleSniper + 	blck_RifleAsault + blck_RifleLMG;
+	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 +blck_RifleAsault_650;
+	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + 	blck_RifleAsault_650 + blck_RifleLMG;
 			
+	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
+	blck_ApexBackpacks = [
+		"B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
+		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
+		"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"
+		];
+	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
+
 	blck_BanditHeadgear = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_tan","H_ShemagOpen_khk"];
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
 	blck_headgear = [
@@ -308,7 +370,19 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 			"H_Shemag_tan",
 			"H_ShemagOpen_khk",
 			"H_ShemagOpen_tan",
-			"H_TurbanO_blk"	
+			"H_TurbanO_blk",
+,
+			//Apex
+
+			"H_MilCap_tna_F",
+			"H_MilCap_ghex_F",
+			"H_Booniehat_tna_F",
+			"H_Beret_gen_F",
+			"H_MilCap_gen_F",
+			"H_Cap_oli_Syndikat_F",
+			"H_Cap_tan_Syndikat_F",
+			"H_Cap_blk_Syndikat_F",
+			"H_Cap_grn_Syndikat_F"			
 	];
 	blck_helmets = [
 			"H_HelmetB",
@@ -350,7 +424,19 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 			"H_HelmetCrew_O",
 			"H_PilotHelmetHeli_B",
 			"H_PilotHelmetHeli_I",
-			"H_PilotHelmetHeli_O"
+			"H_PilotHelmetHeli_O",
+			"H_Helmet_Skate",
+			"H_HelmetB_TI_tna_F",
+			// Apex
+			//"H_HelmetO_ViperSP_hex_F",
+			//"H_HelmetO_ViperSP_ghex_F",
+			"H_HelmetB_tna_F",
+			"H_HelmetB_Enh_tna_F",
+			"H_HelmetB_Light_tna_F",
+			"H_HelmetSpecO_ghex_F",
+			"H_HelmetLeaderO_ghex_F",
+			"H_HelmetO_ghex_F",
+			"H_HelmetCrew_O_ghex_F",			
 	];
 	blck_headgearList = blck_headgear + blck_helmets;
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
@@ -402,7 +488,47 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 				//"U_OrestesBody",
 				"U_Rangemaster",
 				// DLC
-				"U_B_FullGhillie_ard","U_I_FullGhillie_ard","U_O_FullGhillie_ard","U_B_FullGhillie_sard","U_O_FullGhillie_sard","U_I_FullGhillie_sard","U_B_FullGhillie_lsh","U_O_FullGhillie_lsh","U_I_FullGhillie_lsh"
+				"U_B_FullGhillie_ard","U_I_FullGhillie_ard","U_O_FullGhillie_ard","U_B_FullGhillie_sard","U_O_FullGhillie_sard","U_I_FullGhillie_sard","U_B_FullGhillie_lsh","U_O_FullGhillie_lsh","U_I_FullGhillie_lsh",
+				//Apex
+				"U_B_T_Soldier_F",
+				"U_B_T_Soldier_AR_F",
+				"U_B_T_Soldier_SL_F",
+				//"U_B_T_Sniper_F",
+				//"U_B_T_FullGhillie_tna_F",
+				"U_B_CTRG_Soldier_F",
+				"U_B_CTRG_Soldier_2_F",
+				"U_B_CTRG_Soldier_3_F",
+				"U_B_GEN_Soldier_F",
+				"U_B_GEN_Commander_F",
+				"U_O_T_Soldier_F",
+				"U_O_T_Officer_F",
+				//"U_O_T_Sniper_F",
+				//"U_O_T_FullGhillie_tna_F",
+				"U_O_V_Soldier_Viper_F",
+				"U_O_V_Soldier_Viper_hex_F",
+				"U_I_C_Soldier_Para_1_F",
+				"U_I_C_Soldier_Para_2_F",
+				"U_I_C_Soldier_Para_3_F",
+				"U_I_C_Soldier_Para_4_F",
+				"U_I_C_Soldier_Para_5_F",
+				"U_I_C_Soldier_Bandit_1_F",
+				"U_I_C_Soldier_Bandit_2_F",
+				"U_I_C_Soldier_Bandit_3_F",
+				"U_I_C_Soldier_Bandit_4_F",
+				"U_I_C_Soldier_Bandit_5_F",
+				"U_I_C_Soldier_Camo_F",
+				"U_C_man_sport_1_F",
+				"U_C_man_sport_2_F",
+				"U_C_man_sport_3_F",
+				"U_C_Man_casual_1_F",
+				"U_C_Man_casual_2_F",
+				"U_C_Man_casual_3_F",
+				"U_C_Man_casual_4_F",
+				"U_C_Man_casual_5_F",
+				"U_C_Man_casual_6_F",
+				"U_B_CTRG_Soldier_urb_1_F",
+				"U_B_CTRG_Soldier_urb_2_F",
+				"U_B_CTRG_Soldier_urb_3_F"
 			];
 
 		blck_vests = [
@@ -433,9 +559,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 			"class ItemGoldBar10oz","class ItemTopaz","class ItemOnyx","class ItemSapphire","class ItemAmethyst",
 			"class ItemEmerald","class ItemCitrine","class ItemRuby","class ItemQuartz","class ItemJade",
 			"class ItemGarnet","class ItemKiloHemp"];
-		blck_epochBuildingSupplies = ["class PartPlankPack","class CinderBlocks","class MortarBucket","class ItemScraps",
-			"class ItemCorrugated","class ItemCorrugatedLg","class ItemSolar","class ItemCables",
-			"class ItemBattery","class Pelt_EPOCH"];
+		blck_epochBuildingSupplies = ["PartPlankPack","CinderBlocks","MortarBucket","ItemScraps",
+			"ItemCorrugated","ItemCorrugatedLg","ItemSolar","ItemCables",
+			"ItemBattery","Pelt_EPOCH"];
 			
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION
@@ -518,7 +644,8 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["10Rnd_127x54_Mag" ,1,4],
 				["10Rnd_127x54_Mag",1,4],
 				["10Rnd_93x64_DMR_05_Mag" ,1,4],
-				["10Rnd_93x64_DMR_05_Mag" ,1,4]				
+				["10Rnd_93x64_DMR_05_Mag" ,1,4]	
+				// Apex Ammo				
 			],			
 			[  // Optics
 				["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight",1,3],["acc_flashlight",1,3],["acc_pointer_IR",1,3],

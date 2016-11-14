@@ -100,7 +100,7 @@ while {_findNew} do {
 		};
 	}forEach playableUnits;
 	
-	if (blck_WorldName isEqualTo "taviana") then 
+	if (toLower(worldName) isEqualTo "taviana") then 
 	{
 		_tavTest = createVehicle ["SmokeShell",_coords,[], 0, "CAN_COLLIDE"];
 		_tavHeight = (getPosASL _tavTest) select 2;

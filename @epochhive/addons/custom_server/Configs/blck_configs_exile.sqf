@@ -12,13 +12,23 @@ Last modified 8/1/15
 	
 	**************************************************************/
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
-	blck_blacklistSpawns = true;
-	// list of locations that are protected against mission spawns	
-	blck_locationBlackList = [
-	//Add location as [xpos,ypos,0],minimumDistance],
-	// Note that there should not be a comma after the last item in this table
-		[[0,0,0],0]
-	];
+	blck_blacklistSpawns = true; // do not spawn a mission within 1000 m of a spawn zone.
+	blck_blacklistTraderCities = true;  // do not spawn a mission within 1000 m of a trader.
+	blcklistConcreteMixerZones = true; // do not spawn a mission within 1000 m of a concrete mixer zone.
+	
+	switch (toLower(worldName)) do
+	{
+		case "altis": {
+			blck_locationBlackList append [
+			//Add location as [[xpos,ypos,0],minimumDistance],
+			// Note that there should not be a comma after the last item in this table
+			[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
+			];
+		};
+		case "tanoa": {
+			blck_locationBlackList append [	];
+		};
+	};
 	
 	/***********************************************************
 	
@@ -102,6 +112,8 @@ Last modified 8/1/15
 	blck_TMin_Hunter = 120;
 	blck_TMin_Scouts = 115;
 	blck_TMin_Crashes = 115;
+	blck_TMin_UMS = 200;
+	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
 	blck_TMax_Green = 300;
@@ -110,11 +122,13 @@ Last modified 8/1/15
 	blck_TMax_Hunter = 200;
 	blck_TMax_Scouts = 200;
 	blck_TMax_Crashes = 200;
+	blck_TMax_UMS = 280;
 	
 	blck_MissionTimout = 40*60;  // 40 min
 
 	// Define the maximum number of crash sites on the map at any one time
 	blck_maxCrashSites = 3;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
+	blck_maxDynamicUnderwaterMissions = 3;
 	/****************************************************************
 	
 	GENERAL AI SETTINGS
@@ -129,24 +143,11 @@ Last modified 8/1/15
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
 	blck_removeNVG = false; // When true, NVG will be removed from AI when they are killed.
-	blck_useLaunchers = false;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
-	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
-	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.	
+	blck_useLaunchers = true;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
 	//blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
 	blck_launcherTypes = ["launch_RPG32_F"];
-	blck_chanceAIBackpack = 0.33;  // the chance that AI will be spawned with a backpack from the list below.
-	blck_baseBackpacks = [			
-			"B_AssaultPack_blk","B_AssaultPack_cbr","B_AssaultPack_dgtl","B_AssaultPack_khk","B_AssaultPack_mcamo","B_AssaultPack_rgr","B_AssaultPack_sgg",
-			"B_Bergen_blk","B_Bergen_mcamo","B_Bergen_rgr","B_Bergen_sgg",
-			"B_Carryall_cbr","B_Carryall_khk","B_Carryall_mcamo","B_Carryall_ocamo","B_Carryall_oli","B_Carryall_oucamo",
-			"B_FieldPack_blk","B_FieldPack_cbr","B_FieldPack_ocamo","B_FieldPack_oucamo",
-			"B_HuntingBackpack","B_Kitbag_cbr","B_Kitbag_mcamo","B_Kitbag_sgg",
-			"B_OutdoorPack_blk","B_OutdoorPack_blu","B_OutdoorPack_tan","B_TacticalPack_blk",
-			"B_TacticalPack_mcamo","B_TacticalPack_ocamo","B_TacticalPack_oli","B_TacticalPack_rgr"];  
-	blck_ApexBackpacks = ["B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
-						"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
-						"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"];
-	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;	
+	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
+	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.
 
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 1200; // time in seconds after which dead AI bodies are deleted
@@ -154,7 +155,8 @@ Last modified 8/1/15
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AliveAICleanUpTime = 900;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_cleanupCompositionTimer = 1200;
-	blck_AIAlertDistance = [150,225,425,550];
+	blck_AIAlertDistance = [150,225,250,300];
+	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AIIntelligence = [0.5, 1, 2, 4];  
@@ -182,7 +184,6 @@ Last modified 8/1/15
 	];
 	
 	// Red Missions
-	// Red Missions
 	blck_MinAI_Red = 12;
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
@@ -195,52 +196,102 @@ Last modified 8/1/15
 	blck_MaxAI_Blue = 12;
 	blck_AIGrps_Blue = 2;
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.10],["aimingShake",0.2],["aimingSpeed",0.55],["endurance",0.50],["spotDistance",0.65],["spotTime",0.80],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+		["aimingAccuracy",0.1],["aimingShake",0.25],["aimingSpeed",0.3],["endurance",0.50],["spotDistance",0.4],["spotTime",0.4],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
-	
+	// Add some money to AI; only works with Exile for now.
 	blck_maxMoneyOrange = 25;
 	blck_maxMoneyGreen = 20;
 	blck_maxMoneyRed = 15;
 	blck_maxMoneyBlue = 10;
+	
+	// AI Settings for scouts, Hunters and crashes are definded in thos missions.
 /*********************************************************************************
 
 AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
+
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
 	
 	// AI Weapons and Attachments
 	blck_bipods = ["bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli"];
 
-	blck_RifleSniper = [ 
-			"srifle_EBR_F","srifle_GM6_F","srifle_LRR_F","srifle_DMR_01_F" 		
+	blck_Optics_Holo = ["optic_Hamr","optic_MRD","optic_Holosight","optic_Holosight_smg","optic_Aco","optic_ACO_grn","optic_ACO_grn_smg","optic_Aco_smg","optic_Yorris"];
+	blck_Optics_Reticule = ["optic_Arco","optic_MRCO"];
+	blck_Optics_Scopes = [
+		"optic_AMS","optic_AMS_khk","optic_AMS_snd",
+		"optic_DMS",
+		"optic_KHS_blk","optic_KHS_hex","optic_KHS_old","optic_KHS_tan",
+		"optic_LRPS",
+		"optic_Nightstalker",
+		"optic_NVS",
+		"optic_SOS"
+		//"optic_tws",
+		//"optic_tws_mg",
 		];
-
-		blck_RifleAsault = [
-			"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F","arifle_SDAR_F",
-			"arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","arifle_Mk20_F","arifle_Mk20C_F","arifle_Mk20_GL_F","arifle_Mk20_plain_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_plain_F"
-		];
-
-		blck_RifleLMG = [
-			"LMG_Mk200_F","LMG_Zafir_F"
-		];
-
-		blck_RifleOther = [
-			"SMG_01_F","SMG_02_F"
-		];
-
-		blck_Pistols = [
-			"hgun_PDW2000_F","hgun_ACPC2_F","hgun_Rook40_F","hgun_P07_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","hgun_Pistol_Signal_F"
+	blck_Optics_Apex = [
+		//Apex
+		"optic_Arco_blk_F",	"optic_Arco_ghex_F",
+		"optic_DMS_ghex_F",
+		"optic_Hamr_khk_F",
+		"optic_ERCO_blk_F","optic_ERCO_khk_F","optic_ERCO_snd_F",
+		"optic_SOS_khk_F",
+		"optic_LRPS_tna_F","optic_LRPS_ghex_F",
+		"optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"
 		];	
-		
-		blck_DLC_MMG = [
-					"MMG_01_hex_F","MMG_02_sand_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F"
+	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes + blck_Optics_Apex;
+
+	blck_bipods = [
+		"bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli",
+		//Apex
+		"bipod_01_F_khk"
 		];
-		
-		blck_DLC_Sniper = [
-			"srifle_DMR_02_camo_F","srifle_DMR_02_F","srifle_DMR_02_sniper_F","srifle_DMR_03_F","srifle_DMR_03_tan_F","srifle_DMR_04_F","srifle_DMR_04_Tan_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_05_tan_F","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F"
+	
+	blck_silencers = [
+		"muzzle_snds_338_black","muzzle_snds_338_green","muzzle_snds_338_sand","muzzle_snds_93mmg","muzzle_snds_93mmg_tan","muzzle_snds_acp","muzzle_snds_B",
+		"muzzle_snds_H","muzzle_snds_H_MG","muzzle_snds_H_SW","muzzle_snds_L","muzzle_snds_M",
+		//Apex			
+		"muzzle_snds_H_khk_F","muzzle_snds_H_snd_F","muzzle_snds_58_blk_F","muzzle_snds_m_khk_F","muzzle_snds_m_snd_F","muzzle_snds_B_khk_F","muzzle_snds_B_snd_F",
+		"muzzle_snds_58_wdm_F","muzzle_snds_65_TI_blk_F","muzzle_snds_65_TI_hex_F","muzzle_snds_65_TI_ghex_F","muzzle_snds_H_MG_blk_F","muzzle_snds_H_MG_khk_F"
+		];		
+
+	blck_RifleSniper = [ 
+		"srifle_EBR_F","srifle_GM6_F","srifle_LRR_F","srifle_DMR_01_F" 		
+	];
+
+	blck_RifleAsault_556 = [
+		"arifle_SDAR_F","arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","arifle_Mk20_F","arifle_Mk20C_F","arifle_Mk20_GL_F","arifle_Mk20_plain_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_plain_F","arifle_SDAR_F"
 		];
+	
+	blck_RifleAsault_650 = [
+		"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F"
+		];
+	
+	blck_RifleAsault = [
+		"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F","arifle_SDAR_F",
+		"arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","arifle_Mk20_F","arifle_Mk20C_F","arifle_Mk20_GL_F","arifle_Mk20_plain_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_plain_F"
+	];
+
+	blck_RifleLMG = [
+		"LMG_Mk200_F","LMG_Zafir_F"
+	];
+
+	blck_RifleOther = [
+		"SMG_01_F","SMG_02_F"
+	];
+
+	blck_Pistols = [
+		"hgun_PDW2000_F","hgun_ACPC2_F","hgun_Rook40_F","hgun_P07_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","hgun_Pistol_Signal_F"
+	];	
+	
+	blck_DLC_MMG = [
+				"MMG_01_hex_F","MMG_02_sand_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F"
+	];
+	
+	blck_DLC_Sniper = [
+		"srifle_DMR_02_camo_F","srifle_DMR_02_F","srifle_DMR_02_sniper_F","srifle_DMR_03_F","srifle_DMR_03_tan_F","srifle_DMR_04_F","srifle_DMR_04_Tan_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_05_tan_F","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F"
+	];
 	blck_apexWeapons = ["arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
 						"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
 						"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
@@ -248,286 +299,350 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 						
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
-	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
-	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
-	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault +blck_RifleLMG;
-	blck_WeaponList_Red = blck_RifleOther + blck_RifleSniper + 	blck_RifleAsault + blck_RifleLMG;		
-	
-	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Item_CanOpener","Exile_Item_Handsaw","Exile_Item_Pliers"];
-	blck_buildingMaterials = ["Exile_Item_ExtensionCord","Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_MetalBoard","Exile_Item_MetalPole","Exile_Item_Cement","Exile_Item_Sand"];
-	
+	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Green = blck_RifleSniper + blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 +blck_RifleAsault_650;
+	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG;
+			
+	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
+	blck_ApexBackpacks = [
+		"B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
+		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
+		"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"
+		];
+	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
+
 	blck_BanditHeadgear = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_tan","H_ShemagOpen_khk"];
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
 	blck_headgear = [
-			"H_Cap_blk",
-			"H_Cap_blk_Raven",
-			"H_Cap_blu",
-			"H_Cap_brn_SPECOPS",
-			"H_Cap_grn",
-			"H_Cap_headphones",
-			"H_Cap_khaki_specops_UK",
-			"H_Cap_oli",
-			"H_Cap_press",
-			"H_Cap_red",
-			"H_Cap_tan",
-			"H_Cap_tan_specops_US",
-			"H_Watchcap_blk",
-			"H_Watchcap_camo",
-			"H_Watchcap_khk",
-			"H_Watchcap_sgg",
-			"H_MilCap_blue",
-			"H_MilCap_dgtl",
-			"H_MilCap_mcamo",
-			"H_MilCap_ocamo",
-			"H_MilCap_oucamo",
-			"H_MilCap_rucamo",
-			"H_Bandanna_camo",
-			"H_Bandanna_cbr",
-			"H_Bandanna_gry",
-			"H_Bandanna_khk",
-			"H_Bandanna_khk_hs",
-			"H_Bandanna_mcamo",
-			"H_Bandanna_sgg",
-			"H_Bandanna_surfer",
-			"H_Booniehat_dgtl",
-			"H_Booniehat_dirty",
-			"H_Booniehat_grn",
-			"H_Booniehat_indp",
-			"H_Booniehat_khk",
-			"H_Booniehat_khk_hs",
-			"H_Booniehat_mcamo",
-			"H_Booniehat_tan",
-			"H_Hat_blue",
-			"H_Hat_brown",
-			"H_Hat_camo",
-			"H_Hat_checker",
-			"H_Hat_grey",
-			"H_Hat_tan",
-			"H_StrawHat",
-			"H_StrawHat_dark",
-			"H_Beret_02",
-			"H_Beret_blk",
-			"H_Beret_blk_POLICE",
-			"H_Beret_brn_SF",
-			"H_Beret_Colonel",
-			"H_Beret_grn",
-			"H_Beret_grn_SF",
-			"H_Beret_ocamo",
-			"H_Beret_red",
-			"H_Shemag_khk",
-			"H_Shemag_olive",
-			"H_Shemag_olive_hs",
-			"H_Shemag_tan",
-			"H_ShemagOpen_khk",
-			"H_ShemagOpen_tan",
-			"H_TurbanO_blk"	
+		"H_Cap_blk",
+		"H_Cap_blk_Raven",
+		"H_Cap_blu",
+		"H_Cap_brn_SPECOPS",
+		"H_Cap_grn",
+		"H_Cap_headphones",
+		"H_Cap_khaki_specops_UK",
+		"H_Cap_oli",
+		"H_Cap_press",
+		"H_Cap_red",
+		"H_Cap_tan",
+		"H_Cap_tan_specops_US",
+		"H_Watchcap_blk",
+		"H_Watchcap_camo",
+		"H_Watchcap_khk",
+		"H_Watchcap_sgg",
+		"H_MilCap_blue",
+		"H_MilCap_dgtl",
+		"H_MilCap_mcamo",
+		"H_MilCap_ocamo",
+		"H_MilCap_oucamo",
+		"H_MilCap_rucamo",
+		"H_Bandanna_camo",
+		"H_Bandanna_cbr",
+		"H_Bandanna_gry",
+		"H_Bandanna_khk",
+		"H_Bandanna_khk_hs",
+		"H_Bandanna_mcamo",
+		"H_Bandanna_sgg",
+		"H_Bandanna_surfer",
+		"H_Booniehat_dgtl",
+		"H_Booniehat_dirty",
+		"H_Booniehat_grn",
+		"H_Booniehat_indp",
+		"H_Booniehat_khk",
+		"H_Booniehat_khk_hs",
+		"H_Booniehat_mcamo",
+		"H_Booniehat_tan",
+		"H_Hat_blue",
+		"H_Hat_brown",
+		"H_Hat_camo",
+		"H_Hat_checker",
+		"H_Hat_grey",
+		"H_Hat_tan",
+		"H_StrawHat",
+		"H_StrawHat_dark",
+		"H_Beret_02",
+		"H_Beret_blk",
+		"H_Beret_blk_POLICE",
+		"H_Beret_brn_SF",
+		"H_Beret_Colonel",
+		"H_Beret_grn",
+		"H_Beret_grn_SF",
+		"H_Beret_ocamo",
+		"H_Beret_red",
+		"H_Shemag_khk",
+		"H_Shemag_olive",
+		"H_Shemag_olive_hs",
+		"H_Shemag_tan",
+		"H_ShemagOpen_khk",
+		"H_ShemagOpen_tan",
+		"H_TurbanO_blk",
+		"H_CrewHelmetHeli_B",
+		"H_CrewHelmetHeli_I",
+		"H_CrewHelmetHeli_O",
+		"H_HelmetCrew_I",
+		"H_HelmetCrew_B",
+		"H_HelmetCrew_O",
+		"H_PilotHelmetHeli_B",
+		"H_PilotHelmetHeli_I",
+		"H_PilotHelmetHeli_O",
+		//Apex
+
+		"H_MilCap_tna_F",
+		"H_MilCap_ghex_F",
+		"H_Booniehat_tna_F",
+		"H_Beret_gen_F",
+		"H_MilCap_gen_F",
+		"H_Cap_oli_Syndikat_F",
+		"H_Cap_tan_Syndikat_F",
+		"H_Cap_blk_Syndikat_F",
+		"H_Cap_grn_Syndikat_F"		
 	];
 	blck_helmets = [
-			"H_HelmetB",
-			"H_HelmetB_black",
-			"H_HelmetB_camo",
-			"H_HelmetB_desert",
-			"H_HelmetB_grass",
-			"H_HelmetB_light",
-			"H_HelmetB_light_black",
-			"H_HelmetB_light_desert",
-			"H_HelmetB_light_grass",
-			"H_HelmetB_light_sand",
-			"H_HelmetB_light_snakeskin",
-			"H_HelmetB_paint",
-			"H_HelmetB_plain_blk",
-			"H_HelmetB_sand",
-			"H_HelmetB_snakeskin",
-			"H_HelmetCrew_B",
-			"H_HelmetCrew_I",
-			"H_HelmetCrew_O",
-			"H_HelmetIA",
-			"H_HelmetIA_camo",
-			"H_HelmetIA_net",
-			"H_HelmetLeaderO_ocamo",
-			"H_HelmetLeaderO_oucamo",
-			"H_HelmetO_ocamo",
-			"H_HelmetO_oucamo",
-			"H_HelmetSpecB",
-			"H_HelmetSpecB_blk",
-			"H_HelmetSpecB_paint1",
-			"H_HelmetSpecB_paint2",
-			"H_HelmetSpecO_blk",
-			"H_HelmetSpecO_ocamo",
-			"H_CrewHelmetHeli_B",
-			"H_CrewHelmetHeli_I",
-			"H_CrewHelmetHeli_O",
-			"H_HelmetCrew_I",
-			"H_HelmetCrew_B",
-			"H_HelmetCrew_O",
-			"H_PilotHelmetHeli_B",
-			"H_PilotHelmetHeli_I",
-			"H_PilotHelmetHeli_O"
+		"H_HelmetB",
+		"H_HelmetB_black",
+		"H_HelmetB_camo",
+		"H_HelmetB_desert",
+		"H_HelmetB_grass",
+		"H_HelmetB_light",
+		"H_HelmetB_light_black",
+		"H_HelmetB_light_desert",
+		"H_HelmetB_light_grass",
+		"H_HelmetB_light_sand",
+		"H_HelmetB_light_snakeskin",
+		"H_HelmetB_paint",
+		"H_HelmetB_plain_blk",
+		"H_HelmetB_sand",
+		"H_HelmetB_snakeskin",
+		"H_HelmetCrew_B",
+		"H_HelmetCrew_I",
+		"H_HelmetCrew_O",
+		"H_HelmetIA",
+		"H_HelmetIA_camo",
+		"H_HelmetIA_net",
+		"H_HelmetLeaderO_ocamo",
+		"H_HelmetLeaderO_oucamo",
+		"H_HelmetO_ocamo",
+		"H_HelmetO_oucamo",
+		"H_HelmetSpecB",
+		"H_HelmetSpecB_blk",
+		"H_HelmetSpecB_paint1",
+		"H_HelmetSpecB_paint2",
+		"H_HelmetSpecO_blk",
+		"H_HelmetSpecO_ocamo",
+		"H_CrewHelmetHeli_B",
+		"H_CrewHelmetHeli_I",
+		"H_CrewHelmetHeli_O",
+		"H_HelmetCrew_I",
+		"H_HelmetCrew_B",
+		"H_HelmetCrew_O",
+		"H_PilotHelmetHeli_B",
+		"H_PilotHelmetHeli_I",
+		"H_PilotHelmetHeli_O",
+		"H_Helmet_Skate",
+		"H_HelmetB_TI_tna_F",
+		// Apex
+		//"H_HelmetO_ViperSP_hex_F",
+		//"H_HelmetO_ViperSP_ghex_F",
+		"H_HelmetB_tna_F",
+		"H_HelmetB_Enh_tna_F",
+		"H_HelmetB_Light_tna_F",
+		"H_HelmetSpecO_ghex_F",
+		"H_HelmetLeaderO_ghex_F",
+		"H_HelmetO_ghex_F",
+		"H_HelmetCrew_O_ghex_F"			
 	];
 	blck_headgearList = blck_headgear + blck_helmets;
+	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
 	blck_SkinList = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Equipment
-			"U_C_Journalist",
-			"U_C_Poloshirt_blue",
-			"U_C_Poloshirt_burgundy",
-			"U_C_Poloshirt_salmon",
-			"U_C_Poloshirt_stripped",
-			"U_C_Poloshirt_tricolour",
-			"U_C_Poor_1",
-			"U_C_Poor_2",
-			"U_C_Poor_shorts_1",
-			"U_C_Scientist",
-			"U_OrestesBody",
-			"U_Rangemaster",
-			"U_NikosAgedBody",
-			"U_NikosBody",
-			"U_Competitor",
-			"U_B_CombatUniform_mcam",
-			"U_B_CombatUniform_mcam_tshirt",
-			"U_B_CombatUniform_mcam_vest",
-			"U_B_CombatUniform_mcam_worn",
-			"U_B_CTRG_1",
-			"U_B_CTRG_2",
-			"U_B_CTRG_3",
-			"U_I_CombatUniform",
-			"U_I_CombatUniform_shortsleeve",
-			"U_I_CombatUniform_tshirt",
-			"U_I_OfficerUniform",
-			"U_O_CombatUniform_ocamo",
-			"U_O_CombatUniform_oucamo",
-			"U_O_OfficerUniform_ocamo",
-			"U_B_SpecopsUniform_sgg",
-			"U_O_SpecopsUniform_blk",
-			"U_O_SpecopsUniform_ocamo",
-			"U_I_G_Story_Protagonist_F",
-			"U_C_HunterBody_grn",
-			"U_IG_Guerilla1_1",
-			"U_IG_Guerilla2_1",
-			"U_IG_Guerilla2_2",
-			"U_IG_Guerilla2_3",
-			"U_IG_Guerilla3_1",
-			"U_BG_Guerilla2_1",
-			"U_IG_Guerilla3_2",
-			"U_BG_Guerrilla_6_1",
-			"U_BG_Guerilla1_1",
-			"U_BG_Guerilla2_2",
-			"U_BG_Guerilla2_3",
-			"U_BG_Guerilla3_1",
-			"U_BG_leader",
-			"U_IG_leader",
-			"U_I_G_resistanceLeader_F",
-			"U_B_FullGhillie_ard",
-			"U_B_FullGhillie_lsh",
-			"U_B_FullGhillie_sard",
-			"U_B_GhillieSuit",
-			"U_I_FullGhillie_ard",
-			"U_I_FullGhillie_lsh",
-			"U_I_FullGhillie_sard",
-			"U_I_GhillieSuit",
-			"U_O_FullGhillie_ard",
-			"U_O_FullGhillie_lsh",
-			"U_O_FullGhillie_sard",
-			"U_O_GhillieSuit",
-			"U_I_Wetsuit",
-			"U_O_Wetsuit",
-			"U_B_Wetsuit",
-			"U_B_survival_uniform",
-			"U_B_HeliPilotCoveralls",
-			"U_I_HeliPilotCoveralls",
-			"U_B_PilotCoveralls",
-			"U_I_pilotCoveralls",
-			"U_O_PilotCoveralls"
-			];
+		// I have commented out some high visibility uniforms that can be reserved for players or special missions.
+		// for example, you could have a uniform list specified in a mission template.
+		"U_AntigonaBody",
+		"U_AttisBody",
+		"U_B_CombatUniform_mcam","U_B_CombatUniform_mcam_tshirt","U_B_CombatUniform_mcam_vest","U_B_CombatUniform_mcam_worn","U_B_CombatUniform_sgg","U_B_CombatUniform_sgg_tshirt","U_B_CombatUniform_sgg_vest","U_B_CombatUniform_wdl","U_B_CombatUniform_wdl_tshirt","U_B_CombatUniform_wdl_vest",
+		"U_B_CTRG_1","U_B_CTRG_2","U_B_CTRG_3",	
+		"U_B_GhillieSuit",
+		"U_B_HeliPilotCoveralls","U_B_PilotCoveralls",
+		"U_B_SpecopsUniform_sgg",
+		"U_B_survival_uniform",
+		"U_B_Wetsuit",
+		//"U_BasicBody",
+		"U_BG_Guerilla1_1","U_BG_Guerilla2_1","U_BG_Guerilla2_2","U_BG_Guerilla2_3","U_BG_Guerilla3_1","U_BG_Guerilla3_2",
+		"U_BG_leader",
+		"U_C_Commoner_shorts","U_C_Commoner1_1","U_C_Commoner1_2","U_C_Commoner1_3","U_C_Commoner2_1","U_C_Commoner2_2","U_C_Commoner2_3",
+		"U_C_Farmer","U_C_Fisherman","U_C_FishermanOveralls","U_C_HunterBody_brn","U_C_HunterBody_grn",
+		//"U_C_Journalist",
+		"U_C_Novak",
+		//"U_C_Poloshirt_blue","U_C_Poloshirt_burgundy","U_C_Poloshirt_redwhite","U_C_Poloshirt_salmon","U_C_Poloshirt_stripped","U_C_Poloshirt_tricolour",
+		"U_C_Poor_1","U_C_Poor_2","U_C_Poor_shorts_1","U_C_Poor_shorts_2","U_C_PriestBody","U_C_Scavenger_1","U_C_Scavenger_2",
+		//"U_C_Scientist","U_C_ShirtSurfer_shorts","U_C_TeeSurfer_shorts_1","U_C_TeeSurfer_shorts_2",
+		"U_C_WorkerCoveralls","U_C_WorkerOveralls","U_Competitor",
+		"U_I_CombatUniform","U_I_CombatUniform_shortsleeve","U_I_CombatUniform_tshirt","U_I_G_resistanceLeader_F",
+		"U_I_G_Story_Protagonist_F",
+		"U_I_GhillieSuit",
+		"U_I_HeliPilotCoveralls",
+		"U_I_OfficerUniform",
+		"U_I_pilotCoveralls",
+		"U_I_Wetsuit",
+		"U_IG_Guerilla1_1","U_IG_Guerilla2_1","U_IG_Guerilla2_2","U_IG_Guerilla2_3","U_IG_Guerilla3_1","U_IG_Guerilla3_2",
+		"U_IG_leader",
+		"U_IG_Menelaos",
+		//"U_KerryBody",
+		//"U_MillerBody",
+		//"U_NikosAgedBody",
+		//"U_NikosBody",
+		"U_O_CombatUniform_ocamo","U_O_CombatUniform_oucamo",
+		"U_O_GhillieSuit",
+		"U_O_OfficerUniform_ocamo",
+		"U_O_PilotCoveralls",
+		"U_O_SpecopsUniform_blk",
+		"U_O_SpecopsUniform_ocamo",
+		"U_O_Wetsuit",
+		"U_OG_Guerilla1_1","U_OG_Guerilla2_1","U_OG_Guerilla2_2","U_OG_Guerilla2_3","U_OG_Guerilla3_1","U_OG_Guerilla3_2","U_OG_leader",
+		//"U_OI_Scientist",
+		//"U_OrestesBody",
+		"U_Rangemaster",
+		// DLC
+		"U_B_FullGhillie_ard","U_I_FullGhillie_ard","U_O_FullGhillie_ard","U_B_FullGhillie_sard","U_O_FullGhillie_sard","U_I_FullGhillie_sard","U_B_FullGhillie_lsh","U_O_FullGhillie_lsh","U_I_FullGhillie_lsh",
+		//Apex
+		"U_B_T_Soldier_F",
+		"U_B_T_Soldier_AR_F",
+		"U_B_T_Soldier_SL_F",
+		//"U_B_T_Sniper_F",
+		//"U_B_T_FullGhillie_tna_F",
+		"U_B_CTRG_Soldier_F",
+		"U_B_CTRG_Soldier_2_F",
+		"U_B_CTRG_Soldier_3_F",
+		"U_B_GEN_Soldier_F",
+		"U_B_GEN_Commander_F",
+		"U_O_T_Soldier_F",
+		"U_O_T_Officer_F",
+		//"U_O_T_Sniper_F",
+		//"U_O_T_FullGhillie_tna_F",
+		"U_O_V_Soldier_Viper_F",
+		"U_O_V_Soldier_Viper_hex_F",
+		"U_I_C_Soldier_Para_1_F",
+		"U_I_C_Soldier_Para_2_F",
+		"U_I_C_Soldier_Para_3_F",
+		"U_I_C_Soldier_Para_4_F",
+		"U_I_C_Soldier_Para_5_F",
+		"U_I_C_Soldier_Bandit_1_F",
+		"U_I_C_Soldier_Bandit_2_F",
+		"U_I_C_Soldier_Bandit_3_F",
+		"U_I_C_Soldier_Bandit_4_F",
+		"U_I_C_Soldier_Bandit_5_F",
+		"U_I_C_Soldier_Camo_F",
+		"U_C_man_sport_1_F",
+		"U_C_man_sport_2_F",
+		"U_C_man_sport_3_F",
+		"U_C_Man_casual_1_F",
+		"U_C_Man_casual_2_F",
+		"U_C_Man_casual_3_F",
+		"U_C_Man_casual_4_F",
+		"U_C_Man_casual_5_F",
+		"U_C_Man_casual_6_F",
+		"U_B_CTRG_Soldier_urb_1_F",
+		"U_B_CTRG_Soldier_urb_2_F",
+		"U_B_CTRG_Soldier_urb_3_F"
+	];
 
 	blck_vests = [
-			"V_Press_F",
-			"V_Rangemaster_belt",
-			"V_TacVest_blk",
-			"V_TacVest_blk_POLICE",
-			"V_TacVest_brn",
-			"V_TacVest_camo",
-			"V_TacVest_khk",
-			"V_TacVest_oli",
-			"V_TacVestCamo_khk",
-			"V_TacVestIR_blk",
-			"V_I_G_resistanceLeader_F",
-			"V_BandollierB_blk",
-			"V_BandollierB_cbr",
-			"V_BandollierB_khk",
-			"V_BandollierB_oli",
-			"V_BandollierB_rgr",
-			"V_Chestrig_blk",
-			"V_Chestrig_khk",
-			"V_Chestrig_oli",
-			"V_Chestrig_rgr",
-			"V_HarnessO_brn",
-			"V_HarnessO_gry",
-			"V_HarnessOGL_brn",
-			"V_HarnessOGL_gry",
-			"V_HarnessOSpec_brn",
-			"V_HarnessOSpec_gry",
-			"V_PlateCarrier1_blk",
-			"V_PlateCarrier1_rgr",
-			"V_PlateCarrier2_rgr",
-			"V_PlateCarrier3_rgr",
-			"V_PlateCarrierGL_blk",
-			"V_PlateCarrierGL_mtp",
-			"V_PlateCarrierGL_rgr",
-			"V_PlateCarrierH_CTRG",
-			"V_PlateCarrierIA1_dgtl",
-			"V_PlateCarrierIA2_dgtl",
-			"V_PlateCarrierIAGL_dgtl",
-			"V_PlateCarrierIAGL_oli",
-			"V_PlateCarrierL_CTRG",
-			"V_PlateCarrierSpec_blk",
-			"V_PlateCarrierSpec_mtp",
-			"V_PlateCarrierSpec_rgr"
-			];
-		
-		blck_weaponOptics = ["optic_Arco","optic_Hamr","optic_Aco","optic_ACO_grn","optic_Aco_smg","optic_ACO_grn_smg","optic_Holosight","optic_Holosight_smg","optic_SOS",
-							"optic_MRCO","optic_DMS","optic_Yorris","optic_MRD","optic_LRPS","optic_NVS","optic_Nightstalker"];
-		blck_weaponSilencers = ["muzzle_snds_H","muzzle_snds_L","muzzle_snds_M",
-								"muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp"];
-		blck_weaponLights = ["acc_flashlight","acc_pointer_IR"];
-		blck_WeaponAttachments = blck_weaponOptics + blck_weaponSilencers + blck_weaponLights;
-	
-		//CraftingFood
-		blck_Meats=[
+		"V_Press_F",
+		"V_Rangemaster_belt",
+		"V_TacVest_blk",
+		"V_TacVest_blk_POLICE",
+		"V_TacVest_brn",
+		"V_TacVest_camo",
+		"V_TacVest_khk",
+		"V_TacVest_oli",
+		"V_TacVestCamo_khk",
+		"V_TacVestIR_blk",
+		"V_I_G_resistanceLeader_F",
+		"V_BandollierB_blk",
+		"V_BandollierB_cbr",
+		"V_BandollierB_khk",
+		"V_BandollierB_oli",
+		"V_BandollierB_rgr",
+		"V_Chestrig_blk",
+		"V_Chestrig_khk",
+		"V_Chestrig_oli",
+		"V_Chestrig_rgr",
+		"V_HarnessO_brn",
+		"V_HarnessO_gry",
+		"V_HarnessOGL_brn",
+		"V_HarnessOGL_gry",
+		"V_HarnessOSpec_brn",
+		"V_HarnessOSpec_gry",
+		"V_PlateCarrier1_blk",
+		"V_PlateCarrier1_rgr",
+		"V_PlateCarrier2_rgr",
+		"V_PlateCarrier3_rgr",
+		"V_PlateCarrierGL_blk",
+		"V_PlateCarrierGL_mtp",
+		"V_PlateCarrierGL_rgr",
+		"V_PlateCarrierH_CTRG",
+		"V_PlateCarrierIA1_dgtl",
+		"V_PlateCarrierIA2_dgtl",
+		"V_PlateCarrierIAGL_dgtl",
+		"V_PlateCarrierIAGL_oli",
+		"V_PlateCarrierL_CTRG",
+		"V_PlateCarrierSpec_blk",
+		"V_PlateCarrierSpec_mtp",
+		"V_PlateCarrierSpec_rgr",
+		//Apex
+		"V_TacChestrig_grn_F",
+		"V_TacChestrig_oli_F",
+		"V_TacChestrig_cbr_F",
+		"V_PlateCarrier1_tna_F",
+		"V_PlateCarrier2_tna_F",
+		"V_PlateCarrierSpec_tna_F",
+		"V_PlateCarrierGL_tna_F",
+		"V_HarnessO_ghex_F",
+		"V_HarnessOGL_ghex_F",
+		"V_BandollierB_ghex_F",
+		"V_TacVest_gen_F",
+		"V_PlateCarrier1_rgr_noflag_F",
+		"V_PlateCarrier2_rgr_noflag_F"
+		];
 			
-		];
-		blck_Drink = [
-				"Exile_Item_PlasticBottleCoffee",
-				"Exile_Item_PowerDrink",
-				"Exile_Item_PlasticBottleFreshWater",
-				"Exile_Item_Beer",
-				"Exile_Item_EnergyDrink",
-				"Exile_Item_MountainDupe"
-		];
-		blck_Food = [
-			"Exile_Item_EMRE",		
-			"Exile_Item_GloriousKnakworst",
-			"Exile_Item_Surstromming",
-			"Exile_Item_SausageGravy",
-			"Exile_Item_Catfood",
-			"Exile_Item_ChristmasTinner",
-			"Exile_Item_BBQSandwich",
-			"Exile_Item_Dogfood",
-			"Exile_Item_BeefParts",
-			"Exile_Item_Cheathas",
-			"Exile_Item_Noodles",
-			"Exile_Item_SeedAstics",
-			"Exile_Item_Raisins",
-			"Exile_Item_Moobar",
-			"Exile_Item_InstantCoffee"
-		];
-		blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
-		blck_throwableExplosives = ["HandGrenade","MiniGrenade"];
-		blck_otherExplosives = ["1Rnd_HE_Grenade_shell","3Rnd_HE_Grenade_shell","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag"];
-		blck_explosives = blck_throwableExplosives + blck_otherExplosives;
-		blck_medicalItems = ["Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin"];
-		blck_specialItems = blck_throwableExplosives + blck_medicalItems;
+	//CraftingFood
+	blck_Meats=[
 		
-		blck_NVG = ["NVGoggles","NVGoggles_INDEP","NVGoggles_OPFOR","Exile_Item_XM8"];
+	];
+	blck_Drink = [
+		"Exile_Item_PlasticBottleCoffee",
+		"Exile_Item_PowerDrink",
+		"Exile_Item_PlasticBottleFreshWater",
+		"Exile_Item_Beer",
+		"Exile_Item_EnergyDrink",
+		"Exile_Item_MountainDupe"
+	];
+	blck_Food = [
+		"Exile_Item_EMRE",		
+		"Exile_Item_GloriousKnakworst",
+		"Exile_Item_Surstromming",
+		"Exile_Item_SausageGravy",
+		"Exile_Item_Catfood",
+		"Exile_Item_ChristmasTinner",
+		"Exile_Item_BBQSandwich",
+		"Exile_Item_Dogfood",
+		"Exile_Item_BeefParts",
+		"Exile_Item_Cheathas",
+		"Exile_Item_Noodles",
+		"Exile_Item_SeedAstics",
+		"Exile_Item_Raisins",
+		"Exile_Item_Moobar",
+		"Exile_Item_InstantCoffee"
+	];
+	blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
+	blck_throwableExplosives = ["HandGrenade","MiniGrenade"];
+	blck_otherExplosives = ["1Rnd_HE_Grenade_shell","3Rnd_HE_Grenade_shell","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag"];
+	blck_explosives = blck_throwableExplosives + blck_otherExplosives;
+	blck_medicalItems = ["Exile_Item_InstaDoc","Exile_Item_Bandage","Exile_Item_Vishpirin"];
+	blck_specialItems = blck_throwableExplosives + blck_medicalItems;
+	
+	blck_NVG = ["NVGoggles","NVGoggles_INDEP","NVGoggles_OPFOR","Exile_Item_XM8"];
 
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION
