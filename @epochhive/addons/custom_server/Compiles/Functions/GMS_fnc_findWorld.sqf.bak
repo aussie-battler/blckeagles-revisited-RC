@@ -9,7 +9,7 @@ private["_blck_WorldName"];
 _blck_WorldName = toLower format ["%1", worldName];
 _blck_worldSize = worldSize;
 private["_modType"];
-_modType = [] call blck_fnc_getModType;
+_modType = [] call blck_getModType;
 
 diag_log format["[blckeagls] Loading Map-specific settings with worldName = %1 and modType = %2",_blck_WorldName,_modType];
 

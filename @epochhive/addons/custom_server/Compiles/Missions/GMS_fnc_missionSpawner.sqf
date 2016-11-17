@@ -86,7 +86,7 @@ if !(blck_preciseMapMarkers) then
 	_blck_localMissionMarker set [1,[_coords,75] call blck_fnc_randomPosition];
 };
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
-["start",_startMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
+[["start",_startMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
 [_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
 
 _fn_timedOut = {
@@ -121,19 +121,25 @@ _missionTimedOut = false;
 _wait = true;
 while {_wait} do
 {
-	if ([_coords] call _fn_playerWithinRange) then
+	if (blck_debugLevel isEqualTo 3) then
 	{
 		_wait = false;
 		_playerInRange = true;
-	} else
-	{
-		if ((diag_tickTime - _missionStartTime) > blck_MissionTimout) then
+	} else {		
+		if ([_coords] call _fn_playerWithinRange) then
 		{
 			_wait = false;
-			_missionTimedOut = true;
+			_playerInRange = true;
+		} else
+		{
+			if ((diag_tickTime - _missionStartTime) > blck_MissionTimout) then
+			{
+				_wait = false;
+				_missionTimedOut = true;
+			};
 		};
+		uiSleep 1;
 	};
-	uiSleep 1;
 };
 //waitUntil{ { (isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehicle _x == _x*/) || ([_missionStartTime] call _fn_timedOut) } count playableunits > 0 };
 
@@ -170,7 +176,7 @@ if (_playerInRange) then
 		_crates = [_coords,[[selectRandom blck_crateTypes /*"Box_NATO_Wps_F"*/,[0,0,0],_crateLoot,_lootCounts]]] call blck_fnc_spawnMissionCrates;
 		
 	};
-	_objects append _crates;
+	//_objects append _crates;
 	
 	if (blck_debugON) then
 	{
@@ -406,21 +412,27 @@ if (_playerInRange) then
 	_locations = [_coords] + _crates;
 	
 	//diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
-	while {_missionComplete  == -1} do
+	while {_missionComplete  isEqualTo -1} do
 	{
-		if (_endIfPlayerNear) then {
-			if ( { (isPlayer _x) && ([_x,_locations,20] call blck_fnc_playerInRange) && (vehicle _x == _x) } count playableunits > 0) then {
-				_missionComplete = 1;
+		if (blck_debugLevel isEqualTo 3) then
+		{
+			uiSleep 120;
+			_missionComplete = 1;
+		} else {
+			if (_endIfPlayerNear) then {
+				if ( { (isPlayer _x) && ([_x,_locations,20] call blck_fnc_playerInRange) && (vehicle _x == _x) } count playableunits > 0) then {
+					_missionComplete = 1;
+				};
 			};
-		};
-		//diag_log format["missionSpawner:: count alive _blck_AllMissionAI = %1",{alive _x} count _blck_AllMissionAI];
-		if (_endIfAIKilled) then {
-			if (({alive _x} count _blck_AllMissionAI) < 1 ) then {
-				_missionComplete = 1;
-				//diag_log format["missionSpawner:: _blck_AllMissionAI = %1","testing case _endIfAIKilled"];
+			//diag_log format["missionSpawner:: count alive _blck_AllMissionAI = %1",{alive _x} count _blck_AllMissionAI];
+			if (_endIfAIKilled) then {
+				if (({alive _x} count _blck_AllMissionAI) < 1 ) then {
+					_missionComplete = 1;
+					//diag_log format["missionSpawner:: _blck_AllMissionAI = %1","testing case _endIfAIKilled"];
+				};
 			};
+			uiSleep 2;
 		};
-		uiSleep 2;
 	};
 	
 	if (blck_debugON) then
@@ -441,7 +453,7 @@ if (_playerInRange) then
 	[_mines] spawn blck_fnc_clearMines;
 	[_objects, blck_cleanupCompositionTimer] call blck_fnc_addObjToQue;
 	[_blck_AllMissionAI,blck_AliveAICleanUpTime] call blck_fnc_addLiveAItoQue;
-	["end",_endMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
+	[["end",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
 	[_blck_localMissionMarker select 1, _missionType] execVM "debug\missionCompleteMarker.sqf";
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";
 	//[_blck_localMissionMarker select 0,"Completed"] call blck_fnc_updateMissionQue;

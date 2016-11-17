@@ -85,10 +85,8 @@ while {_findNew} do {
 	} forEach blck_townLocations;
 	
 	// check for nearby plot pole/freq jammer within 800 meters
-	_mod = call blck_fnc_getModType;
-	_pole = "";
-	if (_mod isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
-	if (_mod isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
+	if (call blck_getModType isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
+	if (call blck_getModType isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
 	{
 		if ((_x distance _coords) < 600) then
 		{

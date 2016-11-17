@@ -2,7 +2,7 @@
 	AI Mission for Epoch Mod for Arma 3
 	By Ghostrider
 	Functions and global variables used by the mission system.
-	Last modified 11/16/16
+	Last modified 11/14/16
 */
 blck_functionsCompiled = false;
 
@@ -14,7 +14,7 @@ blck_fnc_findPositionsAlongARadius  = compileFinal  preprocessFileLineNumbers "\
 blck_fnc_giveTakeCrypto = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_giveTakeCrypto.sqf";
 blck_fnc_monitorHC = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_monitorHC.sqf";
 blck_fnc_timeAcceleration = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\TimeAccel\GMS_fnc_Time.sqf";
-blck_fnc_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_getModType.sqf";  // Test if Epoch or Exile is loaded
+blck_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_getModType.sqf";  // Test if Epoch or Exile is loaded
 
 // Player-related functions
 blck_fnc_rewardKiller = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_rewardKiller.sqf";
@@ -22,7 +22,6 @@ blck_fnc_MessagePlayers = compileFinal  preprocessFileLineNumbers "\q\addons\cus
 
 // Mission-related functions
 blck_fnc_missionTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionTimer.sqf";
-
 //blck_fnc_addMissionToQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addMissionToQue.sqf";  // 
 //blck_fnc_updateMissionQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_updateMissionQue.sqf";  // 
 blck_fnc_addLiveAItoQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addLiveAItoQue.sqf"; 
@@ -45,7 +44,7 @@ blck_fnc_signalEnd = compileFinal  preprocessFileLineNumbers "\q\addons\custom_s
 // Group-related functions
 blck_fnc_spawnGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_spawnGroup.sqf";  // Spawn a single group and populate it with AI units]
 blck_fnc_setupWaypoints = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_setWaypoints.sqf";  // Set default waypoints for a group
-blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_cleanEmptyGroups.sqf";  // GMS_fnc_cleanEmptyGroups
+blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_cleanEmptyGroups.sqf";  // GMS_fnc_cleanEmptyGroups
 
 // Functions specific to vehicles, whether wheeled or static
 blck_fnc_spawnEmplacedWeapon = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnEmplaced.sqf";  // Self-evident

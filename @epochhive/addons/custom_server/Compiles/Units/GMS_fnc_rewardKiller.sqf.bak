@@ -10,7 +10,7 @@ params["_unit","_killer","_kills"];
 //diag_log format["rewardKiller::  _unit = %1 and _killer %2",_unit,_killer];
 
 private["_modType","_reward"];
-_modType = call blck_fnc_getModType;
+_modType = call blck_getModType;
 
 //diag_log format["[blckeagles] rewardKiller:: - _modType = %1",_modType];
 
