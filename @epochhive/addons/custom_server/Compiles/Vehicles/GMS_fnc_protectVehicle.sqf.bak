@@ -4,7 +4,7 @@
 params["_Vehicle"];
 
 private["_modType"];
-_modType = call blck_fnc_getModType;
+_modType = call blck_getModType;
 switch (_ModType) do {
 	case "_modType":
 				{

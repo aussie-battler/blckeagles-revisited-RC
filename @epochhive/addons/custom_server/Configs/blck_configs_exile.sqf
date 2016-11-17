@@ -45,6 +45,9 @@ Last modified 8/1/15
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
+
+	//Minimum distance between missions
+	blck_MinDistanceFromMission = 2000;
 	
 	// Options to spawn a smoking wreck near the mission.  When the first parameter is true, a wreck or junk pile will be spawned. 
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.

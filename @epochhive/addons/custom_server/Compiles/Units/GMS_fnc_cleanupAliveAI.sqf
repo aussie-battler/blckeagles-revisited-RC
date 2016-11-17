@@ -31,7 +31,7 @@ params["_aiList"];
 			deleteVehicle _x;
 		}forEach nearestObjects [getPos _ai,["WeaponHolderSimulated","GroundWeapoonHolder"],3];	
 	
-		_group = group _ai;
+		//_group = group _ai;
 		[_ai] joinSilent grpNull;
 
 		if (count units group _ai < 1) then

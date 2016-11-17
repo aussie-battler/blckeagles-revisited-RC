@@ -25,7 +25,7 @@ params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _ai1 = ObjNull;
-_modType = call blck_fnc_getModType;
+_modType = call blck_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];

@@ -42,7 +42,7 @@ if (blck_debugON) then
 	
 	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTime = 10;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 20;
+	blck_bodyCleanUpTimer = 180;
 	
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
@@ -55,13 +55,7 @@ if (blck_debugON) then
 	blck_SpawnVeh_Red = 2;
 	
 	//blck_reinforcementsBlue = [0, 0, 0.0, 0];  // Chance of reinforcements, number of reinforcements, Chance of reinforcing heli patrols, chance of dropping supplies for the reinforcements
-	
-	//blck_AIGrps_Blue = 1;
-	//blck_AIGrps_Red = 2;
-	//blck_AIGrps_Green = 3;
-	
-	//blck_TMin_Major = 5;
-	//blck_TMin_Major2 = 6;
+
 	blck_TMin_Blue = 7;
 	blck_TMin_Red = 20;
 	blck_TMin_Green = 23;	
@@ -71,8 +65,6 @@ if (blck_debugON) then
 	blck_TMin_Crashes = 5;
 	
 	//Maximum Spawn time between missions in seconds
-	//blck_TMax_Major = 10;
-	//blck_TMax_Major2 = 11;
 	blck_TMax_Blue = 12;
 	blck_TMax_Red = 35;
 	blck_TMax_Green = 38;

@@ -42,7 +42,7 @@ clearItemCargoGlobal _patrolHeli;
 clearBackpackCargoGlobal  _patrolHeli;
 
 private["_modType"];
-_modType = call blck_fnc_getModType;
+_modType = call blck_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	[_patrolHeli,blck_ModType] call blck_fnc_protectVehicle;

@@ -1,6 +1,6 @@
 //Based on the Random Loot Crates addon by Darth_Rogue & Chisel (tdwhite)  
 // Re-written by Ghostrider-DBD- to add features and clean up code
-// Last updated 11-12-16
+// Last updated 11-14-16
 
 // Do not touch anything below this line.
 /// ********************************************************************************************************************************************************************************************************************************
@@ -59,56 +59,6 @@ _fn_spawnCrate = {
 	_crate
 };
 
-_fn_addItemToCrate = {
-	params["_itemInfo","_crate"];
-	private["_isRifle","_isMagazine","_isBackpack"];
-	_isWeapon = false;
-	_isMagazine = false;
-	_isBackpack = false;
-	_quant = 0;
-	diag_log format["_fn_addItemToCrate:: -- >> itemInfor = %1",_itemInfo];
-	if (typeName _itemInfo isEqualTo "STRING") then {_item = _itemInfo; _quant = 1};  // case where only the item descriptor was provided
-	if (typeName _itemInfo isEqualTo "ARRAY") then {
-		
-		if (count _itemInfo isEqualTo 2) then {_item = _itemInfo select 0; _quant = _itemInfo select 1;}; // case where item descriptor and quantity were provided
-		if (count _itemInfo isEqualto 3) then {
-			_item = _itemInfo select 0; 
-			_quant = (_itemInfo select 1) + round(random((_itemInfo select 2) - (_itemInfo select 1)));
-		}; // case where item descriptor, min number and max number were provided.
-	};
-	if (((typeName _item) isEqualTo "STRING") && (_item != "")) then
-	{
-		if (isClass(configFile >> "CfgWeapons" >> _item)) then {_crate addWeaponCargoGlobal [_item,_quant]; _isWeapon = true;};
-		if (_item isKindOf ["Bag_Base", configFile >> "CfgVehicles"]) then {_crate addBackpackCargoGlobal [_item,_quant]; _isBackpack = true;};
-		if (isClass(configFile >> "CfgMagazines" >> _item)) then {_crate addMagazineCargoGlobal [_item,_quant]; _isMagazine = true;};
-		if (!_isWeapon && !_isMagazine && _isBackpack && isClass(configFile >> "CfgVehicles" >> _item)) then {_crate addItemCargoGlobal [_item,_quant]};
-	};
-};
-
-_fn_loadLoot = {
-	params["_loadout","_crate"];
-	if ((_loadout select 0) isEqualTo []) exitWith {};
-	{
-		private["_tries","_q","_item"];
-		_tries = 0;
-		diag_log format["_fn_loadLoot:: -- >> now loading for %1",_x];
-		_q = _x select 1; // this can be a number or array.
-		if ( (typeName _q) isEqualTo "ARRAY") then // Assume the array contains a min/max number to add
-		{
-			if ((count _q) isEqualTo 2) then {_tries = (_q select 0) + round(random(((_q select 1) - (_q select 0))));} else {_tries = 0;};
-		};
-		if ((typeName _q) isEqualTo "SCALAR") then
-		{
-			_tries = _q;
-		};
-		for "_i" from 1 to _tries do
-		{
-			_item = selectRandom (_x select 0);
-			[_item,_crate] call _fn_addItemToCrate;		
-		};
-	}forEach _loadout;
-};
-
 _fn_setupCrates = {
 	params["_location","_lootType","_randomPos","_useSmoke"];
 	private["_crate"];
@@ -117,9 +67,10 @@ _fn_setupCrates = {
 	if (_lootType isEqualTo 0) then {_lootType = round(random(3));};
 	switch(_lootType) do
 	{
-		case 1:{[_box1_loadout,_crate] call _fn_loadLoot;};
-		case 2:{[_box2_loadout, _crate] call _fn_loadLoot;};
-		case 3:{[_box3_loadout, _crate] call _fn_loadLoot;};
+		// format here is [_arrayOfLoot, crateToLoad, magazinesToAddForEachWeaponLoaded]
+		case 1:{[_box1_loadout,_crate,3] call blck_fnc_loadLootItemsFromArray;};
+		case 2:{[_box2_loadout, _crate,3] call blck_fnc_loadLootItemsFromArray;};
+		case 3:{[_box3_loadout, _crate,3] call blck_fnc_loadLootItemsFromArray;};
 	};
 	if (_useSmoke) then {[getPos _crate] call _fn_smokeAtCrate;};
 	if (blck_debugON) then 

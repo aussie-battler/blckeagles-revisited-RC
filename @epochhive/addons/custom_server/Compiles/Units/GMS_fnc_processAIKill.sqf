@@ -40,7 +40,7 @@ if (blck_useKilledAIName) then
 };
 _message =_message + _killstreakMsg;
 //diag_log format["[blck] unit killed message is %1",_message,""];
-["aikilled",_message,"victory"] call blck_fnc_messageplayers;
+[["aikilled",_message,"victory"]] call blck_fnc_messageplayers;
 {
 	_unit removeAllEventHandlers  _x;
 }forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear"]

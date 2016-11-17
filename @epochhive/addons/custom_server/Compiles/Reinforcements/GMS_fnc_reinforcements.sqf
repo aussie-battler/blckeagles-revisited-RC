@@ -78,7 +78,7 @@ _wpDestination setWaypointCompletionRadius 60;
 //Announce reinforcements are inbound to nearby players
 private["_message"];
 _message = "A Helicopter Carrying Reinforcements was Spotted Near You!";
-["reinforcements",_message,_pos] call blck_fnc_messageplayers;
+[["reinforcements",_message,_pos]] call blck_fnc_messageplayers;
 
 diag_log "reinforcements:: helispawned and inbound, message sent";
 

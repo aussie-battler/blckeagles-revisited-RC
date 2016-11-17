@@ -1,33 +1,48 @@
 /*
-
+	Call as : [] call blck_fnc_mainThread;
+	
 	Run a loop that checks data arrays regarding:
 	- whether it is time to delete the mission objects at a specific location
 	- whether it is time to delete live AI associated with a specific mission
 	By Ghostrider-DbD-
-	Last modified 10-22-16
+	Last modified 11-16-16
 */
 private _index = 0;
+_timeAccelUpdated = diag_tickTime;
+_timer1min = diag_tickTime;
+_timer5min = diag_tickTime;
 while {true} do
 {
-	//diag_log format["_fnc_mainTread::-->> pass %1",_index];
-	//_index = _index + 1;
 	uiSleep blck_mainThreadUpdateInterval;
+	if ((diag_tickTime - _timer1min) > 60) then
 	{
-		if (diag_tickTime > (_x select 1) ) then {
-			//diag_log format["_fnc_mainTread:: cleaning up AI group %1",_x];
-			[_x select 0] call blck_fnc_cleanupAliveAI;
-		};
-	}forEach blck_liveMissionAI;
-	{
-		//diag_log format["mainThread::-->> missionObjects  _x = %1",_x];
-		if (diag_tickTime > (_x select 1) ) then {
-			//diag_log format["_fnc_mainTread:: cleaning up mission objects %1",_x];
-			[_x select 0] call blck_fnc_cleanupObjects;
-		};
-	}forEach blck_oldMissionObjects;
-	[] call GMS_fnc_cleanupDeadAI;
-	[] call blck_fnc_timeAcceleration;
-	if (blck_useHC) then {[] call blck_fnc_monitorHC;};
+
+		{
+			if (diag_tickTime > (_x select 1) ) then {
+				//diag_log format["_fnc_mainTread:: cleaning up AI group %1",_x];
+				[_x select 0] call blck_fnc_cleanupAliveAI;
+			};
+		}forEach blck_liveMissionAI;
+		
+		{
+			//diag_log format["mainThread::-->> missionObjects  _x = %1",_x];
+			if (diag_tickTime > (_x select 1) ) then {
+				//diag_log format["_fnc_mainTread:: cleaning up mission objects %1",_x];
+				[_x select 0] call blck_fnc_cleanupObjects;
+			};
+		}forEach blck_oldMissionObjects;
+		
+		[] call GMS_fnc_cleanupDeadAI;	
+		
+		if ((diag_tickTime - _timeAccelUpdated) > 300) then
+		{
+			[] call blck_fnc_timeAcceleration;
+			_timeAccelUpdated = diag_tickTime;
+		};	
+		
+		if (blck_useHC) then {[] call blck_fnc_monitorHC;};
+		[] call blck_fnc_cleanEmptyGroups;
+	};
 	/*
 	{
 		if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned

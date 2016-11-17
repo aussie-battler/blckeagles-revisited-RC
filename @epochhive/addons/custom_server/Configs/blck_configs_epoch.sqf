@@ -47,6 +47,9 @@ Last modified 8/1/15
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
 	
+	//Minimum distance between missions
+	blck_MinDistanceFromMission = 2000;
+
 	// Options to spawn a smoking wreck near the mission.  When the first parameter is true, a wreck or junk pile will be spawned. 
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
@@ -262,10 +265,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F"
 		];
 	
-	blck_RifleAsault = [
-		"arifle_Katiba_F","arifle_Katiba_C_F","arifle_Katiba_GL_F","arifle_MXC_F","arifle_MX_F","arifle_MX_GL_F","arifle_MXM_F","arifle_SDAR_F",
-		"arifle_TRG21_F","arifle_TRG20_F","arifle_TRG21_GL_F","arifle_Mk20_F","arifle_Mk20C_F","arifle_Mk20_GL_F","arifle_Mk20_plain_F","arifle_Mk20C_plain_F","arifle_Mk20_GL_plain_F"
-	];
+	blck_RifleAsault = blck_RifleAsault_556 + blck_RifleAsault_650;
 
 	blck_RifleLMG = [
 		"LMG_Mk200_F","LMG_Zafir_F"
@@ -371,9 +371,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 			"H_ShemagOpen_khk",
 			"H_ShemagOpen_tan",
 			"H_TurbanO_blk",
-,
+			
 			//Apex
-
 			"H_MilCap_tna_F",
 			"H_MilCap_ghex_F",
 			"H_Booniehat_tna_F",
@@ -436,7 +435,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 			"H_HelmetSpecO_ghex_F",
 			"H_HelmetLeaderO_ghex_F",
 			"H_HelmetO_ghex_F",
-			"H_HelmetCrew_O_ghex_F",			
+			"H_HelmetCrew_O_ghex_F"			
 	];
 	blck_headgearList = blck_headgear + blck_helmets;
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.

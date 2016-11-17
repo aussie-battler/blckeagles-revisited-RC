@@ -9,7 +9,7 @@ params["_unit","_killer"];
 _launcher = _unit getVariable ["Launcher",""];
 _legal = true;
 
- fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
+fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
 	params["_vk","_unit"];
 	{
 		if (((position _x) distance (position _unit)) <= 350) then 
@@ -20,7 +20,7 @@ _legal = true;
 			if (_launcher != "") then 
 			{	
 				_x selectWeapon (secondaryWeapon _unit);
-				x fireAtTarget [_vk,_launcher];
+				_x fireAtTarget [_vk,_launcher];
 			} else {
 				_x doFire _vk;		
 			};
@@ -44,9 +44,9 @@ fn_deleteAIGear = {
 
 fn_msgIED = {
 	params["_killer"];
-	blck_Message = ["IED","",0,0];
 	diag_log format["fn_msgIED:: -- >> msg = %1 and owner _killer = %2",blck_Message, (owner _killer)];
-	(owner _killer) publicVariableClient "blck_Message";
+	[["IED","",0,0],[_killer]] call blck_fnc_MessagePlayers;
+	//(owner _killer) publicVariableClient "blck_Message";
 };
 
 if (typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehicle

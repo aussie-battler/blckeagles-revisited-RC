@@ -26,7 +26,7 @@ _offset =  _supplyHeli getPos [10, _dir];
 //open parachute and attach to crate
 _chute = createVehicle ["I_Parachute_02_F", [100, 100, 200], [], 0, "FLY"];
 private["_modType"];
-_modType = call blck_fnc_getModType;
+_modType = call blck_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	[_chute] call blck_fnc_protectVehicle;
