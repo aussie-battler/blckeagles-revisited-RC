@@ -61,10 +61,7 @@ Installation:
     {
         interactMode = 2;
     };	
-    class C_man_1 : Default  /// Probably not necessary, needs to be tested.
-    {
-        interactMode = 2;
-    };
+
 	
 	Save your changes, repack your mission file.
 	You should now get an option to take crypto when you press spacebar after hovering over a dead AI body.
