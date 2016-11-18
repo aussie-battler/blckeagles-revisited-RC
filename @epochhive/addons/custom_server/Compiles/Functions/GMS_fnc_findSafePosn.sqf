@@ -89,6 +89,7 @@ while {_findNew} do {
 	_pole = "";
 	if (_mod isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
 	if (_mod isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
+	//diag_log format["_fnc_findSafePosn:: -- >> _mod = %1 and _pole = %2",_mod,_pole];	
 	{
 		if ((_x distance _coords) < 600) then
 		{

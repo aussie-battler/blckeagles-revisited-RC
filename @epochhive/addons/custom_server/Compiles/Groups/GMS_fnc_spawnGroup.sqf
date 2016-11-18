@@ -9,7 +9,7 @@
 private["_numbertospawn","_i","_groupSpawned","_safepos","_x","_weaponList","_useLauncher","_launcherType","_aiSkills"];	
 
 params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-if (blck_debugON) then
+if (blck_debugLevel isEqualTo 3) then
 {
 	diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
 };
@@ -19,7 +19,7 @@ if (_numai2 > _numai1) then {
 } else {
 	_numbertospawn = _numai2;
 };
-if (blck_debugON) then
+if (blck_debugLevel isEqualTo 3) then
 {
 	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };

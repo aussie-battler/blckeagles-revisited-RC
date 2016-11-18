@@ -39,5 +39,5 @@ _newObjs = [];
 		clearBackpackCargoGlobal _obj;
 	};	
 } forEach _objects;
-diag_log format["_fnc_spawnBaseObjects _newObjs = %1",_newObjs];
+//diag_log format["_fnc_spawnBaseObjects _newObjs = %1",_newObjs];
 _newObjs
