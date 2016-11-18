@@ -1,5 +1,5 @@
-Blckegls mission system (BEMS) Ver 6.16
-Build 11
+Blckegls mission system (BEMS) Ver 6.44
+Build 15
 Included is an updated version of blckeagls mission system. It is based on version 2.0.2 as updated by Narines. 
 
 * Installation: Please refer to Installation.txt for a detailed description of installation  and what you need to add to BE filters.
