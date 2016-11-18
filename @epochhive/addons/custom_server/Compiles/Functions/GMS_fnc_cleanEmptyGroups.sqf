@@ -4,7 +4,7 @@
    By Ghostrider-DbD-
    11/16/16
 */
-if (blck_debugON) then
+if (_fnc_cleanEmptyGroups) then
 {
 	diag_log format ["_fnc_cleanEmptyGroups:: -- >> group count = %1 ",(count allGroups)];
 };

@@ -51,8 +51,12 @@ blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\c
 blck_fnc_spawnEmplacedWeapon = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnEmplaced.sqf";  // Self-evident
 blck_fnc_spawnVehicle = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnVehicle.sqf";            //  Spawn a temporary vehicle of a specified type at a specific position
 blck_fnc_spawnVehiclePatrol = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnVehiclePatrol.sqf";  // Spawn an AI vehicle control and have it patrol the mission perimeter
-//blck_fnc_vehicleMonitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitor.sqf";  // Process events wherein all AI in a vehicle are killed
+
+
+// Revisit
+//  *************
 //blck_fnc_spawnMissionVehicles = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionVehicles.sqf";  // Spawn non-AI vehicles at missions; these will be filled with loot following the parameters in the composition array for the mission
+//  *************
 blck_fnc_Reinforcements = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_reinforcements.sqf"; 
 blck_spawnHeliParaTroops  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_heliSpawnParatroops.sqf"; 
 blck_spawnHeliParaCrate  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_heliSpawnCrate.sqf"; 
