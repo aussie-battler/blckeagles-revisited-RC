@@ -1,10 +1,11 @@
 Blckegls mission system (BEMS) Ver 6.44
 Build 15
-Included is an updated version of blckeagls mission system. It is based on version 2.0.2 as updated by Narines. 
+Included is an updated version of blckeagls mission system. This began as an effort to fix bugs in and upgrade version 2.0.2 as updated by Narines and has now evolved to a complete reworking of almost all code. 
 
-* Installation: Please refer to Installation.txt for a detailed description of installation  and what you need to add to BE filters.
+* Installation: Please refer to Installation.txt for a detailed description of installation and what you need to add to BE filters.
+  infiSTAR Users: you may need to whitelist _MainMarker depending on your settings.
 
-* Adjusting Settings: You can adjust many features that include numbers of AI, AI Skills, AI Loadouts with weapons and consumables, and what is added to the crate.
+* Adjusting Settings: You can adjust many features that include numbers of AI, AI Skills, AI Loadouts with weapons and consumables, and what is added to the crate. See AdjustingSettings.txt and the configuration files for more details.
 	
 * Credits
 	Epoch Mod developer team.
@@ -23,7 +24,6 @@ Included is an updated version of blckeagls mission system. It is based on versi
 
 * Compatability
 	Works well with VEMF, SEM, and A3AI all running on the same server.
-	I have not tested this mission system with any other mission systems. 
 	
 * Please see the change log for a full listing of the most current changes.
 
