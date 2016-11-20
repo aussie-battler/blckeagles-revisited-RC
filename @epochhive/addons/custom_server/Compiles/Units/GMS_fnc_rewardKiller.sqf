@@ -34,9 +34,10 @@ if (_modType isEqualTo "Epoch") then
 		if (_dist < 800) then { _reward = _maxReward - (_maxReward / 2); _reward };
 		if (_dist > 800) then { _reward = _maxReward - (_maxReward / 4); _reward };
 		
-		_reward=+(_kills*2);
+		private _killstreakReward=+(_kills*2);
 		//diag_log format["fnd_rewardKiller:: _bonus returned will be %1",_reward];
-		[_killer,_reward] call blck_fnc_giveTakeCrypto;
+		[_killer,_reward + _killstreakReward] call blck_fnc_giveTakeCrypto;
+		[["showScore",[_reward,"",_kills],""],[_killer]] call blck_fnc_messageplayers;
 	};
 };
 
@@ -59,8 +60,8 @@ if (_modType isEqualTo "Exile") then
 	_killer setVariable ["ExileMoney", _money];
 	format["setAccountMoney:%1:%2", _money, (getPlayerUID _killer)] call ExileServer_system_database_query_fireAndForget;
 	_message = ["showFragRequest",_overallRespectChange];
-	//_message remoteExecCall ["ExileClient_system_network_dispatchIncomingMessage", (owner _killer)];
 	_killer call ExileServer_object_player_sendStatsUpdate;
+	[["showScore",[50,_distanceBonus,_kills]], [_killer]] call blck_fnc_messageplayers;
 };
 
 //_reward

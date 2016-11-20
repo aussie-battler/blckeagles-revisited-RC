@@ -11,6 +11,8 @@ private _index = 0;
 _timeAccelUpdated = diag_tickTime;
 _timer1min = diag_tickTime;
 _timer5min = diag_tickTime;
+_timer10Min = diag_tickTime;
+_modType = [] call blck_fnc_getModType;
 while {true} do
 {
 	uiSleep blck_mainThreadUpdateInterval;
@@ -33,16 +35,24 @@ while {true} do
 		}forEach blck_oldMissionObjects;
 		
 		[] call GMS_fnc_cleanupDeadAI;	
-		
-		if ((diag_tickTime - _timeAccelUpdated) > 300) then
-		{
-			[] call blck_fnc_timeAcceleration;
-			_timeAccelUpdated = diag_tickTime;
-		};	
-		
-		if (blck_useHC) then {[] call blck_fnc_monitorHC;};
-		[] call blck_fnc_cleanEmptyGroups;
+				
+		if (_modType isEqualTo "Epoch") then {[] call blck_fnc_cleanEmptyGroups;};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
 	};
+	
+	
+	if ((diag_tickTime - _timer5min) > 300) then {
+		[] call blck_fnc_timeAcceleration;
+		if (blck_useHC) then {[] call blck_fnc_monitorHC;};
+		_timer5min = diag_tickTime;
+	};
+	
+	/*
+	if ((diag_tickTime - _timer10Min) > 600) then
+	{
+		// Reserved for future use
+		_timer10Min = diag_tickTime;
+	};
+	*/
 	/*
 	{
 		if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned

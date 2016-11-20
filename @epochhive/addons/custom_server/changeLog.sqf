@@ -4,6 +4,9 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+11/20/16 Build 6.45 Build 16
+Added Option to display mission information in Toasts (Exile Only).
+
 11/16/16 Version 6.44 Build 15
 Added parameters
 	blck_blacklistTraderCities=true; // the locations of the Epoch/Exile trader cities will be pulled from the config and added to the location blacklist for the mission system.
