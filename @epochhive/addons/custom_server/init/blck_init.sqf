@@ -29,7 +29,7 @@ blck_functionsCompiled = nil;
 diag_log format["[blckeagls] debug mode settings:blck_debugON = %1",blck_debugON];
 
 private["_modType"];
-_modType = [] call blck_getModType;
+_modType = [] call blck_fnc_getModType;
 
 if (_modType isEqualTo "Epoch") then
 {
