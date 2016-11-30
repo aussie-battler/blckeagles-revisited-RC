@@ -29,7 +29,7 @@ _addonsExile = [
 _fnc_runIt = 
 {
 	params["_addons"];
-	if (blck_debugON) then {diag_log format["[blckeagls] MapAddons:: addons list is %1",_addons];};
+	//if (blck_debugON) then {diag_log format["[blckeagls] MapAddons:: addons list is %1",_addons];};
 	_worldName = toLower (worldName);
 	{
 		if (toLower format["%1",_x select 0] isEqualTo _worldName) then
