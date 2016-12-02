@@ -4,8 +4,9 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-11/20/16 Build 6.45 Build 16
+11/20/16 Build 6.45 Build 17
 Added Option to display mission information in Toasts (Exile Only).
+Fixed an issue related to bugs in Arma 1.66
 
 11/16/16 Version 6.44 Build 15
 Added parameters
