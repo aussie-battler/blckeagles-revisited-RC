@@ -102,7 +102,7 @@ _fn_playerWithinRange = {
 	{
 		if (isPlayer _x and _x distance _pos <= blck_TriggerDistance) then {_return = true};
 		
-	}forEach playableunits;
+	}forEach allPlayers;  // bug fix for arma 1.66 in which playableunits is broken
 	_return;
 };
 
