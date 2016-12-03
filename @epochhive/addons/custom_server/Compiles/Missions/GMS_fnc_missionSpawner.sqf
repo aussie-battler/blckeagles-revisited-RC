@@ -102,7 +102,7 @@ _fn_playerWithinRange = {
 	{
 		if (isPlayer _x and _x distance _pos <= blck_TriggerDistance) then {_return = true};
 		
-	}forEach allPlayers;  // bug fix for arma 1.66 in which playableunits is broken
+	}forEach allPlayers;  // playableunits;  changed for Arma 1.66
 	_return;
 };
 
@@ -420,7 +420,7 @@ if (_playerInRange) then
 			_missionComplete = 1;
 		} else {
 			if (_endIfPlayerNear) then {
-				if ( { (isPlayer _x) && ([_x,_locations,20] call blck_fnc_playerInRange) && (vehicle _x == _x) } count playableunits > 0) then {
+				if ( { (isPlayer _x) && ([_x,_locations,20] call blck_fnc_playerInRange) && (vehicle _x == _x) } count allPlayers > 0) then {
 					_missionComplete = 1;
 				};
 			};
