@@ -4,6 +4,26 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+12/4-16 Version 6.45 Build 19
+Added Option to display mission information in Toasts (Exile Only).
+Fixed several issues related to the update to Arma 1.66
+Known Issues: Need a patch so you can loot AI bodies in Epoch.
+
+11/16/16 Version 6.44 Build 15
+Added parameters
+	blck_blacklistTraderCities=true; // the locations of the Epoch/Exile trader cities will be pulled from the config and added to the location blacklist for the mission system.
+	blcklistConcreteMixerZones = true; // Locations of the concrete mixers will be pulled from the configs; no missions will be spawned within 1000 m of these locations.
+	blck_blacklistSpawns = true; // Locations of Exile spawns will be pulled from the config. No missions will spawn within 1000 m of these locations.
+Added: the main thread now runs a function that checks for empty groups. 
+Fixed: The mission system would hang on epoch after a while because createGroup returned nullGroup. this appeared to occur because the maximum number of active groups had been reached. Deleting empty groups periodically solved the issue on a test machine.
+Teaked: code to check whether a possible mission spawn location is near a flag or plot pole. Still needs work.
+Added: Completed adding EDEN weapons, optics, bipods, optics to AI configurations and mission loot crates.
+Added APEX headgear and uniforms.  (Note, you would need to add any of these you wished for players to sell to Epoch\<Map Name>\epoch_config\CfgPricing.hpp on Epoch)
+Changed: Definitions of blacklist locations such as spawns moved from GMS_findWorld.sqf to the blck_configs_(epoch|exile).
+Changed: Divided rifles and optics into subcategories to better enable assigning weapons to AI difficulties in a sort of class-based way, e.g., 556, 6.5, or LMG are separate classes.
+Changed: DLS crate loader (not publically available yet) now uses blck_fnc_loadLootItemsFromArray rather than the prior approach for which specific crate loading functions were called depending on the loadout type (weapons, building supplies, foord etc).
+Fixed: You can now loot AI bodies in Epoch.
+
 11/16/16 Version 6.44 Build 15
 Added parameters
 	blck_blacklistTraderCities=true; // the locations of the Epoch/Exile trader cities will be pulled from the config and added to the location blacklist for the mission system.

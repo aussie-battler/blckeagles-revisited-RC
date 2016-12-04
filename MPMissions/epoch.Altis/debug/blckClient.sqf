@@ -1,6 +1,6 @@
 ////////////////////////////////////////////
 // Start Server-side functions and Create, Display Mission Messages for blckeagls mission system for Arma 3 Epoch
-// Last Updated 8/14/16
+// Last Updated 11/20/16
 // by Ghostrider-DbD-
 //////////////////////////////////////////
 
@@ -8,10 +8,11 @@ if (hasInterface) then
 {
 	//diag_log "[blckeagls] initializing client variables";
 	blck_MarkerPeristTime = 300;  
-	blck_useHint = true;
+	blck_useHint = false;
 	blck_useSystemChat = true;
-	blck_useTitleText = true;
-	blck_useDynamic = false;
+	blck_useTitleText = false;
+	blck_useDynamic = true;
+	blck_useToast = false;  // Exile only
 	blck_aiKilluseSystemChat = true;
 	blck_aiKilluseDynamic = false;
 	blck_aiKilluseTitleText = false;
@@ -19,6 +20,34 @@ if (hasInterface) then
 	blck_processingKill = -1;
 	blck_message = "";
 
+	fn_killScoreNotification = {
+		params["_bonus","_distanceBonus","_killStreak"];
+		//diag_log format["fn_killScoreNotification::  --  >> _bonus = %1 | _distanceBonus = %2 | _killStreak = %3",_bonus,_distanceBonus,_killStreak];
+		_msg2 = format["<t color ='#7CFC00' size = '1.4' align='right'>AI Killed</t><br/>"];
+		if (typeName _bonus isEqualTo "SCALAR") then // add message for the bonus
+		{
+			if (_bonus > 0) then 
+			{
+				_msg2 = _msg2 + format["<t color = '#7CFC00' size ='1.4' align='right'>Bonus <t color = '#ffffff'>+%1<br/>",_bonus];
+			};
+		};
+		if (typeName _distanceBonus isEqualTo "SCALAR") then // Add message for distance bonus
+		{
+			if (_distanceBonus > 0) then
+			{
+				_msg2 = _msg2 + format["<t color = '#7CFC00' size = '1.4' align = 'right'>Dist Bonus<t color = '#ffffff'> +%1<br/>",_distanceBonus];
+			};
+		};
+		if (typeName _killStreak isEqualTo "SCALAR") then
+		{
+			if (_killStreak > 0) then
+			{
+				_msg2 = _msg2 + format["<t color = '#7CFC00' size = '1.4' align = 'right'>Killstreak <t color = '#ffffff'>%1X<br/>",_killStreak];
+			};
+		};
+		[parseText _msg2,[0.0823437 * safezoneW + safezoneX,0.379 * safezoneH + safezoneY,0.0812109 * safezoneW,0.253 * safezoneH], nil, 7, 0.3, 0] spawn BIS_fnc_textTiles;	
+	};
+	
 	fn_dynamicNotification = {
 			private["_text","_screentime","_xcoord","_ycoord"];
 			params["_mission","_message"];
@@ -61,12 +90,13 @@ if (hasInterface) then
 				titleText [_msg, "PLAIN DOWN",5];uiSleep 5; titleText ["", "PLAIN DOWN",5]
 			};
 		};
+		if (blck_useToast) then
+		{
+			["InfoTitleAndText", [_mission, _message]] call ExileClient_gui_toaster_addTemplateToast;
+		};		
 		//diag_log format["_fn_missionNotification ====]  Paremeters _event %1  _message %2 _mission %3",_event,_message,_mission];
 	};
 
-	fn_reinforcementsNotification = {
-	
-	};
 	fn_AI_KilledNotification = {
 		private["_message","_text","_screentime","_xcoord","_ycoord"];
 		_message = _this select 0;
@@ -92,9 +122,10 @@ if (hasInterface) then
 	fn_handleMessage = {
 		//private["_event","_msg","_mission"];
 		diag_log format["blck_Message ====]  Paremeters = _this = %1",_this];
-		params["_event","_message","_mission"];
+		params["_event","_message",["_mission",""]];
 
 		diag_log format["blck_Message ====]  Paremeters _event %1  _message %2 paramter #3 %3",_event,_message,_mission];
+		diag_log format["blck_Message ====] _message isEqualTo  %1",_message];
 		
 		switch (_event) do 
 		{
@@ -128,8 +159,14 @@ if (hasInterface) then
 					};
 			case "IED":
 					{
-						["IED","Bandits targeted your vehicle with an IED"] call fn_dynamicNotification;
+						[1] call BIS_fnc_Earthquake;
+						//["IED","Bandits targeted your vehicle with an IED"] call fn_dynamicNotification;
+						  ["Bandits targeted your vehicle with an IED.", 5] call Epoch_message;
 						for "_i" from 1 to 3 do {playSound "BattlefieldExplosions3_3D";uiSleep 0.3;};
+					};
+			case "showScore":
+					{
+						[_message select 0, _message select 1, _message select 2] call fn_killScoreNotification;
 					};
 		};
 
