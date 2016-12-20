@@ -18,7 +18,7 @@ while {true} do
 	uiSleep blck_mainThreadUpdateInterval;
 	if ((diag_tickTime - _timer1min) > 60) then
 	{
-
+		
 		{
 			if (diag_tickTime > (_x select 1) ) then {
 				//diag_log format["_fnc_mainTread:: cleaning up AI group %1",_x];
@@ -37,11 +37,15 @@ while {true} do
 		[] call GMS_fnc_cleanupDeadAI;	
 				
 		if (_modType isEqualTo "Epoch") then {[] call blck_fnc_cleanEmptyGroups;};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
+		_timer1min = diag_tickTime;
 	};
 	
 	
-	if ((diag_tickTime - _timer5min) > 300) then {
-		[] call blck_fnc_timeAcceleration;
+	if ((diag_tickTime - _timer5min) > 180) then {
+		if (blck_timeAcceleration) then {
+			if (blck_debugON) then {diag_log "[blckeagls] calling time acceleration module";};
+			[] call blck_fnc_timeAcceleration;
+		};
 		if (blck_useHC) then {[] call blck_fnc_monitorHC;};
 		_timer5min = diag_tickTime;
 	};

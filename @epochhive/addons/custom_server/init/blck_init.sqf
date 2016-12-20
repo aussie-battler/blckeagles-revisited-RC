@@ -13,7 +13,13 @@ _blck_loadingStartTime = diag_tickTime;
 diag_log format["[blckeagls] Loading version %1 Build %2",_blck_versionDate,_blck_version];
 
 // spawn map addons to give the server time to position them before spawning in crates etc.
-call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
+if (blck_spawnMapAddons) then
+{
+	call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
+}else{
+	diag_log "[blckegls] Map Addons disabled";
+};
+blck_spawnMapAddons = nil;
 
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
@@ -68,6 +74,19 @@ diag_log format["[blckeagls] version %1 Build %2 for mod = %3 Loaded in %4 secon
 diag_log format["blckeagls] waiting for players to join ----    >>>>"];
 waitUntil{{isPlayer _x}count playableUnits > 0};
 diag_log "[blckeagls] Player Connected, loading mission system";
+
+if (blck_spawnStaticLootCrates) then
+{
+	blck_SLSComplete = false;
+	// Start the static loot crate spawner
+	[] execVM "\q\addons\custom_server\SLS\SLS_init.sqf";
+	waitUntil {(isNil "blck_SLSComplete") isEqualTo false;};
+	waitUntil{blck_SLSComplete};
+	blck_SLSComplete = nil;
+}else{
+	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
+};
+blck_spawnStaticLootCrates = nil;
 
 //Start the mission timers
 
