@@ -4,24 +4,27 @@
 // Creds to AWOL, A3W, LouD and Creampie for insights.
 
 if (!isServer) exitWith {};
-private["_startTime"];
-_startTime = diag_tickTime;
-_world = toLower format ["%1", worldName];
-private["_nightAccel","_dayAccel","_duskAccel"];
-switch (_world) do {
-	case "altis":{_nightAccel = 3;_dayAccel=0.5; _duskAccel = 3;};
-	case "napf":{_nightAccel = 12; _dayAccel = 2;_duskAccel = 6;};
-	case "namalsk":{_nightAccel = 12; _dayAccel = 2;_duskAccel = 6;};
-	case "tanoa":{_nightAccel = 12; _dayAccel = 3.2;_duskAccel = 6;};
-};
 
-switch (sunOrMoon) do {
-		// Nighttime
-		case {sunOrMoon < 0.1}: {setTimeMultiplier _nightAccel; diag_log format["time accel updated to %1; sunOrMoon = %2; time of day = %3",_nightAccel,sunOrMoon,dayTime];};
-		// Daylight
-		case {sunOrMoon > 0.5}: {setTimeMultiplier _dayAccel;diag_log format["time accel updated to %1; sunOrMoon = %2; time of day = %3",_dayAccel,sunOrMoon,dayTime];};
-		// Dusk
-		default {setTimeMultiplier _duskAccel;diag_log format["time accel updated to %1; sunOrMoon = %2; time of day = %3",_duskAccel,sunOrMoon,dayTime];};
-	};
+/*
+	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_timeAccelerationDay = 1;  // Daytime time accelearation
+	blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
+	blck_timeAccelerationNight = 6;  // Nighttim time acceleration
+*/
+private ["_arr","_sunrise","_sunset","_time"];
+_arr = date call BIS_fnc_sunriseSunsetTime;
+_sunrise = _arr select 0;
+_sunset = _arr select 1;
+_time = dayTime;
+diag_log format["_fnc_Time::  -- > _sunrise = %1 | _sunset = %2 | _time = %3",_sunrise,_sunset,_time];
+
+// Night
+if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {setTimeMultiplier blck_timeAccelerationNight; diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];};
+
+// Day
+if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {setTimeMultiplier blck_timeAccelerationDay; diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];};
+
+// default
+setTimeMultiplier blck_timeAccelerationDusk; diag_log format["DUSK ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 
 
