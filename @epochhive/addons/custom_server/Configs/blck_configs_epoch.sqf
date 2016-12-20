@@ -7,6 +7,22 @@ Last modified 8/1/15
 
 	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_epoch.sqf";};
 
+	/*
+		Configuration for Addons that support the overall Mission system.
+		These are a module to spawn map  addons generated with the Eden Editor
+		And a moduel to spawn static loot crates at specific location
+		A time acceleration module.
+	*/
+	
+	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	
+	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
+	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_timeAccelerationDay = 1;  // Daytime time accelearation
+	blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
+	blck_timeAccelerationNight = 6;  // Nighttim time acceleration	
+	
 	//blck_configsLoaded = false;
 	/**************************************************************
 	
