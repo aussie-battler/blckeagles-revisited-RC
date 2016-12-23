@@ -4,9 +4,8 @@
 
 private["_emplaced","_safepos","_emp","_gunner"];
 params["_pos","_emplacedGroup","_emplacedTypes",["_minDist",20],["_maxDist",35] ];
-
-if (isNull _emplacedGroup) exitWith {};
-	
+if (isNull _emplacedGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnEmplaced"; objNull;};
+diag_log format["_fnc_spawnEmplacedGroup::  -- >> _emplacedGroup = %1",_emplacedGroup];	
 _safepos = [_pos,_minDist,_maxDist,0,0,20,0] call BIS_fnc_findSafePos;
 _emplaced = selectRandom _emplacedTypes; 
 _emp = [_emplaced,_safepos] call blck_fnc_spawnVehicle;

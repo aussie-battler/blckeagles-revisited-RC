@@ -6,12 +6,12 @@
 */
 
 params["_mission","_status",["_coords",[0,0,0]] ];
-//diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];
+diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];
 {
 	if (_mission isEqualTo (_x select 2)) exitWith
 	{
 		private _element = _x;
-		//diag_log format ["_fnc_updateMissionQue :: _element = %1",_element];
+		diag_log format ["_fnc_updateMissionQue :: _element = %1",_element];
 		blck_pendingMissions = blck_pendingMissions - _element;
 		if (toLower(_status) isEqualTo "active") then {
 			_element set[6, -1];
@@ -23,9 +23,9 @@ params["_mission","_status",["_coords",[0,0,0]] ];
 			_element set[6, _waitTime];
 			_element set [7,[0,0,0]];
 		};
-		//diag_log format["_fnc_updateMissionQue::  -- >> _element updated from %1 to %2",_x,_element];
+		diag_log format["_fnc_updateMissionQue::  -- >> _element updated from %1 to %2",_x,_element];
 		blck_pendingMissions pushback _element;
-		//diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions updated to %1",blck_pendingMissions];
+		diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions updated to %1",blck_pendingMissions];
 	};
 }forEach blck_pendingMissions;
 

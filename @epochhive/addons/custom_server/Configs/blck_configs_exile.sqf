@@ -96,8 +96,6 @@ Last modified 8/1/15
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-	blck_enableHunterMissions = 1;
-	blck_enableScoutsMissions = 1;
 
 	// AI VEHICLE PATROL PARAMETERS
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
@@ -129,26 +127,15 @@ Last modified 8/1/15
 	blck_TMin_Green = 200;
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
-	blck_TMin_Hunter = 120;
-	blck_TMin_Scouts = 115;
-	blck_TMin_Crashes = 115;
-	blck_TMin_UMS = 200;
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
 	blck_TMax_Green = 300;
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
-	blck_TMax_Hunter = 200;
-	blck_TMax_Scouts = 200;
-	blck_TMax_Crashes = 200;
-	blck_TMax_UMS = 280;
 	
 	blck_MissionTimout = 40*60;  // 40 min
 
-	// Define the maximum number of crash sites on the map at any one time
-	blck_maxCrashSites = 3;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
-	blck_maxDynamicUnderwaterMissions = 3;
 	/****************************************************************
 	
 	GENERAL AI SETTINGS
