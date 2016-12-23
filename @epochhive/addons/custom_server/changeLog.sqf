@@ -4,6 +4,14 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+12/21/16 Version 6.50 Build 21
+Added a check for mod type to the routine that deletes empty groups as this is only needed for Epoch.
+Added back the code that (a) eliminates the mission timers and (b) allows multiple instances of a mission to be spawned.
+
+12/20/16 Version 6.46 Buid 20
+Moved Variables for time acceleration to the config files.
+Reworked code for time acceleration to use timeDay and BIS_fnc_sunriseSunsetTime.
+
 11/20/16 Build 6.45 Build 19
 Added Option to display mission information in Toasts (Exile Only).
 Fixed an issue related to bugs in Arma 1.66

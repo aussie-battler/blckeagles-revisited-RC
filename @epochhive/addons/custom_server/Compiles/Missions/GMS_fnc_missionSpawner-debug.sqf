@@ -24,7 +24,7 @@ _aiDifficultyLevel = _this select 2; // "blue","red","green" and "orange"
 waitUntil {blck_missionSpawning isEqualTo false};
 blck_missionSpawning = true;
 
-diag_log format["[blckeagls] missionSpawner:: Initializing mission: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+diag_log format["[blckeagls] missionSpawner:: INITIALIZING USING MISSION PARAMETERS mission: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
 
 private["_chanceHeliPatrol","_noPara","_reinforcementLootCounts","_chanceLoot"];
 if (isNil "_chanceReinforcements") then
@@ -35,7 +35,7 @@ if (isNil "_chanceReinforcements") then
 	_chanceHeliPatrol = 0;
 	_chanceLoot = 0;
 };
-private["_timeOut","_blck_AllMissionAI"]; // _timeOut is the time in seconds after which a mission is deactivated.
+private["_timeOut"]; // _timeOut is the time in seconds after which a mission is deactivated.
 if (isNil "_markerColor") then {_markerColor = "ColorBlack"};
 if (isNil "_markerType") then {_markerType = ["mil_box",[]]};
 if (isNil "_timeOut") then {_timeOut = -1;};
@@ -57,12 +57,11 @@ else
 	//diag_log "missionSpawner:: Mission specific values used for _reinforcementLootCounts";
 };
 
-if (blck_debugON) exitWith {
-	diag_log format["[blckEagle] Mission Reinforcement Parameters: changeReinforcements %1 numAI %2  changePatrol %3  chanceLoot %4",_chanceReinforcements,_noPara,_chanceHeliPatrol,_chanceLoot];
-	[_blck_localMissionMarker select 0,"Completed"] call blck_fnc_updateMissionQue;
+if (blck_debugON) then {
+	diag_log format["(2) [blckEagle] REINFORCEMENT PARAMETERS: Mission Reinforcement Parameters for missionType %5: changeReinforcements %1 numAI %2  changePatrol %3  chanceLoot %4",_chanceReinforcements,_noPara,_chanceHeliPatrol,_chanceLoot,_missionType];
 };
 
-private["_useMines","_abortMissionSpawner","_blck_AllMissionAI","_delayTime","_groupPatrolRadius"];
+private["_useMines"];
 if (isNil "_useMines") then {_useMines = blck_useMines; /*diag_log "[blckEagles] Using default setting for _useMines";*/};
 
 _objects = [];
@@ -75,14 +74,6 @@ _AI_Vehicles = [];
 _blck_localMissionMarker = [_missionType,_coords,"","",_markerColor,_markerType];
 _delayTime = 1;
 _groupPatrolRadius = 50;
-_abortMissionSpawner = false;
-
-if ((_noEmplacedWeapons + _noAIGroups + _noVehiclePatrols + ([] call blck_fnc_groupsOnAISide)) > 140) then {
-	// There are insufficient groups available within the 144 group per side maximum to spawn the entire mission
-	// Log the Error Condition
-	diag_log format["[blckeagls] ERROR CONDITION: Mission spawner aborted. Insufficient groups available to spawn entire mission | %1 groups used", [] call blck_fnc_groupsOnAISide];
-	
-}; // max groups per side = 144; leave a safety factor of 4 groups.
 
 if (blck_labelMapMarkers select 0) then
 {
@@ -95,7 +86,7 @@ if !(blck_preciseMapMarkers) then
 	_blck_localMissionMarker set [1,[_coords,75] call blck_fnc_randomPosition];
 };
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
-[["start",_startMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
+["start",_startMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
 [_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
 
 _fn_timedOut = {
@@ -111,12 +102,8 @@ _fn_playerWithinRange = {
 	{
 		if (isPlayer _x and _x distance _pos <= blck_TriggerDistance) then {_return = true};
 		
-	}forEach allPlayers;  // playableunits;  changed for Arma 1.66
+	}forEach playableunits;
 	_return;
-};
-
-_fnc_abortMissionSpawner = {
-
 };
 
 uiSleep 1;
@@ -126,42 +113,46 @@ uiSleep 1;
 ////////////////////////////
 blck_missionSpawning = false;
 
-//diag_log "missionSpawner:: waiting for player to trigger the mission";
+if (DBD_debugON) then {diag_log format["missionSpawner:: WAITING FOR PLAYER to trigger the mission for missionType %1",_missionType];};
+
 private["_wait","_missionStartTime","_playerInRange","_missionTimedOut"];
 _missionStartTime = diag_tickTime;
 _playerInRange = false;
 _missionTimedOut = false;
 _wait = true;
+
 while {_wait} do
 {
-	if (blck_debugLevel isEqualTo 3) then
+	uiSleep 1;
+	if ([_coords] call _fn_playerWithinRange) then
 	{
 		_wait = false;
 		_playerInRange = true;
-	} else {		
-		if ([_coords] call _fn_playerWithinRange) then
+	} else
+	{
+		if ( (diag_tickTime - _missionStartTime) > blck_MissionTimout ) then
 		{
 			_wait = false;
-			_playerInRange = true;
-		} else
-		{
-			if ((diag_tickTime - _missionStartTime) > blck_MissionTimout) then
+			_missionTimedOut = true;
+		} else {
+			if (blck_debugLevel == 3) then 
 			{
-				_wait = false;
-				_missionTimedOut = true;
+				sleep 120; 
+				_wait = false; 
+				_playerInRange = true; 
+				diag_log format["(3) _fnc_missionSpawner:: -->> ACTIVATION Mission of missionType %1 activated based on blck_debugLevel == 3",_missionType];
 			};
 		};
-		uiSleep 1;
 	};
 };
 //waitUntil{ { (isPlayer _x && _x distance _coords <= blck_TriggerDistance /*&& vehicle _x == _x*/) || ([_missionStartTime] call _fn_timedOut) } count playableunits > 0 };
 
 if (blck_debugON) then
 {
-	diag_log format["missionSpawner:: Mission Triggerred contition playerInRange %1 and timout = %2",_playerInRange, _missionTimedOut];
+	diag_log format["missionSpawner:: MISSION TRIGGER contition _missionType = %4 and  playerInRange %1 and timout = %2 and blck_debugLevel = %3",_playerInRange, _missionTimedOut,blck_debugLevel,_missionType];
 };
 
-if (!_playerInRange && _missionTimedOut) exitWith
+if (_missionTimedOut) exitWith
 {
 	//["timeOut",_endMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";
@@ -174,7 +165,7 @@ if (!_playerInRange && _missionTimedOut) exitWith
 	};
 };
 
-if (_playerInRange) then
+if (_playerInRange || blck_debugLevel == 3) then
 {
 	if (blck_debugON) then
 	{		diag_log format["[blckeagls] missionSpawner:: --  >>  Mission tripped by nearby player: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
@@ -189,11 +180,11 @@ if (_playerInRange) then
 		_crates = [_coords,[[selectRandom blck_crateTypes /*"Box_NATO_Wps_F"*/,[0,0,0],_crateLoot,_lootCounts]]] call blck_fnc_spawnMissionCrates;
 		
 	};
-	//_objects append _crates;
+	_objects = _objects + _crates;
 	
 	if (blck_debugON) then
 	{
-		diag_log format["[blckeagls] missionSpawner:: Crates Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+		diag_log format["[blckeagls] missionSpawner:: CRATES SPAWNED: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
 	};
 	
 	uiSleep _delayTime;
@@ -202,8 +193,7 @@ if (_playerInRange) then
 	{
 		private ["_temp"];
 		_temp = [_coords,blck_SmokeAtMissions select 1] call blck_fnc_smokeAtCrates;
-		_objects append _temp;
-		_temp = nil;
+		_objects = _objects + _temp;
 	};
 	uiSleep _delayTime;
 	if (_useMines) then
@@ -213,20 +203,16 @@ if (_playerInRange) then
 		uiSleep _delayTime;;
 	};
 	uiSleep _delayTime;
-	_obj = [];
+
 	if (_missionLandscapeMode isEqualTo "random") then
 	{
-		_obj = [_coords,_missionLandscape, 3, 15, 2] call blck_fnc_spawnRandomLandscape;
+		_objects = [_coords,_missionLandscape, 3, 15, 2] call blck_fnc_spawnRandomLandscape;
 	} else {
-		_obj = [_coords, floor(random(360)),_missionLandscape,true] call blck_fnc_spawnCompositionObjects;
+		_objects = [_coords, round(random(360)),_missionLandscape,true] call blck_fnc_spawnCompositionObjects;
 	};
-	//diag_log format["_fnc_missionSpawner::->> _obj = %1",_obj];
-	_objects append _obj;
-	//diag_log format["_fnc_missionSpawner::->> _objects = %1",_objects];
-	_obj= nil;
 	if (blck_debugON) then
 	{
-		diag_log format["[blckeagls] missionSpawner:: Landscape spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+		diag_log format["[blckeagls] missionSpawner:: LANDSCAPE SPAWNED: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
 	};
 	
 	uiSleep _delayTime;;
@@ -241,9 +227,9 @@ if (_playerInRange) then
 			_vehs pushback _veh;
 			[_veh,_x select 2 /*loot array*/, _x select 3 /*array of values specifying number of items of each loot type to load*/] call blck_fnc_fillBoxes;
 		}forEach _missionLootVehicles;
-		
+		uiSleep _delayTime;
 	};
-	uiSleep _delayTime;
+
 	if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 	{
 		private["_static","_count"];
@@ -263,136 +249,28 @@ if (_playerInRange) then
 		//diag_log format["missionSpawner:: _emplacedPositions = %1",_emplacedPositions];
 		{
 			_emplacedGroup = [_x,1,1,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
-			if !(isNull _emplacedGroup) then
-			{
-				_blck_AllMissionAI = _blck_AllMissionAI + (units _emplacedGroup);
-				_emplacedWeapon = [_x,_emplacedGroup,blck_staticWeapons,5,15] call  blck_fnc_spawnEmplacedWeapon;
-				_missionAIVehicles pushback _emplacedWeapon;
-				uiSleep _delayTime;
-			} exitWith {
-				_abortMissionSpawner = true;
-			};
+			//_emplacedUnits = units _emplacedGroup;
+			_blck_AllMissionAI = _blck_AllMissionAI + (units _emplacedGroup);
+			_emplacedWeapon = [_x,_emplacedGroup,blck_staticWeapons,5,15] call  blck_fnc_spawnEmplacedWeapon;
+			_missionAIVehicles pushback _emplacedWeapon;
+			uiSleep _delayTime;
 		}forEach _emplacedPositions;
 		//diag_log format["missionSpawner:: emplaced weapons data: _AI_Vehicles %1  _blck_AllMissionAI %1",_AI_Vehicles,_blck_AllMissionAI];
 		if (blck_debugON) then
 		{
-			diag_log format["[blckeagls] missionSpawner:: Static Weapons Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+			diag_log format["[blckeagls] missionSpawner:: STATIC WEAPONS SPAWNED: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
 		};
 	};
-	uiSleep _delayTime;
+
 	//diag_log format["_fnc_missionSpawner:: after adding any static weapons, _blck_AllMissionAI is %1",_blck_AllMissionAI];
-	
-	//diag_log format["_fnc_missionSpawner:: after adding any vehicle patrols, _blck_AllMissionAI is %1",_blck_AllMissionAI];
-	//diag_log format["missionSpawner::  _noAIGroups = %1; spawning AI Groups now",_noAIGroups];
-	uiSleep _delayTime;
-	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup"];
-	_unitsToSpawn = round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
-	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
-	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
-	//diag_log format["missionSpawner:: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
-	switch (_noAIGroups) do
-	{
-		case 1: {  // spawn the group near the mission center
-				//params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,3,18,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				if !(isNull _newGroup) then
-				{
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=1 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
-				} else {
-					_abortMissionSpawner = true;
-				};
-			 };
-		case 2: {
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=2"];  // spawn groups on either side of the mission area
-				_groupLocations = [_coords,_noAIGroups,15,30] call blck_fnc_findPositionsAlongARadius;
-				{
-					private["_adjusttedGroupSize"];
-					if (_ResidualUnits > 0) then
-					{
-						_adjusttedGroupSize = _unitsPerGroup + _ResidualUnits;
-						_ResidualUnits = 0;
-					} else {
-						_adjusttedGroupSize = _unitsPerGroup;
-					};
-					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-					if (isNull _newGroup) exitWith {_abortMissionSpawner = true;};
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning 2 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI];
-				}forEach _groupLocations;
-
-			};
-		case 3: { // spawn one group near the center of the mission and the rest on the perimeter
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3"];
-				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				if (isNull _newGroup) then {_abortMissionSpawner = true;} else 
-				{
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
-					_groupLocations = [_coords,2,20,35] call blck_fnc_findPositionsAlongARadius;
-					{
-						_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-						if (isNull _newGroup) exitWith {_abortMissionSpawner = true;};
-						_newAI = units _newGroup;
-						_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-						//diag_log format["missionSpawner: Spawning 2 Groups:_newGroup=%1  _newAI = %2",_newGroup, _newAI];
-					}forEach _groupLocations;
-				};
-			};
-		default {  // spawn one group near the center of the mission and the rest on the perimeter
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=default"];
-				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				_newAI = units _newGroup;
-				_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=%3 _newGroup=%1 _newAI = %2",_newGroup, _newAI,_noAIGroups];
-				_groupLocations = [_coords,(_noAIGroups - 1),20,40] call blck_fnc_findPositionsAlongARadius;
-				{
-					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-					if (isNull _newGroup) exitWith {_abortMissionSpawner = true;};
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning %3 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI,_noAIGroups];
-				}forEach _groupLocations;
-			};
-	};
-	uiSleep _delayTime;
-	if (blck_debugON) then
-	{
-		diag_log format["[blckeagls] missionSpawner:: AI Patrols Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
-	};
-	
-	if ((random(1) < _chanceReinforcements)) then
-	{
-		_weaponList = blck_WeaponList_Red;
-
-		switch (_aiDifficultyLevel) do {
-			case "blue": {_weaponList = blck_WeaponList_Blue;};
-			case "red": {_weaponList = blck_WeaponList_Red;};
-			case "green": {_weaponList = blck_WeaponList_Green;};
-			case "orange": {_weaponList = blck_WeaponList_Orange;};
-			default {_weaponList = blck_WeaponList_Blue;};
-		};
-
-		diag_log format["[blckeagls] missionSpawner:: calling in reinforcements: Current mission: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
-		[] spawn {
-			//[_coords,_noPara,_aiDifficultyLevel,_chanceLoot,_reinforcementLootCounts,_weaponList,_uniforms,_headgear,_chanceHeliPatrol] call blck_fnc_Reinforcements;
-			//waitUntil {_grpReinforcements != grpNull};
-			//diag_log format["[blckeagls] missionSpawner::reinforcement spawner started: Current mission: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
-		};
-	};
-	
 	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 	{
 		private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns"];
 		_vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
-		//diag_log format["missionSpawner:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
+		diag_log format["missionSpawner:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
 		//for "_i" from 1 to _noVehiclePatrols do
 		{
 			_vehGroup = [_x,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
-			if (isNull _vehGroup) exitWith {_abortMissionSpawner = true;};
 			//diag_log format["missionSpawner:: group for AI Patrol vehicle spawn: group is %1 with units of %2",_vehGroup, units _vehGroup];
 			_blck_AllMissionAI = _blck_AllMissionAI + (units _vehGroup);
 			_randomVehicle = blck_AIPatrolVehicles call BIS_fnc_selectRandom;
@@ -407,25 +285,110 @@ if (_playerInRange) then
 		uiSleep _delayTime;
 		if (blck_debugON) then
 		{
-			diag_log format["[blckeagls] missionSpawner:: Vehicle Patrols Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+			diag_log format["[blckeagls] missionSpawner:: VEHICLE PATROLS SPAWNED: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
 		};
-	};	
-	
-	if (_abortMissionSpawner) then
-	{
-		// discard everything
-		{deleteVehicle _x} forEach _objects;
-		{deleteVehicle _x} forEach _mines;
-		{deleteVehicle _x} forEach _crates;
-		{deleteVehicle _x} forEach _blck_AllMissionAI;
-		{deleteVehicle _x} forEach _AI_Vehicles;
-		// set the mission status to waiting
-		[_blck_localMissionMarker select 0,"Completed"] call blck_fnc_updateMissionQue;
-		uiSleep 1;
-		// delete any empty groups left over from the cleanup.
-		[] call blck_fnc_cleanEmptyGroups;
-		
 	};
+	//diag_log format["_fnc_missionSpawner:: after adding any vehicle patrols, _blck_AllMissionAI is %1",_blck_AllMissionAI];
+	//diag_log format["missionSpawner::  _noAIGroups = %1; spawning AI Groups now",_noAIGroups];
+
+	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup"];
+	_unitsToSpawn = round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
+	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
+	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
+	//diag_log format["missionSpawner:: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
+	switch (_noAIGroups) do
+	{
+		case 1: {  // spawn the group near the mission center
+			//params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
+			_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,3,18,_uniforms,_headGear] call blck_fnc_spawnGroup;
+			 _newAI = units _newGroup;
+			 _blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+			 //diag_log format["missionSpawner: Spawning Groups: _noAIGroups=1 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
+			 };
+		case 2: {
+				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=2"];  // spawn groups on either side of the mission area
+				_groupLocations = [_coords,_noAIGroups,15,30] call blck_fnc_findPositionsAlongARadius;
+				{
+					private["_adjusttedGroupSize"];
+					if (_ResidualUnits > 0) then
+					{
+						_adjusttedGroupSize = _unitsPerGroup + _ResidualUnits;
+						_ResidualUnits = 0;
+					} else {
+						_adjusttedGroupSize = _unitsPerGroup;
+					};
+					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+					_newAI = units _newGroup;
+					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+					//diag_log format["missionSpawner: Spawning 2 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI];
+				}forEach _groupLocations;
+
+			};
+		case 3: { // spawn one group near the center of the mission and the rest on the perimeter
+				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3"];
+				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				_newAI = units _newGroup;
+				_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
+				_groupLocations = [_coords,2,20,35] call blck_fnc_findPositionsAlongARadius;
+				{
+					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+					_newAI = units _newGroup;
+					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+					//diag_log format["missionSpawner: Spawning 2 Groups:_newGroup=%1  _newAI = %2",_newGroup, _newAI];
+				}forEach _groupLocations;
+
+			};
+		default {  // spawn one group near the center of the mission and the rest on the perimeter
+				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=default"];
+				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				_newAI = units _newGroup;
+				_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=%3 _newGroup=%1 _newAI = %2",_newGroup, _newAI,_noAIGroups];
+				_groupLocations = [_coords,(_noAIGroups - 1),20,40] call blck_fnc_findPositionsAlongARadius;
+				{
+					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+					_newAI = units _newGroup;
+					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+					//diag_log format["missionSpawner: Spawning %3 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI,_noAIGroups];
+				}forEach _groupLocations;
+			};
+	};
+	
+	if (blck_debugON) then
+	{
+		diag_log format["[blckeagls] missionSpawner:: AI PATROLS SPAWNED: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+	};
+	
+	if ((random(1) < _chanceReinforcements)) then
+	{
+		_weaponList = blck_WeaponList_Red;
+
+		switch (_aiDifficultyLevel) do {
+			case "blue": {_weaponList = blck_WeaponList_Blue;};
+			case "red": {_weaponList = blck_WeaponList_Red;};
+			case "green": {_weaponList = blck_WeaponList_Green;};
+			case "orange": {_weaponList = blck_WeaponList_Orange;};
+			default {_weaponList = blck_WeaponList_Blue;};
+		};
+
+		diag_log format["missionSpawner:: weaponList = %1",_weaponList];
+		private["_grpReinforcements"];
+		_grpReinforcements = grpNull;
+		
+		diag_log format["[blckeagls] missionSpawner:: calling in reinforcements: Current mission: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+		[] spawn {
+			//[_coords,_noPara,_aiDifficultyLevel,_chanceLoot,_reinforcementLootCounts,_weaponList,_uniforms,_headgear,_chanceHeliPatrol] call blck_fnc_Reinforcements;
+			//waitUntil {_grpReinforcements != grpNull};
+			//diag_log format["[blckeagls] missionSpawner::reinforcement spawner started: Current mission: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+		};
+		if !(_grpReinforcements isEqualTo grpNull) then
+		{
+			_blck_AllMissionAI = _blck_AllMissionAI + (units _grpReinforcements);
+			//diag_log format["missionSpawner:: _grpReinforcements = %1",_grpReinforcements];
+		};
+	};
+	
 	// Trigger for mission end
 	//diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
 	private["_missionComplete"];
@@ -447,32 +410,32 @@ if (_playerInRange) then
 	_locations = [_coords] + _crates;
 	
 	//diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
-	while {_missionComplete  isEqualTo -1} do
+	while {_missionComplete  == -1} do
 	{
-		if (blck_debugLevel isEqualTo 3) then
-		{
-			uiSleep 240;
-			_missionComplete = 1;
-		} else {
-			if (_endIfPlayerNear) then {
-				if ( { (isPlayer _x) && ([_x,_locations,20] call blck_fnc_playerInRange) && (vehicle _x == _x) } count allPlayers > 0) then {
-					_missionComplete = 1;
-				};
+		if (_endIfPlayerNear) then {
+			if ( { (isPlayer _x) && ([_x,_locations,20] call blck_fnc_playerInRange) && (vehicle _x == _x) } count playableunits > 0) then {
+				_missionComplete = 1;
 			};
-			//diag_log format["missionSpawner:: count alive _blck_AllMissionAI = %1",{alive _x} count _blck_AllMissionAI];
-			if (_endIfAIKilled) then {
-				if (({alive _x} count _blck_AllMissionAI) < 1 ) then {
-					_missionComplete = 1;
-					//diag_log format["missionSpawner:: _blck_AllMissionAI = %1","testing case _endIfAIKilled"];
-				};
-			};
-			uiSleep 2;
 		};
+		//diag_log format["missionSpawner:: count alive _blck_AllMissionAI = %1",{alive _x} count _blck_AllMissionAI];
+		if (_endIfAIKilled) then {
+			if (({alive _x} count _blck_AllMissionAI) < 1 ) then {
+				_missionComplete = 1;
+				//diag_log format["missionSpawner:: _blck_AllMissionAI = %1","testing case _endIfAIKilled"];
+			};
+		};
+		if (blck_debugLevel == 3) then
+		{
+			uiSleep 60;
+			_missionComplete = 1;
+			diag_log format["_fnc_missionSpawner::  --  >> Mission of missionType %1 was Tripped based on blck_debugLevel == 3",_missionType];
+		};
+		uiSleep 2;
 	};
 	
 	if (blck_debugON) then
 	{
-		diag_log format["[blckeagls] missionSpawner:: Mission completion criteria fulfilled: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+		diag_log format["[blckeagls] missionSpawner:: Mission COMPLETION CRITERIA FULFILLED: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4 : blck_debugLevel = %5",_coords,_missionType,_aiDifficultyLevel,_markerMissionName,blck_debugLevel];
 	};
 	
 	if (blck_useSignalEnd) then
@@ -488,7 +451,7 @@ if (_playerInRange) then
 	[_mines] spawn blck_fnc_clearMines;
 	[_objects, blck_cleanupCompositionTimer] call blck_fnc_addObjToQue;
 	[_blck_AllMissionAI,blck_AliveAICleanUpTime] call blck_fnc_addLiveAItoQue;
-	[["end",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
+	["end",_endMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
 	[_blck_localMissionMarker select 1, _missionType] execVM "debug\missionCompleteMarker.sqf";
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";
 	[_blck_localMissionMarker select 0,"Completed"] call blck_fnc_updateMissionQue;

@@ -41,4 +41,4 @@ params["_aiList"];
 		deleteVehicle _ai;
 	};
 }forEach _aiList;
-//diag_log format["_fnc_cleanupAliveAI:: AI Cleanup Completed"];
+diag_log format["_fnc_cleanupAliveAI:: AI Cleanup Completed"];

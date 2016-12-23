@@ -7,7 +7,7 @@
 */
 //blck_variablesLoaded = false;
 blck_debugON = false;
-blck_debugLevel = 0;  // Reserved for future use.
+blck_debugLevel = 0;  // Reserved for certain testing modes.
 blck_minFPS = 10;
 
 ////////////////////////////////////////////////

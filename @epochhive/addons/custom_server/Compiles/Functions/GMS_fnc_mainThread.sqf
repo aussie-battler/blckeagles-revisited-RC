@@ -36,17 +36,19 @@ while {true} do
 		
 		[] call GMS_fnc_cleanupDeadAI;	
 				
-		if (_modType isEqualTo "Epoch") then {[] call blck_fnc_cleanEmptyGroups;};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
+		//if (_modType isEqualTo "Epoch") then {
+		diag_log "calling blck_fnc_cleanEmptyGroups";
+		[] spawn blck_fnc_cleanEmptyGroups;
+		//};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
 		_timer1min = diag_tickTime;
 	};
 	
-	
-	if ((diag_tickTime - _timer5min) > 180) then {
+	if ((diag_tickTime - _timer5min) > 300) then {
 		if (blck_timeAcceleration) then {
 			if (blck_debugON) then {diag_log "[blckeagls] calling time acceleration module";};
 			[] call blck_fnc_timeAcceleration;
 		};
-		if (blck_useHC) then {[] call blck_fnc_monitorHC;};
+		if (blck_useHC) then {[] call blck_fnc_monitorHC;};  // Not working
 		_timer5min = diag_tickTime;
 	};
 	
@@ -57,7 +59,7 @@ while {true} do
 		_timer10Min = diag_tickTime;
 	};
 	*/
-	/*
+	
 	{
 		if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned
 		{
@@ -67,7 +69,7 @@ while {true} do
 				_coords pushback 0;	
 				blck_ActiveMissionCoords pushback _coords;
 				private["_markerClass","_missionName","_missionPath","_aiDifficultyLevel"];
-				//diag_log format["_fnc_mainThread::  -->> _missionClass would = %1%2",_x select 2, _index];
+				diag_log format["_fnc_mainThread::  -->> _missionClass would = %1%2",_x select 2, _index];
 				_markerClass = _x select 2;
 				[_markerClass,"Active",_coords] call blck_fnc_updateMissionQue;
 				_aiDifficultyLevel = _x select 4;
@@ -78,6 +80,6 @@ while {true} do
 			};
 		};
 	}forEach blck_pendingMissions;
-	*/
+	
 };
 

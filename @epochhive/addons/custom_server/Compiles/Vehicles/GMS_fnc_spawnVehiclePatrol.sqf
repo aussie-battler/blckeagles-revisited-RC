@@ -16,8 +16,8 @@ params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_
 //_maxDis = maximum distance from the center of the mission for vehicle waypoints
 //_groupForVehiclePatrol = The group with which to man the vehicle
 
-if (isNull _group) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnVehiclePatrol"};
- 
+if (isNull _group) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnVehiclePatrol"; objNull;};
+diag_log format["_fnc_spawnVehiclePatrol::->> _group = %1",_group];
 _safepos = [_pos,0,25,0,0,20,0] call BIS_fnc_findSafePos;	
 _veh = [_vehType,_safepos] call blck_fnc_spawnVehicle;
 
