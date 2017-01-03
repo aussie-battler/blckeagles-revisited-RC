@@ -24,7 +24,7 @@ if (blck_debugLevel isEqualTo 3) then
 	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };
 //Creates a group to make them attack players
-_groupSpawned = createGroup blck_AI_Side;  // ;  Group changed for Exile for which player is RESISTANCE.
+_groupSpawned = createGroup blck_AI_Side; 
 if !(isNull _groupSpawned) then
 {
 	diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned];	

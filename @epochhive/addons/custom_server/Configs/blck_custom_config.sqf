@@ -11,15 +11,10 @@ switch (toLower (worldName)) do
 {
 	case"tanoa": {blck_maxCrashSites = 2};
 	case"namalsk": {
-					blck_enableOrangeMissions = 1;  
+					blck_enableOrangeMissions = -1;  
 					blck_enableGreenMissions = -1;
-					blck_enableRedMissions = 1;
-					blck_enableBlueMissions = -1;
-					blck_enableHunterMissions = 1;
-					blck_enableScoutsMissions = -1;
-	
-					// Define the maximum number of crash sites on the map at any one time
-					blck_maxCrashSites = -1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
+					blck_enableRedMissions = -1;
+					blck_enableBlueMissions = 1;
 	}
 
 };
@@ -34,11 +29,7 @@ if (blck_debugON) then
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-	blck_enableHunterMissions = 1;
-	blck_enableScoutsMissions = 1;
-	blck_maxCrashSites = 3; 
-	
-	blck_enabeUnderwaterMissions = -1;
+
 	
 	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTime = 10;  // Time after mission completion at which any remaining live AI are deleted.
@@ -60,18 +51,14 @@ if (blck_debugON) then
 	blck_TMin_Red = 20;
 	blck_TMin_Green = 23;	
 	blck_TMin_Orange = 20;	
-	blck_TMin_Hunter = 15;
-	blck_TMin_Scouts = 20;
-	blck_TMin_Crashes = 5;
+
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Blue = 12;
 	blck_TMax_Red = 35;
 	blck_TMax_Green = 38;
 	blck_TMax_Orange = 31;
-	blck_TMax_Hunter = 40;
-	blck_TMax_Scouts = 45;
-	blck_TMax_Crashes = 15;
+
 	
 	//blck_MissionTimout = 120;  // 40 min
 	blck_SkillsBlue = [

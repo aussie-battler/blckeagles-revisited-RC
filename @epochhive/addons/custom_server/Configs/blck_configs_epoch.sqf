@@ -89,6 +89,7 @@ Last modified 8/1/15
 	blck_killEmptyAIVehicles = true; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
 	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases
 
+	// Updated for v6.51
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
@@ -130,9 +131,6 @@ Last modified 8/1/15
 	
 	blck_MissionTimout = 40*60;  // 40 min
 
-	// Define the maximum number of crash sites on the map at any one time
-	blck_maxCrashSites = 3;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
-	blck_maxDynamicUnderwaterMissions = 3;
 	/****************************************************************
 	
 	GENERAL AI SETTINGS
@@ -141,7 +139,7 @@ Last modified 8/1/15
 	
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
-	blck_AI_Side = INDEPENDENT;
+	blck_AI_Side = RESISTANCE; 
 
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark

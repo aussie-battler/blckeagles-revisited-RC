@@ -57,9 +57,9 @@ else
 	//diag_log "missionSpawner:: Mission specific values used for _reinforcementLootCounts";
 };
 
-if (blck_debugON) exitWith {
+if (blck_debugON) then {
 	diag_log format["[blckEagle] Mission Reinforcement Parameters: changeReinforcements %1 numAI %2  changePatrol %3  chanceLoot %4",_chanceReinforcements,_noPara,_chanceHeliPatrol,_chanceLoot];
-	[_blck_localMissionMarker select 0,"Completed"] call blck_fnc_updateMissionQue;
+	//[_blck_localMissionMarker select 0,"Completed"] call blck_fnc_updateMissionQue;
 };
 
 private["_useMines","_abortMissionSpawner","_blck_AllMissionAI","_delayTime","_groupPatrolRadius"];
@@ -76,6 +76,9 @@ _blck_localMissionMarker = [_missionType,_coords,"","",_markerColor,_markerType]
 _delayTime = 1;
 _groupPatrolRadius = 50;
 _abortMissionSpawner = false;
+
+//  [_markerClass,"Active",_coords] call blck_fnc_updateMissionQue;
+[_blck_localMissionMarker select 0,"Active",_coords] call blck_fnc_updateMissionQue;
 
 if ((_noEmplacedWeapons + _noAIGroups + _noVehiclePatrols + ([] call blck_fnc_groupsOnAISide)) > 140) then {
 	// There are insufficient groups available within the 144 group per side maximum to spawn the entire mission
