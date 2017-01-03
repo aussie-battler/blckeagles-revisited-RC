@@ -43,7 +43,7 @@ if (blck_useKilledAIName) then
 	_message = format["[blck] %1 killed with %2 from %3 meters",name _killer,getText(configFile >> "CfgWeapons" >> _weapon >> "DisplayName"), round(_unit distance _killer)];
 };
 _message =_message + _killstreakMsg;
-diag_log format["[blck] unit killed message is %1",_message,""];
+//diag_log format["[blck] unit killed message is %1",_message,""];
 [["aikilled",_message,"victory"]] call blck_fnc_messageplayers;
 [_unit,_killer,_kills] call blck_fnc_rewardKiller;
 {

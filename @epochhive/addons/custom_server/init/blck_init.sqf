@@ -12,15 +12,6 @@ _blck_loadingStartTime = diag_tickTime;
 #include "\q\addons\custom_server\init\build.sqf";
 diag_log format["[blckeagls] Loading version %1 Build %2",_blck_versionDate,_blck_version];
 
-// spawn map addons to give the server time to position them before spawning in crates etc.
-if (blck_spawnMapAddons) then
-{
-	call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
-}else{
-	diag_log "[blckegls] Map Addons disabled";
-};
-blck_spawnMapAddons = nil;
-
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
 waitUntil{blck_variablesLoaded};
@@ -56,6 +47,15 @@ if (_modType isEqualTo "Exile") then
 	blck_configsLoaded = nil;
 	if (blck_blacklistTraderCities || blck_blacklistSpawns || blcklistConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\getTraderCitesExile.sqf";};
 };
+
+// spawn map addons to give the server time to position them before spawning in crates etc.
+if (blck_spawnMapAddons) then
+{
+	call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\MapAddons\MapAddons_init.sqf";
+}else{
+	diag_log "[blckegls] Map Addons disabled";
+};
+blck_spawnMapAddons = nil;
 
 diag_log "[blckeagls] Loading Map-specific information";
 execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_findWorld.sqf";
