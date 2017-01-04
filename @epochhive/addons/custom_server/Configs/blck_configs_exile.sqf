@@ -179,7 +179,7 @@ Last modified 8/1/15
 	blck_MaxAI_Orange = 25;
 	blck_AIGrps_Orange = 6;
 	blck_SkillsOrange = [
-		["aimingAccuracy",0.4],["aimingShake",0.7],["aimingSpeed",0.4],["endurance",1.00],["spotDistance",0.7],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+		["aimingAccuracy",0.4],["aimingShake",0.7],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
 	
 	// Green Missions
@@ -187,7 +187,7 @@ Last modified 8/1/15
 	blck_MaxAI_Green = 21;
 	blck_AIGrps_Green = 5;
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.25],["aimingShake",0.5],["aimingSpeed",0.4],["endurance",0.9],["spotDistance",0.6],["spotTime",0.6],["courage",85],["reloadSpeed",0.75],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",0.25],["aimingShake",0.5],["aimingSpeed",0.6],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
 	
 	// Red Missions
@@ -195,7 +195,7 @@ Last modified 8/1/15
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",0.16],["aimingShake",0.3],["aimingSpeed",0.3],["endurance",0.60],["spotDistance",0.5],["spotTime",0.5],["courage",0.70],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",0.16],["aimingShake",0.3],["aimingSpeed",0.6],["endurance",0.70],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
 	
 	// Blue Missions
@@ -203,7 +203,7 @@ Last modified 8/1/15
 	blck_MaxAI_Blue = 12;
 	blck_AIGrps_Blue = 2;
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.1],["aimingShake",0.25],["aimingSpeed",0.3],["endurance",0.50],["spotDistance",0.4],["spotTime",0.4],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+		["aimingAccuracy",0.1],["aimingShake",0.25],["aimingSpeed",0.3],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
 	// Add some money to AI; only works with Exile for now.
 	blck_maxMoneyOrange = 25;
