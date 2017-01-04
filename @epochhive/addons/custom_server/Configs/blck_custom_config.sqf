@@ -27,8 +27,8 @@ if (blck_debugON) then
 	blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
 
 	
 	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
