@@ -3,7 +3,7 @@
 	calculate a reward player for AI Kills in crypto.
 	Code fragment adapted from VEMF
 	call as [_unit,_killer] call blck_fnc_rewardKiller;
-	NOTE the dependency on HALV_server_takegive_crypto !!
+	Last modified 1/4/17
 */
 
 params["_unit","_killer","_kills"];
@@ -37,7 +37,10 @@ if (_modType isEqualTo "Epoch") then
 		private _killstreakReward=+(_kills*2);
 		//diag_log format["fnd_rewardKiller:: _bonus returned will be %1",_reward];
 		[_killer,_reward + _killstreakReward] call blck_fnc_giveTakeCrypto;
-		[["showScore",[_reward,"",_kills],""],[_killer]] call blck_fnc_messageplayers;
+		if (blck_useKillScoreMessage) then
+		{
+			[["showScore",[_reward,"",_kills],""],[_killer]] call blck_fnc_messageplayers;
+		};
 	};
 };
 
@@ -61,7 +64,9 @@ if (_modType isEqualTo "Exile") then
 	format["setAccountMoney:%1:%2", _money, (getPlayerUID _killer)] call ExileServer_system_database_query_fireAndForget;
 	_message = ["showFragRequest",_overallRespectChange];
 	_killer call ExileServer_object_player_sendStatsUpdate;
-	[["showScore",[50,_distanceBonus,_kills]], [_killer]] call blck_fnc_messageplayers;
+	if (blck_useKillScoreMessage) then
+	{
+		[["showScore",[50,_distanceBonus,_kills]], [_killer]] call blck_fnc_messageplayers;
+	};
 };
-
 //_reward

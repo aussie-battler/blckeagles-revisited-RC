@@ -4,6 +4,16 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+1/3/17 Version 6.51 Build 22
+Moved configuration for the client from debug\blckclient.sqf to debug\blckconfig.sqf.
+Added a setting blck_useKillMessages = true/false; (line 60 of the config. when true, kill messages will be send to all players when a player kills an AI. The style of the message is controlled client-side (debug\blck_config.sqf)
+Added a setting blck_useKillScoreMessage = true/false; // (line 61 of the config) when true a tile is displayed to the killer with the kill score information
+Added a setting 	blck_useIEDMessages = true/false;  // when true players will receive a message that their vehicle was damaged when AI are killed in a forbidden way (Run over Or Killed with vehicle-mounted weapons)
+Fixed: Messages that a nearby IED was detonated are now properly displayed when players illegally kill AI.
+Added a way to easily include / exclude APEX items. To exclude them comment out the line 
+	#define useAPEX 1
+	at approximately line 219 in the config.
+
 12/21/16 Version 6.50 Build 21
 Added a check for mod type to the routine that deletes empty groups as this is only needed for Epoch.
 Added back the code that (a) eliminates the mission timers and (b) allows multiple instances of a mission to be spawned.

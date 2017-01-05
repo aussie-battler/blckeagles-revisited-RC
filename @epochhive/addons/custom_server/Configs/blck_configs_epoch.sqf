@@ -56,6 +56,11 @@ Last modified 8/1/15
 	//  Headless Client Configurations
 	blck_useHC = false; // Not Yet Working
 	
+	//  Kill message configurations
+	blck_useKillMessages = false;  // when true a message will be broadcast to all players each time an AI is killed.
+	blck_useKillScoreMessage = true; // when true a tile is displayed to the killer with the kill score information
+	blck_useIEDMessages = true;
+	
 	// MISSION MARKER CONFIGURATION
 	// blck_labelMapMarkers: Determines if when the mission composition provides text labels, map markers with have a text label indicating the mission type
 	//When set to true,"arrow", text will be to the right of an arrow below the mission marker. 
@@ -212,6 +217,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
 
+	#define useAPEX 1
+	
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
 	
@@ -241,8 +248,11 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_LRPS_tna_F","optic_LRPS_ghex_F",
 		"optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"
 		];	
-	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes + blck_Optics_Apex;
+	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes;
 
+	#ifdef useAPEX
+	blck_Optics = blck_Optics + blck_Optics_Apex;
+	#endif
 	blck_bipods = [
 		"bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli",
 		//Apex
@@ -301,14 +311,23 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
 	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 +blck_RifleAsault_650;
 	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + 	blck_RifleAsault_650 + blck_RifleLMG;
-			
+	
+	#ifdef useAPEX
+
+		blck_WeaponList_Orange = blck_WeaponList_Orange + blck_apexWeapons;
+		blck_WeaponList_Green = blck_WeaponList_Green + blck_apexWeapons;
+	#endif
+	
 	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
 	blck_ApexBackpacks = [
 		"B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
 		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
 		"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"
 		];
-	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
+		
+	#ifdef useAPEX
+		blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
+	#endif
 
 	blck_BanditHeadgear = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_tan","H_ShemagOpen_khk"];
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
@@ -584,6 +603,12 @@ for examples of how you can do this see \Major\Compositions.sqf
 		
 		[  
 			[// Weapons	
+				#ifdef useAPEX
+				"arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
+				"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
+				"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
+				"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F",
+				#endif
 				["MultiGun","EnergyPackLg"],
 				["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
 				["arifle_Katiba_GL_F","30Rnd_65x39_caseless_green"],
@@ -623,11 +648,8 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["srifle_DMR_06_camo_F","10Rnd_338_Mag"],				
 				["srifle_DMR_04_F","10Rnd_127x54_Mag"],
 				["srifle_DMR_05_blk_F","10Rnd_93x64_DMR_05_Mag"],
-				["srifle_DMR_06_olive_F","20Rnd_762x51_Mag"],
-				"arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
-				"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
-				"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
-				"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"
+				["srifle_DMR_06_olive_F","20Rnd_762x51_Mag"]
+
 			],
 			[//Magazines
 				["3rnd_HE_Grenade_Shell",3,6],				
@@ -695,6 +717,12 @@ for examples of how you can do this see \Major\Compositions.sqf
 		[
 			[// Weapons
 				// Format is ["Weapon Name","Magazine Name"],
+				#ifdef useAPEX
+				"arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
+				"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
+				"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
+				"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F",
+				#endif
 				["MultiGun","EnergyPackLg"],
 				["arifle_Katiba_F","30Rnd_65x39_caseless_green"],
 				["arifle_Katiba_GL_F","30Rnd_65x39_caseless_green"],
@@ -723,11 +751,8 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["srifle_DMR_03_F","10Rnd_338_Mag"],		
 				["srifle_DMR_04_Tan_F","10Rnd_338_Mag"],
 				["srifle_DMR_05_hex_F","10Rnd_338_Mag"],	
-				["srifle_DMR_06_camo_F","10Rnd_338_Mag"],
-				"arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
-				"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
-				"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
-				"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"				
+				["srifle_DMR_06_camo_F","10Rnd_338_Mag"]
+				
 			],
 			[//Magazines
 				// Format is ["Magazine name, Minimum number to add, Maximum number to add],
