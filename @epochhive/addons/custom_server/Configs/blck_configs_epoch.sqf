@@ -161,12 +161,14 @@ Last modified 8/1/15
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AliveAICleanUpTime = 900;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_cleanupCompositionTimer = 1200;
-	blck_AIAlertDistance = [150,225,250,300];
+	blck_AIAlertDistance = [250,325,450,500];
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AIIntelligence = [0.5, 1, 2, 4];  
-
+	
+	blck_baseSkill = 1.0;
+	
 	/***************************************************************
 	
 	MISSION TYPE SPECIFIC AI SETTINGS
@@ -180,30 +182,35 @@ Last modified 8/1/15
 	blck_SkillsOrange = [
 		["aimingAccuracy",0.4],["aimingShake",0.7],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
+	blck_reinforceOrange = [0.3, 5, 0.2];
 	
 	// Green Missions
 	blck_MinAI_Green = 16;
 	blck_MaxAI_Green = 21;
 	blck_AIGrps_Green = 5;
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.25],["aimingShake",0.5],["aimingSpeed",0.6],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",0.3],["aimingShake",0.65],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
+	blck_reinforceGreen = [0.25, 4, 0.2];
 	
 	// Red Missions
 	blck_MinAI_Red = 12;
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",0.16],["aimingShake",0.3],["aimingSpeed",0.6],["endurance",0.70],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",0.2],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
+	blck_reinforceRed = [0.2, 3, 0.2];
 	
 	// Blue Missions
 	blck_MinAI_Blue = 8;	
 	blck_MaxAI_Blue = 12;
 	blck_AIGrps_Blue = 2;
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.1],["aimingShake",0.25],["aimingSpeed",0.3],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+		["aimingAccuracy",0.1],["aimingShake",0.5],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
+	blck_reinforceBlue = [0.1, 2, 0.2];
+		
 	// Add some money to AI; only works with Exile for now.
 	blck_maxMoneyOrange = 25;
 	blck_maxMoneyGreen = 20;

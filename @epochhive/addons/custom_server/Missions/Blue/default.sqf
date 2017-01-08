@@ -30,10 +30,10 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Blue;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
 
-_chanceReinforcements = 0; //blck_reinforcementsBlue select 0;
-_noPara = 2;  //blck_reinforcementsBlue select 1;
-_chanceHeliPatrol = 0;//blck_reinforcementsBlue select 2;
-_chanceLoot = 0.992; //blck_reinforcementsBlue select 3;
+_chanceReinforcements = 0.9999;
+_noPara = 3;  //blck_reinforcementsBlue select 1;
+_chanceHeliPatrol = 0;
+_chanceLoot = 0.9999;
 
 private["_weap","_mags","_backpacks","_optics","_loadout","_reinforcementLootCounts"];
 _weap = 3 + floor(random(4));	

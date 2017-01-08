@@ -5,7 +5,7 @@
 	- whether it is time to delete the mission objects at a specific location
 	- whether it is time to delete live AI associated with a specific mission
 	By Ghostrider-DbD-
-	Last modified 1-2-17
+	Last modified 1-7-17
 */
 private ["_index","_timer10Min","_timer1min","_timer5min","_modType"];
 
@@ -43,7 +43,7 @@ while {true} do
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
 
 		{
-			diag_log format["_fnc_mainThread:: -- >> _x = %1  and _x select 6 = %2",_x, _x select 6];
+			//diag_log format["_fnc_mainThread:: -- >> _x = %1  and _x select 6 = %2",_x, _x select 6];
 			if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned
 			{
 				if (diag_tickTime > (_x select 6)) then // time to spawn the mission
@@ -54,7 +54,7 @@ while {true} do
 					private["_markerClass","_missionName","_missionPath","_aiDifficultyLevel"];
 					//diag_log format["_fnc_mainThread::  -->> _missionClass would = %1%2",_x select 2, _index];
 					_markerClass = _x select 2;
-					diag_log format["_fnc_mainThread:: -->> _markerClass = %1",_markerClass];
+					//diag_log format["_fnc_mainThread:: -->> _markerClass = %1",_markerClass];
 					_aiDifficultyLevel = _x select 4;
 					_missionName = selectRandom (_x select 0);
 					_missionPath = _x select 1;
@@ -72,7 +72,7 @@ while {true} do
 	
 	if ((diag_tickTime - _timer5min) > 300) then {
 		if (blck_timeAcceleration) then {
-			if (blck_debugON) then {diag_log "[blckeagls] calling time acceleration module";};
+			//if (blck_debugON) then {diag_log "[blckeagls] calling time acceleration module";};
 			[] call blck_fnc_timeAcceleration;
 		};
 		if (blck_useHC) then {[] call blck_fnc_monitorHC;};  // Not working

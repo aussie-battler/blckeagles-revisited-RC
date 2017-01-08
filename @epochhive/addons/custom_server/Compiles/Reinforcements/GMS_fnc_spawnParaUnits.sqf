@@ -5,7 +5,7 @@
 	call with
 	[
 		_pos,				// the position which AI should patrol
-		_supplyHeli,		// heli from which they should para
+		_dropPos,		// heli from which they should para
 		_numAI,				// Number to spawn
 		_skillAI,			// Skill [blue, red, green, orange]
 		_weapons,			// array of weapons to select from
@@ -14,18 +14,19 @@
 	] call blck_spawnHeliParaTroops
 */
 
-params["_pos","_supplyHeli","_numAI","_skillAI","_weapons","_uniforms","_headGear"];
+params["_supplyHeli","_missionPos","_numAI","_skillAI","_weapons","_uniforms","_headGear"];
 
 // create a group for our paratroops
 private["_paraGroup"];
 _paraGroup = createGroup blck_AI_Side;  // ;  Group changed for Exile for which player is RESISTANCE.	
+_supplyHeli setVariable["paraGroup",_paraGroup];
 _paraGroup setcombatmode blck_combatMode;
 _paraGroup allowfleeing 0;
 _paraGroup setspeedmode "FULL";
 _paraGroup setFormation blck_groupFormation; 
 _paraGroup setVariable ["blck_group",true,true];
 
-diag_log format["spawnHeliParatroops:: paratrooper group created; spawning %1 units",_numAI];
+diag_log format["_fnc_spawnParaUnits:: paratrooper group created; spawning %1 units",_numAI];
 
 	//https://forums.bistudio.com/topic/127341-how-to-get-cargo-capacity-and-costweight-of-stuff-into-sqf/
 	//_veh = TypeOf (_supplyHeli); //for example
@@ -33,8 +34,6 @@ diag_log format["spawnHeliParatroops:: paratrooper group created; spawning %1 un
 	//if ( (_maxpeople - 1) < _numAI) then {_numAI = _maxpeople - 1;};  // calculate the max troops carried by the chopper minus 1 for the pilot who is already on board and adjust the number of AI to spawn as needed.
 _launcherType = "none";
 _sniperExists = false;
-
-
 
 /*
 for "_i" from 1 to _numAI do
@@ -74,9 +73,9 @@ _dir = if (_dir < 180) then {_dir + 150} else {_dir - 150};
 for "_i" from 1 to _numAI do
 {
 	_offset =  _supplyHeli getPos [10, _dir];
-	_chute = createVehicle ["I_Parachute_02_F", [100, 100, 200], [], 0, "FLY"];
+	_chute = createVehicle ["Steerable_Parachute_F", [100, 100, 200], [], 0, "FLY"];
 	private["_modType"];
-	_modType = call blck_getModType;
+	_modType = call blck_fnc_getModType;
 	if (_modType isEqualTo "Epoch") then
 	{
 		[_chute] call blck_fnc_protectVehicle;
@@ -91,25 +90,20 @@ for "_i" from 1 to _numAI do
 	_unit allowDamage true;
 	uiSleep 1;
 
-	//diag_log format["reinforcements:: spawned unit %1, at location %2 and vehicle _unit %1",_unit,getPos _unit, vehicle _unit];
+	diag_log format["_fnc_spawnParaUnits:: spawned unit %1, at location %2 and vehicle _unit %1",_unit,getPos _unit, vehicle _unit];
 };
 
 _paraGroup selectLeader ((units _paraGroup) select 0);
 	
-//diag_log "spawnHeliParatroops:: paratroops created";
-	
-
-
-_wpRendevous =_paraGroup addWaypoint [_pos, 25];
-_wpRendevous setWaypointCombatMode "RED";
-_wpRendevous setWaypointType "MOVE";
-_wpRendevous setWaypointSpeed "NORMAL";
-_wpRendevous setWaypointBehaviour "COMBAT";
-_wpRendevous setWaypointCompletionRadius 25;
-
-[_pos, 30, 45, _paraGroup] call blck_fnc_setupWaypoints;
-
-//diag_log "spawnParatroops:: Additional waypoints added to _paraGroup";
+diag_log "_fnc_spawnParaUnits:: paratroops created, setting wayponts";
+_paraGroup setVariable["missionPos",_missionPos];
+[_paraGroup, 0] setWPPos _missionPos;
+[_paraGroup, 0]  setWaypointCombatMode "RED";
+[_paraGroup, 0]  setWaypointType "MOVE";
+[_paraGroup, 0]  setWaypointSpeed "NORMAL";
+[_paraGroup, 0]  setWaypointBehaviour "COMBAT";
+[_paraGroup, 0]  setWaypointCompletionRadius 20;
+[_paraGroup, 0]  setWaypointStatements ["true","[this getVariable[""missionPos""], 30, 45, this] call blck_fnc_setupWaypoints;"];
 
 _fn_cleanupTroops = {		
 	private["_troopsOnGround"];
@@ -122,7 +116,7 @@ _fn_cleanupTroops = {
 			//diag_log format["reinforments:: Tracking Paratroops unit %1 position %4  altitue %2 velocity %3 attachedTo %4",_x, (getPos _x select 2), (velocity _x select 2), getPosATL _x, attachedTo _x];
 			if ( (getPosATL _x select 2) < 0.1) then {
 				if (surfaceIsWater (position _x)) then {
-					diag_log format["spawnParatroops:: unit %1 at %2 deleted",_x, getPos _x];
+					diag_log format["_fnc_spawnParaUnits:: unit %1 at %2 deleted",_x, getPos _x];
 					private["_unit"];
 					_unit = _x;
 					{
@@ -139,10 +133,11 @@ _fn_cleanupTroops = {
 	
 };
 
+diag_log "_fnc_spawnParaUnits:: waiting for paratroops to land";
 [_paraGroup] spawn _fn_cleanupTroops;
 
 diag_log "spawnParatroops:: All Units on the Ground";
 
 // Return the group spawned for book keeping purposes
-diag_log format["spawnParatroops::  typeName _paraGroup = %1", (typeName _paraGroup)];
+diag_log format["_fnc_spawnParaUnits::  typeName _paraGroup = %1", (typeName _paraGroup)];
 _paraGroup;

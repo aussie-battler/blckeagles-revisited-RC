@@ -5,18 +5,19 @@
 	call with
 	[
 		_supplyHeli,		// heli from which they should para
-		_skillAI,			// Skill [blue, red, green, orange]
+		_lootCounts,
+		_lootSetting // [blue, red, green, orange]
 	] call blck_spawnHeliParaCrate
 */
 
 
-params["_supplyHeli","_lootCounts","_skillAI"];
+params["_supplyHeli","_lootCounts"];
 
 private ["_chute","_crate"];
 _crate = "";
 _chute = "";
 
-diag_log "blck_spawnHeliParaCrate:: spawning crate";
+diag_log "_fnc_spawnParaCrate:: spawning crate";
 
 private["_dir","_offset"];
 _dir = getDir _supplyHeli;
@@ -24,16 +25,16 @@ _dir = if (_dir < 180) then {_dir + 210} else {_dir - 210};
 _offset =  _supplyHeli getPos [10, _dir];
 
 //open parachute and attach to crate
-_chute = createVehicle ["I_Parachute_02_F", [100, 100, 200], [], 0, "FLY"];
+_chute = createVehicle ["I_Parachute_02_F", [100, 100, 100], [], 0, "FLY"];
 private["_modType"];
-_modType = call blck_getModType;
+_modType = call blck_fnc_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	[_chute] call blck_fnc_protectVehicle;
 };
-_chute setPos [_offset select 0, _offset select 1, 250  ];  //(_offset select 2) - 10];
+_chute setPos [_offset select 0, _offset select 1, 100  ];  //(_offset select 2) - 10];
 
-diag_log format["blck_spawnHeliParaCrate:: chute spawned yielding object %1 at postion %2", _chute, getPos _chute];
+diag_log format["_fnc_spawnParaCrate:: chute spawned yielding object %1 at postion %2", _chute, getPos _chute];
 	
 //create the parachute and crate
 private["_crateSelected"];
@@ -45,10 +46,10 @@ _crate attachTo [_chute, [0, 0, -1.3]];
 _crate allowdamage false;
 _crate enableRopeAttach true;  // allow slingloading where possible
 
-diag_log format["heliSpawnCrate:: crate spawned %1 at position %2 and attached to %3",_crate, getPos _crate, attachedTo _crate];
+diag_log format["_fnc_spawnParaCrate:: crate spawned %1 at position %2 and attached to %3",_crate, getPos _crate, attachedTo _crate];
 
 
-switch (_skillAI) do
+switch (_lootSetting) do
 {
 	case "orange": {[_crate, blck_BoxLoot_Orange, _lootCounts] call blck_fnc_fillBoxes;};
 	case "green": {[_crate, blck_BoxLoot_Green, _lootCounts] call blck_fnc_fillBoxes;};
@@ -57,7 +58,7 @@ switch (_skillAI) do
 	default {[_crate, blck_BoxLoot_Red, _lootCounts] call blck_fnc_fillBoxes;};
 };
 	
-diag_log format["heliSpawnCrate:: crate loaded and now at position %1 and attached to %2", getPos _crate, attachedTo _crate];
+diag_log format["_fnc_spawnParaCrate:: crate loaded and now at position %1 and attached to %2", getPos _crate, attachedTo _crate];
 
 _fn_monitorCrate = {
 	params["_crate","_chute"];
@@ -67,10 +68,10 @@ _fn_monitorCrate = {
 	while {!_crateOnGround} do
 	{
 		uiSleep 1;  
-		diag_log format["heliSpawnCrate::  Crate Altitude: %1  Crate Velocity: %2  Crate Position: %3 Crate attachedTo %4", getPos _crate select 2, velocityModelSpace _crate select 2, getPosATL _crate, attachedTo _crate];
+		diag_log format["_fnc_spawnParaCrate::  Crate Altitude: %1  Crate Velocity: %2  Crate Position: %3 Crate attachedTo %4", getPos _crate select 2, velocityModelSpace _crate select 2, getPosATL _crate, attachedTo _crate];
 		if ( (((velocity _crate) select 2) < 0.1)  || ((getPosATL _crate select 2) < 0.1) ) then 
 		{
-			uiSleep 5; // give some time for everything to settle
+			uiSleep 10; // give some time for everything to settle
 			_crateOnGround = true;
 			_spawnCrate = false;
 
