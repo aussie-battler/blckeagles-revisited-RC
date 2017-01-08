@@ -4,7 +4,12 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-1/3/17 Version 6.51 Build 22
+1/7/17 Version 6.53 Build 24
+Added a setting blck_baseSkill = 0.7; // This defines the base skil of AI. Increase it to make AI more challenging.
+Tweaked AI difficulty settings to make missions more difficult.
+Tweaked debugging information to reduced unnecessary logging when not in debug-mode.
+
+1/3/17 Version 6.51 Build 23
 Moved configuration for the client from debug\blckclient.sqf to debug\blckconfig.sqf.
 Added a setting blck_useKillMessages = true/false; (line 60 of the config. when true, kill messages will be send to all players when a player kills an AI. The style of the message is controlled client-side (debug\blck_config.sqf)
 Added a setting blck_useKillScoreMessage = true/false; // (line 61 of the config) when true a tile is displayed to the killer with the kill score information

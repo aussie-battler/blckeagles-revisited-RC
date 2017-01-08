@@ -39,7 +39,7 @@ if (_modType isEqualTo "Epoch") then
 };
 if (_modType isEqualTo "Exile") then
 {
-	"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
+	"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
 	switch(_skillLevel) do
 	{
 		case "blue":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyBlue)),true];};
