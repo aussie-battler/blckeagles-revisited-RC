@@ -161,7 +161,7 @@ else
 
 // Infinite ammo
 _ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
-_ai1 addEventHandler ["killed",{ [(_this select 0), (_this select 1)] execVM blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
+_ai1 addEventHandler ["killed",{ [(_this select 0), (_this select 1)] call compile preprocessfilelinenumbers blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
 //_ai addEventHandler ["HandleDamage",{ [(_this select 0), (_this select 1)] execVM blck_EH_AIHandleDamage;}];
 
 switch (_skillLevel) do 
