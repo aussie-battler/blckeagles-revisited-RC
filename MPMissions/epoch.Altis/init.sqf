@@ -1,4 +1,0 @@
-
-execVM "debug\blckClient.sqf";
-
-
