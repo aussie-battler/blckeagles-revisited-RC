@@ -1,1 +1,1 @@
-call compile preprocessfilelinenumbers "debug\blckClient.sqf";
+execVM "debug\blckClient.sqf";
