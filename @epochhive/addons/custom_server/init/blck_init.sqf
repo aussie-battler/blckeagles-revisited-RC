@@ -111,8 +111,8 @@ if (blck_enableBlueMissions > 0) then
 };
 
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
-call compile preprocessfilelinenumber "\q\addons\custom_server\Compiles\Functions\GMS_fnc_mainThread.sqf";
-call compile preprocessfilelinenumber "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitorLoop.sqf";
+call compile preprocessfilelinenumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_mainThread.sqf";
+call compile preprocessfilelinenumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitorLoop.sqf";
 
 // start a little loop that sends clients the current serverFPS
 [] execVM "\q\addons\custom_server\Compiles\Functions\broadcastServerFPS.sqf";
