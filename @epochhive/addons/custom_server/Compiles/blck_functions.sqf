@@ -2,7 +2,7 @@
 	AI Mission for Epoch Mod for Arma 3
 	By Ghostrider
 	Functions and global variables used by the mission system.
-	Last modified 1/7/17
+	Last modified 1/12/17
 */
 blck_functionsCompiled = false;
 
@@ -16,6 +16,7 @@ blck_fnc_monitorHC = compileFinal  preprocessFileLineNumbers "\q\addons\custom_s
 blck_fnc_timeAcceleration = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\TimeAccel\GMS_fnc_Time.sqf";
 blck_fnc_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getModType.sqf";  // Test if Epoch or Exile is loaded
 blck_fnc_groupsOnAISide = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_GroupsOnAISide.sqf";  // Returns the number of groups on the side used by AI
+blck_fnc_deleteFromArray = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_deleteFromArray.sqf"; 
 
 // Player-related functions
 blck_fnc_rewardKiller = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_rewardKiller.sqf";
@@ -60,15 +61,9 @@ blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\c
 blck_fnc_spawnEmplacedWeapon = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnEmplaced.sqf";  // Self-evident
 blck_fnc_spawnVehicle = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnVehicle.sqf";            //  Spawn a temporary vehicle of a specified type at a specific position
 blck_fnc_spawnVehiclePatrol = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnVehiclePatrol.sqf";  // Spawn an AI vehicle control and have it patrol the mission perimeter
-
-
-// Revisit
-//  *************
-//blck_fnc_spawnMissionVehicles = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionVehicles.sqf";  // Spawn non-AI vehicles at missions; these will be filled with loot following the parameters in the composition array for the mission
-//  *************
-
 blck_fnc_protectVehicle = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_protectVehicle.sqf";
 blck_fnc_configureMissionVehicle = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_configureMissionVehicle.sqf";
+blck_fnc_vehicleMonitor = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitor.sqf";   // Checks for vehicles for which all AI are dead and handles any changes needed when this is true.
 
 // functions to support Units
 blck_fnc_removeGear = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_removeGear.sqf"; // Strip an AI unit of all gear.
@@ -82,50 +77,7 @@ blck_fnc_alertNearbyUnits = compileFinal  preprocessFileLineNumbers "\q\addons\c
 blck_fnc_processIlleagalAIKills = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_processIlleagalAIKills.sqf";
 GMS_fnc_cleanupDeadAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_cleanupDeadAI.sqf"; // handles deletion of AI bodies and gear when it is time.
 blck_fnc_setSkill = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_setSkill.sqf";
-
 blck_fnc_cleanupAliveAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_cleanupAliveAI.sqf";
-
-
-// Event handlers
-"blck_PVS_aiKilled" addPublicVariableEventHandler  {
-	diag_log format["blck_PVS_aiKilled handler:: unit = %1 and killer = %2 and this = #3",_this select 1 select 0,_this select 1 select 1, _this];
-	[_this select 1 select 0,_this select 1 select 1] call blck_fnc_processAIKill;
-};
-
-"blck_PVS_aiVehicleEmpty" addPublicVariableEventHandler  {
-	private ["_veh"];
-	_veh = _this select 1;
-	//diag_log format["blck_PVS_aiVehicleEmpty:: _this = %1 and _veh = %2",_this,0];
-
-	if (typeOf _veh in blck_staticWeapons) then // always destroy mounted weapons
-	{
-		//diag_log format["vehicleMonitor.sqf: _veh %1 is (in blck_staticWeapons) = true",_veh];
-		_veh removealleventhandlers "GetIn";
-		_veh removealleventhandlers "GetOut";		
-		_veh setDamage 1;
-	} else {
-		//diag_log format["vehicleMonitor.sqf: _veh %1 is (in blck_staticWeapons) = false",_veh];
-		if (blck_killEmptyAIVehicles) then 
-		{
-				//diag_log format["vehicleMonitor.sqf: _veh %1 is about to be killed",_veh];
-				_veh removealleventhandlers "GetIn";
-				_veh removealleventhandlers "GetOut";
-				_veh setVehicleLock "UNLOCKED" ;				
-				uiSleep 1;
-				_veh setDamage 1.1;
-				uiSleep 15;
-				deleteVehicle _veh;
-		}
-		else
-		{
-			//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from_veh %1",_veh];	
-			_veh removealleventhandlers "GetIn";
-			_veh removealleventhandlers "GetOut";
-			_veh setVehicleLock "UNLOCKED" ;
-		};
-	};
-};
-
 
 diag_log "[blckeagls] Functions Loaded";
 blck_functionsCompiled = true;
