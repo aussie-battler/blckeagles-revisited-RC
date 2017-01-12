@@ -1,6 +1,6 @@
 ////////////////////////////////////////////
 // Start Server-side functions and Create, Display Mission Messages for blckeagls mission system for Arma 3 Epoch
-// Last Updated 1/4/17
+// Last Updated 1/12/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
 
@@ -162,29 +162,18 @@ if (isServer || (!hasInterface)) exitWith {};
 
 	};
 	
-	//diag_log "[blckeagls] spawning JIP markers";
-	if (!isNil "blck_OrangeMarker") then {[blck_OrangeMarker] execVM "debug\spawnMarker.sqf"};
-	if (!isNil "blck_GreenMarker") then {[blck_GreenMarker] execVM "debug\spawnMarker.sqf"};
-	if (!isNil "blck_RedMarker") then {[blck_RedMarker] execVM "debug\spawnMarker.sqf"};
-	if (!isNil "blck_BlueMarker") then {[blck_BlueMarker] execVM "debug\spawnMarker.sqf"};
+	diag_log "blck client loaded ver 1/11/17 2.0 8 PM";	
+	diag_log "[blckeagls] starting client loop";
 	
-	diag_log "blck client loaded ver 1/4/17 9 PM";	
-	//diag_log "[blckeagls] starting client loop";
-	private["_start"];
-	_start = diag_tickTime;
 	while {true} do
 	{
-		if !(blck_Message isEqualTo "") then
-		{
-			diag_log format["[blckClient] blck_Message = %1", blck_message];
-			private["_message"];
-			_message = blck_message;
-			_message spawn fn_handleMessage;
-			blck_Message = "";
-		} else
-		{
-			uiSleep 0.3;
-		};	
+		waitUntil {!(blck_message isEqualTo "")};
+		//diag_log format["[blckClient] blck_Message = %1", blck_message];
+		private["_message"];
+		_message = blck_message;
+		_message spawn fn_handleMessage;
+		blck_Message = "";	
 	};
+	
 
 
