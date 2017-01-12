@@ -72,7 +72,10 @@ call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blc
 
 diag_log format["[blckeagls] version %1 Build %2 for mod = %3 Loaded in %4 seconds",_blck_versionDate,_blck_version,_modType,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
 diag_log format["blckeagls] waiting for players to join ----    >>>>"];
-waitUntil{{isPlayer _x}count playableUnits > 0};
+if (!blck_debugON || (blck_debugLevel isEqualTo 0)) then
+{
+	waitUntil{{isPlayer _x}count playableUnits > 0};
+};
 diag_log "[blckeagls] Player Connected, loading mission system";
 
 if (blck_spawnStaticLootCrates) then
@@ -112,16 +115,11 @@ if (blck_enableBlueMissions > 0) then
 
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
 call compile preprocessfilelinenumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_mainThread.sqf";
-call compile preprocessfilelinenumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitorLoop.sqf";
+//call compile preprocessfilelinenumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitorLoop.sqf";
 
 // start a little loop that sends clients the current serverFPS
-[] execVM "\q\addons\custom_server\Compiles\Functions\broadcastServerFPS.sqf";
+//[] execVM "\q\addons\custom_server\Compiles\Functions\broadcastServerFPS.sqf";
 diag_log "[blckeagls] >>--- Completed initialization"; 
 
 blck_Initialized = true;
 publicVariable "blck_Initialized";
-
-//diag_log format["[blckeagls] Mission system settings:blck_debugON = %4 blck_useSmokeAtCrates = %1 blck_useMines = %2 blck_useStatic = %3 blck_useVehiclePatrols %4",blck_useSmokeAtCrates,blck_useMines,blck_useStatic,blck_debugON,blck_useVehiclePatrols];
-//diag_log format["[blckeagls] AI Settings: blck_useNVG = %1  blck_useLaunchers = %2",blck_useNVG,blck_useLaunchers];
-//diag_log format["[blckeagls] AI Runover and other Vehicle Kill settings: blck_RunGear = %1 blck_VG_Gear =%2 blck_VK_RunoverDamage = %3 blck_VK_GunnerDamage = %4",blck_RunGear,blck_VG_Gear,blck_VK_RunoverDamage,blck_VK_GunnerDamage];
-//[] execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_monitor.sqf";
