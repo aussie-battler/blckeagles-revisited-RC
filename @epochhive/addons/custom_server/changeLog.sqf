@@ -4,10 +4,17 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, 'fired' event handler
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-1/7/17 Version 6.53 Build 24
+1/12/17 Version 6.53 Build 24
 Added a setting blck_baseSkill = 0.7; // This defines the base skil of AI. Increase it to make AI more challenging.
 Tweaked AI difficulty settings to make missions more difficult.
+changed - GMS_EH_unitKilled - the event handler now uses precompiled rather than compiled on the fly code.
+changed - several other minor performance tweaks were made server side.
+changed - small changes were made the the loop in blck_client.sqf 
 Tweaked debugging information to reduced unnecessary logging when not in debug-mode.
+Disabled the loop sending server fps client-side
+fixed - GMS_fnc_updateMissionQue was not correctly updating mission information after mission completion.
+fixed - GMS_fnc_mainThread was not deleted old AI and Vehicles from the arrays used to capture them after mission completion.
+changed - calls to GMS_fnc_vehicleMonitor were moved inside the main loop..
 
 1/3/17 Version 6.51 Build 23
 Moved configuration for the client from debug\blckclient.sqf to debug\blckconfig.sqf.
