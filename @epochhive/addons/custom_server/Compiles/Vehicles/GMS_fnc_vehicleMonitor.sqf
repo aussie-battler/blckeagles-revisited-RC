@@ -63,3 +63,6 @@ private _vehList = blck_missionVehicles;
 		_veh setFuel 1;
 	};
 }forEach _vehList;
+
+
+

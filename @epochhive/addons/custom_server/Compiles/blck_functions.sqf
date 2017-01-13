@@ -8,6 +8,7 @@ blck_functionsCompiled = false;
 
 // General functions
 blck_fnc_waitTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_waitTimer.sqf";
+blck_fnc_timedOut = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_timedOut.sqf";
 blck_fnc_FindSafePosn = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_findSafePosn.sqf"; 
 blck_fnc_randomPosition = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_randomPosn.sqf";// find a randomPosn. see script for details.
 blck_fnc_findPositionsAlongARadius  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_findPositionsAlongARadius.sqf";
@@ -24,30 +25,40 @@ blck_fnc_MessagePlayers = compileFinal  preprocessFileLineNumbers "\q\addons\cus
 //blck_fnc_sendRewardMessage = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_sendRewardMessage.sqf"; 
 
 // Mission-related functions
-blck_fnc_missionTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionTimer.sqf";
+blck_fnc_missionStartConditionsMet = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionStartConditionsMet.sqf";
+blck_fnc_selectAILoadout = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAILoadout.sqf";
 blck_fnc_addMissionToQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addMissionToQue.sqf";  // 
 blck_fnc_updateMissionQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_updateMissionQue.sqf";  // 
 blck_fnc_addLiveAItoQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addLiveAItoQue.sqf"; 
 blck_fnc_addObjToQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addObjToQue.sqf";  //
-blck_fnc_playerInRange = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_playerInRange.sqf";
+blck_fnc_objectInRange = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_objectInRange.sqf";
+blck_fnc_missionTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionTimer.sqf";
 blck_fnc_spawnCrate = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnCrate.sqf"; // Simply spawns a crate of a specified type at a specific position.
-blck_fnc_spawnMissionCrates = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionCrates.sqf";  // Spawn loot crates at specific positions relative to the mission center; these will be filled with loot following the parameters in the composition array for the mission
+blck_fnc_spawnMissionCrates = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionCrates.sqf";  
 blck_fnc_cleanupObjects = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_cleanUpObjects.sqf";
 blck_fnc_spawnCompositionObjects = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnBaseObjects.sqf";
 blck_fnc_spawnRandomLandscape = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnRandomLandscape.sqf";
+blck_fnc_spawnMissionVehiclePatrols = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionVehiclePatrols.sqf";
+blck_fnc_spawnMissionEmplacedWeapons = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionEmplacedWeapons.sqf";
+blck_fnc_spawnMissionAI = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionAI.sqf";
+blck_fnc_spawnMissionLootVehicles = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionLootVehicles.sqf";
+blck_fnc_spawnMissionHeli = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionHeli.sqf";
 blck_fnc_addItemToCrate = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addItemToCrate.sqf";
 blck_fnc_loadLootItemsFromArray = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc__loadLootItemsFromArray.sqf";
 blck_fnc_fillBoxes = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_fillBoxes.sqf"; // Adds items to an object according to passed parameters. See the script for details.
-blck_fnc_smokeAtCrates = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_smokeAtCrates.sqf"; // Spawns a wreck and adds smoke to it
-blck_fnc_spawnMines = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMines.sqf";  // Deploys mines at random locations around the mission center
-blck_fnc_clearMines = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_clearMines.sqf"; // clears mines in an array passed as a parameter
-blck_fnc_signalEnd = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_signalEnd.sqf"; // deploy smoke grenades at loot crates at the end of the mission.
+blck_fnc_smokeAtCrates = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_smokeAtCrates.sqf"; // Spawns a wreck and adds smoke to it
+blck_fnc_spawnMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMines.sqf";  // Deploys mines at random locations around the mission center
+blck_fnc_abortMission = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMines.sqf";  
+blck_fnc_missionEndConditionsMet = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionEndConditionsMet.sqf";
+blck_fnc_clearMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_clearMines.sqf"; // clears mines in an array passed as a parameter
+blck_fnc_signalEnd = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_signalEnd.sqf"; // deploy smoke grenades at loot crates at the end of the mission.
+blck_fnc_missionEnd = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionEnd.sqf";
 
 // Reinforcement-related functions
 blck_fnc_callInReinforcements = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_callInReinforcements.sqf"; 
-blck_fnc_dropReinforcements  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_dropReinforcements.sqf"; 
-blck_fnc_spawnHeliParaCrate  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaCrate.sqf"; 
-blck_fnc_spawnParaCrate = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 
+blck_fnc_spawnParaUnits  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 
+blck_fnc_spawnParaCrate  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaCrate.sqf"; 
+//blck_fnc_spawnReinforcHeli = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnReinforcHeli.sqf"; 
 blck_fnc_sendHeliHome = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_sendHeliHome.sqf"; 
 //blck_fnc_spawnHeliPatrol = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 
 //blck_fnc_spawnHeliPatrol = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 

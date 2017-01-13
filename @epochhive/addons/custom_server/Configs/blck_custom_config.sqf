@@ -25,15 +25,15 @@ if (blck_debugON) then
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 	
 	blck_mainThreadUpdateInterval = 10;
-	blck_enableOrangeMissions = 1;  
-	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 2;
+	blck_enableOrangeMissions = -1;  
+	blck_enableGreenMissions = -1;
+	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
 
 	
 	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTime = 10;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 180;
+	blck_bodyCleanUpTimer = 10;
 	
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions

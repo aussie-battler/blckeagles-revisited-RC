@@ -91,7 +91,7 @@ Last modified 8/1/15
 	blck_useKilledAIName = true; // When false, the name of the killer (player), weapon and distance are displayed; otherwise the name of the player and AI unit killed are shown.
 	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Note that this is a default and that mission-specific settings can be defined for each mission using the template
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
-	blck_killEmptyAIVehicles = true; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
+	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
 	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases
 
 	// Updated for v6.51
