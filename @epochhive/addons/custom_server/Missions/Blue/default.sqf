@@ -46,6 +46,6 @@ _reinforcementLootCounts = [_weap,_mags,_optics,0,0,_backpacks];
 diag_log format["blueDefault::  _chanceReinforcements = %1 and _chanceLoot = %2", _chanceReinforcements, _chanceLoot];
 //diag_log format["blueDefault:: default reinforcement settings are %1",blck_reinforcementsBlue];
 
-_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "playerNear"
+_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 _timeout = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

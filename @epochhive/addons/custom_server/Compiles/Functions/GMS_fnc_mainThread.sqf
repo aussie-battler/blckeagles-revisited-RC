@@ -5,7 +5,7 @@
 	- whether it is time to delete the mission objects at a specific location
 	- whether it is time to delete live AI associated with a specific mission
 	By Ghostrider-DbD-
-	Last modified 1-7-17
+	Last modified 1-13-17
 */
 private ["_index","_timer10Min","_timer1min","_timer5min","_modType"];
 
@@ -34,7 +34,7 @@ while {true} do
 				//diag_log format["_fnc_mainTread:: cleaning up AI group %1",_x];
 				[_x select 0] call blck_fnc_cleanupAliveAI;
 			};
-			blck_liveMissionAI = blck_liveMissionAI - _x;  // Remove that list of live AI from the list.
+			blck_liveMissionAI = blck_liveMissionAI - [_x];  // Remove that list of live AI from the list.
 		}forEach _ai;
 		
 		_obj = blck_oldMissionObjects;
@@ -44,7 +44,7 @@ while {true} do
 				//diag_log format["_fnc_mainTread:: cleaning up mission objects %1",_x];
 				[_x select 0] call blck_fnc_cleanupObjects;
 			};
-			blck_oldMissionObjects = blck_oldMissionObjects - _x;
+			blck_oldMissionObjects = blck_oldMissionObjects - [_x];
 		}forEach _obj;
 		
 		[] call GMS_fnc_cleanupDeadAI;	
@@ -54,6 +54,7 @@ while {true} do
 			[] call blck_fnc_cleanEmptyGroups;
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
 
+		/*  [Jan 14, 2017] reverted the the approach based on mission timers for now
 		{
 			if (blck_debugLevel > 2) then {diag_log format["_fnc_mainThread:: -- >> _x = %1  and _x select 6 = %2",_x, _x select 6];};
 			if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned
@@ -78,7 +79,7 @@ while {true} do
 		}forEach blck_pendingMissions;
 		_timer1min = diag_tickTime;		
 	};
-	
+	*/
 	if ((diag_tickTime - _timer5min) > 300) then {
 		if (blck_timeAcceleration) then 
 		{

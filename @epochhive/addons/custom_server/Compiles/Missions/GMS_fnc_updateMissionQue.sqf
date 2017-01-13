@@ -30,3 +30,4 @@ if (blck_debugON) then {diag_log format["_fnc_updateMissionQue :: _mission = %1 
 		if (blck_debugON) then {diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions updated to %1",blck_pendingMissions];};
 	};
 }forEach blck_pendingMissions;
+

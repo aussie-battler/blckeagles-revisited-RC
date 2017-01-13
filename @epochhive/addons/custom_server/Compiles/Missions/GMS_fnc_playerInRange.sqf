@@ -4,19 +4,17 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
+	Last Modified 1/12/17
 */
 /////////////////////////////////////////////////////
 
-	private ["_result"];
-	params["_obj1","_objList","_minDist"];
-	//_obj1 : player or other object
-	// _objList : array of objects
-	//_minDist : distance below which the function would return true;
-	
-	_result = false;
-	//diag_log format["playerInRange.sqf: _obj1 = %1, _objList = %2 _minDist = %3",_obj1,_objList,_minDist];
-	{
-		if ((_x distance _obj1) < _minDist) exitWith {_result = true;};
-	} forEach _objList;
-	
-	_result
+private ["_result"];
+params["_pos","_dist"];
+diag_log format["_fnc_playerInRange:: -> _pos = %1 and _dist = %2",_pos,_dist];
+uiSleep 5;
+_result = false;
+{
+	if ((_x distance _pos) < _dist) exitWith {_result = true;};
+} forEach allPlayers;
+
+_result
