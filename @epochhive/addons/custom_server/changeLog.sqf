@@ -1,8 +1,12 @@
 /*
 blck Mission system by Ghostrider-DBD-
 Loosely based on the AI mission system by blckeagls ver 2.0.2
-Contributions by Narines: bug fixes, testing, 'fired' event handler
+Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
+
+1/13/17 Build 29.
+Modularizing mission spawner.
+Searching for bug that causes mission completion code to hang.
 
 1/13/17 Version 6.54 Build 27
 Rerverted back to the code that spawned a single instance of each mission until I can debug certain issues.

@@ -20,41 +20,50 @@ _obj = [];
 
 while {true} do
 {
-	uiSleep blck_mainThreadUpdateInterval;  //  defined in custom_server\compiles\blck_variables.sqf
+	uiSleep 5;  //  defined in custom_server\compiles\blck_variables.sqf
 	if ((diag_tickTime - _timer5sec) > 5) then
 	{
 		[] call blck_fnc_vehicleMonitor;
 		_timer5sec = diag_tickTime;
 	};
-	if ((diag_tickTime - _timer1min) > 60) then
+	if ((diag_tickTime - _timer1min) > 15) then
 	{
+		diag_log format["_fnc_mainThread:: (30) diag_tickTime = %1", diag_tickTime];
+		diag_log format["_fnc_mainThread:: (31) blck_liveMissionAI = %1", blck_liveMissionAI];
 		_ai = blck_liveMissionAI;
 		{
+			diag_log format["_fnc_mainThread:: (34) evaluating liveAIArray %1 with diag_tickTime %2", _x,diag_tickTime];
 			if (diag_tickTime > (_x select 1) ) then {
-				//diag_log format["_fnc_mainTread:: cleaning up AI group %1",_x];
+				diag_log format["_fnc_mainTread:: cleaning up AI group %1",_x];
 				[_x select 0] call blck_fnc_cleanupAliveAI;
+				blck_liveMissionAI set[ _forEachIndex, -1];
+				blck_liveMissionAI = blck_liveMissionAI - [-1];  // Remove that list of live AI from the list.
+				diag_log format["_fnc_mainTread:: blck_liveMissionAI updated from %1",_ai];
+				diag_log format["_fnc_mainTread:: blck_liveMissionAI updated to %1",blck_liveMissionAI];
 			};
-			blck_liveMissionAI = blck_liveMissionAI - [_x];  // Remove that list of live AI from the list.
 		}forEach _ai;
-		
+		diag_log format["_fnc_mainThread:: (44) blck_oldMissionObjects = %1", blck_oldMissionObjects];
 		_obj = blck_oldMissionObjects;
+		
 		{
-			//diag_log format["mainThread::-->> missionObjects  _x = %1",_x];
+			diag_log format["mainThread::-->> evaluating missionObjects = %1 diag_tickTime %2",_x,diag_tickTime];
 			if (diag_tickTime > (_x select 1) ) then {
-				//diag_log format["_fnc_mainTread:: cleaning up mission objects %1",_x];
+				diag_log format["_fnc_mainTread:: cleaning up mission objects %1",_x];
 				[_x select 0] call blck_fnc_cleanupObjects;
+				blck_oldMissionObjects set[_forEachIndex, -1];
+				blck_oldMissionObjects = blck_oldMissionObjects - [-1];
+				diag_log format["_fnc_mainTread:: blck_oldMissionObjects updated from %1",_obj];
+				diag_log format["_fnc_mainTread:: blck_oldMissionObjects updated to %1",blck_oldMissionObjects];
 			};
-			blck_oldMissionObjects = blck_oldMissionObjects - [_x];
 		}forEach _obj;
 		
-		[] call GMS_fnc_cleanupDeadAI;	
+		[] call blck_fnc_cleanupDeadAI;	
 				
 		if (_modType isEqualTo "Epoch") then {
-			//diag_log "calling blck_fnc_cleanEmptyGroups";
 			[] call blck_fnc_cleanEmptyGroups;
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
 
-		/*  [Jan 14, 2017] reverted the the approach based on mission timers for now
+		/*  [Jan 13, 2017] reverted the the approach based on mission timers for now
 		{
 			if (blck_debugLevel > 2) then {diag_log format["_fnc_mainThread:: -- >> _x = %1  and _x select 6 = %2",_x, _x select 6];};
 			if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned
@@ -78,8 +87,9 @@ while {true} do
 			};
 		}forEach blck_pendingMissions;
 		_timer1min = diag_tickTime;		
+		*/
 	};
-	*/
+	
 	if ((diag_tickTime - _timer5min) > 300) then {
 		if (blck_timeAcceleration) then 
 		{

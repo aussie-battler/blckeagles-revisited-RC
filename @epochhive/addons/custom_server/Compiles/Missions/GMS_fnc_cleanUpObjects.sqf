@@ -6,13 +6,20 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 8-13-16
+	Last Modified 1-13-17
 */
-	params["_buildings"];
+
+params["_objects"];
+{
+	if ((typeOf _x) isKindOf "LandVehicle") then
 	{
-			//diag_log format["cleanupObjects.sqf: -- >> object %1 is typeOf %2",_x, typeOf _x];		
-			deleteVehicle _x;
-	} forEach _buildings;
+		private _crew = crew _x;
+		{
+			[_x] call blck_deleteAI;
+		}forEach _crew;
+	};
+	deleteVehicle _x;
+} forEach _objects;
 
 	
 

@@ -5,47 +5,44 @@
 	
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last updated 1-17-17
+	Last updated 1-13-17
 */
 
-private _vehList = blck_missionVehicles;
+private ["_veh","_vehList"];
+_vehList = blck_missionVehicles;
+//diag_log format["_fnc_vehicleMonitor:: function called with blck_missionVehicles = %1",_vehList];
 {
-	private ["_veh"];
 	_veh = _x;
+	if (_veh getVariable["blck_DeleteAt",0] > 0) then
+	{
+		if (diag_tickTime > (_veh getVariable["blck_DeleteAt",0])) then 
+		{
+			[_veh] call blck_deleteVehicle;
+			blck_missionVehicles = blck_missionVehicles - [_veh];
+		};
+	};
 	if ({alive _x} count crew _veh < 1) then
 	{
 		if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then
 		{
-			[_veh] spawn {uiSleep 1;(_this select 0) setDamage 1;};
-			blck_missionVehicles = blck_missionVehicles - [_veh];
-			if (blck_debugOn) then{
-				diag_log format["_fnc_vehicleMonitor:: deleting emplaced weapon %1",_veh];
+			if (blck_debugOn) then
+			{
+				diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
 			};
+			_veh setDamage 1;
+			_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 		}else {
 			if (blck_killEmptyAIVehicles) then
 			{
-				blck_missionVehicles = blck_missionVehicles - [_veh];
-				[_veh] spawn {
-					params["_v"];
-					//diag_log format["vehicleMonitor.sqf:: case of patrol vehicle: _veh %1 is about to be killed with getAllHitPointsDamage = %2",_v, (getAllHitPointsDamage _v)];
-					uiSleep 20;
-					{
-						_v setHitPointDamage [_x, 1];
-						//diag_log format["vehicleMonitor: hitpart %1 for vehicle %1 set to 1",_x,_v];
-					} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
-					if (blck_debugLevel isEqualTo 3) then
-					{
-						diag_log format["_fnc_vehicleMonitor:: damage applied to a patrol vehicle -- >> current damage for vehicle %1 is = %2",_v, (getAllHitPointsDamage _v)];
-					};
-					[_v] spawn {  // spawn this so we don't hold up the rest the evaluations and cleanup needed.
-						private _v = _this select 0;
-						uiSleep 60;
-						if (blck_debugOn) then {
-							diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle:deleting vehicle _veh",_v];
-						};
-						deleteVehicle _v;
-					};
-				};
+				if (blck_debugOn) then
+				{
+					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];
+				};			
+				{
+					_veh setHitPointDamage [_x, 1];
+					
+				} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
+				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
 				//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from_veh %1",_veh];	
 				blck_missionVehicles = blck_missionVehicles - [_veh];

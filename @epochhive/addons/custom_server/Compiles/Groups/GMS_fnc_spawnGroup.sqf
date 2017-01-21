@@ -27,7 +27,7 @@ if (blck_debugLevel isEqualTo 3) then
 _groupSpawned = createGroup blck_AI_Side; 
 if !(isNull _groupSpawned) then
 {
-	diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned];	
+	if (blck_debugON) then {diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned]};
 	_groupSpawned setcombatmode blck_combatMode;
 	_groupSpawned allowfleeing 0;
 	_groupSpawned setspeedmode "FULL";
