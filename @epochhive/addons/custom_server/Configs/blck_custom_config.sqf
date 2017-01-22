@@ -59,16 +59,17 @@ if (blck_debugON) then
 	blck_TMax_Green = 38;
 	blck_TMax_Orange = 31;
 
-	blck_reinforceBlue = [0.999, 2, 0.001];
+	//blck_reinforceBlue = [0.999, 2, 0.001];
 	//blck_MissionTimout = 60;  // 40 min
+	
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.01],
-		["aimingShake",0.01],
-		["aimingSpeed",0.01],
-		["endurance",0.01],
-		["spotDistance",0.01],
-		["spotTime",0.01],
-		["courage",0.01],
+		["aimingAccuracy",0.1],
+		["aimingShake",0.3],
+		["aimingSpeed",0.5],
+		["endurance",0.5],
+		["spotDistance",0.7],
+		["spotTime",0.7],
+		["courage",0.7],
 		["reloadSpeed",0.80],
 		["commanding",0.8],
 		["general",1.00]

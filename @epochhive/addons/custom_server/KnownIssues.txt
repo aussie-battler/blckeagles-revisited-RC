@@ -1,0 +1,9 @@
+
+
+Known issues
+
+1. Missions sometimes are not triggered by players.
+2. Missions are sometimes not completed even when completion criteria are met.
+3. Infinite ammo is not working for at least some weapons. Probable cause is the arma engine as server logs show multiple errors related to weapons not being found.
+	This impacts both vehicle-mounted weapons and AI weapons.
+4. Emplaced weapons are not spawning correctly.

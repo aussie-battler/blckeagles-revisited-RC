@@ -109,7 +109,7 @@ while {_wait} do
 		_wait = false;
 		_playerInRange = true;
 	} else {		
-		if ({isPlayer _x && _x distance _coords < blck_TriggerDistance} count allPlayers > 0) then
+		if ({isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers > 0) then
 		{
 			_wait = false;
 			_playerInRange = true;
@@ -214,8 +214,9 @@ if (_playerInRange) then
 	if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 	{
 		private ["_emplacedUnits"];
+		//  params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear",["_missionType","unspecified"]];
 		_emplacedUnits = [_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionEmplacedWeapons;
-		//diag_log format["missionSpawner :: (218) _emplacedUnits = %1",_emplacedUnits];
+		diag_log format["missionSpawner :: (218) _emplacedUnits = %1",_emplacedUnits];
 		uisleep 0.1;
 		if (typeName _emplacedUnits isEqualTo "ARRAY") then
 		{
@@ -229,6 +230,7 @@ if (_playerInRange) then
 		{
 			diag_log format["[blckeagls] missionSpawner:: (236) Static Weapons Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 		};
+		
 	};
 	uisleep _delayTime;
 	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
@@ -285,7 +287,6 @@ if (_playerInRange) then
 	//diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
 	private["_missionComplete"];
 	_missionComplete = -1;
-
 	_endIfPlayerNear = false;
 	_endIfAIKilled = false;
 	_startTime = diag_tickTime;
@@ -306,7 +307,7 @@ if (_playerInRange) then
 	{
 		if (blck_debugLevel isEqualTo 3) then
 		{
-			uiSleep 120;
+			uiSleep 300;
 			_missionComplete = 1;
 		} else {
 			if (_endIfPlayerNear) then {

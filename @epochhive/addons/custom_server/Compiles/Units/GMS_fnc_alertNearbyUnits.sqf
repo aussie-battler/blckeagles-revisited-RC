@@ -13,7 +13,7 @@ _intelligence = _unit getVariable ["intelligence",1];
 if (_alertDist > 0) then {
 		//diag_log format["+----+ alerting units close to %1",_unit];
 		{
-			if (((position _x) distance (position _unit)) <= _alertDist) then {
+			if (((position _x) distance2D (position _unit)) <= _alertDist) then {
 				_x reveal [_killer, _intelligence];
 				//diag_log "Killer revealed";
 			}

@@ -9,6 +9,9 @@ Fixed an error in how the waitTime till a mission was respawned after being upda
 Added additional reporting as to the mission type for which AI, statics and vehicle patrols are being spawned.
 Continued switching from blck_debugOn to blck_debugLevel.
 Removed old code that had been commented out from GMS_missionSpawner.
+deactivated the 'fired' event handler
+added an 'reloaded' event handler to units that adds a magazin of the type used to reload the weapon to prevent units running out of ammo. this also provides a break in firing and is more realistic.
+Added a check to GMS_fnc_vehicleMonitor that addes ammo to vehicle cargo when stores are low. Removed the infinite ammo script for static and vehicle weapons, again for greater realism.
 
 1/21/17 Build 29.
 Went back to the timerless system for spawning missions.

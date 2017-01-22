@@ -1,13 +1,16 @@
 // Configures a mission vehicle
 // by Ghostrider-DBD-
-// Last Updated 1/13/17
+// Last Updated 1/22/17
 
-params["_veh"];
+params["_veh",["_clearInventory",true]];
 
-clearWeaponCargoGlobal    _veh;
-clearMagazineCargoGlobal  _veh;
-clearBackpackCargoGlobal  _veh;
-clearItemCargoGlobal      _veh;
+if (_clearInventory) then 
+{
+	clearWeaponCargoGlobal    _veh;
+	clearMagazineCargoGlobal  _veh;
+	clearBackpackCargoGlobal  _veh;
+	clearItemCargoGlobal      _veh;
+};
 _veh setVehicleLock "LOCKEDPLAYER";
 _veh addEventHandler ["GetIn",{  // Note: only fires when vehicle is local to player
 	private["_unit","_veh"];

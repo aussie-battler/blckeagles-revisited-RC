@@ -94,7 +94,6 @@ _weap = selectRandom _weaponList;
 
 _ai1 addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
-//_muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "muzzles");
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
 _pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "PointerSlot" >> "compatibleItems");
 _muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
@@ -105,7 +104,7 @@ _legalOptics = [];
 }forEach _optics;
 _ammo = selectRandom _ammoChoices;  
 //diag_log format["[spawnUnit.sqf] _ammo returned as %1",_ammo];
-for "_i" from 2 to (floor(random 3)) do {
+for "_i" from 2 to (round(random 3)) do {
 	_ai1 addMagazine _ammo;
 };
 //if (random 1 < 0.3) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
@@ -160,7 +159,8 @@ else
 };
 
 // Infinite ammo
-_ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
+//_ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
+_ai1 addEventHandler ["reloaded", {_this call compile preprocessfilelinenumbers blck_EH_unitWeaponReloaded;}];
 _ai1 addEventHandler ["killed",{ [(_this select 0), (_this select 1)] call compile preprocessfilelinenumbers blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
 //_ai addEventHandler ["HandleDamage",{ [(_this select 0), (_this select 1)] execVM blck_EH_AIHandleDamage;}];
 

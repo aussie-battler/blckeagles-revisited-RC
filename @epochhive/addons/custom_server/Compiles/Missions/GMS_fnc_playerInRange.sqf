@@ -11,10 +11,9 @@
 private ["_result"];
 params["_pos","_dist"];
 diag_log format["_fnc_playerInRange:: -> _pos = %1 and _dist = %2",_pos,_dist];
-uiSleep 5;
 _result = false;
 {
-	if ((_x distance _pos) < _dist) exitWith {_result = true;};
+	if ((_x distance2D _pos) < _dist) exitWith {_result = true;};
 } forEach allPlayers;
 
 _result

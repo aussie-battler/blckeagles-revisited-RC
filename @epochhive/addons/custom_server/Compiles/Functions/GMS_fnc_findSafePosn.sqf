@@ -5,7 +5,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 11-16-16
+	Last Modified 1-22-17
 */
 private["_findNew","_coords","_blackListCenter","_blackListRadius","_dist","_xpos","_ypos","_newPos","_townPos"];
 
@@ -19,13 +19,13 @@ while {_findNew} do {
 	//diag_log format["<<--->> _coords = %1",_coords];
 	
 	{
-		if ((_x distance _coords) < blck_MinDistanceFromMission) then {
+		if ((_x distance2D _coords) < blck_MinDistanceFromMission) then {
 			_FindNew = true;
 		};
 	}forEach DBD_HeliCrashSites;
 	
 	{
-		if ( ((_x select 0) distance _coords) < (_x select 1)) exitWith
+		if ( ((_x select 0) distance2D _coords) < (_x select 1)) exitWith
 		{
 			_FindNew = true;
 		};
@@ -34,7 +34,7 @@ while {_findNew} do {
 	//diag_log format["#- findSafePosn -# blck_ActiveMissionCoords isEqualTo %1", blck_ActiveMissionCoords];	
 	{
 		//diag_log format["#- findSafePosn -# blck_ActiveMissionCoords active mission item is %1", _x];
-		if ( (_x distance _coords) < blck_MinDistanceFromMission) exitWith
+		if ( (_x distance2D _coords) < blck_MinDistanceFromMission) exitWith
 		{
 			_FindNew = true;
 		};
@@ -54,7 +54,7 @@ while {_findNew} do {
 		if !(_ignore) then
 		{
 			//diag_log format["-# findSafePosn.sqf -#  testing _coords against Old Mission coords is %1", _x select 0];
-			if ( ((_x select 0) distance _coords) < blck_MinDistanceFromMission) then  
+			if ( ((_x select 0) distance2D _coords) < blck_MinDistanceFromMission) then  
 			{
 				_FindNew = true;
 				//diag_log format["-# findSafePosn.sqf -#  Too Close to Old Mission element: %1", _x];
@@ -79,7 +79,7 @@ while {_findNew} do {
 	// check that missions spawn at least 1 kkm from towns
 	{
 		_townPos = [((locationPosition _x) select 0), ((locationPosition _x) select 1), 0];
-		if (_townPos distance _coords < 200) exitWith {
+		if (_townPos distance2D _coords < 200) exitWith {
 			_FindNew = true;
 		};
 	} forEach blck_townLocations;
@@ -91,7 +91,7 @@ while {_findNew} do {
 	if (_mod isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
 	//diag_log format["_fnc_findSafePosn:: -- >> _mod = %1 and _pole = %2",_mod,_pole];	
 	{
-		if ((_x distance _coords) < 600) then
+		if ((_x distance2D _coords) < 600) then
 		{
 			_FindNew = true;
 		};
@@ -99,7 +99,7 @@ while {_findNew} do {
 	
 	// check to be sure we do not spawn a mission on top of a player.	
 	{
-		if (isPlayer _x && (_x distance _coords) < 600) then 
+		if (isPlayer _x && (_x distance2D _coords) < 600) then 
 		{
 				_FindNew = true;
 		};
