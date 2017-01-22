@@ -24,10 +24,10 @@ if (blck_debugON) then
 	// Used primarily for debugging.
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 	
-	blck_mainThreadUpdateInterval = 10;
+	//blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = -1;  
 	blck_enableGreenMissions = -1;
-	blck_enableRedMissions = 1;
+	blck_enableRedMissions = -1;
 	blck_enableBlueMissions = 1;
 
 	
@@ -37,12 +37,12 @@ if (blck_debugON) then
 	
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
-	blck_SpawnEmplaced_Blue = 0;  // Number of static weapons at Blue Missions
+	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2; 
 	
 	blck_SpawnVeh_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
-	blck_SpawnVeh_Blue = 0;  // Number of static weapons at Blue Missions
+	blck_SpawnVeh_Blue = 2;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;
 	
 	//blck_reinforcementsBlue = [0, 0, 0.0, 0];  // Chance of reinforcements, number of reinforcements, Chance of reinforcing heli patrols, chance of dropping supplies for the reinforcements
@@ -60,7 +60,7 @@ if (blck_debugON) then
 	blck_TMax_Orange = 31;
 
 	blck_reinforceBlue = [0.999, 2, 0.001];
-	//blck_MissionTimout = 120;  // 40 min
+	//blck_MissionTimout = 60;  // 40 min
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
 		["aimingShake",0.01],

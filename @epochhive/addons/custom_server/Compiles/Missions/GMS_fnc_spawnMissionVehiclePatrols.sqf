@@ -1,11 +1,11 @@
 /*
 	[_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear] call blck_fnc_spawnMissionVehiclePatrols
 	by Ghostrider-DbD-
-	1/13/17
+	1/22/17
 	returns [] if no groups could be created
 	returns [_AI_Vehicles,_missionAI] otherwise;
 */
-params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_uniforms","_headGear"];
+params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_uniforms","_headGear",["_missionType","unspecified"]];
 private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns","_missionAI","_missiongroups","_AI_Vehicles","_abort","_vehiclePatrolSpawns","_randomVehicle","_return"];
 _missionAI = [];
 
@@ -13,7 +13,7 @@ _vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositi
 {
 	_vehGroup = [_x,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
 	//if (isNull _vehGroup) exitWith {_abort = true;};
-	diag_log format["_fnc_spawnMissionVehiclePatrols:: ->  _vehGroup = %1 and units _vehGroup = %2",_vehGroup, units _vehGroup];
+	if (blck_debugLevel > 0) then {diag_log format["_fnc_spawnMissionVehiclePatrols:: -> _missionType = %3 _vehGroup = %1 and units _vehGroup = %2",_vehGroup, units _vehGroup,_missionType];};
 	if (typename (units _vehGroup) isEqualTo "ARRAY") then
 	{
 		_randomVehicle = selectRandom blck_AIPatrolVehicles;
@@ -24,7 +24,7 @@ _vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositi
 }forEach _vehiclePatrolSpawns;
 if (blck_debugLevel > 1) then
 {
-	diag_log format["[blckeagls] _fnc_spawnMissionVehiclePatrols :: Vehicle Patrols Spawned: _cords %1 : _missionType %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_missionType,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] _fnc_spawnMissionVehiclePatrols :: Vehicle Patrols Spawned: _coords %1 : _missionType %2 :  _aiDifficultyLevel %3",_coords,_aiDifficultyLevel];
 };
  
 _missionAI;

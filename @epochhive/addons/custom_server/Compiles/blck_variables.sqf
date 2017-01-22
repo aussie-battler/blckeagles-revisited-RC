@@ -7,7 +7,7 @@
 */
 //blck_variablesLoaded = false;
 blck_debugON = true;
-blck_debugLevel = 1;  // Sets level of detail for debugging info - WIP.
+blck_debugLevel = 3;  // Sets level of detail for debugging info - WIP.
 blck_minFPS = 10;
 
 ////////////////////////////////////////////////
@@ -31,6 +31,6 @@ DBD_HeliCrashSites = [];
 // radius within whih missions are triggered. The trigger causes the crate and AI to spawn.
 blck_TriggerDistance = 1000;
 blck_mainThreadUpdateInterval = 60;
-blck_missionSpawning = false;
+//blck_missionSpawning = false;
 diag_log "[blckeagls] Variables Loaded";
 blck_variablesLoaded = true;

@@ -4,9 +4,17 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-1/13/17 Build 29.
-Modularizing mission spawner.
-Searching for bug that causes mission completion code to hang.
+1/22/17 Version 6.54 build 30
+Fixed an error in how the waitTime till a mission was respawned after being updated to inactive status.
+Added additional reporting as to the mission type for which AI, statics and vehicle patrols are being spawned.
+Continued switching from blck_debugOn to blck_debugLevel.
+Removed old code that had been commented out from GMS_missionSpawner.
+
+1/21/17 Build 29.
+Went back to the timerless system for spawning missions.
+Improved code for updating the array of pending/active missions
+	GMS_fnc_updateMissionQue.sqf re-written to take greater advantage of existing array commands: set and find.
+Ensured that the array used to store the location(s) of active or recent missions is properly updated.
 
 1/13/17 Version 6.54 Build 27
 Rerverted back to the code that spawned a single instance of each mission until I can debug certain issues.

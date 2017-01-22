@@ -3,7 +3,7 @@
 
 //blck_Message =  _this;
 params["_msg",["_players",playableUnits]];
-diag_log format["AIM.sqf ===]  _this = %1 | _msg = %2 | _players = %3",_this,_msg, _players];
+if (blck_debugLevel > 1) then {diag_log format["AIM.sqf ===]  _this = %1 | _msg = %2 | _players = %3",_this,_msg, _players];};
 blck_Message = _msg;
 {
 	//diag_log format["AIM.sqf ===] _ = %2, and (owner _x) = %1", (owner _x), _x];
