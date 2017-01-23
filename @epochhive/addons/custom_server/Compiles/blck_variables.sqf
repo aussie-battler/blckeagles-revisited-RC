@@ -6,8 +6,8 @@
 	Last modified 10/25/16
 */
 //blck_variablesLoaded = false;
-blck_debugON = false;
-blck_debugLevel = 0;  // Sets level of detail for debugging info - WIP.
+blck_debugON = true;
+blck_debugLevel = 2;  // Sets level of detail for debugging info - WIP.
 blck_minFPS = 10;
 
 ////////////////////////////////////////////////

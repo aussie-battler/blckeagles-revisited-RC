@@ -4,6 +4,11 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+1/23/17 Version 6.54 Build 33
+Fixed typos in GMS_fnc_vehicleMonitor.sqf
+Removed a few files that are not used or needed.
+Removed some code that had been commented out from blck_functions.sqf.
+
 1/22/17 Version 6.54 build 32
 Changed code to test for conditions that trigger to spawn mission objects and AI completely
 Rewrote the code for spawning emplaced weapons from scratch.
