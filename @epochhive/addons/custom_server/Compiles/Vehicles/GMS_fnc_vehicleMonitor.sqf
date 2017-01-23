@@ -49,6 +49,8 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function c
 				_veh removealleventhandlers "GetIn";
 				_veh removealleventhandlers "GetOut";
 				_veh setVehicleLock "UNLOCKED" ;
+				_veh setVariable["releasedToPlayers",true];
+				[_veh] call blck_fnc_emptyObject;
 				if (blck_debugOn) then
 				{
 					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
@@ -56,31 +58,29 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function c
 			};
 		};
 	} else {
-		private ["_crew"];
+		private ["_crew","_mag","_allMags","_cnt"];
 		//_veh setVehicleAmmo 1;
 		//_veh setFuel 1;
 		//  https://community.bistudio.com/wiki/fullCrew
 		//							0				1			2					3				4
 		// returns Array - format [[<Object>unit,<String>role,<Number>cargoIndex,<Array>turretPath,<Boolean>personTurret], ...] 
-		diag_log format["_fnc_vehicleMonitor:: (65) _veh = %1",_veh];
+		//diag_log format["_fnc_vehicleMonitor:: (65) _veh = %1",_veh];
 		_crew = fullCrew _veh;
-		diag_log format["_fnc_vehicleMonitor:: (67) _crew = %1",_crew];
+		//diag_log format["_fnc_vehicleMonitor:: (67) _crew = %1",_crew];
 		{
-			diag_log format ["_fnc_vehicleMonitor:: (69) _x = %1",_x];
+			//diag_log format ["_fnc_vehicleMonitor:: (69) _x = %1",_x];
 			_mag = _veh currentMagazineTurret (_x select 3);
 			if (count _mag > 0) then
 			{
-				diag_log format["_fnc_vehicleMonitor:: (71) _mag is typeName %1", typeName _mag];
-				diag_log format ["_fnc_vehicleMonitor:: (71) length _mag = %2 and _mag = %1",_mag,count _mag];	
+				//diag_log format["_fnc_vehicleMonitor:: (71) _mag is typeName %1", typeName _mag];
+				//diag_log format ["_fnc_vehicleMonitor:: (71) length _mag = %2 and _mag = %1",_mag,count _mag];	
 				_allMags = magazinesAmmo _veh;
-				diag_log format["_fnc_vehicleMonitor:: (71) _allMags = %1",_allMags];			
-				_cnt = ( {_mag isEqualTo (_x select 0); diag_log format["_fnc_vehicleMonitor _x select 0 =%1",_x select 0];}count _allMags);
-				diag_log format["_fnc_vehicleMonitor:: (75) _cnt = %1",_cnt];
+				//diag_log format["_fnc_vehicleMonitor:: (71) _allMags = %1",_allMags];			
+				_cnt = ( {_mag isEqualTo (_x select 0)}count _allMags);
+				//diag_log format["_fnc_vehicleMonitor:: (75) _cnt = %1",_cnt];
 				if (_cnt < 2) then {_veh addMagazineCargo [_mag,2]};
 			};
 		} forEach _crew;
-		
-		
 	};
 }forEach _vehList;
 

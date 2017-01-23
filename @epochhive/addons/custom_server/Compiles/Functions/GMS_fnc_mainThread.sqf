@@ -5,27 +5,27 @@
 	- whether it is time to delete the mission objects at a specific location
 	- whether it is time to delete live AI associated with a specific mission
 	By Ghostrider-DbD-
-	Last modified 1-21-17
+	Last modified 1-22-17
 */
-private ["_timer10Min","_timer1min","_timer5min","_modType"];
-
-_timer5sec = diag_tickTime;
-_timer1min = diag_tickTime;
+private ["_timer10Min","_timer1min","_timer5min","_modType","_coords"];
+_timer1sec = diag_tickTime;
+_timer15sec = diag_tickTime;
+//_timer1min = diag_tickTime;
 _timer5min = diag_tickTime;
-_timer10Min = diag_tickTime;
+//_timer10Min = diag_tickTime;
 _modType = [] call blck_fnc_getModType;
 _ai = [];
 _obj = [];
 
 while {true} do
 {
-	uiSleep 5;  //  defined in custom_server\compiles\blck_variables.sqf
-	if ((diag_tickTime - _timer5sec) > 5) then
+	uiSleep 1;  //  defined in custom_server\compiles\blck_variables.sqf
+	if ((diag_tickTime - _timer1sec) > 1) then
 	{
 		[] call blck_fnc_vehicleMonitor;
-		_timer5sec = diag_tickTime;
+		_timer1sec = diag_tickTime;
 	};
-	if ((diag_tickTime - _timer1min) > 15) then
+	if ((diag_tickTime - _timer15sec) > 15) then
 	{
 		//diag_log format["_fnc_mainThread:: (30) diag_tickTime = %1", diag_tickTime];
 		//diag_log format["_fnc_mainThread:: (31) blck_liveMissionAI = %1", blck_liveMissionAI];
@@ -38,7 +38,7 @@ while {true} do
 				blck_liveMissionAI set[ _forEachIndex, -1];
 				blck_liveMissionAI = blck_liveMissionAI - [-1];  // Remove that list of live AI from the list.
 				//diag_log format["_fnc_mainTread:: blck_liveMissionAI updated from %1",_ai];
-				diag_log format["_fnc_mainTread:: blck_liveMissionAI updated to %1",blck_liveMissionAI];
+				if (blck_debugLevel > 1) then {diag_log format["_fnc_mainTread:: blck_liveMissionAI updated to %1",blck_liveMissionAI];};
 			};
 		}forEach _ai;
 		//diag_log format["_fnc_mainThread:: (44) blck_oldMissionObjects = %1", blck_oldMissionObjects];
@@ -52,7 +52,7 @@ while {true} do
 				blck_oldMissionObjects set[_forEachIndex, -1];
 				blck_oldMissionObjects = blck_oldMissionObjects - [-1];
 				//diag_log format["_fnc_mainTread:: blck_oldMissionObjects updated from %1",_obj];
-				diag_log format["_fnc_mainTread:: blck_oldMissionObjects updated to %1",blck_oldMissionObjects];
+				if (blck_debugLevel > 1) then {diag_log format["_fnc_mainTread:: blck_oldMissionObjects updated to %1",blck_oldMissionObjects];};
 			};
 		}forEach _obj;
 		
@@ -77,7 +77,7 @@ while {true} do
 				};
 			};
 		}forEach blck_pendingMissions;
-		_timer1min = diag_tickTime;		
+		_timer15sec = diag_tickTime;		
 
 	};
 	

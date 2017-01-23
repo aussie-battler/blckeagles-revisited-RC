@@ -2,16 +2,13 @@
 	Original Code by blckeagls
 	Modified by Ghostrider
 	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Buttface (A3XAI).
-	Infinite Ammo fix by Narines.
-	Code to delete dead AI bodies moved to AIKilled.sqf
 	Everything having to do with spawning and configuring an AI should happen here
-	Last Modified 11/12/16
+	Last Modified 1/22/17
 */
 
 //Defines private variables so they don't interfere with other scripts
-private ["_pos","_i","_weap","_ammo","_other","_skin","_aiGroup","_ai1","_magazines","_players","_owner","_ownerOnline","_nearEntities","_skillLevel","_aiSkills","_specialItems",
-		"_Launcher","_launcherRound","_vest","_index","_WeaponAttachments","_Meats","_Drink","_Food","_aiConsumableItems","_weaponList","_ammoChoices","_attachment","_attachments",
-		"_headGear","_uniforms","_pistols","_specialItems","_noItems"];
+private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills",
+		"_launcherRound","_index","_ammoChoices"];
 
 params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_underwater",false]];
 //_pos = _this select 0;  // Position at which to spawn AI
@@ -25,7 +22,7 @@ params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _ai1 = ObjNull;
-_modType = call blck_fnc_getModType;
+private _modType = call blck_fnc_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
@@ -53,8 +50,7 @@ _skin = "";
 _counter = 1;
 while {_skin isEqualTo "" && _counter < 10} do
 {
-	_skin = selectRandom _uniforms;  // call BIS_fnc_selectRandom;
-	//_ai1 forceAddUniform _skin;
+	_skin = selectRandom _uniforms;  
 	_ai1 forceAddUniform _skin;
 	_skin = uniform _ai1;
 	//diag_log format["_fnc_spawnUnit::-->> for unit _ai1 % uniform is %2",_ai1, uniform _ai1];
@@ -81,7 +77,6 @@ if (_modType isEqualTo "Epoch") then
 
 _ai1 addHeadgear (selectRandom _headGear);
 // Add a vest to AI for storage
-//_vest = selectRandom blck_vests;  // call BIS_fnc_selectRandom;
 _ai1 addVest selectRandom blck_vests;
 
 if ( random (1) < blck_chanceBackpack) then
@@ -91,27 +86,22 @@ if ( random (1) < blck_chanceBackpack) then
 };
 
 _weap = selectRandom _weaponList;  
-
+private["_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
 _ai1 addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
 _pointers = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "PointerSlot" >> "compatibleItems");
 _muzzles = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "MuzzleSlot" >> "compatibleItems");
 _underbarrel = getArray (configFile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "UnderBarrelSlot" >> "compatibleItems");
-_legalOptics = [];
-{
-	if !(_x in blck_blacklistedOptics) then {_legalOptics pushback _x};
-}forEach _optics;
-_ammo = selectRandom _ammoChoices;  
-//diag_log format["[spawnUnit.sqf] _ammo returned as %1",_ammo];
-for "_i" from 2 to (round(random 3)) do {
-	_ai1 addMagazine _ammo;
-};
-//if (random 1 < 0.3) then {_unit addPrimaryWeaponItem (selectRandom _muzzles)};
-_ai1 addPrimaryWeaponItem (selectRandom _legalOptics); 
-_ai1 addPrimaryWeaponItem (selectRandom  _pointers);
-_ai1 addPrimaryWeaponItem (selectRandom _muzzles);
-_ai1 addPrimaryWeaponItem (selectRandom _underbarrel);
+_legalOptics = _optics - blck_blacklistedOptics;
+
+_ai1 addMagazines [selectRandom _ammoChoices, 3];
+
+if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _muzzles)};
+if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _legalOptics);};
+if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom  _pointers);};
+if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _muzzles);};
+if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _underbarrel);};
 if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then {
 	_ai1 addMagazine "1Rnd_HE_Grenade_shell";
 };
@@ -120,11 +110,10 @@ _weap = selectRandom blck_Pistols;
 //diag_log format["[spawnUnit.sqf] _weap os %1",_weap];
 _ai1 addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
-_ai1 addMagazine selectRandom _ammoChoices;
+_ai1 addMagazines [selectRandom _ammoChoices, 2];
 
 //add random items to AI.  _other = ["ITEM","COUNT"]
 for "_i" from 1 to (1+floor(random(3))) do {
-	_i = _i + 1;
 	_ai1 addItem (selectRandom blck_ConsumableItems);
 };
 

@@ -3,13 +3,10 @@
 // Last Updated 1/22/17
 
 params["_veh",["_clearInventory",true]];
-
+private["_unit"];
 if (_clearInventory) then 
 {
-	clearWeaponCargoGlobal    _veh;
-	clearMagazineCargoGlobal  _veh;
-	clearBackpackCargoGlobal  _veh;
-	clearItemCargoGlobal      _veh;
+	[_veh] call blck_fnc_emptyObject;
 };
 _veh setVehicleLock "LOCKEDPLAYER";
 _veh addEventHandler ["GetIn",{  // Note: only fires when vehicle is local to player

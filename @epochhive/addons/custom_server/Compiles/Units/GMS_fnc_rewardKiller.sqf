@@ -3,13 +3,13 @@
 	calculate a reward player for AI Kills in crypto.
 	Code fragment adapted from VEMF
 	call as [_unit,_killer] call blck_fnc_rewardKiller;
-	Last modified 1/4/17
+	Last modified 1/22/17
 */
 
 params["_unit","_killer","_kills"];
 //diag_log format["rewardKiller::  _unit = %1 and _killer %2",_unit,_killer];
 
-private["_modType","_reward"];
+private["_modType","_reward","_maxReward","_dist","_killstreakReward","_distanceBonus","_newKillerScore","_newKillerFrags","_money"];
 _modType = call blck_fnc_getModType;
 
 //diag_log format["[blckeagles] rewardKiller:: - _modType = %1",_modType];
@@ -69,4 +69,4 @@ if (_modType isEqualTo "Exile") then
 		[["showScore",[50,_distanceBonus,_kills]], [_killer]] call blck_fnc_messageplayers;
 	};
 };
-//_reward
+

@@ -19,7 +19,7 @@
 	Contact : halvhjearne@gmail.com
 */
 	params["_player","_nr"];
-
+	private["_cIndex","_vars","_current_crypto","_current_cryptoRaw","_playerCryptoLimit"];
     _cIndex = EPOCH_customVars find "Crypto";
     _vars = _player getVariable["VARS", call EPOCH_defaultVars_SEPXVar];
     _current_crypto = _vars select _cIndex;

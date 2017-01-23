@@ -2,6 +2,7 @@
 // by Ghostrider-DBD-
 // Last Updated 1-22-17
 //  ["_pos","_emplacedGroup","_emplacedTypes",["_minDist",20],["_maxDist",35],["_precise",false] ] call blck_fnc_spawnEmplacedWeapon;
+
 private["_emplaced","_safepos","_emp","_gunner"];
 params["_pos","_emplacedGroup","_emplacedTypes",["_minDist",20],["_maxDist",35],["_precise",false], ["_missionType","undefined" ]];
 if (isNull _emplacedGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnEmplaced"; objNull;};

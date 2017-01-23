@@ -91,7 +91,7 @@ _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow
 [["start",_startMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
 [_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
 
-if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (89) waiting for player to trigger the mission";};
+if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (94) waiting for player to trigger the mission";};
 
 ////////
 //  All parameters are defined, lets wait until a player is nearby or the mission has timed out
@@ -101,32 +101,22 @@ private["_wait","_missionStartTime","_playerInRange","_missionTimedOut"];
 _missionStartTime = diag_tickTime;
 _playerInRange = false;
 _missionTimedOut = false;
-_wait = true;
+_wait = false;
+if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (105) starting mission trigger loop";};
 while {_wait} do
 {
-	if (blck_debugLevel isEqualTo 3) then
-	{
-		_wait = false;
-		_playerInRange = true;
-	} else {		
-		if ({isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers > 0) then
-		{
-			_wait = false;
-			_playerInRange = true;
-		} else
-		{
-			if ((diag_tickTime - _missionStartTime) > blck_MissionTimout) then
-			{
-				_wait = false;
-				_missionTimedOut = true;
-			};
-		};
-		uiSleep 1;
-	};
+	diag_log "missionSpawner:: top of mission trigger loop";
+	if (blck_debugLevel isEqualTo 3) exitWith {_wait = false;_playerInRange = true;};
+	if ({isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers > 0) exitWith {_wait = false;_playerInRange = true;};
+	if ((diag_tickTime - _missionStartTime) > blck_MissionTimout) exitWith {_wait = false;_missionTimedOut = true;};
+	uiSleep 10;
+	diag_log format["missionSpawner:: Trigger Loop - blck_debugLevel = %1 and _coords = %2",blck_debugLevel, _coords];
+	diag_log format["missionSpawner:: Trigger Loop - players in range = %1",{isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers];
+	diag_log format["missionSpawner:: Trigger Loop - timeout = %1", (diag_tickTime - _missionStartTime) > blck_MissionTimout];
 };
 
 
-if (_missionTimedOut) exitWith
+if ((diag_tickTime - _missionStartTime) > blck_MissionTimout) exitWith
 {
 	//  Deal with the case in which the mission timed out.
 	//["timeOut",_endMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
@@ -142,13 +132,14 @@ if (_missionTimedOut) exitWith
 	};
 };
 
-if (_playerInRange) then
+if (true) then
 {
 	////////
 	// Spawn the mission objects, loot chest, and AI
 	////////
 	if (blck_debugLevel > 0) then
-	{		diag_log format["[blckeagls] missionSpawner:: (112) --  >>  Mission tripped by nearby player: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	{		
+		diag_log format["[blckeagls] missionSpawner:: (112) --  >>  Mission tripped by nearby player: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 	};
 	
 	if (count _missionLootBoxes > 0) then
@@ -167,8 +158,6 @@ if (_playerInRange) then
 	{
 		diag_log format["[blckeagls] missionSpawner:: (131) Crates Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 	};
-	
-	uiSleep _delayTime;
 	private ["_temp"];
 	if (blck_SmokeAtMissions select 0) then  // spawn a fire and smoke near the crate
 	{
@@ -207,52 +196,10 @@ if (_playerInRange) then
 
 	[_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
 
-	
-	uiSleep _delayTime;
-	private _precise = false;
-	if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (233) preparing to spawn emplaced weapons for _markerClass %3:: blck_useStatic = %1 and _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass];};
-	if (blck_useStatic && (_noEmplacedWeapons > 0)) then
-	{
-		private ["_emplacedUnits"];
-		//  params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear",["_missionType","unspecified"]];
-		_emplacedUnits = [_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionEmplacedWeapons;
-		diag_log format["missionSpawner :: (218) _emplacedUnits = %1",_emplacedUnits];
-		uisleep 0.1;
-		if (typeName _emplacedUnits isEqualTo "ARRAY") then
-		{
-			if (typeName _emplacedUnits isEqualTo "ARRAY") then
-			{	
-				_blck_AllMissionAI append _emplacedUnits;
-			};
-			//diag_log format["missionSpawner :: (226) _blck_AllMissionAI updated to = %1",_blck_AllMissionAI];
-		};
-		if (blck_debugLevel > 0) then
-		{
-			diag_log format["[blckeagls] missionSpawner:: (236) Static Weapons Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
-		};
-		
-	};
-	uisleep _delayTime;
-	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
-	{
-		private["_vehUnits"];
-		_vehUnits = [_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
-		//diag_log format["missionSpawner :: (238) _vehUnits = %1",_vehUnits];
-		if (typeName _vehUnits isEqualTo "ARRAY") then
-		{
-			_blck_AllMissionAI append _vehUnits;
-		};
-
-		uiSleep _delayTime;
-		if (blck_debugLevel > 0) then
-		{
-			diag_log format["[blckeagls] missionSpawner:: Vehicle Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
-		};
-	};	
 	uiSleep _delayTime;
 	private ["_infantry"];
 	_infantry = [_coords, _minNoAI,_maxNoAI,_aiDifficultyLevel,_uniforms,_headGear] call blck_fnc_spawnMissionAI;
-	//diag_log format["missionSpawner:: (254) -> _infantry = %1",_infantry];
+	//diag_log format["missionSpawner:: (211) -> _infantry = %1",_infantry];
 	if (typeName _infantry isEqualto "ARRAY") then
 	{
 		_blck_AllMissionAI append _infantry;
@@ -262,6 +209,31 @@ if (_playerInRange) then
 	if (blck_debugON) then
 	{
 		diag_log format["[blckeagls] missionSpawner:: AI Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	};
+
+	uisleep _delayTime;
+	if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
+	{
+		private["_veh"];
+		uiSleep 1;
+		_veh = [_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
+		diag_log format["missionSpawner :: (230) _veh = %1",_veh];
+		_objects append (_veh select 0);
+		_blck_AllMissionAI append (_veh select 1);
+		uiSleep _delayTime;
+		if (blck_debugLevel > 0) then
+		{
+			diag_log format["[blckeagls] missionSpawner:: Vehicle Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+		};
+	};
+	
+	uiSleep _delayTime;
+	private {"_temp"];
+	if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (213) preparing to spawn emplaced weapons for _markerClass %3:: blck_useStatic = %1 and _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass];};
+	if (blck_useStatic && (_noEmplacedWeapons > 0)) then
+	{
+		_temp = [_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
+		diag_log format ["missionSpawner:: (246) value returned for _temp = %1",_temp];
 	};
 	
 	if ((random(1) < _chanceReinforcements)) then

@@ -22,5 +22,6 @@ if (_modType isEqualTo "Epoch") then
 //  params["_veh",["_clearInventory",true]];
 [_veh,_clearInventory] call blck_fnc_configureMissionVehicle;
 
+diag_log format["spawnVehicle:: returning parameter _veh = %1",_veh];
 _veh
 	

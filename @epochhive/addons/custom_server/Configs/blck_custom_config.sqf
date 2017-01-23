@@ -35,14 +35,14 @@ if (blck_debugON) then
 	blck_AliveAICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_bodyCleanUpTimer = 10;
 	
-	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = 0; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = 0; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2; 
 	
 	blck_SpawnVeh_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
-	blck_SpawnVeh_Blue = 2;  // Number of static weapons at Blue Missions
+	blck_SpawnVeh_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;
 	
 	//blck_reinforcementsBlue = [0, 0, 0.0, 0];  // Chance of reinforcements, number of reinforcements, Chance of reinforcing heli patrols, chance of dropping supplies for the reinforcements

@@ -1,9 +1,9 @@
 /*
 	by Ghostrider
-	11-11-16
+	1-22-17
 */
 
-private["_launcher","_launcherRounds","_objects","_weapons","_container"];
+private["_launcher","_launcherRounds"];
 params["_unit"];  // = _this select 0;
 _launcher = _unit getVariable ["Launcher",""];
 _unit removeWeapon _Launcher;

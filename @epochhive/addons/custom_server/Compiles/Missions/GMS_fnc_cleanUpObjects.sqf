@@ -6,19 +6,22 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 1-13-17
+	Last Modified 1-22-17
 */
 
 params["_objects"];
 {
 	if ((typeOf _x) isKindOf "LandVehicle") then
 	{
-		private _crew = crew _x;
+		if !(_x getVariable["releasedToPlayers",false]) then
 		{
-			[_x] call blck_deleteAI;
-		}forEach _crew;
+			private _crew = crew _x;
+			{
+				[_x] call blck_fnc_deleteAI;
+			}forEach _crew;
+		};
+		deleteVehicle _x;
 	};
-	deleteVehicle _x;
 } forEach _objects;
 
 	
