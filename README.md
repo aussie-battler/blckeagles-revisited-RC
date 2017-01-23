@@ -1,5 +1,5 @@
-Blckegls mission system (BEMS) Ver 6.44
-Build 15
+Blckegls mission system Ver 6.54
+Build 33
 Included is an updated version of blckeagls mission system. This began as an effort to fix bugs in and upgrade version 2.0.2 as updated by Narines and has now evolved to a complete reworking of almost all code. 
 
 * Installation: Please refer to Installation.txt for a detailed description of installation and what you need to add to BE filters.
@@ -11,17 +11,20 @@ Included is an updated version of blckeagls mission system. This began as an eff
 	Epoch Mod developer team.
 	blckeagls - Mission system 2.0.2
 	Narines - bug fixes and improvements.
-	Bill (DBD Clan) example compositions.
-	cyncrwler for help with troubleshooting and testing
+	Bill (DBD Clan) for example compositions.
+	cyncrwler, Grahamme and many others for help with troubleshooting and testing
+	Brian Soanes for performance fixes and general guidance.
 	
-* Additional Credits include authors of other missions systems who's work influenced this update:
+* Additional Credits include authors of other missions systems who's work influenced this update. 
+	I have indicated as best as possible where work was directly derived from their contributions.:
 	KiloSwiss (SEM)
 	Hogscrapper (HC missions for A3)
 	the Vampire (DZMS and VEMF)
 	The FUCHS (EMS)
 	lazylink (the original mission system)
 	Matt11 (Wicked AI) Updates:
-
+	Face (A3EAI/A3XAI)
+	
 * Compatability
 	Works well with VEMF, SEM, and A3AI all running on the same server.
 	
