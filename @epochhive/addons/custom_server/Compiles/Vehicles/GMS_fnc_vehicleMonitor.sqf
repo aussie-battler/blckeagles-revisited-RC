@@ -34,7 +34,7 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 		}else {
 			if (blck_killEmptyAIVehicles) then
 			{
-				if (blck_debugLevel > ) then
+				if (blck_debugLevel > 2) then
 				{
 					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];
 				};			
@@ -51,7 +51,7 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 				_veh setVehicleLock "UNLOCKED" ;
 				_veh setVariable["releasedToPlayers",true];
 				[_veh] call blck_fnc_emptyObject;
-				if (blck_debugLevel > ) then
+				if (blck_debugLevel > 2) then
 				{
 					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
 				};
