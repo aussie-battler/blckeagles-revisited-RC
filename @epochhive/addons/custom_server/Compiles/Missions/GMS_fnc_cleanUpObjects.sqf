@@ -20,7 +20,7 @@ params["_objects"];
 				[_x] call blck_fnc_deleteAI;
 			}forEach _crew;
 		};
-		deleteVehicle _x;
+		_x setVariable["blck_DeleteAt",0];  // Schedule it to be deleted by fnc_vehicleMonitor immediately
 	};
 } forEach _objects;
 

@@ -9,9 +9,9 @@
 private["_numbertospawn","_groupSpawned","_safepos","_weaponList","_useLauncher","_launcherType"];	
 
 params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-if (blck_debugLevel > 1) then
+if (blck_debugLevel > 2) then
 {
-	diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
+	//diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
 };
 //Spawns correct number of AI
 if (_numai2 > _numai1) then {
@@ -19,9 +19,9 @@ if (_numai2 > _numai1) then {
 } else {
 	_numbertospawn = _numai2;
 };
-if (blck_debugLevel  > 1) then
+if (blck_debugLevel  > 2) then
 {
-	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
+	//diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };
 
 _groupSpawned = createGroup blck_AI_Side; 

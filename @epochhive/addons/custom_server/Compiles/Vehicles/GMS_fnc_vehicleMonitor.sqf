@@ -10,7 +10,7 @@
 
 private ["_veh","_vehList"];
 _vehList = blck_missionVehicles;
-if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function called with blck_missionVehicles = %1",_vehList];};
+if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called with blck_missionVehicles = %1",_vehList];};
 {
 	_veh = _x;
 	if (_veh getVariable["blck_DeleteAt",0] > 0) then
@@ -25,7 +25,7 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function c
 	{
 		if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then
 		{
-			if (blck_debugOn) then
+			if (blck_debugLevel > 2) then
 			{
 				diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
 			};
@@ -34,7 +34,7 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function c
 		}else {
 			if (blck_killEmptyAIVehicles) then
 			{
-				if (blck_debugOn) then
+				if (blck_debugLevel > ) then
 				{
 					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];
 				};			
@@ -51,7 +51,7 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function c
 				_veh setVehicleLock "UNLOCKED" ;
 				_veh setVariable["releasedToPlayers",true];
 				[_veh] call blck_fnc_emptyObject;
-				if (blck_debugOn) then
+				if (blck_debugLevel > ) then
 				{
 					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
 				};

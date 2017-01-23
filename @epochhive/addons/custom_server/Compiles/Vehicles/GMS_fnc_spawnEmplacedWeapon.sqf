@@ -22,7 +22,6 @@ diag_log format["_fnc_spawnEmplacedWeapon:: (17) weapon _%1 spawned at %2 using 
 if (_precise) then {_emp setPosATL _pos];
 _gunner = (units _emplacedGroup) select 0;
 _gunner moveingunner _emp;
-[_emp,false] call blck_fnc_configureMissionVehicle;
 waitUntil { count crew _emp > 0};
 blck_missionVehicles pushback _emp;
 if (blck_debugLevel > 1) then {diag_log format["spawnEmplaced.sqf: (24) _missionType %3 || Emplaced weapon %1 spawned at position %2",_emp,getPosATL _emp,_missionType];

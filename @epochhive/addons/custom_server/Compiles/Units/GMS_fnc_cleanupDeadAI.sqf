@@ -5,7 +5,7 @@
 */
 
 private["_aiList","_ai"];
-_aiList = blck_deadAI;
+_aiList = +blck_deadAI;
 {
 	if ( diag_tickTime > _x getVariable ["blck_cleanupAt",0] ) then //  DBD_DeleteAITimer
 	{

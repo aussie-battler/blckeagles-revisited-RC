@@ -18,18 +18,13 @@ _vehiclePatrolSpawns= [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositi
 	{
 		_randomVehicle = selectRandom blck_AIPatrolVehicles;
 		_patrolVehicle = [_coords,_x,_randomVehicle,(_x distance _coords) -5,(_x distance _coords) + 5,_vehGroup] call blck_fnc_spawnVehiclePatrol;
-		diag_log format["_fnc_spawnMissionVehiclePatrols:: - > patrol vehicle spawned was %1 with type of %2",_patrolVehicle,_randomVehicle];
-		_vehGroup setVariable["groupVehicle",_patrolVehicle,true];
+		//diag_log format["_fnc_spawnMissionVehiclePatrols:: - > patrol vehicle spawned was %1 with type of %2",_patrolVehicle,_randomVehicle];
 		_vehicles pushback _patrolVehicle;
 		_missionAI append units _vehGroup;
-		diag_log format["_fnc_spawnMissionVehiclePatrols:: -- > _vehicles updated to %1",_vehicles];
+		//diag_log format["_fnc_spawnMissionVehiclePatrols:: -- > _vehicles updated to %1",_vehicles];
 	};
 }forEach _vehiclePatrolSpawns;
-if (blck_debugLevel > 1) then
-{
-	diag_log format["[blckeagls] _fnc_spawnMissionVehiclePatrols :: Vehicle Patrols Spawned: _coords %1 : _missionType %2 :  _aiDifficultyLevel %3",_coords,_aiDifficultyLevel];
-};
- 
+blck_missionVehicles append _vehicles; 
 _return = [_vehicles,_missionAI];
 
 _return
