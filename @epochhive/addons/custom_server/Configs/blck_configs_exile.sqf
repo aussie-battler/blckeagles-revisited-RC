@@ -157,7 +157,7 @@ Last modified 8/1/15
 	blck_bodyCleanUpTimer = 1200; // time in seconds after which dead AI bodies are deleted
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
-	blck_AliveAICleanUpTime = 900;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_AliveAICleanUpTimer = 900;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_cleanupCompositionTimer = 1200;
 	blck_AIAlertDistance = [150,225,250,300];
 	//blck_AIAlertDistance = [150,225,400,500];

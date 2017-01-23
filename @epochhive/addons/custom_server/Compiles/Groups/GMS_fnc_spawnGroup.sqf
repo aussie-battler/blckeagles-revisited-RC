@@ -3,15 +3,15 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 12/21/16
+	Last Modified 1/22/17
 */
-//Sets Private Variables to they don't interfere when this script is called more than once
-private["_numbertospawn","_i","_groupSpawned","_safepos","_x","_weaponList","_useLauncher","_launcherType","_aiSkills"];	
+
+private["_numbertospawn","_groupSpawned","_safepos","_weaponList","_useLauncher","_launcherType"];	
 
 params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-if (blck_debugLevel isEqualTo 3) then
+if (blck_debugLevel > 2) then
 {
-	diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
+	//diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
 };
 //Spawns correct number of AI
 if (_numai2 > _numai1) then {
@@ -19,15 +19,15 @@ if (_numai2 > _numai1) then {
 } else {
 	_numbertospawn = _numai2;
 };
-if (blck_debugLevel isEqualTo 3) then
+if (blck_debugLevel  > 2) then
 {
-	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
+	//diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };
-//Creates a group to make them attack players
+
 _groupSpawned = createGroup blck_AI_Side; 
 if !(isNull _groupSpawned) then
 {
-	diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned];	
+	if (blck_debugLevel  > 1) then {diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned]};
 	_groupSpawned setcombatmode blck_combatMode;
 	_groupSpawned allowfleeing 0;
 	_groupSpawned setspeedmode "FULL";

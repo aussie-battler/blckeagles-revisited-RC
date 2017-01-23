@@ -2,7 +2,7 @@
 
 if !(blck_blacklistTraderCities) exitWith {};
 diag_log format["[blckeagls]  Adding Trader Cities to blacklisted locations based on setting for blck_blacklistTraderCities = %1",blck_blacklistTraderCities];
-_traderCites = allMapMarkers;
+private _traderCites = allMapMarkers;
 
 {
 	if (_x in ["center","respawn_east","respawn_west","respawn_north"] && blck_blacklistTraderCities) then

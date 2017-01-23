@@ -7,6 +7,8 @@
 */
 
 params["_objList","_timeDelay"];
-if (blck_debugON) then {diag_log format["_fnc_addObjToQue::  --  >> _objList = %1 || _timeDelay = %2",_objList,_timeDelay];};
+//diag_log format["_fnc_addObjToQue::  --  >> _objList = %1 || _timeDelay = %2",_objList,_timeDelay];
+//diag_log format["_fnc_addObjToQue:: (11) --  >> blck_oldMissionObjects prior to update = %1",blck_oldMissionObjects];
 blck_oldMissionObjects pushback [_objList, (diag_tickTime + _timeDelay)];
+//diag_log format["_fnc_addObjToQue:: (11) --  >> blck_oldMissionObjects after update = %1",blck_oldMissionObjects];
 

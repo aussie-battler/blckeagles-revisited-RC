@@ -1,6 +1,6 @@
 /*
 	Handle AI Deaths
-	Last Modified 1/4/17
+	Last Modified 1/13/17
 	By Ghostrider-DBD-
 	Copyright 2016
 */
@@ -8,8 +8,7 @@
 private["_group","_isLegal","_weapon","_lastkill","_kills","_message","_killstreakMsg"];
 params["_unit","_killer","_isLegal"];
 
-//diag_log format["#-  processAIKill.sqf  -# called for unit %1",_unit];
-_unit setVariable ["GMS_DiedAt", (diag_tickTime),true];
+_unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, true];
 
 blck_deadAI pushback _unit;
 _group = group _unit;

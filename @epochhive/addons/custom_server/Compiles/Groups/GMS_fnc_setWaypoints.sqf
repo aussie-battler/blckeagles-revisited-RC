@@ -26,7 +26,7 @@ _arc = 360/_wpnum;
 for [{ _x=1 },{ _x < _wpnum },{ _x = _x + 1; }] do {
 	_dir = _dir + _arc;
 	if (_dir > 360) then {_dir = _dir - 360;};
-	while{_oldpos distance _newpos < 20}do{ 
+	while{_oldpos distance2D _newpos < 20}do{ 
 			sleep .1;
 
 			_dist = (_minDis+(random (_maxDis - _minDis)));

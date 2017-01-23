@@ -3,10 +3,10 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 8-13-16
+	Last Modified 1-22-17
 */
 
-private["_locs","_radius","_startDir","_currentDir","_Arc","_dist","_newpos","_xpos","_ypos"];
+private["_locs","_startDir","_currentDir","_Arc","_dist","_newpos"];
 params["_center","_num","_minDistance","_maxDistance"];
 
 _locs = [];

@@ -4,16 +4,16 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 1/12/17
+	Last Modified 1/22/17
 */
 /////////////////////////////////////////////////////
 
 private ["_result"];
 params["_pos","_dist"];
-diag_log format["_fnc_playerInRange:: -> _pos = %1 and _dist = %2",_pos,_dist];
+
 _result = false;
 {
 	if ((_x distance2D _pos) < _dist) exitWith {_result = true;};
 } forEach allPlayers;
-
+//diag_log format["_fnc_playerInRange:: -> _pos = %1 and _dist = %2 and _result = %3",_pos,_dist,_result];
 _result

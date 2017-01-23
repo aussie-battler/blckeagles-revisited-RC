@@ -1,5 +1,5 @@
 // pull trader cities from config
-_traderCites = allMapMarkers;
+private _traderCites = allMapMarkers;
 _tc = [];
 {
 	if (getMarkerType _x isEqualTo "ExileTraderZone" && blck_blacklistTraderCities) then {

@@ -15,9 +15,9 @@
 	//_minDist : distance within which the function would return true;
 	
 	_result = false;
-	//diag_log format["playerInRange.sqf: _obj1 = %1, _objList = %2 _minDist = %3",_obj1,_objList,_minDist];
+
 	{
 		if ((_x distance2D _obj1) < _minDist) exitWith {_result = true;};
 	} forEach _objList;
-	
+	diag_log format["objectInRange.sqf: _obj1 = %1, _objList = %2 _minDist = %3 _result = %4",_obj1,_objList,_minDist,_result];	
 	_result

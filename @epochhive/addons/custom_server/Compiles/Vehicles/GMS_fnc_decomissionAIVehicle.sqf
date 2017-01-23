@@ -1,11 +1,11 @@
 // =========================================================================================================
 //  blckeagls mission system
 //  Author: Ghostrider-DBD-
-// Last modified 9-3-16
+// Last modified 1-22-17
 // ------------------------------------------------------------------------------------------------------------
 // Unused at present, reserved for the future
 
-private ["_ai_veh","_ai_veh_hitsource","_ai_veh_type","_ai_veh_name","_ai_veh_side","_ai_veh_group_side","_ai_veh_hitsource_group_side","_ai_veh_hitsource_type","_ai_veh_hitsource_name","_ai_veh_hitsource_side"];
+private ["_ai_veh","_ai_veh_type","_ai_veh_name"];
 
 //diag_log "Vehicle Decommisioning handler activated";
 params["_ai_veh"];

@@ -1,7 +1,7 @@
 /*
 	spawn a group of objects in random locations aligned with the radial from the center of the region to the object.
 	By Ghostrider-DbD-
-	Last modified 9-5-2016
+	Last modified 1/22/17
 	copyright 2016
 */
 
@@ -24,5 +24,5 @@ _objects = [];
 	_objects pushback _wreck;
 	sleep 0.1;
 } forEach _missionLandscape;
-diag_log format["_fnc_spawnRandomLandscape::-->> _objects = %1",_objects];
+if (blck_debugLevel > 2) then {diag_log format["_fnc_spawnRandomLandscape::-->> _objects = %1",_objects];};
 _objects

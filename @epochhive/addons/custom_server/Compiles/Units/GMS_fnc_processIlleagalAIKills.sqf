@@ -1,6 +1,6 @@
 /*
 	by Ghostrider
-	1-4-17
+	1-22-17
 */
 
 private["_missionType","_wasRunover","_launcher","_legal"];
@@ -11,17 +11,19 @@ _legal = true;
 
 _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
 	params["_vk","_unit"];
+	private
 	{
 		if (((position _x) distance (position _unit)) <= 350) then 
 		{
 			_x reveal [_vk, 4];
 			_x dowatch _vk; 
 			_x doTarget _vk; 
-			if (_launcher != "") then 
+			if (_unit getVariable ["Launcher",""] != "") then 
 			{	
 				_x selectWeapon (secondaryWeapon _unit);
-				_x fireAtTarget [_vk,_launcher];
+				_x fireAtTarget [_vk,_unit getVariable ["Launcher"]];
 			} else {
+				_x doTarget _vk;
 				_x doFire _vk;		
 			};
 		};
@@ -31,7 +33,6 @@ _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equi
 _fn_applyVehicleDamage = {  // apply a bit of damage 
 	private["_vd"];
 	params["_vk"];
-	//_vk = _this select 0;
 	_vd = getDammage _vk;
 	_vk setDamage (_vd + blck_RunGearDamage);
 };
@@ -46,7 +47,6 @@ _fn_msgIED = {
 	params["_killer"];
 	diag_log format["fn_msgIED:: -- >> msg = %1 and owner _killer = %2",blck_Message, (owner _killer)];
 	[["IED","",0,0],[_killer]] call blck_fnc_MessagePlayers;
-	//(owner _killer) publicVariableClient "blck_Message";
 };
 
 if (typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehicle

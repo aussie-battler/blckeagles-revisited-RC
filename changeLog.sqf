@@ -1,8 +1,48 @@
 /*
 blck Mission system by Ghostrider-DBD-
 Loosely based on the AI mission system by blckeagls ver 2.0.2
-Contributions by Narines: bug fixes, testing, 'fired' event handler
+Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
+
+1/22/17 Version 6.54 build 32
+Changed code to test for conditions that trigger to spawn mission objects and AI completely
+Rewrote the code for spawning emplaced weapons from scratch.
+Fixed an error in how the waitTime till a mission was respawned after being updated to inactive status.
+Added additional reporting as to the mission type for which AI, statics and vehicle patrols are being spawned.
+Continued switching from blck_debugOn to blck_debugLevel.
+Continued work to move much of the code from GMS_fnc_missionSpawner to precompiled functions.
+	- tested and working for all but the emplaced weapons module.
+Removed old code that had been commented out from GMS_missionSpawner.
+deactivated the 'fired' event handler
+added an 'reloaded' event handler to units that adds a magazin of the type used to reload the weapon to prevent units running out of ammo. this also provides a break in firing and is more realistic.
+Added a check to GMS_fnc_vehicleMonitor that addes ammo to vehicle cargo when stores are low. Removed the infinite ammo script for static and vehicle weapons, again for greater realism.
+Increased number of rounds of ammo added to AI units for primary and secondary weapons.
+Tweaked code in GMS_fnc_spawnUnit to increase efficiency.
+Attempted a fix for occaisional issues with missions not triggering or ending by changing from distance to distance2D.
+Tweaked code for deleting dead AI to also delete any weapons containers nearby.
+Checked throughout for potential scope issues; ensured all private variables were declared as such.
+Changed the method by which mission patrol vehicles and static weapons are deleted at the end of a mission.
+
+1/21/17 Build 29.
+Went back to the timerless system for spawning missions.
+Improved code for updating the array of pending/active missions
+	GMS_fnc_updateMissionQue.sqf re-written to take greater advantage of existing array commands: set and find.
+Ensured that the array used to store the location(s) of active or recent missions is properly updated.
+
+1/13/17 Version 6.54 Build 27
+Rerverted back to the code that spawned a single instance of each mission until I can debug certain issues.
+
+1/7/17 Version 6.53 Build 24
+Added a setting blck_baseSkill = 0.7; // This defines the base skil of AI. Increase it to make AI more challenging.
+Tweaked AI difficulty settings to make missions more difficult.
+changed - GMS_EH_unitKilled - the event handler now uses precompiled rather than compiled on the fly code.
+changed - several other minor performance tweaks were made server side.
+changed - small changes were made the the loop in blck_client.sqf 
+Tweaked debugging information to reduced unnecessary logging when not in debug-mode.
+Disabled the loop sending server fps client-side
+fixed - GMS_fnc_updateMissionQue was not correctly updating mission information after mission completion.
+fixed - GMS_fnc_mainThread was not deleted old AI and Vehicles from the arrays used to capture them after mission completion.
+changed - calls to GMS_fnc_vehicleMonitor were moved inside the main loop.
 
 1/3/17 Version 6.51 Build 23
 Moved configuration for the client from debug\blckclient.sqf to debug\blckconfig.sqf.

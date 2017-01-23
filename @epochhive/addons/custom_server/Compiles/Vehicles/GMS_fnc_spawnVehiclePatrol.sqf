@@ -1,11 +1,10 @@
-//////////////////////////////////////
-// spawn a vehicle, fill it with AI, and give it waypoints around the perimeter of the mission area
-// Returns an array _units that contains a list of the units that were spawned and placed in the vehicle
-
 /*
 	By Ghostrider-DBD-
 	Copyright 2016
 	Last updated 8-14-16
+	
+	spawns a vehicle of _vehType and mans it with units in _group.
+	returns _veh, the vehicle spawned.
 */
 
 private["_vehType","_safepos","_veh"];
@@ -21,7 +20,7 @@ diag_log format["_fnc_spawnVehiclePatrol::->> _group = %1",_group];
 _safepos = [_pos,0,25,0,0,20,0] call BIS_fnc_findSafePos;	
 _veh = [_vehType,_safepos] call blck_fnc_spawnVehicle;
 
-//diag_log format["spawnVehiclePatrols:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
+diag_log format["spawnVehiclePatrol:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
 
 private["_unitNumber"];
 _unitNumber = 0;
@@ -40,7 +39,7 @@ while {(count (waypoints _group)) > 0} do
 {
 	deleteWaypoint ((waypoints _group) select 0);
 };
-//diag_log format["spawnVehiclePatrols:: vehicle spawned was %1",_veh];
+
 _count = 5;
 _start = _center getDir _pos;
 _angle = _start;
@@ -58,7 +57,5 @@ for "_i" from 1 to _count do
 };
 _wp = _group addWaypoint [_pos, 25];
 _wp setWaypointType "CYCLE";
-waitUntil { count crew _veh > 0};
-blck_missionVehicles pushback _veh;
 
 _veh
