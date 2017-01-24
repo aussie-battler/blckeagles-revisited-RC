@@ -15,9 +15,8 @@ _veh = createVehicle[_vehType, _pos, [], 0, "NONE"];
 _modType = call blck_fnc_getModType;
 if (_modType isEqualTo "Epoch") then
 {
-	//_veh call EPOCH_server_vehicleInit;
 	_veh call EPOCH_server_setVToken;
-	diag_log format["_fnc_spawnVehicle:: (20) EPOCH_server_setVToken performed for vehicle %1",_veh];
+	//diag_log format["_fnc_spawnVehicle:: (20) EPOCH_server_setVToken performed for vehicle %1",_veh];
 };
 //  params["_veh",["_clearInventory",true]];
 [_veh,_clearInventory] call blck_fnc_configureMissionVehicle;

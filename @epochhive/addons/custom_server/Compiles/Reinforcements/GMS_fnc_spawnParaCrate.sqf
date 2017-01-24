@@ -69,13 +69,9 @@ _fn_monitorCrate = {
 	{
 		uiSleep 1;  
 		diag_log format["_fnc_spawnParaCrate::  Crate Altitude: %1  Crate Velocity: %2  Crate Position: %3 Crate attachedTo %4", getPos _crate select 2, velocityModelSpace _crate select 2, getPosATL _crate, attachedTo _crate];
-		if ( (((velocity _crate) select 2) < 0.1)  || ((getPosATL _crate select 2) < 0.1) ) then 
+		if ( (((velocity _crate) select 2) < 0.1)  || ((getPosATL _crate select 2) < 0.1) ) exitWith 
 		{
 			uiSleep 10; // give some time for everything to settle
-			_crateOnGround = true;
-			_spawnCrate = false;
-
-			//delete the chute for clean-up purposes
 			detach _crate;
 			deleteVehicle _chute;
 			if (surfaceIsWater (getPos _crate)) then
@@ -89,4 +85,4 @@ _fn_monitorCrate = {
 	};
 };
 
-[_crate,_chute] spawn _fn_monitorCrate;
+[_crate,_chute] call _fn_monitorCrate;

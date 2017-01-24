@@ -2,16 +2,7 @@
 	Author: Ghostrider-DbD-
 	Inspiration: blckeagls / A3EAI / VEMF / IgiLoad / SDROP
 	License: Attribution-NonCommercial-ShareAlike 4.0 International
-	call with
-	[
-		_pos,				// the position which AI should patrol
-		_dropPos,		// heli from which they should para
-		_numAI,				// Number to spawn
-		_skillAI,			// Skill [blue, red, green, orange]
-		_weapons,			// array of weapons to select from
-		_uniforms,			// array of uniform choices
-		_headgear 			// array of uniform choices
-	] call blck_spawnHeliParaTroops
+	1/23/17
 */
 
 params["_supplyHeli","_missionPos","_numAI","_skillAI","_weapons","_uniforms","_headGear"];
@@ -117,11 +108,7 @@ _fn_cleanupTroops = {
 			if ( (getPosATL _x select 2) < 0.1) then {
 				if (surfaceIsWater (position _x)) then {
 					diag_log format["_fnc_spawnParaUnits:: unit %1 at %2 deleted",_x, getPos _x];
-					private["_unit"];
-					_unit = _x;
-					{
-						_unit removeAllEventHandlers  _x;
-					}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear"]
+					[_x] call blck_fnc_deleteAI;
 				};
 			} 
 			else 
@@ -129,8 +116,6 @@ _fn_cleanupTroops = {
 		}forEach units _group;
 		uiSleep 1;	
 	};
-	
-	
 };
 
 diag_log "_fnc_spawnParaUnits:: waiting for paratroops to land";

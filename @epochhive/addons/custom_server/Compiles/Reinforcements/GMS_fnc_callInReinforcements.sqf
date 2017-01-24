@@ -1,6 +1,6 @@
 /*
 	Author: Ghostrider-DbD-
-	Inspiration: blckeagls / A3EAI / VEMF / IgiLoad / SDROP
+	Inspiration: WAI / A3EAI / VEMF / IgiLoad / SDROP
 	License: Attribution-NonCommercial-ShareAlike 4.0 International
 	call with
 	[
@@ -14,6 +14,7 @@
 		_headgear,
 		_patrol
 	] call blck_spawnReinforcements
+	1/23/17
 */
 
 params["_pos","_numAI","_skillAI","_chanceLoot","_lootCounts","_weapons","_uniforms","_headgear","_patrol"]; 
@@ -22,6 +23,7 @@ diag_log format["reinforcements:: Called with parameters _pos %1 _numAI %2 _skil
 
 private["_chopperType","_chopperTypeArmed","_spawnPos","_spawnVector","_spawnDistance"];
 
+
 // spawn an unarmed heli
 
 _chopperType = selectRandom["B_Heli_Transport_03_unarmed_EPOCH","O_Heli_Light_02_unarmed_EPOCH","I_Heli_Transport_02_EPOCH"];
@@ -29,7 +31,7 @@ _chopperType = selectRandom["B_Heli_Transport_03_unarmed_EPOCH","O_Heli_Light_02
 diag_log format["reinforcements:: _chopperType seleted = %1",_chopperType];
 
 _spawnVector = round(random(360));
-_spawnDistance = 1000; // + floor(random(1500)); // We need the heli to be on-site quickly to minimize the chance that a small mission has been completed before the paratroops are deployed and added to the list of live AI for the mission
+_spawnDistance = 10; //00; // + floor(random(1500)); // We need the heli to be on-site quickly to minimize the chance that a small mission has been completed before the paratroops are deployed and added to the list of live AI for the mission
 _dropLoot = (random(1) < _chanceLoot);
 
 // Use the new functionality of getPos
@@ -48,12 +50,9 @@ _supplyHeli flyInHeight 250;
 _supplyHeli setVehicleLock "LOCKED";
 _supplyHeli addEventHandler ["GetOut",{(_this select 0) setFuel 0;(_this select 0) setDamage 1;}];
 
-clearWeaponCargoGlobal _supplyHeli;
-clearMagazineCargoGlobal _supplyHeli;
-clearItemCargoGlobal _supplyHeli;
-clearBackpackCargoGlobal  _supplyHeli;
+[_supplyHeli] call blck_fnc_emptyObject;
 
-[_supplyHeli,blck_ModType] call blck_fnc_protectVehicle;
+[_supplyHeli] call blck_fnc_protectVehicle;
 
 private["_grpPilot","_unitPilot"];
 // add pilot to helicopter	//add pilot (single group) to supply helicopter
@@ -99,8 +98,7 @@ _message = "A Helicopter Carrying Reinforcements was Spotted Near You!";
 
 diag_log "reinforcements:: helispawned and inbound, message sent";
 
-// add a loop here that waits until the paragroup has been spawned so that we can return it.
-//waitUntil {!isNull (_supplyHeli getVariable["paraGroup",grpNull])};
-//_grp = _supplyHeli getVariable["paraGroup"];
+_supplyHeli setVariable["blck_DeleteAt", (diag_tickTime + 300)];
+blck_missionVehicles pushback _supplyHeli;
 
-//_grp
+_supplyHeli
