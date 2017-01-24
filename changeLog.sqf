@@ -4,6 +4,10 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+1/23/17 Version 6.54 Build 34
+De-activated debug settings.
+Commented out some logging that was no longer required.
+
 1/23/17 Version 6.54 Build 33
 Fixed typos in GMS_fnc_vehicleMonitor.sqf
 Removed a few files that are not used or needed.

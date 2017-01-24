@@ -3,6 +3,7 @@
 	Inspiration: blckeagls / A3EAI / VEMF / IgiLoad / SDROP
 	License: Attribution-NonCommercial-ShareAlike 4.0 International
 	called upon completion of weapoint.
+	1/23/17
 */
 
 _grpPilot = _this;
@@ -24,4 +25,4 @@ if (_dropLoot) then
 
 uiSleep 10;
 
-[_supplyHeli] call blck_fnc_sendHeliHome;
+[_supplyHeli] spawn blck_fnc_sendHeliHome;

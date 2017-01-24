@@ -29,7 +29,7 @@ while {true} do
 	if ((diag_tickTime - _timer5sec) > 5) then
 	{
 		//diag_log format["_fnc_mainThread:: (30) diag_tickTime = %1", diag_tickTime];
-		diag_log format["_fnc_mainThread:: (31) blck_liveMissionAI = %1", blck_liveMissionAI];
+		//diag_log format["_fnc_mainThread:: (31) blck_liveMissionAI = %1", blck_liveMissionAI];
 		_ai = +blck_liveMissionAI;
 		{
 			//diag_log format["_fnc_mainThread:: (34) evaluating liveAIArray %1 with diag_tickTime %2", _x,diag_tickTime];
@@ -42,7 +42,7 @@ while {true} do
 				if (blck_debugLevel > 1) then {diag_log format["_fnc_mainTread:: blck_liveMissionAI updated to %1",blck_liveMissionAI];};
 			};
 		}forEach _ai;
-		diag_log format["_fnc_mainThread:: (44) blck_oldMissionObjects = %1", blck_oldMissionObjects];
+		//diag_log format["_fnc_mainThread:: (44) blck_oldMissionObjects = %1", blck_oldMissionObjects];
 		_obj = +blck_oldMissionObjects;
 		
 		{
@@ -56,14 +56,14 @@ while {true} do
 				if (blck_debugLevel > 1) then {diag_log format["_fnc_mainTread:: blck_oldMissionObjects updated to %1",blck_oldMissionObjects];};
 			};
 		}forEach _obj;
-		diag_log format["_fnc_mainThread:: (59) blck_fnc_cleanupDeadAI = %1", blck_deadAI];
+		//diag_log format["_fnc_mainThread:: (59) blck_fnc_cleanupDeadAI = %1", blck_deadAI];
 		[] call blck_fnc_cleanupDeadAI;	
 				
 		if (_modType isEqualTo "Epoch") then {
 			[] call blck_fnc_cleanEmptyGroups;
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.
 
-		diag_log format["_fnc_mainThread:: (66) blck_pendingMissions = %1", blck_pendingMissions];
+		//diag_log format["_fnc_mainThread:: (66) blck_pendingMissions = %1", blck_pendingMissions];
 		{
 			if (blck_debugLevel > 2) then {diag_log format["_fnc_mainThread:: -- >> _x = %1  and _x select 6 = %2",_x, _x select 6];};
 			if (_x select 6 > 0) then // The mission is not running, check the time left till it is spawned

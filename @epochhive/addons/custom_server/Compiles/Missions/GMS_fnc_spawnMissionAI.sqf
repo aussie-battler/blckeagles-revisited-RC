@@ -17,7 +17,7 @@
 	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
 	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
 	_blck_AllMissionAI = [];
-	diag_log format["_fnc_spawnMissionAI :: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
+	//diag_log format["_fnc_spawnMissionAI :: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
 	switch (_noAIGroups) do
 	{
 		case 1: {  // spawn the group near the mission center

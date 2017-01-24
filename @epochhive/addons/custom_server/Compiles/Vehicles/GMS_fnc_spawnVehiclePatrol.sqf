@@ -16,11 +16,11 @@ params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_
 //_groupForVehiclePatrol = The group with which to man the vehicle
 
 if (isNull _group) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnVehiclePatrol"; objNull;};
-diag_log format["_fnc_spawnVehiclePatrol::->> _group = %1",_group];
+//diag_log format["_fnc_spawnVehiclePatrol::->> _group = %1",_group];
 _safepos = [_pos,0,25,0,0,20,0] call BIS_fnc_findSafePos;	
 _veh = [_vehType,_safepos] call blck_fnc_spawnVehicle;
 
-diag_log format["spawnVehiclePatrol:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
+//diag_log format["spawnVehiclePatrol:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
 
 private["_unitNumber"];
 _unitNumber = 0;

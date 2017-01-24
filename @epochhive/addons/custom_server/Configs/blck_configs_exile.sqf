@@ -131,7 +131,7 @@ Last modified 8/1/15
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
 	
-	blck_MissionTimout = 40*60;  // 40 min
+	blck_MissionTimout = 60*60;  // 40 min
 
 	/****************************************************************
 	

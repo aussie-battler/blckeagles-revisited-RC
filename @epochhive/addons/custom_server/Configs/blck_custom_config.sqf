@@ -25,9 +25,9 @@ if (blck_debugON) then
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 	
 	//blck_mainThreadUpdateInterval = 10;
-	blck_enableOrangeMissions = -1;  
-	blck_enableGreenMissions = -1;
-	blck_enableRedMissions = -1;
+	blck_enableOrangeMissions = 1;  
+	blck_enableGreenMissions = 1;
+	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
 
 	
@@ -35,8 +35,8 @@ if (blck_debugON) then
 	blck_AliveAICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_bodyCleanUpTimer = 10;
 	
-	blck_SpawnEmplaced_Orange = 0; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 0; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = 3; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = 2; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2; 
 	
@@ -60,12 +60,12 @@ if (blck_debugON) then
 	blck_TMax_Orange = 31;
 
 	//blck_reinforceBlue = [0.999, 2, 0.001];
-	//blck_MissionTimout = 60;  // 40 min
+	//blck_MissionTimout = 10;  // 40 min
 	
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.1],
+		["aimingAccuracy",0.01],
 		["aimingShake",0.3],
-		["aimingSpeed",0.5],
+		["aimingSpeed",0.01],
 		["endurance",0.5],
 		["spotDistance",0.7],
 		["spotTime",0.7],
