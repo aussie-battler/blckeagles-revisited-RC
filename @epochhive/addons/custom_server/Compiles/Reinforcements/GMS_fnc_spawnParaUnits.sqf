@@ -19,11 +19,12 @@ _paraGroup setVariable ["blck_group",true,true];
 
 diag_log format["_fnc_spawnParaUnits:: paratrooper group created; spawning %1 units",_numAI];
 
-	//https://forums.bistudio.com/topic/127341-how-to-get-cargo-capacity-and-costweight-of-stuff-into-sqf/
-	//_veh = TypeOf (_supplyHeli); //for example
-	//_maxpeople = getNumber (configFile >> "CfgVehicles" >> _veh >> "transportSoldier");
-	//if ( (_maxpeople - 1) < _numAI) then {_numAI = _maxpeople - 1;};  // calculate the max troops carried by the chopper minus 1 for the pilot who is already on board and adjust the number of AI to spawn as needed.
-_launcherType = "none";
+//https://forums.bistudio.com/topic/127341-how-to-get-cargo-capacity-and-costweight-of-stuff-into-sqf/
+//_veh = TypeOf (_supplyHeli); //for example
+//_maxpeople = getNumber (configFile >> "CfgVehicles" >> _veh >> "transportSoldier");
+//if ( (_maxpeople - 1) < _numAI) then {_numAI = _maxpeople - 1;};  // calculate the max troops carried by the chopper minus 1 for the pilot who is already on board and adjust the number of AI to spawn as needed.
+
+	_launcherType = "none";
 _sniperExists = false;
 
 /*
@@ -65,12 +66,15 @@ for "_i" from 1 to _numAI do
 {
 	_offset =  _supplyHeli getPos [10, _dir];
 	_chute = createVehicle ["Steerable_Parachute_F", [100, 100, 200], [], 0, "FLY"];
+	[_chute] call blck_fnc_protectVehicle;
+	/*
 	private["_modType"];
 	_modType = call blck_fnc_getModType;
 	if (_modType isEqualTo "Epoch") then
 	{
-		[_chute] call blck_fnc_protectVehicle;
+		[_chute] call EPOCH_server_setVToken;;
 	};
+	*/
 	_unit = [[_offset select 0, _offset select 1, 180],_weapons,_paraGroup,_skillAI,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
 	_unit setDir (getDir _supplyHeli) - 90;
 	_chute setPos [_offset select 0, _offset select 1, 250];  //(_offset select 2) - 10];

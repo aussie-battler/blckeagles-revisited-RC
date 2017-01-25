@@ -6,7 +6,7 @@
 */
 
 params["_mission","_status",["_coords",[0,0,0]] ];
-if (blck_debugON) then {diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];};
+if (blck_debugLevel > 1) then {diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];};
 private["_index","_element","_waitTime"];
 
 _index = blck_pendingMissions find _mission;

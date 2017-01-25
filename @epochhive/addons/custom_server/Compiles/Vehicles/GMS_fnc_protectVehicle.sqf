@@ -6,7 +6,7 @@ params["_Vehicle"];
 private["_modType"];
 _modType = call blck_fnc_getModType;
 switch (_ModType) do {
-	case "_modType":
+	case "Epoch":
 				{
 					diag_log format["GMS_fnc_protectVehicle::  Tokens set for vehicle %1",_Vehicle];
 					//_Vehicle call EPOCH_server_vehicleInit;

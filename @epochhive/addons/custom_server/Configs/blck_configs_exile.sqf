@@ -1,12 +1,10 @@
 /*
-AI Mission Compiled by blckeagls @ Zombieville.net
-Further modified by Ghostrider - 
 This file contains most constants that define mission parameters, AI behavior and loot for mission system.
 Last modified 8/1/15
 */
-	
-	blck_configsLoaded = false;
-	
+
+	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_epoch.sqf";};
+
 	/*
 		Configuration for Addons that support the overall Mission system.
 		These are a module to spawn map  addons generated with the Eden Editor
@@ -21,7 +19,7 @@ Last modified 8/1/15
 	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 1;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
-	blck_timeAccelerationNight = 6;  // Nighttim time acceleration
+	blck_timeAccelerationNight = 6;  // Nighttim time acceleration	
 	
 	/**************************************************************
 	
@@ -29,9 +27,8 @@ Last modified 8/1/15
 	
 	**************************************************************/
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
-	blck_blacklistSpawns = true; // do not spawn a mission within 1000 m of a spawn zone.
-	blck_blacklistTraderCities = true;  // do not spawn a mission within 1000 m of a trader.
-	blcklistConcreteMixerZones = true; // do not spawn a mission within 1000 m of a concrete mixer zone.
+	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
+	// list of locations that are protected against mission spawns
 	
 	switch (toLower(worldName)) do
 	{
@@ -55,10 +52,12 @@ Last modified 8/1/15
 	////////
 	//  Headless Client Configurations
 	blck_useHC = false; // Not Yet Working
-
+	
 	//  Kill message configurations
-	blck_useKillMessages = false;  // when true a message will be broadcast to all players each time an AI is killed.
+	// These determine whether and when messages are sent to players regarding AI Kills or illegal kills that might damage a vehicle.
+	blck_useKillMessages = false;  // when true a message will be broadcast to all players each time an AI is killed; may impact server performance.
 	blck_useKillScoreMessage = true; // when true a tile is displayed to the killer with the kill score information
+	blck_useIEDMessages = true;
 	
 	// MISSION MARKER CONFIGURATION
 	// blck_labelMapMarkers: Determines if when the mission composition provides text labels, map markers with have a text label indicating the mission type
@@ -66,17 +65,14 @@ Last modified 8/1/15
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
-
+	
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 2000;
-	
+
 	// Options to spawn a smoking wreck near the mission.  When the first parameter is true, a wreck or junk pile will be spawned. 
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
-	blck_useSignalEnd = true; // When true a smoke grenade will appear at the loot crate for 2 min after mission completion.
-	
-	// Loot Crates
-	//blck_missionCrateTypes = ["Box_NATO_Wps_F","Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_IND_AmmoVeh_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F"];
+	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
 	
 	// PLAYER PENALTIES
 	blck_RunGear = true;	// When set to true, AI that have been run over will ve stripped of gear, and the vehicle will be given blck_RunGearDamage of damage.
@@ -84,39 +80,54 @@ Last modified 8/1/15
 	blck_VK_Gear = true; // When set to true, AI that have been killed by a player in a vehicle in the list of forbidden vehicles or using a forbiden gun will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
 	blck_VK_RunoverDamage = true; // when the AI was run over blck_RunGearDamage of damage will be applied to the killer's vehicle.
 	blck_VK_GunnerDamage = true; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
-	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","Exile_Car_BRDM2_HQ","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Green","Exile_Car_HMMWV_M2_Desert","Exile_Car_ProwlerLight","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo"]; // Add any vehicles for which you wish to forbid vehicle kills	
+	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills	
 	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
-	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","DShKM","DSHKM","HMG_127_LSV_01"];  // Add any vehicles for which you wish to forbid vehicle kills, o
+	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
+	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC",/*"HMG_M2",*/"HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"]; // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 	// GLOBAL MISSION PARAMETERS
-	blck_useKilledAIName = true; // When false, the name of the killer (player), weapon and distance are displayed; otherwise the name of the player and AI unit killed are shown.
-	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Note that this is a default and that mission-specific settings can be defined for each mission using the template
+	blck_useKilledAIName = true; // When false, the name of the killer (player), weapon and distance are displayed; otherwise the name of the player, distance and name of AI unit killed are shown.
+	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Turn this off if you have vehicle patrols.
+	blck_cleanupCompositionTimer = 1200;  // Mission objects will be deleted after the mission is completed after a deley set by this timer.
+	blck_cleanUpLootChests = false; // when true, loot crates will be deleted together with other mission objects.
+	blck_MissionTimout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
+
+	// AI VEHICLE PATROL PARAMETERS
+	// Settings for Mission Vehicles. 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
-	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_HMMWV_M2_Green","Exile_Car_HMMWV_M2_Desert","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo"]; // Type of vehicle spawned to defend AI bases
+	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
 
-	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission.
+	// AI STATIC WEAPON PARAMETERS
+	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
+	blck_killEmptyStaticWeapons = true;  // When true, static weapons will have damage set to 1 when the AI manning them is killed.
+	blck_staticWeapons = ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];  // [0.50 cal, grenade launcher, AT Launcher]
+
+	// AI paratrooper reinforcement paramters
+	// Armed Helis
+	blck_AIHelis = ["B_Heli_Light_01_armed_F","B_Heli_Transport_01_camo_F","B_Heli_Transport_03_F"];
+
+	// Unarmed Helis provided for reference.
+	//  ["B_Heli_Transport_03_unarmed_EPOCH","O_Heli_Light_02_unarmed_EPOCH","I_Heli_Transport_02_EPOCH"];
+
+	//  Mission - specific settings
+	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not thoroughly tested.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
 
-	// AI VEHICLE PATROL PARAMETERS
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = 4; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnVeh_Orange = 3; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Green = 2; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 1;  // Number of static weapons at Red Missions
 
-	// AI STATIC WEAPON PARAMETERS
-	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
-	blck_staticWeapons = ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];  // [0.50 cal, grenade launcher, AT Launcher]
-
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
 	blck_SpawnEmplaced_Orange = 3; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Green = 2; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
-	blck_SpawnEmplaced_Red = 2;  // Number of static weapons at Red Missions	
+	blck_SpawnEmplaced_Red = 1;  // Number of static weapons at Red Missions	
 
 	// MISSION TIMERS
 	// Reduce to 1 sec for immediate spawns, or longer if you wish to space the missions out	
@@ -131,7 +142,6 @@ Last modified 8/1/15
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
 	
-	blck_MissionTimout = 60*60;  // 40 min
 
 	/****************************************************************
 	
@@ -141,8 +151,7 @@ Last modified 8/1/15
 	
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
-	blck_AI_Side = EAST;
-	blck_ModType = "Exile";
+	blck_AI_Side = RESISTANCE; 
 
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
@@ -158,15 +167,15 @@ Last modified 8/1/15
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AliveAICleanUpTimer = 900;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_cleanupCompositionTimer = 1200;
-	blck_AIAlertDistance = [150,225,250,300];
+	
+	blck_AIAlertDistance = [250,325,450,500];
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AIIntelligence = [0.5, 1, 2, 4];  
 	
-	blck_baseSkill = 1.0;
-	
+	blck_baseSkill = 1.0;  // The overal skill of the AI - range 0.1 to 1.0.
+		
 	/***************************************************************
 	
 	MISSION TYPE SPECIFIC AI SETTINGS
@@ -207,8 +216,7 @@ Last modified 8/1/15
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.1],["aimingShake",0.5],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
-	blck_reinforceBlue = [0.1, 2, 0.2];
-	
+
 	// Add some money to AI; only works with Exile for now.
 	blck_maxMoneyOrange = 25;
 	blck_maxMoneyGreen = 20;
