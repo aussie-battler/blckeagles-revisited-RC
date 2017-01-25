@@ -26,7 +26,7 @@ _fn_releaseVehicle = {
 	};
 };
 
-if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
+if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
 {
 	_veh = _x;
 	if (_veh getVariable["blck_DeleteAt",0] > 0) then

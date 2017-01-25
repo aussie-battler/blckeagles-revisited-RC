@@ -14,18 +14,18 @@ _fn_deleteAIfromList = {
 	}forEach _aiList;
 };
 
-diag_log format["_fnc_cleanupAliveAI called at %1",diag_tickTime];
+if (blck_debugLevel > 1) then {diag_log format["_fnc_cleanupAliveAI called at %1",diag_tickTime];};
 for "_i" from 1 to (count blck_liveMissionAI) do
 {
 	if ((_i) <= count blck_liveMissionAI) then
 	{
 		_units = blck_liveMissionAI select (_i - 1);
-		diag_log format["_fnc_cleanupAliveAI:: (34) evaluating with delete time = %2 and diag_tickTime %1", diag_tickTime, _units select 1];
+		//diag_log format["_fnc_cleanupAliveAI:: (34) evaluating with delete time = %2 and diag_tickTime %1", diag_tickTime, _units select 1];
 		if (diag_tickTime > (_units select 1) ) then
 		{
-			diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
+			//diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
 			{
-				diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
+				//diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
 				[_x] call blck_fnc_deleteAI;
 			}forEach (_units select 0);
 			uiSleep 0.1;

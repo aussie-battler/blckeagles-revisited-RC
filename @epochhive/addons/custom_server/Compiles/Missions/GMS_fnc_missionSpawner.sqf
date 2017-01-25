@@ -189,7 +189,7 @@ if (typeName _temp isEqualTo "ARRAY") then
 };
 //diag_log format["_fnc_missionSpawner:: (181)->> _objects = %1",_objects];
 
-if (blck_debugON) then
+if (blck_debugLevel > 0) then
 {
 	diag_log format["[blckeagls] missionSpawner:: (166) Landscape spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
@@ -208,7 +208,7 @@ if (typeName _infantry isEqualto "ARRAY") then
 };
 
 uiSleep _delayTime;
-if (blck_debugON) then
+if (blck_debugLevel > 0) then
 {
 	diag_log format["[blckeagls] missionSpawner:: (210) AI Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
@@ -254,7 +254,7 @@ if (blck_enableReinforcements && (random(1) < _chanceReinforcements)) then
 */
 
 // Trigger for mission end
-diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
+//diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
 private["_missionComplete","_endIfPlayerNear","_endIfAIKilled"];
 _missionComplete = -1;
 _startTime = diag_tickTime;
@@ -265,11 +265,11 @@ switch (_endCondition) do
 	case "allUnitsKilled": {_endIfPlayerNear = false;_endIfAIKilled = true;};
 	case "allKilledOrPlayerNear": {_endIfPlayerNear = true;_endIfAIKilled = true;};
 };
-diag_log format["missionSpawner :: (269) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
+//diag_log format["missionSpawner :: (269) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
 private["_locations"];
 _locations = [_coords] + _crates;
 
-diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
+//diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
 while {_missionComplete  isEqualTo -1} do
 {
 	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 300};

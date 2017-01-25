@@ -4,7 +4,7 @@
   Last updated 1/24/17   
 */
 
-diag_log format["fnc_cleanupDeadAI called at time %1",diag_tickTime];
+if (blck_debugLevel > 1) then {diag_log format["fnc_cleanupDeadAI called at time %1",diag_tickTime];};
 private["_aiList","_ai"];
 _aiList = +blck_deadAI;
 {

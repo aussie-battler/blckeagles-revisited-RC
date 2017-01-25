@@ -6,7 +6,7 @@
 	checks the status of each entry in 
 */
 
-diag_log format["_fnc_spawnPendingMissions:: blck_pendingMissions = %1", blck_pendingMissions];
+if (blck_debugLevel > 1) then {diag_log format["_fnc_spawnPendingMissions:: blck_pendingMissions = %1", blck_pendingMissions];};
 private["_coords","_missionName","_missionPath"];
 {
 	if (blck_debugLevel > 2) then {diag_log format["_fnc_spawnPendingMissions:: -- >> _x = %1  and _x select 6 = %2",_x, _x select 6];};

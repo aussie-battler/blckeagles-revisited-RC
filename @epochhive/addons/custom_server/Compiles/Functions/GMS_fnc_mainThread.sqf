@@ -16,7 +16,7 @@ _modType = [] call blck_fnc_getModType;
 while {true} do
 {
 	uiSleep 1;
-	diag_log format["mainThread:: -- > time = %1",diag_tickTime];
+	//diag_log format["mainThread:: -- > time = %1",diag_tickTime];
 	if (diag_tickTime - _timer1sec > 1000) then 
 	{
 		[] call blck_fnc_vehicleMonitor;
