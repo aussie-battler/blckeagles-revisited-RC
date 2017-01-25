@@ -2,14 +2,14 @@
 	Author: Ghostrider-DbD-
 	Inspiration: blckeagls / A3EAI / VEMF / IgiLoad / SDROP
 	License: Attribution-NonCommercial-ShareAlike 4.0 International
-	called once all tasks required at the mission are complete.
+	Last Modified 1/23/17
 */
-
-_grpPilot = _this select 0;
-_heli = _this select 1;
-
+params["_grpPilot"];
+private["_heli","_pilot"];
+_pilot = (units _grpPilot) select 0;
+_heli = vehicle _pilot;
 diag_log "reinforcements deployed:: send heli back to spawn";
-
+[[_heli], 300 /* 5 min*/] spawn blck_fnc_addObjToQue;
 // select a random location abotu 2K from the mission
 _spawnVector = round(random(360));
 _spawnDistance = 2000;
@@ -32,35 +32,5 @@ _grpPilot = group this;
 
 
 diag_log "reinforcements:: sending Heli Home";
-// End of sending heli home
-////////////////////////
 
-_fn_cleanupHeli = {
-
-	params["_supplyHeli","_homePos","_grpPilot"];
-	// run some tests to be sure everything went OK
-
-	_heliHome = false;
-	_startTime = diag_tickTime;
-
-	while { !(_heliHome) } do
-	{
-		_heliHome = (_supplyHeli distance _pos) < 300;
-		if ( !_heliHome && ((diag_tickTime - _startTime) > 300) ) then
-		{
-			_heliHome = true;
-			deleteVehicle _supplyHeli;
-			{
-				deleteVehicle _x;
-			}forEach units _grpPilot;
-			deleteGroup _grpPilot;
-	};
-	
-	uiSleep 2;
-	};
-};
-
-[_supplyHeli,_spawnPos,_grpPilot] spawn _fn_cleanupHeli;
-
-diag_log "reinforcements:: script done";
 

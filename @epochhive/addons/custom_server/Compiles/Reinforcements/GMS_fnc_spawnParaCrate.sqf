@@ -10,7 +10,6 @@
 	] call blck_spawnHeliParaCrate
 */
 
-
 params["_supplyHeli","_lootCounts"];
 
 private ["_chute","_crate"];
@@ -26,12 +25,7 @@ _offset =  _supplyHeli getPos [10, _dir];
 
 //open parachute and attach to crate
 _chute = createVehicle ["I_Parachute_02_F", [100, 100, 100], [], 0, "FLY"];
-private["_modType"];
-_modType = call blck_fnc_getModType;
-if (_modType isEqualTo "Epoch") then
-{
-	[_chute] call blck_fnc_protectVehicle;
-};
+[_chute] call blck_fnc_protectVehicle;
 _chute setPos [_offset select 0, _offset select 1, 100  ];  //(_offset select 2) - 10];
 
 diag_log format["_fnc_spawnParaCrate:: chute spawned yielding object %1 at postion %2", _chute, getPos _chute];
@@ -86,3 +80,4 @@ _fn_monitorCrate = {
 };
 
 [_crate,_chute] call _fn_monitorCrate;
+[[_crate], 1200 /* 20 min*/] spawn blck_fnc_addObjToQue;

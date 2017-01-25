@@ -10,7 +10,23 @@
 
 private ["_veh","_vehList"];
 _vehList = blck_missionVehicles;
-if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called with blck_missionVehicles = %1",_vehList];};
+
+_fn_releaseVehicle = {
+	params["_v"];
+	//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from _v %1",_v];	
+	blck_missionVehicles = blck_missionVehicles - [_v];
+	_v removealleventhandlers "GetIn";
+	_v removealleventhandlers "GetOut";
+	_v setVehicleLock "UNLOCKED" ;
+	_v setVariable["releasedToPlayers",true];
+	[_v] call blck_fnc_emptyObject;
+	if (blck_debugLevel > 2) then
+	{
+		diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_v];
+	};
+};
+
+if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
 {
 	_veh = _x;
 	if (_veh getVariable["blck_DeleteAt",0] > 0) then
@@ -23,15 +39,20 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 	};
 	if ({alive _x} count crew _veh < 1) then
 	{
-		if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then
+		if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then  // Deal with a static weapon
 		{
-			if (blck_debugLevel > 2) then
+			if (blck_killEmptyStaticWeapons) then
 			{
-				diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
+				if (blck_debugLevel > 2) then
+				{
+					diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
+				};
+				_veh setDamage 1;
+				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
+			} else {
+				[_veh] call _fn_releaseVehicle;
 			};
-			_veh setDamage 1;
-			_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
-		}else {
+		}else {  // Deal with vehicles
 			if (blck_killEmptyAIVehicles) then
 			{
 				if (blck_debugLevel > 2) then
@@ -44,20 +65,10 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 				} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
-				//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from_veh %1",_veh];	
-				blck_missionVehicles = blck_missionVehicles - [_veh];
-				_veh removealleventhandlers "GetIn";
-				_veh removealleventhandlers "GetOut";
-				_veh setVehicleLock "UNLOCKED" ;
-				_veh setVariable["releasedToPlayers",true];
-				[_veh] call blck_fnc_emptyObject;
-				if (blck_debugLevel > 2) then
-				{
-					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
-				};
+				[_veh] call _fn_releaseVehicle;
 			};
 		};
-	} else {
+	} else {  // Add magazine to vehicle if possible
 		private ["_crew","_mag","_allMags","_cnt"];
 		//_veh setVehicleAmmo 1;
 		//_veh setFuel 1;

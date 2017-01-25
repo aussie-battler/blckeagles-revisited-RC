@@ -24,7 +24,6 @@ if (blck_debugON) then
 	// Used primarily for debugging.
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 	
-	//blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;

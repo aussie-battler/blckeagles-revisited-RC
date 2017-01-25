@@ -18,7 +18,7 @@ _arr = date call BIS_fnc_sunriseSunsetTime;
 _sunrise = _arr select 0;
 _sunset = _arr select 1;
 _time = dayTime;
-//diag_log format["_fnc_Time::  -- > _sunrise = %1 | _sunset = %2 | _time = %3",_sunrise,_sunset,_time];
+diag_log format["_fnc_Time::  -- > _sunrise = %1 | _sunset = %2 | _time = %3",_sunrise,_sunset,_time];
 
 // Night
 if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {setTimeMultiplier blck_timeAccelerationNight; diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];};

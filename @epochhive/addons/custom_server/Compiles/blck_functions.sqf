@@ -19,7 +19,7 @@ blck_fnc_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_
 blck_fnc_groupsOnAISide = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_GroupsOnAISide.sqf";  // Returns the number of groups on the side used by AI
 blck_fnc_emptyObject = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_emptyObject.sqf"; 
 blck_fnc_playerInRange = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_playerInRange.sqf"; 
-
+blck_fnc_mainThread = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_mainThread.sqf"; 		//  
 // Player-related functions
 blck_fnc_rewardKiller = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_rewardKiller.sqf";
 blck_fnc_MessagePlayers = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_AIM.sqf";  // Send messages to players regarding Missions
@@ -28,6 +28,7 @@ blck_fnc_MessagePlayers = compileFinal  preprocessFileLineNumbers "\q\addons\cus
 blck_fnc_selectAILoadout = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAILoadout.sqf";
 blck_fnc_addMissionToQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addMissionToQue.sqf";  // 
 blck_fnc_updateMissionQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_updateMissionQue.sqf";  // 
+blck_fnc_spawnPendingMissions = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnPendingMissions.sqf";	  //  
 blck_fnc_addLiveAItoQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addLiveAItoQue.sqf"; 
 blck_fnc_addObjToQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addObjToQue.sqf";  //
 blck_fnc_missionTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionTimer.sqf";
@@ -50,6 +51,8 @@ blck_fnc_clearMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_s
 blck_fnc_signalEnd = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_signalEnd.sqf"; // deploy smoke grenades at loot crates at the end of the mission.
 blck_fnc_endMission = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_endMission.sqf";
 
+// #define Reinforcements 1
+#ifdef Reinforcements
 // Reinforcement-related functions
 blck_fnc_callInReinforcements = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_callInReinforcements.sqf"; 
 blck_fnc_spawnParaUnits  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 
@@ -58,6 +61,7 @@ blck_fnc_spawnParaCrate  = compileFinal preprocessFileLineNumbers "\q\addons\cus
 blck_fnc_sendHeliHome = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_sendHeliHome.sqf"; 
 //blck_fnc_spawnHeliPatrol = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 
 //blck_fnc_spawnHeliPatrol = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Reinforcements\GMS_fnc_spawnParaUnits.sqf"; 
+#endif
 
 // Group-related functions
 blck_fnc_spawnGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_spawnGroup.sqf";  // Spawn a single group and populate it with AI units]

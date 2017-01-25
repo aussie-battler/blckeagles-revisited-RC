@@ -5,7 +5,7 @@
 	Updates the mission que.
 	Updates mission markers.
 	By Ghostrider-DbD-
-	1/22/17
+	1/24/17
 */
 
 	if (blck_useSignalEnd) then
@@ -22,10 +22,10 @@
 	[_mines] spawn blck_fnc_clearMines;
 	//diag_log format["_fnc_endMission: (23) _objects = %1",_objects];
 	uisleep 0.1;
-	[_objects, blck_cleanupCompositionTimer] spawn blck_fnc_addObjToQue;
+	[_objects, (blck_cleanupCompositionTimer)] spawn blck_fnc_addObjToQue;
 	//diag_log format["_fnc_endMission:: (26) _blck_AllMissionAI = %1",_blck_AllMissionAI];
 	uisleep 0.1;
-	[_blck_AllMissionAI,blck_AliveAICleanUpTimer] spawn blck_fnc_addLiveAItoQue;
+	[_blck_AllMissionAI, (blck_AliveAICleanUpTimer)] spawn blck_fnc_addLiveAItoQue;
 	[["end",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
 	[_blck_localMissionMarker select 1, _markerClass] execVM "debug\missionCompleteMarker.sqf";
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";

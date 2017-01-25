@@ -1,9 +1,10 @@
 /*
   Delete Dead AI and nearby weapons after an appropriate period.
   by Ghostrider
-  Last updated 1/13/17   
+  Last updated 1/24/17   
 */
 
+diag_log format["fnc_cleanupDeadAI called at time %1",diag_tickTime];
 private["_aiList","_ai"];
 _aiList = +blck_deadAI;
 {

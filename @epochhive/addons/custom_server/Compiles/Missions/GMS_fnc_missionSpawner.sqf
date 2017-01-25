@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 1/22/17
+	Last modified 1/24/17
 */
 
 private ["_crates","_aiGroup","_objects","_groupPatrolRadius","_missionLandscape","_mines","_blck_AllMissionAI","_blck_localMissionMarker","_AI_Vehicles","_timeOut","_aiDifficultyLevel"];
@@ -149,8 +149,11 @@ else
 	_crates = [_coords,[[selectRandom blck_crateTypes,[0,0,0],_crateLoot,_lootCounts]]] call blck_fnc_spawnMissionCrates;
 	
 };
-// un-comment this if you want crates cleaned up when the rest of the mission objects are removed.
-//_objects append _crates;
+
+if (blck_cleanUpLootChests) then
+{
+	_objects append _crates;
+};
 
 if (blck_debugLevel > 0) then
 {
@@ -237,27 +240,21 @@ if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 	_blck_AllMissionAI append (_temp select 1);
 };
 
-if ((random(1) < _chanceReinforcements)) then
+/*
+if (blck_enableReinforcements && (random(1) < _chanceReinforcements)) then
 {
 	_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
-	private["_grpReinforcements"];
-	_grpReinforcements = grpNull;
-	
-	//diag_log format["[blckeagls] missionSpawner:: calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
-	[] spawn {
-		//[_coords,_noPara,_aiDifficultyLevel,_chanceLoot,_reinforcementLootCounts,_weaponList,_uniforms,_headgear,_chanceHeliPatrol] call blck_fnc_Reinforcements;
-		//waitUntil {_grpReinforcements != grpNull};
-		//diag_log format["[blckeagls] missionSpawner::reinforcement spawner started: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
-	};
-	if !(_grpReinforcements isEqualTo grpNull) then
+	if (blck_debugLevel > 0) then
 	{
-		_blck_AllMissionAI = _blck_AllMissionAI + (units _grpReinforcements);
-		//diag_log format["missionSpawner:: _grpReinforcements = %1",_grpReinforcements];
+		diag_log format["[blckeagls] missionSpawner:: calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+		// ["_pos","_numAI","_skillAI","_chanceLoot","_lootCounts","_weapons","_uniforms","_headgear","_patrol"]; 
+		[_coords,_noPara,_aiDifficultyLevel,_chanceLoot,_reinforcementLootCounts,_weaponList,_uniforms,_headgear,_chanceHeliPatrol] spawn blck_fnc_callInReinforcements;
 	};
 };
+*/
 
 // Trigger for mission end
-//diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
+diag_log format["[blckeagls] mission Spawner _endCondition = %1",_endCondition];
 private["_missionComplete","_endIfPlayerNear","_endIfAIKilled"];
 _missionComplete = -1;
 _startTime = diag_tickTime;
@@ -268,14 +265,14 @@ switch (_endCondition) do
 	case "allUnitsKilled": {_endIfPlayerNear = false;_endIfAIKilled = true;};
 	case "allKilledOrPlayerNear": {_endIfPlayerNear = true;_endIfAIKilled = true;};
 };
-//diag_log format["missionSpawner :: (269) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
+diag_log format["missionSpawner :: (269) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
 private["_locations"];
 _locations = [_coords] + _crates;
 
-//diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
+diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
 while {_missionComplete  isEqualTo -1} do
 {
-	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 120};
+	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 300};
 	if ((_endIfPlayerNear) && [_coords,20] call blck_fnc_playerInRange) exitWith {};
 	if ((_endIfAIKilled) && ({alive _x} count _blck_AllMissionAI) < 1 ) exitWith {};
 	//diag_log format["missionSpawner:: (283) missionCompleteLoop - > players near = %1 and ai alive = %2",[_coords,20] call blck_fnc_playerInRange, {alive _x} count _blck_AllMissionAI];

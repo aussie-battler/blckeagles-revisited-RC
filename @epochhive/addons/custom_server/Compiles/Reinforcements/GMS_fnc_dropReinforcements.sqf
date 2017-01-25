@@ -6,8 +6,8 @@
 	1/23/17
 */
 
-_grpPilot = _this;
-
+_pilot = this;
+_grpPilot = group _pilot;
 _params = _grpPilot getVariable["params"];
 _params params["_supplyHeli","_numAI","_skillAI","_dropLoot","_lootCounts","_weapons","_uniforms","_headgear","_patrol"]; 
 
@@ -15,14 +15,16 @@ diag_log format["_fnc_dropReinforcements:: Called with parameters _supplyHeli %1
 
 diag_log "_fnc_dropReinforcements:: heli on station, calling blck_fnc_spawnParaUnits";
 
+//  params["_supplyHeli","_missionPos","_numAI","_skillAI","_weapons","_uniforms","_headGear"];
 [_supplyHeli,_numAI,_skillAI,_weapons,_uniforms,_headgear] spawn blck_fnc_spawnParaUnits;
 
 if (_dropLoot) then 
 {
 	diag_log "_fnc_dropReinforcements:: heli on station, calling blck_fnc_spawnParaLoot";
+	//  params["_supplyHeli","_lootCounts"];
 	[_supplyHeli,_lootCounts] spawn blck_fnc_spawnParaLoot;
 };
 
 uiSleep 10;
 
-[_supplyHeli] spawn blck_fnc_sendHeliHome;
+[_supplyHeli,_grpPilot] spawn blck_fnc_sendHeliHome;
