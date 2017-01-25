@@ -4,7 +4,7 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-1/24/17 Version 6.55 Build 34
+1/24/17 Version 6.55 Build 35
 Added a new configuration blck_killEmptyStaticWeapons which determines if static weapons shoudl be disabled after the AI is killed.
 Added a configuration blck_cleanUpLootChests that determines if loot crates are deleted when other mission objects are deleted.
 Fixed an issue that prevented proper deletion of mission objects and live AI.
