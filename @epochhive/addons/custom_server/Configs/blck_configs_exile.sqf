@@ -2,7 +2,8 @@
 This file contains most constants that define mission parameters, AI behavior and loot for mission system.
 Last modified 8/1/15
 */
-
+	#define DBDserver 1
+	
 	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_epoch.sqf";};
 
 	/*
@@ -12,8 +13,8 @@ Last modified 8/1/15
 		A time acceleration module.
 	*/
 	
-	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
 	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
@@ -30,7 +31,6 @@ Last modified 8/1/15
 	blck_listConcreteMixerZones = true;
 	blck_blacklistSpawns = true;
 	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
-
 	// list of locations that are protected against mission spawns
 	
 	switch (toLower(worldName)) do
@@ -107,8 +107,10 @@ Last modified 8/1/15
 	blck_staticWeapons = ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];  // [0.50 cal, grenade launcher, AT Launcher]
 
 	// AI paratrooper reinforcement paramters
+	blck_enableReinforcements = false;  //  When true, reinforcements will be spawned at missions based on a probability defined in each mission template.
+	
 	// Armed Helis
-	blck_AIHelis = ["B_Heli_Light_01_armed_F","B_Heli_Transport_01_camo_F","B_Heli_Transport_03_F"];
+	blck_AIHelis = ["B_Heli_Light_01_armed_F","B_Heli_Transport_01_camo_F","B_Heli_Transport_03_F"];  // The helis used to bring in and drop reinforcements.
 
 	// Unarmed Helis provided for reference.
 	//  ["B_Heli_Transport_03_unarmed_EPOCH","O_Heli_Light_02_unarmed_EPOCH","I_Heli_Transport_02_EPOCH"];
@@ -119,7 +121,12 @@ Last modified 8/1/15
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-
+	#ifdef DBDserver
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxcrashsites = 3;
+	#endif
+	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
 	blck_SpawnVeh_Orange = 3; // Number of static weapons at Orange Missions
 	blck_SpawnVeh_Green = 2; // Number of static weapons at Green Missions
@@ -138,13 +145,24 @@ Last modified 8/1/15
 	blck_TMin_Green = 200;
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
+	#ifdef DBDserver
+	blck_TMin_Hunter = 120;
+	blck_TMin_Scouts = 115;
+	blck_TMin_Crashes = 115;
+	blck_TMin_UMS = 200;
+	#endif
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
 	blck_TMax_Green = 300;
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
-	
+	#ifdef DBDserver
+	blck_TMax_Hunter = 200;
+	blck_TMax_Scouts = 200;
+	blck_TMax_Crashes = 200;
+	blck_TMax_UMS = 280;
+	#endif
 
 	/****************************************************************
 	
@@ -169,7 +187,7 @@ Last modified 8/1/15
 	blck_bodyCleanUpTimer = 1200; // time in seconds after which dead AI bodies are deleted
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
-	blck_AliveAICleanUpTimer = 900;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_AliveAICleanUpTimer = 1200;  // Time after mission completion at which any remaining live AI are deleted.
 	
 	blck_AIAlertDistance = [250,325,450,500];
 	//blck_AIAlertDistance = [150,225,400,500];
@@ -178,7 +196,7 @@ Last modified 8/1/15
 	blck_AIIntelligence = [0.5, 1, 2, 4];  
 	
 	blck_baseSkill = 1.0;  // The overal skill of the AI - range 0.1 to 1.0.
-		
+	
 	/***************************************************************
 	
 	MISSION TYPE SPECIFIC AI SETTINGS
@@ -192,7 +210,6 @@ Last modified 8/1/15
 	blck_SkillsOrange = [
 		["aimingAccuracy",0.4],["aimingShake",0.7],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
-	blck_reinforceOrange = [0.3, 5, 0.2];
 	
 	// Green Missions
 	blck_MinAI_Green = 16;
@@ -201,7 +218,6 @@ Last modified 8/1/15
 	blck_SkillsGreen = [
 		["aimingAccuracy",0.3],["aimingShake",0.65],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
-	blck_reinforceGreen = [0.25, 4, 0.2];
 	
 	// Red Missions
 	blck_MinAI_Red = 12;
@@ -210,7 +226,6 @@ Last modified 8/1/15
 	blck_SkillsRed = [
 		["aimingAccuracy",0.2],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
-	blck_reinforceRed = [0.2, 3, 0.2];
 	
 	// Blue Missions
 	blck_MinAI_Blue = 8;	
@@ -219,14 +234,13 @@ Last modified 8/1/15
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.1],["aimingShake",0.5],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
-
+		
 	// Add some money to AI; only works with Exile for now.
 	blck_maxMoneyOrange = 25;
 	blck_maxMoneyGreen = 20;
 	blck_maxMoneyRed = 15;
 	blck_maxMoneyBlue = 10;
 	
-	// AI Settings for scouts, Hunters and crashes are definded in thos missions.
 /*********************************************************************************
 
 AI WEAPONS, UNIFORMS, VESTS AND GEAR
@@ -269,7 +283,6 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	#ifdef useAPEX
 	blck_Optics = blck_Optics + blck_Optics_Apex;
 	#endif
-
 	blck_bipods = [
 		"bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli",
 		//Apex
@@ -959,7 +972,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["arifle_Mk20_GL_plain_F","30Rnd_556x45_Stanag"],
 				["arifle_MX_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MX_GL_F","30Rnd_65x39_caseless_mag"],
-				["arifle_MX_SW_Black_Hamr_pointer_F","100Rnd_65x39_caseless_mag_Tracer"],
+				//["arifle_MX_SW_Black_Hamr_pointer_F","100Rnd_65x39_caseless_mag_Tracer"],
 				["arifle_MXC_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MXM_F","30Rnd_65x39_caseless_mag"],
 				["arifle_SDAR_F","20Rnd_556x45_UW_mag"],

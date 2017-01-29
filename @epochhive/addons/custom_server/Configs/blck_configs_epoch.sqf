@@ -2,7 +2,7 @@
 This file contains most constants that define mission parameters, AI behavior and loot for mission system.
 Last modified 8/1/15
 */
-
+	#define DBDserver 1
 	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_epoch.sqf";};
 
 	/*
@@ -12,8 +12,8 @@ Last modified 8/1/15
 		A time acceleration module.
 	*/
 	
-	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
 	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
@@ -118,7 +118,12 @@ Last modified 8/1/15
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-
+	#ifdef DBDserver
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxcrashsites = 3;
+	#endif
+	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
 	blck_SpawnVeh_Orange = 3; // Number of static weapons at Orange Missions
 	blck_SpawnVeh_Green = 2; // Number of static weapons at Green Missions
@@ -137,13 +142,24 @@ Last modified 8/1/15
 	blck_TMin_Green = 200;
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
+	#ifdef DBDserver
+	blck_TMin_Hunter = 120;
+	blck_TMin_Scouts = 115;
+	blck_TMin_Crashes = 115;
+	blck_TMin_UMS = 200;
+	#endif
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
 	blck_TMax_Green = 300;
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
-	
+	#ifdef DBDserver
+	blck_TMax_Hunter = 200;
+	blck_TMax_Scouts = 200;
+	blck_TMax_Crashes = 200;
+	blck_TMax_UMS = 280;
+	#endif
 
 	/****************************************************************
 	
@@ -940,7 +956,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["arifle_Mk20_GL_plain_F","30Rnd_556x45_Stanag"],
 				["arifle_MX_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MX_GL_F","30Rnd_65x39_caseless_mag"],
-				["arifle_MX_SW_Black_Hamr_pointer_F","100Rnd_65x39_caseless_mag_Tracer"],
+				//["arifle_MX_SW_Black_Hamr_pointer_F","100Rnd_65x39_caseless_mag_Tracer"],
 				["arifle_MXC_F","30Rnd_65x39_caseless_mag"],
 				["arifle_MXM_F","30Rnd_65x39_caseless_mag"],
 				["arifle_SDAR_F","20Rnd_556x45_UW_mag"],
