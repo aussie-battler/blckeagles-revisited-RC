@@ -27,7 +27,10 @@ Last modified 8/1/15
 	
 	**************************************************************/
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
+	blck_listConcreteMixerZones = true;
+	blck_blacklistSpawns = true;
 	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
+
 	// list of locations that are protected against mission spawns
 	
 	switch (toLower(worldName)) do

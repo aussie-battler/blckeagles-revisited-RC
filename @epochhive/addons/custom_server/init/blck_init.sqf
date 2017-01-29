@@ -45,7 +45,7 @@ if (_modType isEqualTo "Exile") then
 	waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
 	waitUntil{blck_configsLoaded};
 	blck_configsLoaded = nil;
-	if (blck_blacklistTraderCities || blck_blacklistSpawns || blcklistConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";};
+	if (blck_blacklistTraderCities || blck_blacklistSpawns || blck_listConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";};
 };
 
 // spawn map addons to give the server time to position them before spawning in crates etc.
