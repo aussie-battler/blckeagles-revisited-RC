@@ -1,12 +1,9 @@
 /*
-	Call as : [] call blck_fnc_mainThread;
-	
-	Run a loop that checks data arrays regarding:
-	- whether it is time to delete the mission objects at a specific location
-	- whether it is time to delete live AI associated with a specific mission
 	By Ghostrider-DbD-
 	Last modified 1-24-17
 */
+//#define DBDserver 1
+
 diag_log format["starting _fnc_mainThread with time = %1",diag_tickTime];
 private["_modType","_timer1sec","_timer20sec","_timer5min"];
 _timer1sec = diag_tickTime;
@@ -17,9 +14,12 @@ while {true} do
 {
 	uiSleep 1;
 	//diag_log format["mainThread:: -- > time = %1",diag_tickTime];
-	if (diag_tickTime - _timer1sec > 1000) then 
+	if (diag_tickTime - _timer1sec > 1) then 
 	{
 		[] call blck_fnc_vehicleMonitor;
+		#ifdef DBDserver
+		[] call blck_fnc_broadcastServerFPS;
+		#endif
 		_timer1sec - diag_tickTime;
 	};
 	if (diag_tickTime - _timer20sec > 20) then
@@ -38,5 +38,4 @@ while {true} do
 	{
 		[] call blck_fnc_timeAcceleration;	
 	};
-
 };
