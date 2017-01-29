@@ -22,13 +22,13 @@ _time = dayTime;
 // Night
 if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationNight; 
-	//diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
+	diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 };
 
 // Day
 if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationDay; 
-	//diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
+	diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 };
 
 // default
