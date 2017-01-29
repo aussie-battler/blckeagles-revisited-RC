@@ -2,7 +2,6 @@
 // by Ghostrider-DBD_
 // Last Updated 12/21/16
 // Creds to AWOL, A3W, LouD and Creampie for insights.
-
 if (!isServer) exitWith {};
 
 /*
@@ -35,5 +34,4 @@ if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
 // default
 setTimeMultiplier blck_timeAccelerationDusk; 
 //diag_log format["DUSK ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
-
 
