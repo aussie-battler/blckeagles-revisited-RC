@@ -4,7 +4,7 @@ Last modified 8/1/15
 */
 	#define DBDserver 1
 	
-	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_epoch.sqf";};
+	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_exlie.sqf";};
 
 	/*
 		Configuration for Addons that support the overall Mission system.
@@ -30,7 +30,7 @@ Last modified 8/1/15
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
 	blck_listConcreteMixerZones = true;
 	blck_blacklistSpawns = true;
-	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
+	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
 	// list of locations that are protected against mission spawns
 	
 	switch (toLower(worldName)) do
@@ -85,7 +85,7 @@ Last modified 8/1/15
 	blck_VK_GunnerDamage = true; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
 	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills	
 	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
-	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
+	
 	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC",/*"HMG_M2",*/"HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"]; // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 	// GLOBAL MISSION PARAMETERS
@@ -99,7 +99,7 @@ Last modified 8/1/15
 	// Settings for Mission Vehicles. 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
-	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
+	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01 ","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
 
 	// AI STATIC WEAPON PARAMETERS
 	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
@@ -113,7 +113,7 @@ Last modified 8/1/15
 	blck_AIHelis = ["B_Heli_Light_01_armed_F","B_Heli_Transport_01_camo_F","B_Heli_Transport_03_F"];  // The helis used to bring in and drop reinforcements.
 
 	// Unarmed Helis provided for reference.
-	//  ["B_Heli_Transport_03_unarmed_EPOCH","O_Heli_Light_02_unarmed_EPOCH","I_Heli_Transport_02_EPOCH"];
+	//  ["Exile_Chopper_Orca_CSAT", "Exile_Chopper_Orca_Black","","Exile_Chopper_Huey_Desert","Exile_Chopper_Hummingbird_Green","Exile_Chopper_Huron_Green"]
 
 	//  Mission - specific settings
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not thoroughly tested.
