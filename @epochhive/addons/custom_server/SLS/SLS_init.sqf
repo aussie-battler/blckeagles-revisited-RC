@@ -15,5 +15,5 @@ if not (isNull( configFile >> "CfgPatches" >> "a3_epoch_server" )) then
 
 if not (isNull ( configFile >> "CfgPatches" >> "exile_server" ) ) then
 {
-	[] execVM "q\addons\custom_server\SLS\SLS_init_exile.sqf";
+	[] execVM "\q\addons\custom_server\SLS\SLS_init_exile.sqf";
 };
