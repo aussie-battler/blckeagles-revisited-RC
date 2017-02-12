@@ -99,7 +99,7 @@ Last modified 8/1/15
 	// Settings for Mission Vehicles. 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
-	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
+	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert",/*"Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Desert",*/"B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
 
 	// AI STATIC WEAPON PARAMETERS
 	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
