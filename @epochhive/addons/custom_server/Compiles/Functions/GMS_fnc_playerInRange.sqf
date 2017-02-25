@@ -4,16 +4,25 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 1/22/17
+	Last Modified 2/24/17
 */
 /////////////////////////////////////////////////////
 
 private ["_result"];
-params["_pos","_dist"];
+params["_pos","_dist",["_onFootOnly",false]];
 
 _result = false;
+if !(_onFootOnly) then
 {
-	if ((_x distance2D _pos) < _dist) exitWith {_result = true;};
-} forEach allPlayers;
+	{
+		if ((_x distance2D _pos) < _dist) exitWith {_result = true;};
+	} forEach allPlayers;
+};
 //diag_log format["_fnc_playerInRange:: -> _pos = %1 and _dist = %2 and _result = %3",_pos,_dist,_result];
+if (_onFootOnly) then
+{
+	{
+		if ( ((_x distance2D _pos) < _dist) && (vehicle _x isEqualTo _x)) exitWith {_result = true;};
+	} forEach allPlayers;
+};
 _result
