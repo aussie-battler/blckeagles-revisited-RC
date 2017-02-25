@@ -69,10 +69,12 @@ Last modified 8/1/15
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 2000;
 
+	// global loot crate options
 	// Options to spawn a smoking wreck near the mission.  When the first parameter is true, a wreck or junk pile will be spawned. 
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
+	blck_loadCratesTiming = "atMissionCompletion"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
 	
 	// PLAYER PENALTIES
 	blck_RunGear = true;	// When set to true, AI that have been run over will ve stripped of gear, and the vehicle will be given blck_RunGearDamage of damage.
