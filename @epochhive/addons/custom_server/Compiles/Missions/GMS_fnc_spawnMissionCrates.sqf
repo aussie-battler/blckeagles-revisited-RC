@@ -2,11 +2,11 @@
 	Spawn some crates using an array containing crate types and their offsets relative to a reference position and prevent their cleanup.
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last updated 8-14-16
+	Last updated 2-24-17
 */
 
 private ["_objs","_pos","_offset"];
-params[ ["_coords", [0,0,0]], ["_crates",[]] ];
+params[ ["_coords", [0,0,0]], ["_crates",[]], ["_loadCrateTiming","atMissionSpawn"] ];
 
 _objs = [];
 {
@@ -26,7 +26,16 @@ _objs = [];
 
 	_crate = [_pos,_crateType] call blck_fnc_spawnCrate;
 	_objs pushback _crate;
-	[_crate,_lootArray,_lootCounts] call blck_fnc_fillBoxes;
+	if (_loadCrateTiming isEqualTo "atMissionSpawn") then
+	{
+		diag_log format["_fnc_spawnMissionCrates::-> loading loot at mission spawn for crate %1",_x];
+		[_crate,_lootArray,_lootCounts] call blck_fnc_fillBoxes;
+		_crate setVariable["lootLoaded",true];
+	}
+	else
+	{
+		diag_log format["_fnc_spawnMissionCrates::-> not loading crate loot at this time for crate %1",_x];
+	};
 }forEach _crates;
 
 _objs
