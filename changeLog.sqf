@@ -4,11 +4,15 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+2/24/17 Version 6.56 Build 39.
+Added a check so that mission completion by players near loot crates was tripped only when players were on foot.
+Added a setting that determines whether loot crates are loaded when the mission spawns or once the mission is complete. 
+	see blck_loadCratesTiming = "atMissionCompletion"; (line 78) for this configuration setting.
+	
 1/28/17 Version 6.55 Build 38
 bug fixes
 Commented out logging that is no longer needed
 Removed a weapon from loot tables that could be used for dupping.
-
 
 1/24/17 Version 6.55 Build 35
 Added a new configuration blck_killEmptyStaticWeapons which determines if static weapons shoudl be disabled after the AI is killed.
