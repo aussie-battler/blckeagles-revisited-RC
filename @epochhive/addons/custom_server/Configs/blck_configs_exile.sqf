@@ -196,7 +196,7 @@ Last modified 8/1/15
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
-	blck_AIIntelligence = [0.5, 1, 2, 4];  
+	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9]; 
 	
 	blck_baseSkill = 1.0;  // The overal skill of the AI - range 0.1 to 1.0.
 	

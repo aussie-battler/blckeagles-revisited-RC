@@ -50,5 +50,5 @@ if (blck_useKillMessages) then
 [_unit,_killer,_kills] call blck_fnc_rewardKiller;
 {
 	_unit removeAllEventHandlers  _x;
-}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear"]
+}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear","Hit"]
 

@@ -14,7 +14,8 @@ if (_alertDist > 0) then {
 		//diag_log format["+----+ alerting units close to %1",_unit];
 		{
 			if (((position _x) distance2D (position _unit)) <= _alertDist) then {
-				_x reveal [_killer, _intelligence];
+				_knowsAbout = _x knowsAbout _killer;
+				_x reveal [_killer, _knowsAbout + _intelligence];
 				//diag_log "Killer revealed";
 			}
 		} forEach allUnits;
