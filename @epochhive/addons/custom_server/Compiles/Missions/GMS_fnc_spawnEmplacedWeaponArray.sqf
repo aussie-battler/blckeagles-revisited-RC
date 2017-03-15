@@ -1,13 +1,14 @@
 /*
-
+	
 	[_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
-
+	Last modified 3/13/17
+	By Ghostrider-DbD-
 */
 
 params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
-private["_return","_emplacedWeps","_emplacedAI","_wep","_units","_gunner"];
+private["_return","_emplacedWeps","_emplacedAIGroups","_wep","_units","_gunner"];
 _emplacedWeps = [];
-_emplacedAI = [];
+_emplacedAIGroups = [];
 _units = [];
 //diag_log "_fnc_spawnEmplacedWeaponArray start";
 // Define _missionEmplacedWeapons if not already configured.
@@ -26,15 +27,14 @@ if (count _missionEmplacedWeapons < 1) then
 	_wep setPosATL _x;
 	[_wep,false] call blck_fnc_configureMissionVehicle;	
 	_emplacedWeps pushback _wep;
-	blck_missionVehicles pushback _wep;
 	_units = units _empGroup;
 	_gunner = _units select 0;
 	_gunner moveingunner _wep;
-	_emplacedAI append (units _empGroup);
+	_emplacedAIGroups pushback _empGroup;
 	//diag_log format["_fnc_spawnEmplacedWeaponArray:: position of emplaced weapon = %1 and position of _x is %2",getPos _wep, _x];
 	//diag_log format["_fnc_spawnEmplacedWeaponArray:: _gunner = %1 and crew _wep = %2",_gunner, crew _wep];
 } forEach _missionEmplacedWeapons;
-
-_return = [_emplacedWeps,_emplacedAI];
+blck_missionVehicles append _emplacedWeps;
+_return = [_emplacedWeps,_emplacedAIGroups];
 //diag_log format["_fnc_spawnEmplacedWeaponArray:: returning with _return = _emplacedWeps = %1",_return];
 _return

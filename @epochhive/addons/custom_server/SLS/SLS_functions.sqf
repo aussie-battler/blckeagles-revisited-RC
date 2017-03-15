@@ -1,6 +1,19 @@
+/*
+	for DBD Clan
+	By Ghostrider-DBD-
+	Copyright 2016
+	Last Modified 3-14-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
+
 //Based on the Random Loot Crates addon by Darth_Rogue & Chisel (tdwhite)  
 // Re-written by Ghostrider-DBD- to add features and clean up code
-// Last updated 11-14-16
 
 // Do not touch anything below this line.
 /// ********************************************************************************************************************************************************************************************************************************

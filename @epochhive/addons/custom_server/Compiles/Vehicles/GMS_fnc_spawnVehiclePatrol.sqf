@@ -1,11 +1,18 @@
 /*
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last updated 8-14-16
+	Last updated 3-14-17
 	
 	spawns a vehicle of _vehType and mans it with units in _group.
 	returns _veh, the vehicle spawned.
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
 
 private["_vehType","_safepos","_veh"];
 params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull] ];
@@ -52,7 +59,7 @@ for "_i" from 1 to _count do
 	_wp = _group addWaypoint [_p2, 25];
 	_wp setWaypointType "MOVE";
 	_wp = _group addWaypoint [_p2, 25];
-	_wp setWaypointType "LOITER";
+	_wp setWaypointType "SENTRY";
 	_wp setWaypointTimeout [10,17.5,25];
 };
 _wp = _group addWaypoint [_pos, 25];

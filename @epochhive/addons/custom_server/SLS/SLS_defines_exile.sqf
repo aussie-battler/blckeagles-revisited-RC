@@ -1,7 +1,17 @@
 /*
 	Define constants for SLS for Exile
-	uncomment the examples below to see it in action.
-	or use them as a template for your own.
+
+	for DBD Clan
+	By Ghostrider-DBD-
+	Copyright 2016
+	Last Modified 3-14-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
 diag_log "[blckeagls] SLS : Loading Static Loot Container Spawning System for Exile";

@@ -26,7 +26,7 @@ _fn_releaseVehicle = {
 	};
 };
 
-if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
+//if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
 {
 	_veh = _x;
 	if (_veh getVariable["blck_DeleteAt",0] > 0) then
@@ -43,10 +43,7 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 		{
 			if (blck_killEmptyStaticWeapons) then
 			{
-				if (blck_debugLevel > 2) then
-				{
-					diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
-				};
+				//if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
 				_veh setDamage 1;
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
@@ -55,10 +52,7 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 		}else {  // Deal with vehicles
 			if (blck_killEmptyAIVehicles) then
 			{
-				if (blck_debugLevel > 2) then
-				{
-					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];
-				};			
+				//if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];};			
 				{
 					_veh setHitPointDamage [_x, 1];
 					

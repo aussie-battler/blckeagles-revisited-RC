@@ -1,9 +1,19 @@
 	
-/* 
-	Place any overrides of the default configurations here.
-	This is a convenient way to specify the configuration you like without worrying about going through the individual config files with each update.
-    Several Examples are shown below.
+/*
+	for DBD Clan
+	By Ghostrider-DBD-
+	Copyright 2016
+	Last Modified 3-14-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
 
 diag_log "[blckeagls] Loading Configuration Overides";
 

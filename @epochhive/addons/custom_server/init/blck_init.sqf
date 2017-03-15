@@ -1,11 +1,22 @@
 /*
-AI Mission for Epoch and Exile Mods to Arma 3
-Credist to blckeagls who wrote the initial mission script for A3 Epoch 
-To Narines for debugging that original version
-To cynwncler for many helpful comments along the way
-And mostly importantly, 
-To Vampire, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 and Buttface (Face) who wrote the pionering mission and roaming AI systems upon which this one is based and who's code is used with modification in some parts of this addon.
+	AI Mission for Epoch and Exile Mods to Arma 3
+	Credist to blckeagls who wrote the initial mission script for A3 Epoch 
+	To Narines for debugging that original version
+	To cynwncler for many helpful comments along the way
+	And mostly importantly, 
+	To Vampire, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 and Buttface (Face) who wrote the pionering mission and roaming AI systems upon which this one is based and who's code is used with modification in some parts of this addon.
+
+	By Ghostrider-DbD
+	Last Modified 3-14-17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+
 if !(isNil "blck_Initialized") exitWith{};
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;

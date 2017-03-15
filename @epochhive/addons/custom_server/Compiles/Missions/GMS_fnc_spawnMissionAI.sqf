@@ -1,7 +1,7 @@
 /*
 	blck_fnc_spawnMissionAI
 	by Ghostrider-DbD-
-	1/9/17
+	3/13/17
 	[_coords,  // center of the area within which to spawn AI
 	_minNoAI,  // minimum number of AI to spawn
 	_maxNoAI,  // Max number of AI to spawn
@@ -9,14 +9,14 @@
 	_uniforms,	//  Uniforms to use - note default is blck_sSkinList
 	_headGear   // headgear to use - blck_BanditHeager is the default
 	] call blck_fnc_spawnMissionAI
-	returns an array of the units spawned
+	returns an array of the groups spawned
 */
 	params["_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel","red"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear]];
-	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup","_blck_AllMissionAI"];
+	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup","_blck_AllMissionAIGroups"];
 	_unitsToSpawn = round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
 	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
 	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
-	_blck_AllMissionAI = [];
+	_blck_AllMissionAIGroups = [];
 	//diag_log format["_fnc_spawnMissionAI :: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
 	switch (_noAIGroups) do
 	{
@@ -25,8 +25,7 @@
 				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,3,18,_uniforms,_headGear] call blck_fnc_spawnGroup;
 				if !(isNull _newGroup) then
 				{
-					//_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + units _newGroup;
+					_blck_AllMissionAIGroups pushback _newGroup;
 					//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=1 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
 				} else {
 					_abortMissionSpawner = true;
@@ -46,8 +45,7 @@
 					};
 					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
 					if (isNull _newGroup) exitWith {_abortMissionSpawner = true;};
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+					_blck_AllMissionAIGroups pushback _newGroup;
 					//diag_log format["missionSpawner: Spawning 2 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI];
 				}forEach _groupLocations;
 
@@ -57,15 +55,14 @@
 				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
 				if (isNull _newGroup) then {_abortMissionSpawner = true;} else 
 				{
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+					_blck_AllMissionAIGroups pushback _newGroup;
 					//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
 					_groupLocations = [_coords,2,20,35] call blck_fnc_findPositionsAlongARadius;
 					{
 						_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
 						if (isNull _newGroup) exitWith {_abortMissionSpawner = true;};
 						_newAI = units _newGroup;
-						_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+						_blck_AllMissionAIGroups pushback _newGroup;
 						//diag_log format["missionSpawner: Spawning 2 Groups:_newGroup=%1  _newAI = %2",_newGroup, _newAI];
 					}forEach _groupLocations;
 				};
@@ -73,18 +70,18 @@
 		default {  // spawn one group near the center of the mission and the rest on the perimeter
 				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=default"];
 				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				_newAI = units _newGroup;
-				_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+				_blck_AllMissionAIGroups pushback _newGroup;
 				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=%3 _newGroup=%1 _newAI = %2",_newGroup, _newAI,_noAIGroups];
 				_groupLocations = [_coords,(_noAIGroups - 1),20,40] call blck_fnc_findPositionsAlongARadius;
 				{
 					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
 					if (isNull _newGroup) exitWith {_abortMissionSpawner = true;};
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
+					_blck_AllMissionAIGroups pushback _newGroup;
 					//diag_log format["missionSpawner: Spawning %3 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI,_noAIGroups];
 				}forEach _groupLocations;
 			};
 	};
-	
-_blck_AllMissionAI
+	{
+		_x setVariable["blck_stuckMonitor",0];
+	}forEach _blck_AllMissionAIGroups;	
+	_blck_AllMissionAIGroups

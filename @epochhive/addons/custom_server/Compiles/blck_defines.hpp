@@ -12,22 +12,6 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-class CfgPatches {
-	class custom_server {
-		units[] = {};
-		weapons[] = {};
-		requiredVersion = 0.1;
-		requiredAddons[] = {};
-	};
-};
-
-class CfgFunctions {
-	class blck_init {
-		class blck_start {
-			file = "\q\addons\custom_server\init";
-			class init {
-				postInit = 1;
-			};
-		};
-	};
-};
+#define modUsed true
+#define DBDserver 1
+#define wpModeMove

@@ -2,9 +2,17 @@
 	AI Mission for Epoch Mod for Arma 3
 	By Ghostrider
 	Functions and global variables used by the mission system.
-	Last modified 1/23/17
+	Last modified 3/14/17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-blck_functionsCompiled = false;
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+//blck_functionsCompiled = false;
 
 //#define DBDserver 1
 // General functions
@@ -21,8 +29,10 @@ blck_fnc_groupsOnAISide = compileFinal  preprocessFileLineNumbers "\q\addons\cus
 blck_fnc_emptyObject = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_emptyObject.sqf"; 
 blck_fnc_playerInRange = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_playerInRange.sqf"; 
 blck_fnc_mainThread = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_mainThread.sqf"; 	
+
 #ifdef DBDserver	
-blck_fnc_broadcastServerFPS = = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf"; 
+blck_fnc_broadcastServerFPS = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf"; 
+diag_log "blck_functions loaded using DBDServer settings ---- >>>> ";
 #endif
 // Player-related functions
 blck_fnc_rewardKiller = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_rewardKiller.sqf";
@@ -54,6 +64,7 @@ blck_fnc_spawnMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_s
 blck_fnc_clearMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_clearMines.sqf"; // clears mines in an array passed as a parameter
 blck_fnc_signalEnd = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_signalEnd.sqf"; // deploy smoke grenades at loot crates at the end of the mission.
 blck_fnc_endMission = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_endMission.sqf";
+blck_fnc_missionAIareDead = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionAIareDead.sqf";
 
 // #define Reinforcements 1
 #ifdef Reinforcements
@@ -70,7 +81,10 @@ blck_fnc_sendHeliHome = compileFinal preprocessFileLineNumbers "\q\addons\custom
 // Group-related functions
 blck_fnc_spawnGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_spawnGroup.sqf";  // Spawn a single group and populate it with AI units]
 blck_fnc_setupWaypoints = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_setWaypoints.sqf";  // Set default waypoints for a group
-blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_cleanEmptyGroups.sqf";  // GMS_fnc_cleanEmptyGroups
+blck_fnc_missionGroupMonitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_missionGroupMonitor.sqf";  // Monitors active groups for those that are stuck in an SAD waypoint but not in combat
+blck_fnc_changeToSADWaypoint = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_changeToSADWaypoint.sqf"; 
+blck_fnc_changeToMoveWaypoint = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_changeToMoveWaypoint.sqf"; 
+blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_cleanEmptyGroups.sqf";  // GMS_fnc_cleanEmptyGroups
 
 // Functions specific to vehicles, whether wheeled or static
 blck_fnc_spawnVehicle = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnVehicle.sqf";            

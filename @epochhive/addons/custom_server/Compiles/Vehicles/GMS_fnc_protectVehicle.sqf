@@ -1,5 +1,14 @@
 // Protect Vehicles from being cleaned up by the server
 // Last modified 2/26/16 by Ghostrider-DBD-
+/*
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
 
 params["_Vehicle"];
 
@@ -8,7 +17,7 @@ _modType = call blck_fnc_getModType;
 switch (_ModType) do {
 	case "Epoch":
 				{
-					diag_log format["GMS_fnc_protectVehicle::  Tokens set for vehicle %1",_Vehicle];
+					if (blck_debugLevel > 2) then {diag_log format["GMS_fnc_protectVehicle::  Tokens set for vehicle %1",_Vehicle];};
 					//_Vehicle call EPOCH_server_vehicleInit;
 					_Vehicle call EPOCH_server_setVToken;
 				};

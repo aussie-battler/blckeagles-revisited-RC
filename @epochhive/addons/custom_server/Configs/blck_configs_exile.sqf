@@ -1,9 +1,19 @@
 /*
-This file contains most constants that define mission parameters, AI behavior and loot for mission system.
-Last modified 8/1/15
-*/
-	#define DBDserver 1
+	for DBD Clan
+	By Ghostrider-DBD-
+	Copyright 2016
+	Last Modified 3-14-17
 	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
+
+	#include "\q\addons\custom_server\Compiles\blck_defines.hpp";	
+
 	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs_exlie.sqf";};
 
 	/*

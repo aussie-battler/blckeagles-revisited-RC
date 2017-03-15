@@ -1,6 +1,19 @@
 // Configures a mission vehicle
-// by Ghostrider-DBD-
-// Last Updated 1/22/17
+/*
+	By Ghostrider-DBD-
+	Copyright 2016
+	Last updated 3-14-17
+	
+	spawns a vehicle of _vehType and mans it with units in _group.
+	returns _veh, the vehicle spawned.
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
 
 params["_veh",["_clearInventory",true]];
 private["_unit"];

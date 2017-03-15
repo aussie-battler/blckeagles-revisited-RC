@@ -4,6 +4,16 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+3/13/17 Version 6.58 Build 41
+Changed the method of tracking live AI from an array of units to an array of groups which will aid in monitoring groups for a 'stuck' state.
+Added Search and Destroy waypoints for each location in the waypoint cycle.
+Change waypoint compbat mode to "COMBAT"
+Added Group Waypoint Monitor that deals with the case wherein a group gets 'stuck' in a search and destroy waypoint without any nearby targets.
+
+3/12/17 Version 6.57 Build 40
+Added an event handler to make AI more responsive.
+Revised logic for informing AI of the location of players to give AI a more gradual ramp up from little knowledge about player location to full knowledge.
+
 2/24/17 Version 6.56 Build 39.
 Added a check so that mission completion by players near loot crates was tripped only when players were on foot.
 Added a setting that determines whether loot crates are loaded when the mission spawns or once the mission is complete. 

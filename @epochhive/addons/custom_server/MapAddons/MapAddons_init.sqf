@@ -5,7 +5,16 @@
 	by Ghostrider-DbD-
 	for DBD Clan
 	11/12/16
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+
+#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+
 if (!isServer) exitWith{};
 _addonsPath = "\q\addons\custom_server\MapAddons\mapcontent\";
 _addonsEpoch = [
