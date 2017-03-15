@@ -13,5 +13,5 @@
 */
 
 #define modUsed true
-#define DBDserver 1
+//#define DBDserver 1
 #define wpModeMove

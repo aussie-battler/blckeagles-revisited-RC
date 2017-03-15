@@ -13,5 +13,5 @@
 */
 #include "\q\addons\custom_server\Compiles\blck_defines.hpp";
 private ["_version","_versionDate"];
-_blck_version = "6.58 Build 41";
-_blck_versionDate = "3-13-17  8:00 PM";
+_blck_version = "6.58 Build 42";
+_blck_versionDate = "3-15-17  8:00 AM";

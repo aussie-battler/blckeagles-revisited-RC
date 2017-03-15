@@ -4,6 +4,10 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+3/15/17 Version 6.58 Build 42
+Disabled DBDServer settings for this public release.
+Added a missing file (custom_server\Compiles\Missions\GMS_fnc_missionAIareDead.sqf )
+
 3/13/17 Version 6.58 Build 41
 Changed the method of tracking live AI from an array of units to an array of groups which will aid in monitoring groups for a 'stuck' state.
 Added Search and Destroy waypoints for each location in the waypoint cycle.
