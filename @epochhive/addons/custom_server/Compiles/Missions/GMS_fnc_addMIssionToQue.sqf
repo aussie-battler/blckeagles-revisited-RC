@@ -3,7 +3,15 @@
 	
 	by Ghostrider-DbD-
 	Last modified 1-21-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 //private _mission = _this;
 //diag_log format["_fnc_addMissionToQue::  -- >>  _mission - %1",_mission];

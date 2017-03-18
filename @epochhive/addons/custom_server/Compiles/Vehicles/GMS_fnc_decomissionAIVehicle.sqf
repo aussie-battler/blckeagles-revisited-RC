@@ -12,7 +12,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 // Unused at present, reserved for the future
 
 private ["_ai_veh","_ai_veh_type","_ai_veh_name"];

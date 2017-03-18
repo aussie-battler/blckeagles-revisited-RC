@@ -13,7 +13,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_veh",["_clearInventory",true]];
 private["_unit"];

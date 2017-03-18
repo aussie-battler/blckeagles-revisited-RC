@@ -22,10 +22,13 @@ _grpPilot allowFleeing 0;
 private["_supplyHeli"];
 //create helicopter and spawn it
 _supplyHeli = createVehicle [_chopperType, _spawnPos, [], 90, "FLY"];
+[_supplyHeli] call blck_fnc_protectVehicle;
+/*
 if ([] call blck_fnc_getModType isEqualTo "Epoch") then
 {
 	_supplyHeli call EPOCH_server_setVToken;
 };
+*/
 _supplyHeli setDir (_spawnVector -180);
 _supplyHeli setFuel 1;
 _supplyHeli engineOn true;

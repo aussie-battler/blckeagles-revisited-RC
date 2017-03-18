@@ -5,7 +5,15 @@
 	By Ghostrider-DBD-
 	Copyright 2016
 	Last updated 9-4-16
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private ["_crate","_px","_py","_defaultCrate"];
 _defaultCrate = "Box_NATO_Wps_F";

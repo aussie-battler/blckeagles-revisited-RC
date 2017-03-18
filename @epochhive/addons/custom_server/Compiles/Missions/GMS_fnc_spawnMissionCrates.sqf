@@ -3,7 +3,15 @@
 	By Ghostrider-DBD-
 	Copyright 2016
 	Last updated 2-24-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private ["_objs","_pos","_offset"];
 params[ ["_coords", [0,0,0]], ["_crates",[]], ["_loadCrateTiming","atMissionSpawn"] ];

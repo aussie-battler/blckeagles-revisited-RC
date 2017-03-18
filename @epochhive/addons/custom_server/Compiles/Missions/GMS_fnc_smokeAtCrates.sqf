@@ -4,7 +4,16 @@
 	By Ghostrider-DBD-
 	Copyright 2016
 	Last updated 8-14-16
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 private ["_objs","_wreckSelected","_smokeType","_fire","_posFire","_posWreck","_smoke","_dis","_minDis","_maxDis","_closest","_wrecks"];
 
 _objs = [];

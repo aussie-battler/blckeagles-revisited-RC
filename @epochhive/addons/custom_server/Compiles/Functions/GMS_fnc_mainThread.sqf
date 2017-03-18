@@ -8,7 +8,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 //#define DBDserver 1
 
 diag_log format["starting _fnc_mainThread with time = %1",diag_tickTime];
@@ -46,7 +46,7 @@ while {true} do
 		[] call blck_fnc_cleanupObjects;
 		[] call blck_fnc_cleanupDeadAI;
 		[] call blck_fnc_spawnPendingMissions;
-		[] call blck_fnc_missionGroupMonitor;
+		//[] call blck_fnc_missionGroupMonitor;
 		if (_modType isEqualTo "Epoch") then 
 		{
 			[] call blck_fnc_cleanEmptyGroups;
