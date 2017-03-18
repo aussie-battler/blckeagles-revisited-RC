@@ -13,7 +13,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 if (!isServer) exitWith{};
 _addonsPath = "\q\addons\custom_server\MapAddons\mapcontent\";
@@ -50,7 +50,7 @@ _fnc_runIt =
 			} else {
 				_path = format["%1%2%3",_addonsPath,_x select 1,"\"];
 			};
-			if (blck_debugON) then {diag_log format["[blckeagls] MapAddons::-->> Running the following script: %1%2",_path,_x select 2];};
+			if (blck_debugLevel > 2) then {diag_log format["[blckeagls] MapAddons::-->> Running the following script: %1%2",_path,_x select 2];};
 			[] execVM format["%1%2",_path,_x select 2];
 		};
 	}forEach _addons;
@@ -64,6 +64,6 @@ if not (isNull( configFile >> "CfgPatches" >> "a3_epoch_server" )) then
 
 if not (isNull( configFile >> "CfgPatches" >> "exile_server" )) then
 {
-	diag_log "[blckeagls] Running Map Addons for Epoch";
+	diag_log "[blckeagls] Running Map Addons for Exile";
 	[_addonsExile] call _fnc_runIt;
 };

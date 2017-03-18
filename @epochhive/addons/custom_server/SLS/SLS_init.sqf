@@ -11,7 +11,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#include "\q\addons\custom_server\Compiles\blck_defines.hpp";
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 if not (isNull( configFile >> "CfgPatches" >> "a3_epoch_server" )) then
 {

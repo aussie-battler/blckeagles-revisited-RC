@@ -121,10 +121,10 @@
 	///////////////////////////////
 	// Paratroop Settings
 	// AI paratrooper reinforcement paramters
-	blck_chanceParaBlue = 1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
+	blck_chanceParaBlue = 0.2; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
 	blck_noParaBlue = 3; //  [1-N]
 	
-	blck_chanceParaRed = 1;
+	blck_chanceParaRed = 0.3;
 	blck_noParaRed = 3;
 	
 	blck_chanceParaGreen = 0.4;
@@ -157,13 +157,13 @@
 	blck_chanceHeliPatrolBlue = 0;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
 	blck_patrolHelisBlue = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolRed = 1; // 0.4;
-	blck_patrolHelisRed = _blck_armed_orcas;
+	blck_chanceHeliPatrolRed = 0.2; // 0.4;
+	blck_patrolHelisRed = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolGreen = 0.55;
+	blck_chanceHeliPatrolGreen = 0.5;
 	blck_patrolHelisGreen = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolOrange = 0.75;
+	blck_chanceHeliPatrolOrange = 0.7;
 	blck_patrolHelisOrange = _blck_armed_hellcats+_blck_armed_orcas;
 
 

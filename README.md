@@ -1,6 +1,6 @@
-Blckegls mission system Ver 6.57
+Blckegls mission system Ver 6.58
 
-Build 41
+Build 43
 
 Included is an updated version of blckeagls mission system. This began as an effort to fix bugs in and upgrade version 2.0.2 as updated by Narines and has now evolved to a complete reworking of almost all code. 
 
