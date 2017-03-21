@@ -27,23 +27,42 @@
 	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
 	_blck_AllMissionAI = [];
 	_abort = false;
-	//diag_log format["_fnc_spawnMissionAI :: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
+	if (blck_debugLevel > 1) then
+	{
+		diag_log format["_fnc_spawnMissionAI (30):: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
+	};
 	switch (_noAIGroups) do
 	{
 		case 1: {  // spawn the group near the mission center
 				//params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,3,18,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				if !(isNull _newGroup) then
+				if (blck_debugLevel > 2) then
 				{
-					//_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + units _newGroup;
-					//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=1 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
-				} else {
+					diag_log format["missionSpawner: Spawning Groups: _noAIGroups=1"];
+				};
+				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,3,18,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				if (blck_debugLevel > 2) then
+				{
+					diag_log format["_fnc_spawnMissionAI (37):: case 1 - > _newGroup = %1",_newGroup];
+				};
+				if (isNull _newGroup) then 
+				{
 					_abort = true;
+				} 
+				else
+				{
+					_newAI = units _newGroup;
+					if (blck_debugLevel > 2) then
+					{
+						diag_log format["_fnc_spawnMissionAI(41): Spawning Groups: _noAIGroups=1 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
+					};
+					_blck_AllMissionAI append _newAI;
 				};
 			 };
 		case 2: {
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=2"];  // spawn groups on either side of the mission area
+				if (blck_debugLevel > 2) then
+				{
+					diag_log format["_fnc_spawnMissionAI(47): Spawning Groups: _noAIGroups=2"];  // spawn groups on either side of the mission area
+				};
 				_groupLocations = [_coords,_noAIGroups,15,30] call blck_fnc_findPositionsAlongARadius;
 				{
 					private["_adjusttedGroupSize"];
@@ -55,48 +74,99 @@
 						_adjusttedGroupSize = _unitsPerGroup;
 					};
 					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-					if (isNull _newGroup) exitWith {_abort = true;};
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning 2 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI];
+					if (isNull _newGroup) then 
+					{
+						_abort = true;
+					} 
+					else 
+					{
+						_newAI = units _newGroup;
+						if (blck_debugLevel > 2) then
+						{
+							diag_log format["_fnc_spawnMissionAI(61): case 2: _newGroup=%1",_newGroup];
+						};
+						_blck_AllMissionAI append _newAI;
+					};
 				}forEach _groupLocations;
 
 			};
 		case 3: { // spawn one group near the center of the mission and the rest on the perimeter
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3"];
+				if (blck_debugLevel > 2) then
+				{
+					diag_log format["_fnc_spawnMissionAI (68): Spawning Groups: _noAIGroups=3"];
+				};
 				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				if (isNull _newGroup) exitWith {_abort = true;};
+				if (isNull _newGroup) then 
+				{
+					_abort = true;
+				} 
+				else
 				{
 					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=3 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
+					if (blck_debugLevel > 2) then
+					{
+						diag_log format["_fnc_spawnMissionAI (73): Case 3:  _newGroup=%1",_newGroup];
+					};
+					_blck_AllMissionAI append _newAI;
+
 					_groupLocations = [_coords,2,20,35] call blck_fnc_findPositionsAlongARadius;
 					{
 						_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-						if (isNull _newGroup) exitWith {_abort = true;};
-						_newAI = units _newGroup;
-						_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-						//diag_log format["missionSpawner: Spawning 2 Groups:_newGroup=%1  _newAI = %2",_newGroup, _newAI];
+						if (isNull _newGroup) then 
+						{
+							_abort = true;
+						}
+						else
+						{
+							_newAI = units _newGroup;
+						if (blck_debugLevel > 2) then
+						{
+							diag_log format["_fnc_spawnMissionAI(78): Case 3: line 81: _newGroup = %1",_newGroup];
+						};
+							_blck_AllMissionAI append _newAI;
+						};
 					}forEach _groupLocations;
 				};
 			};
 		default {  // spawn one group near the center of the mission and the rest on the perimeter
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=default"];
+				if (blck_debugLevel > 2) then
+				{
+					diag_log format["_fnc_spawnMissionAI (88): case 4:"];
+				};
 				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-				if (isNull _newGroup) exitWith {_abort = true};
+				if (isNull _newGroup) then 
+				{
+					_abort = true;
+				};
 				_newAI = units _newGroup;
-				_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-				//diag_log format["missionSpawner: Spawning Groups: _noAIGroups=%3 _newGroup=%1 _newAI = %2",_newGroup, _newAI,_noAIGroups];
+				if (blck_debugLevel > 2) then
+				{
+					diag_log format["_fnc_spawnMissionAI(92): Spawning Groups: _noAIGroups=1 _newGroup=%1 _newAI = %2",_newGroup, _newAI];
+				};
+				_blck_AllMissionAI append _newAI;
 				_groupLocations = [_coords,(_noAIGroups - 1),20,40] call blck_fnc_findPositionsAlongARadius;
 				{
 					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
-					if (isNull _newGroup) exitWith {_abort = true;};
-					_newAI = units _newGroup;
-					_blck_AllMissionAI = _blck_AllMissionAI + _newAI;
-					//diag_log format["missionSpawner: Spawning %3 Groups: _newGroup=%1  _newAI = %2",_newGroup, _newAI,_noAIGroups];
+					if (isNull _newGroup) then 
+					{
+						_abort = true;
+					}
+					else 
+					{
+						_newAI = units _newGroup;
+						if (blck_debugLevel > 2) then
+						{
+							diag_log format["_fnc_spawnMissionAI(99): _newGroup=%1",_newGroup];
+						};
+						_blck_AllMissionAI append _newAI;
+					};
 				}forEach _groupLocations;
 			};
 	};
-	
-private["_return"];
-_return = [_blck_AllMissionAI,_abort]
+	if (blck_debugLevel > 1) then
+	{
+		diag_log format["_fnc_spawnMissionAI(133): _abort = %1 | _blck_AllMissionAI = %2",_abort,_blck_AllMissionAI];
+	};
+	private["_return"];
+	_return = [_blck_AllMissionAI,_abort];
+	_return

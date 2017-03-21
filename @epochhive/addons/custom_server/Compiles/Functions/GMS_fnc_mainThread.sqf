@@ -1,6 +1,6 @@
 /*
 	By Ghostrider-DbD-
-	Last modified 1-24-17
+	Last modified 3-18-17
 	--------------------------
 	License
 	--------------------------
@@ -17,10 +17,11 @@ diag_log format["starting _fnc_mainThread with time = %1",diag_tickTime];
 diag_log "running DBDServer version of _fnc_mainThread";
 #endif
 
-private["_modType","_timer1sec","_timer5sec","_timer20sec","_timer5min"];
+private["_modType","_timer1sec","_timer5sec","_timer20sec","_timer5min","_timer5min"];
 _timer1sec = diag_tickTime;
 _timer5sec = diag_tickTime;
 _timer20sec = diag_tickTime;
+_timer1min = diag_tickTime;
 _timer5min = diag_tickTime;
 _modType = [] call blck_fnc_getModType;
 while {true} do
@@ -35,27 +36,29 @@ while {true} do
 		#endif
 		_timer1sec - diag_tickTime;
 	};
-	if (diag_tickTime - _timer5sec > 5) then
-	{
-		_timer5sec = diag_tickTime;
 
-	};
 	if (diag_tickTime - _timer20sec > 20) then
 	{
 		[] call blck_fnc_cleanupAliveAI;
 		[] call blck_fnc_cleanupObjects;
 		[] call blck_fnc_cleanupDeadAI;
+
+		//[] call blck_fnc_missionGroupMonitor;		
+		_timer20sec = diag_tickTime;
+		//diag_log format["_mainThread::-->> diag_tickTime = %1",diag_tickTime];
+	};
+	if (diag_tickTime - _timer1min > 60) then
+	{
+		_timer1min = diag_tickTime;
 		[] call blck_fnc_spawnPendingMissions;
-		//[] call blck_fnc_missionGroupMonitor;
+		
 		if (_modType isEqualTo "Epoch") then 
 		{
 			[] call blck_fnc_cleanEmptyGroups;
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.		
-		_timer20sec = diag_tickTime;
-		//diag_log format["_mainThread::-->> diag_tickTime = %1",diag_tickTime];
-	};
+	};	
 	if (diag_tickTime - _timer5min > 300) then
 	{
-		[] call blck_fnc_timeAcceleration;	
+		if (blck_timeAcceleration) then {[] call blck_fnc_timeAcceleration;};
 	};
 };

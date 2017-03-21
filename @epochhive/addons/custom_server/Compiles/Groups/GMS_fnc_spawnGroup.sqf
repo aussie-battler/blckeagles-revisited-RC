@@ -19,7 +19,7 @@ private["_numbertospawn","_groupSpawned","_safepos","_weaponList","_useLauncher"
 params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
 if (blck_debugLevel > 2) then
 {
-	//diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
+	diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
 };
 //Spawns correct number of AI
 if (_numai2 > _numai1) then {
@@ -29,7 +29,7 @@ if (_numai2 > _numai1) then {
 };
 if (blck_debugLevel  > 2) then
 {
-	//diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
+	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };
 
 _groupSpawned = createGroup blck_AI_Side; 
@@ -79,7 +79,10 @@ if !(isNull _groupSpawned) then
 	_groupSpawned selectLeader (units _groupSpawned select 0);
 	[_pos,_minDist,_maxDist,_groupSpawned] spawn blck_fnc_setupWaypoints;
 
-	//diag_log format["fnc_spawnGroup:: Group spawned was %1 with units of %2",_groupSpawned, units _groupSpawned];
+	if (blck_debugLevel > 2) then
+	{
+		diag_log format["fnc_spawnGroup:: Group spawned was %1 with units of %2",_groupSpawned, units _groupSpawned];
+	};
 } else {
 	diag_log "_fnc_spawnGroup:: ERROR CONDITION : NULL GROUP CREATED";
 };

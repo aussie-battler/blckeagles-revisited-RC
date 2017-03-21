@@ -94,12 +94,12 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	blck_timeAccelerationDusk = 6; // Dawn/dusk time accelearation
 	
 	blck_mainThreadUpdateInterval = 10;
-	blck_enableOrangeMissions = 0;  
-	blck_enableGreenMissions = 0;
+	blck_enableOrangeMissions = 1;  
+	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-	blck_enableHunterMissions = 0;
-	blck_enableScoutsMissions = 0;
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
 	blck_maxCrashSites = 0; 
 	
 	blck_enabeUnderwaterMissions = -1;
@@ -119,23 +119,28 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	blck_SpawnVeh_Red = 2;
 	
 	blck_TMin_Blue = 7;
-	blck_TMin_Red = 30;
-	blck_TMin_Green = 23;	
-	blck_TMin_Orange = 20;	
-	blck_TMin_Hunter = 15;
+	blck_TMin_Red = 10;
+	blck_TMin_Green = 13;	
+	blck_TMin_Orange = 16;	
+	blck_TMin_Hunter = 20;
 	blck_TMin_Scouts = 20;
 	blck_TMin_Crashes = 5;
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Blue = 12;
-	blck_TMax_Red = 40;
-	blck_TMax_Green = 38;
-	blck_TMax_Orange = 31;
-	blck_TMax_Hunter = 40;
-	blck_TMax_Scouts = 45;
+	blck_TMax_Red = 15;
+	blck_TMax_Green = 17;
+	blck_TMax_Orange = 21;
+	blck_TMax_Hunter = 22;
+	blck_TMax_Scouts = 22;
 	blck_TMax_Crashes = 15;
 	
 	//blck_MissionTimout = 120;  // 40 min
+	//blck_MinAI_Blue = 2;	
+	//blck_MaxAI_Blue = 4;
+	//blck_AIGrps_Blue = 4;
+	
+	/*
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
 		["aimingShake",0.01],
@@ -148,7 +153,7 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 		["commanding",0.8],
 		["general",1.00]
 	];
-	
+	*/
 };
 
 

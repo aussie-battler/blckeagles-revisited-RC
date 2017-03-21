@@ -12,8 +12,8 @@
 */
 #include"\q\addons\custom_server\Configs\blck_defines.hpp";
 
-blck_debugON = true;
-blck_debugLevel = 3;  // Sets level of detail for debugging info - WIP.
+blck_debugON = false;
+blck_debugLevel = 0;  // Sets level of detail for debugging info - WIP.
 blck_minFPS = 10;
 
 ////////////////////////////////////////////////
@@ -29,6 +29,7 @@ blck_monitoredMissionAIGroups = [];  //  Used to track groups in active missions
 blck_liveMissionAIGroups = [];  // Used to track groups assigned to completed missions for eventual cleanup.
 blck_oldMissionObjects = [];
 blck_pendingMissions = [];
+blck_missionsRunning = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
 blck_missionVehicles = [];

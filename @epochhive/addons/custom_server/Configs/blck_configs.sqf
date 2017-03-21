@@ -121,6 +121,9 @@
 	///////////////////////////////
 	// Paratroop Settings
 	// AI paratrooper reinforcement paramters
+	// The behavior of these can be linked to some degree to the spawning of patrolling helis.
+	// For example, if you always want a helicopter to spawn paratroops set the value 1.
+	// If you never want helicopters to spawn them set the value to 0.
 	blck_chanceParaBlue = 0.2; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
 	blck_noParaBlue = 3; //  [1-N]
 	
@@ -131,7 +134,7 @@
 	blck_noParaGreen = 4;
 	
 	blck_chanceParaOrange = 0.5;
-	blck_chanceParaOrange = 4;
+	blck_noParaOrange = 4;
 	
 	// Supplemental Loot Parameters.
 	
@@ -170,6 +173,13 @@
 	////////////////////
 	// Enable / Disable Missions
 	////////////////////
+	
+	// Maximum number of missions shown on the map at any one time.
+	#ifdef DBDserver
+	blck_maxSpawnedMissions = 6;
+	#else
+	blck_maxSpawnedMissions = 4;
+	#endif
 	
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  

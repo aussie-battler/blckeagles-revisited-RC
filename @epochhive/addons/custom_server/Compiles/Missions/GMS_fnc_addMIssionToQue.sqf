@@ -17,15 +17,15 @@
 //diag_log format["_fnc_addMissionToQue::  -- >>  _mission - %1",_mission];
 //    0                     1           2          3           4             5 
 //  [_missionListOrange,_pathOrange,"OrangeMarker","orange",blck_TMin_Orange,blck_TMax_Orange,] 
-params["_missionList","_path","_marker","_difficulty","_tMin","_tMax",["_noMissions",1]];
+params["_missionList","_path","_marker","_difficulty","_tMin","_tMax",["_noMissions",1],["_allowReinforcements",true]];
 
 for "_i" from 1 to _noMissions do
 {
 	private _waitTime = diag_tickTime + (_tMin) + random((_tMax) - (_tMin));
-						// 0		  1		2						3			4		5		6		7	
-	private _mission = [_missionList,_path,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0]];
+						// 0		  1		2						3			4		5		6		7	   8
+	private _mission = [_missionList,_path,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0],_allowReinforcements];
 	if (blck_debugLevel > 0) then {diag_log format["-fnc_addMissionToQue::-->> _mission = %1",_mission];};
 	blck_pendingMissions  pushback _mission;
 };
 
-if (blck_debugLevel > 0) then {diag_log format["_fnc_addMissionToQue::  -- >> Result - blck_pendingMissions = %1",blck_pendingMissions];};
+if (blck_debugLevel > 1) then {diag_log format["_fnc_addMissionToQue::  -- >> Result - blck_pendingMissions = %1",blck_pendingMissions];};

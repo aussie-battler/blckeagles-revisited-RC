@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 3/20/17
+	Last modified 3/18/17
 	
 	--------------------------
 	License
@@ -119,7 +119,7 @@ if (blck_debugLevel > 0) then
 
 if (count _missionLootBoxes > 0) then
 {
-	_crates = [_coords,_missionLootBoxes,_loadCratesTiming] call blck_fnc_spawnMissionCrates;
+	_crates = [_coords,_missionCfg select 2,_loadCratesTiming] call blck_fnc_spawnMissionCrates;
 }
 else
 {
@@ -131,8 +131,6 @@ if (blck_cleanUpLootChests) then
 {
 	_objects append _crates;
 };
-
-//uisleep 2;
 
 if (blck_debugLevel > 0) then
 {
@@ -152,7 +150,7 @@ uiSleep _delayTime;
 if (_useMines) then
 {
 	_mines = [_coords] call blck_fnc_spawnMines;
-	//uiSleep _delayTime;;
+	uiSleep _delayTime;;
 };
 uiSleep _delayTime;
 _temp = [];
@@ -161,7 +159,6 @@ if (_missionLandscapeMode isEqualTo "random") then
 	_temp = [_coords,_missionLandscape, 3, 15, 2] call blck_fnc_spawnRandomLandscape;
 } else {
 	_temp = [_coords, floor(random(360)),_missionLandscape,true] call blck_fnc_spawnCompositionObjects;
-	//uiSleep 1;
 };
 if (typeName _temp isEqualTo "ARRAY") then
 {
@@ -176,9 +173,7 @@ if (blck_debugLevel > 0) then
 
 uiSleep _delayTime;;
 
-_temp = [_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
-//uisleep 1;
-_crates append _temp;
+[_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
 
 uiSleep _delayTime;
 
@@ -329,7 +324,7 @@ _locations = [_coords] + _crates;
 while {_missionComplete  isEqualTo -1} do
 {
 	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 300};
-	if ((_endIfPlayerNear) && [_locations,10,true] call blck_fnc_playerInRangeArray) exitWith {};
+	if ((_endIfPlayerNear) && [_coords,10,true] call blck_fnc_playerInRange) exitWith {};
 	if ((_endIfAIKilled) && [_blck_AllMissionAI] call blck_fnc_missionAIareDead ) exitWith {};
 	//diag_log format["missionSpawner:: (283) missionCompleteLoop - > players near = %1 and ai alive = %2",[_coords,20] call blck_fnc_playerInRange, {alive _x} count _blck_AllMissionAI];
 	uiSleep 2;

@@ -4,6 +4,38 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+3/18/17 Version 6.58 Build 44
+[Fixed] Time acceleration was not working.
+[Fixed] blck_timeAcceleration now determines if time acceleration is activated.
+[Fixed] The mission described by default2 in the blue missions folder now spawns correctly. 
+	You can use this as a guide for how to place loot crates or static weapons at specific locations like inside or on top of structures.
+	Loot vehicles are now spawned correctly.
+	Loot crates positioned at specific locations are now spawned correctely.
+	static weapons to be spawned at specified positions are now spawned correctly.
+	That mission is disabled by default.
+[Added] option to disable time acceleration (blck_timeAcceleration = true; line 30 of blck_config.sqf)
+[Added] options to have armed heli's patrolling the missions and for them to drop AI.
+[Added] options to have paratroops drop over missions as an alternative to the above.
+[Added] Code optimization for GMS_fnc_spawnMissionAI.sqf and several other AI spawning scripts.
+Added] Formalizing exception handling for the case in which a createGroup request returns grpNull. 
+	If this happens during mission spawning the mission will be aborted and all mission objects and AI will be deleted.
+	This should prevent the mission system from crashing causing no further missions to spawn.
+	
+[Changed] Coding improvements for waypoint generation.
+	Tried a new approach to generating waypoints to make AI more aggressive without the overhead of the last method.
+[Added] a new configuration that sets a cap on the maximum number of spawned missions. 
+	blck_maxSpawnedMissions = 4; // Line 181 of blck_configs.sqf
+	
+[Changed] Redid the mission spawner to spawn one random mission every 1 min for mission for which timers say they can be spoawned.
+	This will continue until the cap is reached then randomly select a mission from those that are ready to be respawned to be spawned next.
+	If you want the various missions to have an equal chance of being spawned at all times, give the the timers for blue, red, green and red timers the same values for Min and Max.
+[Chaged] logic for detecting whether a player is near the mission center or loot crates to test if a player is near any of an array of location or objects. 	
+[Added] a function blck_fnc_allPlayers which returns an array of allPlayers (as a temporizing fix till BIS patches the allPlayers function.
+
+To Do - consider moving back to storing AI in a group-based manner (doable easily, needs testing).
+		Build a template for static missions (planned for Ver 6.60).
+		Write a static mission spawning routine (planned for Ver 6.60).
+	
 3/17/17 Version 6.58 Build 43
 Reverted back to v6.56 build 39 then:
 [Added] a Hit event handler to make AI more responsive. All AI in the group to which the hit AI belongs are informed of the shooter's location.

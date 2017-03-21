@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 3/20/17
+	Last modified 3/18/17
 	
 	--------------------------
 	License
@@ -329,7 +329,7 @@ _locations = [_coords] + _crates;
 while {_missionComplete  isEqualTo -1} do
 {
 	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 300};
-	if ((_endIfPlayerNear) && [_locations,10,true] call blck_fnc_playerInRangeArray) exitWith {};
+	if ((_endIfPlayerNear) && [_coords,10,true] call blck_fnc_playerInRange) exitWith {};
 	if ((_endIfAIKilled) && [_blck_AllMissionAI] call blck_fnc_missionAIareDead ) exitWith {};
 	//diag_log format["missionSpawner:: (283) missionCompleteLoop - > players near = %1 and ai alive = %2",[_coords,20] call blck_fnc_playerInRange, {alive _x} count _blck_AllMissionAI];
 	uiSleep 2;
