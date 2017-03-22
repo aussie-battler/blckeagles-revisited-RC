@@ -17,7 +17,9 @@ _modType = call blck_fnc_getModType;
 switch (_ModType) do {
 	case "Epoch":
 				{
+					#ifdef blck_debugMode
 					if (blck_debugLevel > 2) then {diag_log format["GMS_fnc_protectVehicle::  Tokens set for vehicle %1",_Vehicle];};
+					#endif
 					//_Vehicle call EPOCH_server_vehicleInit;
 					_Vehicle call EPOCH_server_setVToken;
 				};

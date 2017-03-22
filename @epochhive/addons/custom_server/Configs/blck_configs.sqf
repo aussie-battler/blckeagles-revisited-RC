@@ -39,6 +39,9 @@
 	**************************************************************/
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
 	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
+	blck_blacklistSpawns = false;
+	blck_listConcreteMixerZones	= false;
+	
 	// list of locations that are protected against mission spawns
 	
 	switch (toLower(worldName)) do
@@ -266,7 +269,7 @@
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
 	blck_AI_Side = RESISTANCE; 
-
+	blck_addAIMoney = true;
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
 	blck_removeNVG = false; // When true, NVG will be removed from AI when they are killed.
@@ -345,12 +348,12 @@
 		waitUntil{blck_configsEpochLoaded};
 		blck_configsEpochLoaded = nil;
 		diag_log "[blckeagles] Running getTraderCitiesEpoch to get location of trader cities";
-		execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesEpoch.sqf";;
+		execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesEpoch.sqf";
 	};
 	if (_modType isEqualTo "Exile") then
 	{
 		diag_log format["[blckeagls] Loading Mission System using Parameters for %1",_modType];
-		call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_configs_exile.sqf";
+		execVM "\q\addons\custom_server\Configs\blck_configs_exile.sqf";
 		waitUntil {(isNil "blck_configsExileLoaded") isEqualTo false;};
 		waitUntil{blck_configsExileLoaded};
 		blck_configsExileLoaded = nil;

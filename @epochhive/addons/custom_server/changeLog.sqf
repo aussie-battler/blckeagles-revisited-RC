@@ -4,6 +4,14 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+3/21/17 Version 6.58 Build 44
+[Added] Each mission now has a setting for mines which is set to false. To use the global setting in blck_config for yoru mission just change this to read:
+	_useMines = blck_useMines;
+[Fixed] Logging by the time acceleration module was disabled.
+[Fixed] Emplaced weapons now spawn in the correct locations.
+[Fixed] Missions end correctly when all AI are dead and _endCondition = "allKilledOrPlayerNear"; 
+[changed] Reverted to the waypoint system from build 42.
+
 3/18/17 Version 6.58 Build 44
 [Fixed] Time acceleration was not working.
 [Fixed] blck_timeAcceleration now determines if time acceleration is activated.
@@ -20,11 +28,12 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 Added] Formalizing exception handling for the case in which a createGroup request returns grpNull. 
 	If this happens during mission spawning the mission will be aborted and all mission objects and AI will be deleted.
 	This should prevent the mission system from crashing causing no further missions to spawn.
+[Added] a new configuration that sets a cap on the maximum number of spawned missions. 
+	blck_maxSpawnedMissions = 4; // Line 181 of blck_configs.sqf
+[Added] a function blck_fnc_allPlayers which returns an array of allPlayers (as a temporizing fix till BIS patches the allPlayers function.
 	
 [Changed] Coding improvements for waypoint generation.
 	Tried a new approach to generating waypoints to make AI more aggressive without the overhead of the last method.
-[Added] a new configuration that sets a cap on the maximum number of spawned missions. 
-	blck_maxSpawnedMissions = 4; // Line 181 of blck_configs.sqf
 	
 [Changed] Redid the mission spawner to spawn one random mission every 1 min for mission for which timers say they can be spoawned.
 	This will continue until the cap is reached then randomly select a mission from those that are ready to be respawned to be spawned next.

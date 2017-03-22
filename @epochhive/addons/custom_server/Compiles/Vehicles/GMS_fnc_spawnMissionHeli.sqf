@@ -32,10 +32,13 @@ _helis = _this select 5;
 	4) configure waypointScript
 	5) return the _heli that was spawned.
 */
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then
 {
 	diag_log format["_fnc_spawnMissionHeli (75):: _helis = %1",_helis];
 };
+#endif
+
 private["_grpPilot","_chopperType","_patrolHeli","_launcherType","_unitPilot","_unitCrew","_mags","_turret","_return","_abort"];
 _abort = false;
 _grpPilot  = createGroup blck_AI_Side; 
@@ -61,10 +64,14 @@ if !(isNull _grpPilot)  then
 	private["_supplyHeli"];
 	//create helicopter and spawn it
 	_chopperType = selectRandom _helis;
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (66):: _chopperType seleted = %1",_chopperType];
 	};
+	#endif
+
 	_patrolHeli = createVehicle [_chopperType, _coords, [], 90, "FLY"];
 	[_patrolHeli] call blck_fnc_protectVehicle;
 	_patrolHeli setFuel 1;
@@ -73,10 +80,12 @@ if !(isNull _grpPilot)  then
 	_patrolHeli setVehicleLock "LOCKED";
 	_patrolHeli addEventHandler ["GetOut",{(_this select 0) setFuel 0;(_this select 0) setDamage 1;}];
 
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (76):: heli %1 spawned",_patrolHeli];
 	};
+	#endif
 
 	clearWeaponCargoGlobal _patrolHeli;
 	clearMagazineCargoGlobal _patrolHeli;
@@ -91,17 +100,21 @@ if !(isNull _grpPilot)  then
 	_unitPilot moveInDriver _patrolHeli;
 	_grpPilot selectLeader _unitPilot;
 
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (90):: pilot %1 spawned",_unitPilot];
 	};
+	#endif
 
 	_turrets = allTurrets [_patrolHeli,false];
 
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log "_fnc_spawnMissionHeli (103): preparing to clear out blacklisted turrets";
 	};
+	#endif
 
 	{
 		if ( (_patrolHeli weaponsTurret _x) in blck_blacklisted_heli_weapons) then 
@@ -124,14 +137,20 @@ if !(isNull _grpPilot)  then
 			_unitCrew = [[100,100,100],_weapons,_grpPilot,_skillAI,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
 			_unitCrew assignAsTurret [_patrolHeli, _x];
 			_unitCrew moveInTurret [_patrolHeli, _x];
+
+			#ifdef blck_debugMode
 			diag_log format["_fnc_spawnMissionHeli (12798)::-- >> unit %1 moved into turret %2 of vehicle %3",_unitCrew,_x,_patrolHeli];
+			#endif
 		};
 	}forEach _turrets;
 
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (133)::-->> Heli %1 outfited with a crew numbering %2",_patrolHeli, crew _patrolHeli];
 	};
+	#endif
+
 	//  params["_missionPos","_paraGroup",["_numAI",3],"_skillAI","_weapons","_uniforms","_headGear",["_heli",objNull],_grpParatroops];
 	//params["_coords","_skillAI","_weapons","_uniforms","_headGear",["_grpParatroops",grpNull],["_heli",objNull]];
 	if !(isNull _grpParatroops) then
@@ -139,7 +158,10 @@ if !(isNull _grpPilot)  then
 		[_coords,_skillAI,_weapons,_uniforms,_headGear,_grpParatroops,_patrolHeli] call blck_fnc_spawnMissionParatroops;
 	};
 	//set waypoint for helicopter
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"]];
+	[_coords,2,10,_grpPilot,"random"] call blck_fnc_setupWaypoints;
 	private["_wpDestination"];
+	/*
 	[_grpPilot, 0] setWPPos _coords; 
 	[_grpPilot, 0] setWaypointType "SAD";
 	[_grpPilot, 0] setWaypointSpeed "NORMAL";
@@ -147,18 +169,24 @@ if !(isNull _grpPilot)  then
 	[_grpPilot, 0] setWaypointStatements ["true","[group this, 0] setCurrentWaypoint [group this,0];"];
 	[_grpPilot,0] setWaypointTimeout [100,150,200];
 	_grpPilot setCurrentWaypoint [_grpPilot,0];
-
+	*/
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (153):: initial pilot waypoints set"];
 	};
+	#endif
+
 };
 private["_ai"];
 _ai = (units _grpParatroops) + (units _grpPilot);
 _return = [_patrolHeli,_ai,_abort];
+
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then
 {
 	diag_log format["_fnc_spawnMissionHeli:: function returning value for _return of %1",_return];
 };
+#endif
 
 _return;

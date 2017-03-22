@@ -4,11 +4,14 @@
    By Ghostrider-DbD-
    11/16/16
 */
+#ifdef blck_debugMode
 if (blck_debugLevel > 2) then
 {
 	diag_log format ["_fnc_cleanEmptyGroups:: -- >> group count = %1 ",(count allGroups)];
 	diag_log format ["_fnc_cleanEmptyGroups:: -- >> Group count AI side = %1", call blck_fnc_groupsOnAISide];
 };
+#endif
+
 private _grp = +allGroups;
 {
 	//diag_log format["_fnc_cleanEmptyGroups:: - >> type of object _x = %1",typeName _x];

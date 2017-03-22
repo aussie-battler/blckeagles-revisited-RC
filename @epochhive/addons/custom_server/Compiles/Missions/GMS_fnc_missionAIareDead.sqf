@@ -8,6 +8,7 @@
 */ 
 params ["_missionAIGroups"];
 private["_allAIDead","_group"];
+
 _allAIDead = true;
 
 {

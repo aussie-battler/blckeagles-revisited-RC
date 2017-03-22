@@ -18,32 +18,45 @@
 
 	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false]];
 	
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then {
 		diag_log format["_fnc_endMission:  _aborted = %1",_aborted];
 	};
+	#endif
+
 	private["_cleanupAliveAITimer","_cleanupCompositionTimer"];
 	if (blck_useSignalEnd && !_aborted) then
 	{
 		//diag_log format["**** Minor\SM1.sqf::    _crate = %1",_crates select 0];
 		[_crates select 0] spawn blck_fnc_signalEnd;
-		
+
+		#ifdef blck_debugMode	
 		if (blck_debugLevel > 2) then
 		{
 			diag_log format["[blckeagls] _fnc_endMission:: (18) SignalEnd called: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 		};
+		#endif
+
 	};
 
 	if (_aborted) then
 	{
+		#ifdef blck_debugMode
 		if (blck_debugLevel > 2) then {
 			diag_log format["_fnc_endMission: Mission Aborted, setting all timers to 0"];
 		};
+		#endif
+
 		_cleanupCompositionTimer = 0;
 		_cleanupAliveAITimer = 0;
 	} else {
+
+		#ifdef blck_debugMode
 		if (blck_debugLevel > 2) then {
 			diag_log format["_fnc_endMission:  Mission Completed without errors, setting all timers to default values"];
 		};
+		#endif
+		
 		_cleanupCompositionTimer = blck_cleanupCompositionTimer;
 		_cleanupAliveAITimer = blck_AliveAICleanUpTimer;
 		[["end",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;

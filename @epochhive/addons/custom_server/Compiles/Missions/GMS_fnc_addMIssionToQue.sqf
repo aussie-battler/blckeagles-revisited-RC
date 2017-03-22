@@ -24,8 +24,14 @@ for "_i" from 1 to _noMissions do
 	private _waitTime = diag_tickTime + (_tMin) + random((_tMax) - (_tMin));
 						// 0		  1		2						3			4		5		6		7	   8
 	private _mission = [_missionList,_path,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0],_allowReinforcements];
+	
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {diag_log format["-fnc_addMissionToQue::-->> _mission = %1",_mission];};
+	#endif
+
 	blck_pendingMissions  pushback _mission;
 };
 
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["_fnc_addMissionToQue::  -- >> Result - blck_pendingMissions = %1",blck_pendingMissions];};
+#endif

@@ -19,7 +19,11 @@
 
 _fn_deleteObjects = {
 	params["_objects"];
+	
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {diag_log format["_fn_deleteObjects:: -> _objects = %1",_objects];};
+	#endif
+
 	{
 		if ((typeOf _x) isKindOf "LandVehicle") then
 		{
@@ -52,8 +56,11 @@ for "_i" from 1 to (count blck_oldMissionObjects) do
 			uiSleep 0.1;
 			blck_oldMissionObjects set[(_i - 1), -1];
 			blck_oldMissionObjects = blck_oldMissionObjects - [-1];
+
+			#ifdef blck_debugMode
 			//diag_log format["_fn_deleteObjects:: blck_oldMissionObjects updated from %1",_obj];
 			if (blck_debugLevel > 1) then {diag_log format["_fn_deleteObjects:: (48)  blck_oldMissionObjects updated to %1",blck_oldMissionObjects];};
+			#endif
 		};
 	};
 };

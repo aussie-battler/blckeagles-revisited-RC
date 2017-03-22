@@ -2,7 +2,9 @@
 params["_coords","_grpPilot","_chanceLoot"];
 _chopperType = selectRandom blck_AIHelis;
 
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: _chopperType seleted = %1",_chopperType];
+#endif
 
 _spawnVector = round(random(360));
 _spawnDistance = 1000; // + floor(random(1500)); // We need the heli to be on-site quickly to minimize the chance that a small mission has been completed before the paratroops are deployed and added to the list of live AI for the mission
@@ -12,7 +14,9 @@ _dropLoot = (random(1) < _chanceLoot);
 //  https://community.bistudio.com/wiki/getPos
 _spawnPos = _coords getPos [_spawnDistance,_spawnVector];
 
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: vector was %1 with distance %2 yielding a spawn position of %3 at distance from _coords of %4",_spawnVector,_spawnDistance,_spawnPos, (_coords distance2d _spawnPos)];
+#endif
 
 _grpPilot setBehaviour "CARELESS";
 _grpPilot setCombatMode "RED";
@@ -47,7 +51,10 @@ _unitPilot assignAsDriver _supplyHeli;
 _unitPilot moveInDriver _supplyHeli;
 _grpPilot selectLeader _unitPilot;
 _grpPilot setVariable["paraGroup",_paraGroup];
+
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: heli spawned and pilot added"];
+#endif
 
 //set waypoint for helicopter
 private["_wpDestination"];
@@ -60,6 +67,8 @@ private["_wpDestination"];
 [_grpPilot,0] setWaypointTimeout [0.5,0.5,0.5];
 _grpPilot setCurrentWaypoint [_grpPilot,0];
 
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: initial pilot waypoints set"];
-		
+#endif
+
 _supplyHeli

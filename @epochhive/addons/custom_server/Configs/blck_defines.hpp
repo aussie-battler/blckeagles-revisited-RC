@@ -2,7 +2,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 3-14-17
+	Last Modified 3-21-17
 	
 	--------------------------
 	License
@@ -16,3 +16,5 @@
 //#define DBDserver 1
 #define wpModeMove
 #define useAPEX 1
+//#define blck_debugMode
+//#define blck_debugMode3 

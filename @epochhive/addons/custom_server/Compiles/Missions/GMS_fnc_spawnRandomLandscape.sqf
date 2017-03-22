@@ -32,5 +32,9 @@ _objects = [];
 	_objects pushback _wreck;
 	sleep 0.1;
 } forEach _missionLandscape;
+
+#ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["_fnc_spawnRandomLandscape::-->> _objects = %1",_objects];};
+#endif
+
 _objects

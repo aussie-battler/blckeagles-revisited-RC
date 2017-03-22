@@ -65,6 +65,8 @@ if !(isNull _group) then
 	{
 		_angle = _angle + _arc;
 		_p2 = _center getPos [(_minDis + random(_maxDis - _minDis)),_angle];
+
+		
 		if (_i isEqualTo 1) then
 		{
 			_wp = [_group, 0];
@@ -82,8 +84,7 @@ if !(isNull _group) then
 		_wp setWaypointName "sentry";	
 		_wp setWaypointBehaviour "COMBAT";
 		_wp setWaypointCombatMode "RED";	
-		_wp setWaypointTimeout [10,17.5,25];
-		_wp 
+		_wp setWaypointTimeout [10,17.5,25]; 
 	};
 	_wp = _group addWaypoint [_pos, 25];
 	_wp setWaypointType "CYCLE";

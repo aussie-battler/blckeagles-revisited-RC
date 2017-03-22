@@ -15,10 +15,12 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_uniforms","_headGear",["_missionType","unspecified"]];
 
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then 
 {
 	diag_log format["_fnc_spawnMissionVehiclePatrols:: _coords = %1 | _noVehiclePatrols = %2 | _aiDifficultyLevel = %3 | _missionType = %4",_coords,_noVehiclePatrols,_aiDifficultyLevel,_missionType];
 };
+#endif
 
 private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns","_missionAI","_missiongroups","_vehicles","_return","_vehiclePatrolSpawns","_randomVehicle","_return","_abort"];
 _vehicles = [];
@@ -35,31 +37,46 @@ _vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPosit
 	{
 		_abort = true;
 	};
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then 
 	{
 		diag_log format["_fnc_spawnMissionVehiclePatrols (40):: -> _missionType = %3 _vehGroup = %1 and units _vehGroup = %2",_vehGroup, units _vehGroup,_missionType];
 	};
+	#endif
+
 	_randomVehicle = selectRandom blck_AIPatrolVehicles;
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then 
 	{
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: -> randomly selected vehicle = %1",_randomVehicle];
 	};	
+	#endif
 
 	//params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull]];
 	_patrolVehicle = [_coords,_spawnPos,_randomVehicle,30,45,_vehGroup] call blck_fnc_spawnVehiclePatrol;
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: - > patrol vehicle spawned was %1",_patrolVehicle];
 	};
+	#endif
+
 	if !(isNull _patrolVehicle) then
 	{
 		_vehicles pushback _patrolVehicle;
 		_missionAI append (units _vehGroup);
 	};
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: -- > _vehicles updated to %1",_vehicles];
 	};
+	#endif
+	
 } forEach _vehiclePatrolSpawns;
 
 blck_missionVehicles append _vehicles; 

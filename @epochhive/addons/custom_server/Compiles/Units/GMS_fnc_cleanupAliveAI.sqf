@@ -7,14 +7,23 @@
 
 _fn_deleteAIfromList = {
 	params["_aiList"];
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {diag_log format["_fn_deleteAIfromList:: _aiList = %1",_aiList];};
+	#endif
+
 	{
+		#ifdef blck_debugMode
 		if (blck_debugLevel > 1) then {diag_log format["_fn_deleteAIfromList:: -> deleteing AI Unit %1",_x];};
+		#endif
+
 		[_x] call blck_fnc_deleteAI;
 	}forEach _aiList;
 };
 
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["_fnc_cleanupAliveAI called at %1",diag_tickTime];};
+#endif
+
 for "_i" from 1 to (count blck_liveMissionAI) do
 {
 	if ((_i) <= count blck_liveMissionAI) then
@@ -31,7 +40,10 @@ for "_i" from 1 to (count blck_liveMissionAI) do
 			uiSleep 0.1;
 			blck_liveMissionAI set[(_i - 1), -1];
 			blck_liveMissionAI = blck_liveMissionAI - [-1];  // Remove that list of live AI from the list.
+
+			#ifdef blck_debugMode
 			if (blck_debugLevel > 1) then {diag_log format["_fnc_mainTread:: blck_liveMissionAI updated to %1",blck_liveMissionAI];};
+			#endif
 		};
 	};
 };

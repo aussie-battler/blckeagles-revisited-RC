@@ -36,7 +36,10 @@ if (_modType isEqualTo "Epoch") then
 		
 		private _killstreakReward=+(_kills*2);
 		//diag_log format["fnd_rewardKiller:: _bonus returned will be %1",_reward];
-		[_killer,_reward + _killstreakReward] call blck_fnc_giveTakeCrypto;
+		if (blck_addAIMoney) then
+		{
+			[_killer,_reward + _killstreakReward] call blck_fnc_giveTakeCrypto;
+		};
 		if (blck_useKillScoreMessage) then
 		{
 			[["showScore",[_reward,"",_kills],""],[_killer]] call blck_fnc_messageplayers;
@@ -58,11 +61,14 @@ if (_modType isEqualTo "Exile") then
 	_newKillerFrags = _newKillerFrags + 1;
 	_killer setVariable ["ExileKills", _newKillerFrags];
 	format["addAccountKill:%1", getPlayerUID _killer] call ExileServer_system_database_query_fireAndForget;
-	_money = _killer getVariable ["ExileMoney", 0];
-	_money = _money + (_overallRespectChange/2) + (_kills * 2);
-	_killer setVariable ["ExileMoney", _money];
-	format["setAccountMoney:%1:%2", _money, (getPlayerUID _killer)] call ExileServer_system_database_query_fireAndForget;
-	_message = ["showFragRequest",_overallRespectChange];
+	if (blck_addAIMoney) then
+	{
+		_money = _killer getVariable ["ExileMoney", 0];
+		_money = _money + (_overallRespectChange/2) + (_kills * 2);
+		_killer setVariable ["ExileMoney", _money];
+		format["setAccountMoney:%1:%2", _money, (getPlayerUID _killer)] call ExileServer_system_database_query_fireAndForget;
+	};
+	//_message = ["showFragRequest",_overallRespectChange];
 	_killer call ExileServer_object_player_sendStatsUpdate;
 	if (blck_useKillScoreMessage) then
 	{
