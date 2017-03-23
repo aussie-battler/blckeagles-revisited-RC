@@ -159,17 +159,17 @@ if !(isNull _grpPilot)  then
 	};
 	//set waypoint for helicopter
 	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
-	[_coords,2,10,_grpPilot,"random",["SENTRY"]] call blck_fnc_setupWaypoints;
+	//[_coords,2,10,_grpPilot,"random",["MOVE","SENTRY"]] call blck_fnc_setupWaypoints;
 	private["_wpDestination"];
-	/*
+	
 	[_grpPilot, 0] setWPPos _coords; 
 	[_grpPilot, 0] setWaypointType "SAD";
 	[_grpPilot, 0] setWaypointSpeed "NORMAL";
 	[_grpPilot, 0] setWaypointBehaviour "CARELESS";
 	[_grpPilot, 0] setWaypointStatements ["true","[group this, 0] setCurrentWaypoint [group this,0];"];
-	[_grpPilot,0] setWaypointTimeout [100,150,200];
+	[_grpPilot,0] setWaypointTimeout [10000,15000,20000];
 	_grpPilot setCurrentWaypoint [_grpPilot,0];
-	*/
+	
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{

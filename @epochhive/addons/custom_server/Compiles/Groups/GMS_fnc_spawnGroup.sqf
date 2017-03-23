@@ -81,7 +81,7 @@ if !(isNull _groupSpawned) then
 	};
 	_groupSpawned selectLeader (units _groupSpawned select 0);
 	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
-	[_pos,_minDist,_maxDist,_groupSpawned,"random",["SAD"]] spawn blck_fnc_setupWaypoints;
+	[_pos,_minDist,_maxDist,_groupSpawned,"random",["MOVE","SAD"]] spawn blck_fnc_setupWaypoints;
 
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
