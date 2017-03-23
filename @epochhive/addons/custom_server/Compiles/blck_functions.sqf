@@ -85,6 +85,7 @@ blck_fnc_setupWaypoints = compileFinal  preprocessFileLineNumbers "\q\addons\cus
 blck_fnc_missionGroupMonitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_missionGroupMonitor.sqf";  // Monitors active groups for those that are stuck in an SAD waypoint but not in combat
 blck_fnc_changeToSADWaypoint = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_changeToSADWaypoint.sqf"; 
 blck_fnc_changeToMoveWaypoint = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_changeToMoveWaypoint.sqf"; 
+blck_fnc_setNextWaypoint = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_setNextWaypoint.sqf";
 blck_fnc_cleanEmptyGroups = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_cleanEmptyGroups.sqf";  // GMS_fnc_cleanEmptyGroups
 
 // Functions specific to vehicles, whether wheeled, aircraft or static

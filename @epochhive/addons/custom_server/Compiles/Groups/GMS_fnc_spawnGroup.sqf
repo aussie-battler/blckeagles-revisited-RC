@@ -27,10 +27,13 @@ if (_numai2 > _numai1) then {
 } else {
 	_numbertospawn = _numai2;
 };
+
+#ifdef blck_debugMode
 if (blck_debugLevel  > 2) then
 {
 	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };
+#endif
 
 _groupSpawned = createGroup blck_AI_Side; 
 if !(isNull _groupSpawned) then
@@ -77,12 +80,16 @@ if !(isNull _groupSpawned) then
 		[_safepos,_weaponList,_groupSpawned,_skillLevel,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
 	};
 	_groupSpawned selectLeader (units _groupSpawned select 0);
-	[_pos,_minDist,_maxDist,_groupSpawned] spawn blck_fnc_setupWaypoints;
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	[_pos,_minDist,_maxDist,_groupSpawned,"random",["SAD"]] spawn blck_fnc_setupWaypoints;
 
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["fnc_spawnGroup:: Group spawned was %1 with units of %2",_groupSpawned, units _groupSpawned];
 	};
+	#endif
+
 } else {
 	diag_log "_fnc_spawnGroup:: ERROR CONDITION : NULL GROUP CREATED";
 };

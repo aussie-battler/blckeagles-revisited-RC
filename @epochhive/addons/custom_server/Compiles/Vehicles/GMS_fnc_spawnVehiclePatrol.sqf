@@ -56,6 +56,7 @@ if !(isNull _group) then
 		deleteWaypoint ((waypoints _group) select 0);
 	};
 
+	
 	_count = 5;
 	_start = _center getDir _pos;
 	_angle = _start;

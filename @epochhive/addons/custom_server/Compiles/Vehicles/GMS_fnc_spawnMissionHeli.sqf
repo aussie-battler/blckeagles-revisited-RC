@@ -158,8 +158,8 @@ if !(isNull _grpPilot)  then
 		[_coords,_skillAI,_weapons,_uniforms,_headGear,_grpParatroops,_patrolHeli] call blck_fnc_spawnMissionParatroops;
 	};
 	//set waypoint for helicopter
-	// params["_pos","_minDis","_maxDis","_group",["_mode","random"]];
-	[_coords,2,10,_grpPilot,"random"] call blck_fnc_setupWaypoints;
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	[_coords,2,10,_grpPilot,"random",["SENTRY"]] call blck_fnc_setupWaypoints;
 	private["_wpDestination"];
 	/*
 	[_grpPilot, 0] setWPPos _coords; 
