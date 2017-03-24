@@ -17,12 +17,31 @@
 ////////////
 // Epoch-specific settings
 ////////////	
+
+	// list of locations that are protected against mission spawns
+	
+	switch (toLower(worldName)) do
+	{
+		case "altis": {
+			blck_locationBlackList append [
+			//Add location as [[xpos,ypos,0],minimumDistance],
+			// Note that there should not be a comma after the last item in this table
+			[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
+			];
+		};
+		case "tanoa": {
+			blck_locationBlackList append [	];
+		};
+	};
+	
 /*********************************************************************************
 
 AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
 
+	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
+	
 	#define useAPEX 1
 	
 	// Blacklisted itesm

@@ -14,7 +14,11 @@
 params["_missionPos","_paraGroup","_numAI","_skillAI","_weapons","_uniforms","_headGear",["_heli",objNull]];
 private["_arc","_dir","_spawnPos","_chute","_unit","_launcherType","_aborted"];
 _aborted = false;
+
+#ifdef blck_debugMode
 diag_log format["_fnc_spawnParaUnits (17)::_missionPos %1 | _paraGroup %2 | _numAI %3 | _skillAI %4 | _heli = %5",_missionPos,_paraGroup,_numAI,_skillAI,_heli];
+#endif
+
 if (isNull _paraGroup) then
 {
 	_aborted = true;
@@ -43,9 +47,16 @@ if (isNull _paraGroup) then
 	//params["_pos","_minDis","_maxDis","_group"];
 	[_missionPos,10,20,_paraGroup] call blck_fnc_setupWaypoints;
 
+	#ifdef blck_debugMode
 	diag_log "_fnc_spawnParaUnits (44):  All Units spawned";
+	#endif
+
 };
+
+#ifdef blck_debugMode
 diag_log format["_fnc_spawnParaUnits:  _aborted = %1",_aborted];
+#endif
+
 _aborted;
 
 

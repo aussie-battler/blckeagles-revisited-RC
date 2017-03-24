@@ -37,10 +37,11 @@ _newPos = (_group getVariable ["patrolCenter",_wpPos]) getPos[_dis,_arc];
 _group setCurrentWaypoint _wp;
 _wp setWaypointType "MOVE";
 _wp setWaypointName "move";
-//_wp setWaypointBehaviour "COMBAT";
-//_wp setWaypointCombatMode "RED";
+_wp setWaypointBehaviour blck_groupBehavior;
+_wp setWaypointCombatMode blck_combatMode;
 _wp setWaypointTimeout [1,1.1,1.2];
-_wp setWaypointStatements ["true","this call blck_fnc_changeToSADWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a SAD Waypoint',group this];"];	
+//_wp setWaypointStatements ["true","this call blck_fnc_changeToSADWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a SAD Waypoint',group this];"];	
+_wp setWaypointStatements ["true","this call blck_fnc_changeToSentryWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a SAD Waypoint',group this];"];	
 _wp setWaypointPosition _newPos;
 
 

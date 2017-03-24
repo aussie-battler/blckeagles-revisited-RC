@@ -56,10 +56,17 @@ if (isNull _grpParatroops) then
 };
 if !(isNull _grpPilot)  then
 {
-	_grpPilot setBehaviour "CARELESS";
+	_grpPilot setBehaviour "COMBAT";
 	_grpPilot setCombatMode "RED";
-	_grpPilot setSpeedMode "FULL";
+	_grpPilot setSpeedMode "NORMAL";
 	_grpPilot allowFleeing 0;
+	_grpPilot setVariable["patrolCenter",_coords];
+	_grpPilot setVariable["minDis",15];
+	_grpPilot setVariable["maxDis",30];
+	_grpPilot setVariable["timeStamp",diag_tickTime];
+	_grpPilot setVariable["arc",0];
+	_grpPilot setVariable["wpRadius",30];
+	_grpPilot setVariable["wpMode","SAD"];
 
 	private["_supplyHeli"];
 	//create helicopter and spawn it
@@ -158,16 +165,16 @@ if !(isNull _grpPilot)  then
 		[_coords,_skillAI,_weapons,_uniforms,_headGear,_grpParatroops,_patrolHeli] call blck_fnc_spawnMissionParatroops;
 	};
 	//set waypoint for helicopter
-	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	// params["_pos","_minDis","_maxDis","_grpPilot",["_mode","random"],["_pattern",["MOVE","SAD"]]];
 	//[_coords,2,10,_grpPilot,"random",["MOVE","SENTRY"]] call blck_fnc_setupWaypoints;
 	private["_wpDestination"];
 	
 	[_grpPilot, 0] setWPPos _coords; 
-	[_grpPilot, 0] setWaypointType "SAD";
+	[_grpPilot, 0] setWaypointType "SENTRY";
 	[_grpPilot, 0] setWaypointSpeed "NORMAL";
-	[_grpPilot, 0] setWaypointBehaviour "CARELESS";
+	[_grpPilot, 0] setWaypointBehaviour "AWARE";
 	[_grpPilot, 0] setWaypointStatements ["true","[group this, 0] setCurrentWaypoint [group this,0];"];
-	[_grpPilot,0] setWaypointTimeout [10000,15000,20000];
+	[_grpPilot,0] setWaypointTimeout [20,30,40];
 	_grpPilot setCurrentWaypoint [_grpPilot,0];
 	
 	#ifdef blck_debugMode

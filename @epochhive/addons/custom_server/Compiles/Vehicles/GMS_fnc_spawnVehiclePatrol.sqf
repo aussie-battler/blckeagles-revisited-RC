@@ -25,19 +25,24 @@ params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_
 //_maxDis = maximum distance from the center of the mission for vehicle waypoints
 //_groupForVehiclePatrol = The group with which to man the vehicle
 
+#ifdef blck_debugMode
 if (blck_debugLevel > 2) then
 {
 	diag_log format["_fnc_spawnVehiclePatrol:: _center = %1 | _pos = %2 | _vehType = %3 | _group = %4",_center,_pos,_vehType,_group];
 };
+#endif
 
 if !(isNull _group) then 
 {  // exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnVehiclePatrol"; objNull;};
 	_veh = [_vehType,_pos] call blck_fnc_spawnVehicle;
 
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["spawnVehiclePatrol:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
 	};
+	#endif
+
 	private["_unitNumber"];
 	_unitNumber = 0;
 
@@ -56,7 +61,6 @@ if !(isNull _group) then
 		deleteWaypoint ((waypoints _group) select 0);
 	};
 
-	
 	_count = 5;
 	_start = _center getDir _pos;
 	_angle = _start;
@@ -77,22 +81,26 @@ if !(isNull _group) then
 		};
 		_wp setWaypointType "MOVE";
 		_wp setWaypointName "move";
-		_wp setWaypointBehaviour "COMBAT";
-		_wp setWaypointCombatMode "RED";
+		_wp setWaypointBehaviour "AWARE";
+		_wp setWaypointCombatMode blck_combatMode;
 		_wp setWaypointTimeout [1,1.1,1.2];	
 		_wp = _group addWaypoint [_p2, 25];
 		_wp setWaypointType "SENTRY";
 		_wp setWaypointName "sentry";	
-		_wp setWaypointBehaviour "COMBAT";
-		_wp setWaypointCombatMode "RED";	
+		_wp setWaypointBehaviour "AWARE";
+		_wp setWaypointCombatMode blck_combatMode;	
 		_wp setWaypointTimeout [10,17.5,25]; 
 	};
 	_wp = _group addWaypoint [_pos, 25];
 	_wp setWaypointType "CYCLE";
 	_group setVariable["wpIndex",0];
 };
+
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then
 {
 	diag_log format["_fnc_spawnVehiclePatrol::->> _veh = %1",_veh];
 };
+#endif
+
 _veh

@@ -55,10 +55,14 @@ if ( (_chanceHeliPatrol > 0) && (random (1) < _chanceHeliPatrol) ) then // if he
 {
 	_temp = [objNull,[],false];
 	//params["_coords","_aiSkillsLevel",,"_weapons","_uniforms","_headgear""_helis"];
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then 
 	{
 		diag_log "_fnc_spawnMissionReinforcements (64): calling _fnc_spawnMissionHeli to spawn heli and paratroops";
 	};
+	#endif
+
 	_temp = [_coords,_aiSkillsLevel,_weapons,_uniforms,_headgear,_missionHelis] call blck_fnc_spawnMissionHeli; 
 	if (typeName _temp isEqualTo "ARRAY") then
 	{
@@ -68,15 +72,23 @@ if ( (_chanceHeliPatrol > 0) && (random (1) < _chanceHeliPatrol) ) then // if he
 	{
 		_return = [objNull, [], true];
 	};
+
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then {diag_log format["_fnc_spawnMissionReinforcements (66): blck_fnc_spawnMissionHeli returned value of %1 for _return",_return];};
+	#endif
+
 } else {
 		if (blck_debugLevel > 2) then {diag_log "_fnc_spawnMissionReinforcements (68): calling _fnc_spawnMissionParatroops to spawn para reinforcements";};
 		_temp = [objNull,[],false];
 		// params["_coords","_skillAI","_weapons","_uniforms","_headgear"];
 		_temp = [_coords,_aiSkillsLevel,_weapons,_uniforms,_headgear] call blck_fnc_spawnMissionParatroops;
+
+		#ifdef blck_debugMode
 		if (blck_debugLevel > 2) then {
 			diag_log format["_fnc_spawnMissionReinforcements (71):: blck_fnc_spawnMissionParatroops returned value for _paratroops of %1",_temp];
 		};
+		#endif
+
 		if (typeName _temp isEqualTo "ARRAY") then
 		{
 			_return = [objNull, _temp select 0 /*units*/, _temp select 1 /*true/false*/];
@@ -84,5 +96,9 @@ if ( (_chanceHeliPatrol > 0) && (random (1) < _chanceHeliPatrol) ) then // if he
 			_return = [objNull, [],true];
 		};
 };	
+
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["_fnc_spawnMissionReinforcements (74):: _return = %1",_return];};
+#endif
+
 _return

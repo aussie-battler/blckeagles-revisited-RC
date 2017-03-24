@@ -2,7 +2,7 @@
 	By Ghostrider-DbD-
 	Last Modified 3-12-17
 */
-private ["_unit","_instigator"];
+private ["_unit","_instigator","_group","_wp"];
 //diag_log format["_EH_AIHit::-->> _this = %1",_this];
 _unit = _this select 0 select 0;
 _instigator = _this select 0 select 3;
@@ -10,6 +10,13 @@ diag_log format["EH_AIHit:: _units = %1 and _instigator = %2 units damage is %3"
 if (!(alive _unit)) exitWith {};
 if (!(isPlayer _instigator)) exitWith {};
 [_unit,_instigator] call blck_fnc_alertNearbyLeader;
+_group = group _unit;
+//_group setBehavior "COMBAT";
+_wp = [_group, currentWaypoint _group];
+_wp setWaypointBehaviour "COMBAT";
+_group setCombatMode "RED";
+_wp setWaypointCombatMode "RED";
+
 if (_unit getVariable ["hasHealed",false]) exitWith {};
 if ((damage _unit) > 0.1 ) then
 {

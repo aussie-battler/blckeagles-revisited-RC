@@ -64,7 +64,7 @@
 	};
 	[_mines] spawn blck_fnc_clearMines;
 	//diag_log format["_fnc_endMission: (23) _objects = %1",_objects];
-	[_objects, (_cleanupCompositionTimer)] spawn blck_fnc_addObjToQue;
+	[_objects, _cleanupCompositionTimer] spawn blck_fnc_addObjToQue;
 	//diag_log format["_fnc_endMission:: (26) _blck_AllMissionAI = %1",_blck_AllMissionAI];
 	[_blck_AllMissionAI, (_cleanupAliveAITimer)] spawn blck_fnc_addLiveAItoQue;
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";

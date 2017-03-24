@@ -43,7 +43,7 @@ if !(isNull _groupSpawned) then
 	_groupSpawned allowfleeing 0;
 	_groupSpawned setspeedmode "FULL";
 	_groupSpawned setFormation blck_groupFormation; 
-	_groupSpawned setVariable ["blck_group",true,true];
+	_groupSpawned setVariable ["blck_group",true];
 
 	//diag_log format["spawnGroup:: group is %1",_groupSpawned];
 	// Determines whether or not the group has launchers

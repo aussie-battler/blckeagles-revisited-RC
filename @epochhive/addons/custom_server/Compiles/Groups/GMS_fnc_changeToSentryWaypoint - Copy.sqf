@@ -25,8 +25,8 @@ _wp = [_group, 0];
 _group setCurrentWaypoint _wp;
 _wp setWaypointType "SAD";
 _wp setWaypointName "sad";
-_wp setWaypointBehaviour blck_groupBehavior;
-_wp setWaypointCombatMode blck_combatMode;
+//_wp setWaypointBehaviour "COMBAT";
+//_wp setWaypointCombatMode "RED";
 _wp setWaypointTimeout [60,75,90];
 _wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a Move Waypoint',group this];"];	
 

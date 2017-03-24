@@ -4,6 +4,10 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+3/23/17 Verision 6.58 build 46
+Turned debugging off
+Added some preprocessor commands to minimize the use of if()then for debugging purposes when running without any debugging settings on.
+	
 3/21/17 Version 6.58 Build 44
 [Added] Each mission now has a setting for mines which is set to false. To use the global setting in blck_config for yoru mission just change this to read:
 	_useMines = blck_useMines;

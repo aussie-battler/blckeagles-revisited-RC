@@ -42,22 +42,6 @@
 	blck_blacklistSpawns = false;
 	blck_listConcreteMixerZones	= false;
 	
-	// list of locations that are protected against mission spawns
-	
-	switch (toLower(worldName)) do
-	{
-		case "altis": {
-			blck_locationBlackList append [
-			//Add location as [[xpos,ypos,0],minimumDistance],
-			// Note that there should not be a comma after the last item in this table
-			[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
-			];
-		};
-		case "tanoa": {
-			blck_locationBlackList append [	];
-		};
-	};
-	
 	/***********************************************************
 	
 	GENERAL MISSION SYSTEM CONFIGURATION
@@ -181,6 +165,7 @@
 	#ifdef DBDserver
 	blck_maxSpawnedMissions = 6;
 	#else
+	// Change this value to reduce the number of spawned missions at any one time.
 	blck_maxSpawnedMissions = 4;
 	#endif
 	
@@ -228,9 +213,8 @@
 	///////////////////////////////	
 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
-	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out.
-	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
-
+	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten outor been killed.
+	
 	////////////////////
 	// Mission Vehicle Settings
 	////////////////////	
@@ -266,6 +250,7 @@
 	
 	****************************************************************/
 	
+	blck_groupBehavior = "AWARE";
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
 	blck_AI_Side = RESISTANCE; 

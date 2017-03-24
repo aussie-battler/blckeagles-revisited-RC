@@ -53,9 +53,8 @@ _wp setWaypointTimeout [20,25,30];
 _wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;diag_log format['====Updating waypoint to Move for group %1',group this];"];
 #endif
 
-_wp setWaypointBehaviour "COMBAT";
-_wp setWaypointCombatMode "RED";
-//_wp setWaypointTimeout [1,1.1,1.2];
+_wp setWaypointBehaviour blck_groupBehavior;
+_wp setWaypointCombatMode blck_combatMode;
 _group setCurrentWaypoint _wp;
 
 /*

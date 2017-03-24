@@ -17,12 +17,30 @@
 ////////////
 // Exile-specific settings
 ////////////	
+
+	// list of locations that are protected against mission spawns
+	
+	switch (toLower(worldName)) do
+	{
+		case "altis": {
+			blck_locationBlackList append [
+			//Add location as [[xpos,ypos,0],minimumDistance],
+			// Note that there should not be a comma after the last item in this table
+			[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
+			];
+		};
+		case "tanoa": {
+			blck_locationBlackList append [	];
+		};
+	};
 	
 /*********************************************************************************
 
 AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
+
+	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert",/*"Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Desert",*/"B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
 
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
@@ -43,6 +61,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		//"optic_tws",
 		//"optic_tws_mg",
 		];
+		
+	#ifdef useAPEX	
 	blck_Optics_Apex = [
 		//Apex
 		"optic_Arco_blk_F",	"optic_Arco_ghex_F",
@@ -54,10 +74,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_Holosight_blk_F","optic_Holosight_khk_F","optic_Holosight_smg_blk_F"
 		];	
 	blck_Optics = blck_Optics_Holo + blck_Optics_Reticule + blck_Optics_Scopes;
-
-	#ifdef useAPEX
 	blck_Optics = blck_Optics + blck_Optics_Apex;
 	#endif
+
 	blck_bipods = [
 		"bipod_01_F_blk","bipod_01_F_mtp","bipod_01_F_snd","bipod_02_F_blk","bipod_02_F_hex","bipod_02_F_tan","bipod_03_F_blk","bipod_03_F_oli",
 		//Apex
@@ -108,11 +127,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_DLC_Sniper = [
 		"srifle_DMR_02_camo_F","srifle_DMR_02_F","srifle_DMR_02_sniper_F","srifle_DMR_03_F","srifle_DMR_03_tan_F","srifle_DMR_04_F","srifle_DMR_04_Tan_F","srifle_DMR_05_blk_F","srifle_DMR_05_hex_F","srifle_DMR_05_tan_F","srifle_DMR_06_camo_F","srifle_DMR_06_olive_F"
 	];
-	blck_apexWeapons = ["arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
-						"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
-						"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
-						"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"];
-						
+				
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
 	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
@@ -121,20 +136,26 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG;
 
 	#ifdef useAPEX
+	blck_apexWeapons = ["arifle_AK12_F","arifle_AK12_GL_F","arifle_AKM_F","arifle_AKM_FL_F","arifle_AKS_F","arifle_ARX_blk_F","arifle_ARX_ghex_F","arifle_ARX_hex_F","arifle_CTAR_blk_F","arifle_CTAR_hex_F",
+						"arifle_CTAR_ghex_F","arifle_CTAR_GL_blk_F","arifle_CTARS_blk_F","arifle_CTARS_hex_F","arifle_CTARS_ghex_F","arifle_SPAR_01_blk_F","arifle_SPAR_01_khk_F","arifle_SPAR_01_snd_F",
+						"arifle_SPAR_01_GL_blk_F","arifle_SPAR_01_GL_khk_F","arifle_SPAR_01_GL_snd_F","arifle_SPAR_02_blk_F","arifle_SPAR_02_khk_F","arifle_SPAR_02_snd_F","arifle_SPAR_03_blk_F",
+						"arifle_SPAR_03_khk_F","arifle_SPAR_03_snd_F","arifle_MX_khk_F","arifle_MX_GL_khk_F","arifle_MXC_khk_F","arifle_MXM_khk_F"];
+			
 	blck_WeaponList_Orange = blck_WeaponList_Orange + blck_apexWeapons;
 	blck_WeaponList_Green = blck_WeaponList_Green + blck_apexWeapons;	
 	#endif
 	
 	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
+		
+	#ifdef useAPEX
 	blck_ApexBackpacks = [
 		"B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
 		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
 		"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"
-		];
-		
-	#ifdef useAPEX
+		];	
 	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
 	#endif
+	
 	blck_BanditHeadgear = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_tan","H_ShemagOpen_khk"];
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
 	blck_headgear = [
@@ -412,7 +433,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"V_PlateCarrierL_CTRG",
 		"V_PlateCarrierSpec_blk",
 		"V_PlateCarrierSpec_mtp",
-		"V_PlateCarrierSpec_rgr",
+		#ifdef useAPEX
 		//Apex
 		"V_TacChestrig_grn_F",
 		"V_TacChestrig_oli_F",
@@ -426,6 +447,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"V_BandollierB_ghex_F",
 		"V_TacVest_gen_F",
 		"V_PlateCarrier1_rgr_noflag_F",
+		#endif
 		"V_PlateCarrier2_rgr_noflag_F"
 		];
 			

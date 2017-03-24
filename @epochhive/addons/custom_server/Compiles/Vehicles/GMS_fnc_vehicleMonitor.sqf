@@ -10,7 +10,7 @@
 
 private ["_veh","_vehList"];
 _vehList = blck_missionVehicles;
-
+/*
 _fn_releaseVehicle = {
 	params["_v"];
 	//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from _v %1",_v];	
@@ -20,12 +20,15 @@ _fn_releaseVehicle = {
 	_v setVehicleLock "UNLOCKED" ;
 	_v setVariable["releasedToPlayers",true];
 	[_v] call blck_fnc_emptyObject;
+	{
+		_v removealleventhandlers _x;
+	}forEach["fired","hit","hitpart","reloaded","dammaged","HandleDamage"];
 	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_v];
 	};
 };
-
+*/
 //if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
 {
 	_veh = _x;
@@ -47,7 +50,7 @@ _fn_releaseVehicle = {
 				_veh setDamage 1;
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
-				[_veh] call _fn_releaseVehicle;
+				[_veh] call blck_fnc_releaseVehicleToPlayers;
 			};
 		}else {  // Deal with vehicles
 			if (blck_killEmptyAIVehicles) then
@@ -59,7 +62,7 @@ _fn_releaseVehicle = {
 				} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
-				[_veh] call _fn_releaseVehicle;
+				[_veh] call blck_fnc_releaseVehicleToPlayers;
 			};
 		};
 	} else {  // Add magazine to vehicle if possible

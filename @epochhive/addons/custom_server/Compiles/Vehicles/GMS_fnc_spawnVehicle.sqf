@@ -14,16 +14,23 @@
 
 private["_veh","_modType"];
 params["_vehType","_pos",["_clearInventory",true]];
+
+#ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["spawnVehicle.sqf:  _vehType = %1 | _pos = %2",_vehType,_pos];};
+#endif
+
 _veh = createVehicle[_vehType, _pos, [], 0, "NONE"];
 [_veh] call blck_fnc_protectVehicle;
+
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["spawnVehicle.sqf:: vehicle spawned is %1",_veh];};
 #endif
 //  params["_veh",["_clearInventory",true]];
 [_veh,_clearInventory] call blck_fnc_configureMissionVehicle;
+
 #ifdef blck_debugMode
 diag_log format["spawnVehicle:: returning parameter _veh = %1",_veh];
 #endif
+
 _veh
 	

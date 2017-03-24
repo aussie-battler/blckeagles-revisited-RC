@@ -45,7 +45,7 @@ _fn_deleteAIGear = {
 
 _fn_msgIED = {
 	params["_killer"];
-	diag_log format["fn_msgIED:: -- >> msg = %1 and owner _killer = %2",blck_Message, (owner _killer)];
+	//diag_log format["fn_msgIED:: -- >> msg = %1 and owner _killer = %2",blck_Message, (owner _killer)];
 	[["IED","",0,0],[_killer]] call blck_fnc_MessagePlayers;
 };
 

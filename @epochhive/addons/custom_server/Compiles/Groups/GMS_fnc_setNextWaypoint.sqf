@@ -37,7 +37,11 @@ if (_index >= (count _pattern)) then
 
 _group setVariable["wpIndex",_index];
 _type = _pattern select _index;
+
+#ifdef blck_debugMode
 diag_log format["_fnc_setNextWaypoint: -> waypoint for group %1 to be updated to mode %2 at position %3 with index %4",_group,_type,waypointPosition  _wp, _index];
+#endif
+
 // revisit this to account for dead units. use waypointPosition if possible.
 _wpPos = waypointPosition  _wp;
 
@@ -55,19 +59,30 @@ if (true /*_type isEqualTo toLower "move"*/) then
 	_oldPos = waypointPosition _wp;
 	_newPos = (_group getVariable ["patrolCenter",_wpPos]) getPos[_dis,_arc];
 	_wp setWPPos _newPos;
+
+	#ifdef blck_debugMode
 	diag_log format["_fnc_setNextWaypoint: -- > for group %5 | _dis = %1 | _arc = %2 _oldPos = %3 | _newPos = %4",_dis,_arc,_oldPos,_newPos,_group];
+	#endif
+
 	//_wp setWaypointTimeout [1.0,1.1,1.2];
 	_wp setWaypointTimeout [20,25,30];
 } else {
 	_wp setWaypointTimeout [20,25,30];
 	_newPos = _wpPos;
 	_wp setWPPos _newPos;
+
+	#ifdef blck_debugMode
 	diag_log format["_fnc_setNextWaypoint: - waypoint position for group %1 not changed",_group];
+	#endif
 };
+
+#ifdef blck_debugMode
 diag_log format["_fnc_setNextWaypoint: -> waypoint for group %1 set to mode %2 at position %3 with index %4",_group,_type,waypointPosition  _wp, _index];
 diag_log format["_fnc_setNextWaypoint:-> waypoint statements for group %1 = %2",_group, waypointStatements [_group,_index]];
-//_wp setWaypointBehaviour "COMBAT";
-//_wp setWaypointCombatMode "RED";
+#endif
+
+_wp setWaypointBehaviour blck_groupBehavior;
+_wp setWaypointCombatMode blck_combatMode;
 _group setCurrentWaypoint _wp;
 
 
