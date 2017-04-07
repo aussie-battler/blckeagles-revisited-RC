@@ -23,9 +23,11 @@ params["_ai_veh"];
 /*
 _ai_veh = _this select 0;
 */
+_if (_ai_veh getVariable["disabled",false]) exitWith {};
 
-_ai_veh_type = typeof _ai_veh;
-_ai_veh_name = name _ai_veh;
+_ai_veh setVariable["disabled",true];
+//_ai_veh_type = typeof _ai_veh;
+//_ai_veh_name = name _ai_veh;
 
 _ai_veh setFuel 0;
 _ai_veh setVehicleAmmo 0;

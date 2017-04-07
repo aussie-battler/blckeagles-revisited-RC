@@ -15,6 +15,7 @@
 
 private ["_objs","_pos","_offset"];
 params[ ["_coords", [0,0,0]], ["_crates",[]], ["_loadCrateTiming","atMissionSpawn"] ];
+
 if ((count _coords) == 2) then // assume only X and Y offsets are provided
 {
 	_coords pushback 0;; // calculate the world coordinates
@@ -23,7 +24,7 @@ _objs = [];
 {
 	_x params["_crateType","_crateOffset","_lootArray","_lootCounts"];
 	//_pos = [(_coords select 0)+(_crateOffset select 0),(_coords select 1) + (_crateOffset select 1),(_coords select 2)+(_crateOffset select 2)]; // calculate the world coordinates
-	//diag_log format["_fnc_spawnMissionCrates: _crateType = %1 | _crateOffset = %2 | _lootArray = %3 | _lootCounts = %4",_crateType,_crateOffset,_lootArray,_lootCounts];
+	diag_log format["_fnc_spawnMissionCrates: _crateType = %1 | _crateOffset = %2 | _lootArray = %3 | _lootCounts = %4",_crateType,_crateOffset,_lootArray,_lootCounts];
 	_pos = _coords vectorAdd _crateOffset;
 	_crate = [_pos,_crateType] call blck_fnc_spawnCrate;
 	_objs pushback _crate;

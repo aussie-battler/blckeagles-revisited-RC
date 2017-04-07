@@ -34,7 +34,12 @@ for "_i" from 1 to (count blck_liveMissionAI) do
 		{
 			//diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
 			{
-				//diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
+				diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
+				diag_log format["_fnc_cleanupAliveAI:: vehicle _x = %1",vehicle _x];
+				if (_x != vehicle _x) then 
+				{
+					[vehicle _x] call blck_fnc_decomissionAIVehicle;
+				};
 				[_x] call blck_fnc_deleteAI;
 			}forEach (_units select 0);
 			uiSleep 0.1;

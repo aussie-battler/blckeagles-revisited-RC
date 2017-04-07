@@ -23,14 +23,14 @@
 		A time acceleration module.
 	*/
 	
-	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 1;  // Daytime time accelearation
-	blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
-	blck_timeAccelerationNight = 6;  // Nighttim time acceleration	
+	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
+	blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
 	
 	/**************************************************************
 	
@@ -38,9 +38,7 @@
 	
 	**************************************************************/
 	// if true then missions will not spawn within 1000 m of spawn points for Altis, Bornholm, Cherno, Esseker or stratis. 
-	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch trader cities. Note that these are pre-defined in GMS_fnc_findWorld for the most common maps.
-	blck_blacklistSpawns = false;
-	blck_listConcreteMixerZones	= false;
+	blck_blacklistTraderCities = true;  // Set this = true if you would like the mission system to automatically search for the locations of the Epoch/Exile trader cities. Note that these are added to the list of blacklisted locations for Epoch for the most common maps.
 	
 	/***********************************************************
 	
@@ -56,7 +54,7 @@
 	// These determine whether and when messages are sent to players regarding AI Kills or illegal kills that might damage a vehicle.
 	blck_useKillMessages = false;  // when true a message will be broadcast to all players each time an AI is killed; may impact server performance.
 	blck_useKillScoreMessage = true; // when true a tile is displayed to the killer with the kill score information
-	blck_useIEDMessages = true;
+	blck_useIEDMessages = true;  // Displayes a message when a player vehicle detonates and IED (such as would happen if a player killed AI with a forbidden weapon).
 	
 	///////////////////////////////
 	// MISSION MARKER CONFIGURATION
@@ -117,10 +115,10 @@
 	blck_chanceParaRed = 0.3;
 	blck_noParaRed = 3;
 	
-	blck_chanceParaGreen = 0.4;
-	blck_noParaGreen = 4;
+	blck_chanceParaGreen = 0.2;
+	blck_noParaGreen = 0.4;
 	
-	blck_chanceParaOrange = 0.5;
+	blck_chanceParaOrange = 0.4;
 	blck_noParaOrange = 4;
 	
 	// Supplemental Loot Parameters.
@@ -147,13 +145,13 @@
 	blck_chanceHeliPatrolBlue = 0;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
 	blck_patrolHelisBlue = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolRed = 0.2; // 0.4;
+	blck_chanceHeliPatrolRed = 0; // 0.4;
 	blck_patrolHelisRed = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolGreen = 0.5;
+	blck_chanceHeliPatrolGreen = 0.2;
 	blck_patrolHelisGreen = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolOrange = 0.7;
+	blck_chanceHeliPatrolOrange = 0.5;
 	blck_patrolHelisOrange = _blck_armed_hellcats+_blck_armed_orcas;
 
 
@@ -193,7 +191,7 @@
 	blck_TMin_Hunter = 120;
 	blck_TMin_Scouts = 115;
 	blck_TMin_Crashes = 115;
-	blck_TMin_UMS = 200;
+	//blck_TMin_UMS = 200;
 	#endif
 	
 	//Maximum Spawn time between missions in seconds
@@ -205,7 +203,7 @@
 	blck_TMax_Hunter = 200;
 	blck_TMax_Scouts = 200;
 	blck_TMax_Crashes = 200;
-	blck_TMax_UMS = 280;
+	//blck_TMax_UMS = 280;
 	#endif
 	
 	///////////////////////////////
@@ -250,7 +248,7 @@
 	
 	****************************************************************/
 	
-	blck_groupBehavior = "AWARE";
+	blck_groupBehavior = "SENTRY";  // Suggested choices are "SAD", "SENTRY", "AWARE"   https://community.bistudio.com/wiki/ArmA:_AI_Combat_Modes
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
 	blck_AI_Side = RESISTANCE; 
@@ -269,8 +267,10 @@
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AliveAICleanUpTimer = 1200;  // Time after mission completion at which any remaining live AI are deleted.
-	
-	blck_AIAlertDistance = [250,325,450,500];
+
+	// How precisely player locations will be revealed to AI after an AI kill
+	// values are ordered as follows [blue, red, green, orange];	
+	blck_AIAlertDistance = [150,225,250,300];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];

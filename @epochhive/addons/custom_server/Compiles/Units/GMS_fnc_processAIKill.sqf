@@ -9,12 +9,15 @@ private["_group","_isLegal","_weapon","_lastkill","_kills","_message","_killstre
 params["_unit","_killer","_isLegal"];
 
 _unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, true];
+
+/*
 if (vehicle _unit != _unit) then {
 	if (count crew (vehicle _unit) isEqualTo 0) then
 	{
 		[vehicle _unit] call blck_fnc_releaseVehicleToPlayers;
 	};
-};
+};*/
+
 blck_deadAI pushback _unit;
 _group = group _unit;
 [_unit] joinSilent grpNull;

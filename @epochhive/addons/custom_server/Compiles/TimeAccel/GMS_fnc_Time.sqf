@@ -3,7 +3,7 @@
 // Last Updated 12/21/16
 // Creds to AWOL, A3W, LouD and Creampie for insights.
 
-if (!isServer) exitWith {};
+//if (!isServer) exitWith {};
 
 /*
 	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below 
@@ -13,20 +13,23 @@ if (!isServer) exitWith {};
 	blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 6;  // Nighttim time acceleration
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 private ["_arr","_sunrise","_sunset","_time"];
 _arr = date call BIS_fnc_sunriseSunsetTime;
 _sunrise = _arr select 0;
 _sunset = _arr select 1;
 _time = dayTime;
 
-#ifdef blck_debugMode3
 diag_log format["_fnc_Time::  -- > _sunrise = %1 | _sunset = %2 | _time = %3",_sunrise,_sunset,_time];
+//  blck_debugMode3
+#ifdef blck_debugMode
+diag_log "fnc_Time:: Debug settings ON";
 #endif
 
 // Night
 if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationNight; 
-	#ifdef blck_debugMode3
+	#ifdef blck_debugMode
 	diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 	#endif
 };
@@ -34,15 +37,15 @@ if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {
 // Day
 if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationDay; 
-	#ifdef blck_debugMode3
+	#ifdef blck_debugMode
 	diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 	#endif
 };
 
 // default
 setTimeMultiplier blck_timeAccelerationDusk; 
-#ifdef blck_debugMode3
+#ifdef blck_debugMode
 diag_log format["DUSK ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
-	#endif
+#endif
 
 

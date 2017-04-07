@@ -17,22 +17,24 @@
 ////////////
 // Exile-specific settings
 ////////////	
-
-	// list of locations that are protected against mission spawns
+blck_blacklistSpawns = false;
+blck_listConcreteMixerZones	= false;
 	
-	switch (toLower(worldName)) do
-	{
-		case "altis": {
-			blck_locationBlackList append [
-			//Add location as [[xpos,ypos,0],minimumDistance],
-			// Note that there should not be a comma after the last item in this table
-			[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
-			];
-		};
-		case "tanoa": {
-			blck_locationBlackList append [	];
-		};
+// list of locations that are protected against mission spawns
+
+switch (toLower(worldName)) do
+{
+	case "altis": {
+		blck_locationBlackList append [
+		//Add location as [[xpos,ypos,0],minimumDistance],
+		// Note that there should not be a comma after the last item in this table
+		[[10800,10641,0],1000]  // isthmus - missions that spawn here often are glitched.
+		];
 	};
+	case "tanoa": {
+		blck_locationBlackList append [	];
+	};
+};
 	
 /*********************************************************************************
 
@@ -130,7 +132,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 				
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
-	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG;
 	blck_WeaponList_Green = blck_RifleSniper + blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
 	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 +blck_RifleAsault_650;
 	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG;

@@ -16,7 +16,7 @@
 params["_mission","_status",["_coords",[0,0,0]] ];
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 2) then {diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];};
+if (blck_debugLevel > 0) then {diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];};
 #endif
 
 private["_index","_element","_waitTime"];
@@ -25,13 +25,13 @@ _index = blck_pendingMissions find _mission;
 if (_index > -1) then
 {	
 	#ifdef blck_debugMode
-	if (blck_debuglevel > 2) then {diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions began as %1",blck_pendingMissions];};
+	if (blck_debuglevel > 0) then {diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions began as %1",blck_pendingMissions];};
 	#endif
 
 	_element = blck_pendingMissions select _index;
 
 	#ifdef blck_debugMode
-	if (blck_debuglevel > 2) then {diag_log format["_fnc_updateMissionQue::  -- >> _element before update = %1",_element];}; 
+	if (blck_debuglevel > 0) then {diag_log format["_fnc_updateMissionQue::  -- >> _element before update = %1",_element];}; 
 	#endif
 
 	if (toLower(_status) isEqualTo "active") then {
@@ -46,13 +46,13 @@ if (_index > -1) then
 	};
 
 	#ifdef blck_debugMode
-	if (blck_debuglevel > 2) then {diag_log format["_fnc_updateMissionQue::  -- >> _element after update = %1",_element];}; 
+	if (blck_debuglevel > 0) then {diag_log format["_fnc_updateMissionQue::  -- >> _element after update = %1",_element];}; 
 	#endif
 
 	blck_pendingMissions set [_index, _element];
 
 	#ifdef blck_debugMode
-	if (blck_debuglevel > 2) then {diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions after update = %1",blck_pendingMissions];};	
+	if (blck_debuglevel > 0) then {diag_log format ["_fnc_updateMissionQue :: blck_pendingMissions after update = %1",blck_pendingMissions];};	
 	#endif
 }; 
 

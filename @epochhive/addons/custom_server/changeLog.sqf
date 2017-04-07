@@ -4,10 +4,18 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-3/23/17 Verision 6.58 build 46
+4/6/17 Version 6.58 Build 50
+[Added] A FAQ presenting an overview of the mission system and addons.
+[Fixed] Mission timouts would prevent new missions from spawning after a while.
+[Fixed] blck_timeAcceleration now determines if time acceleration is activated.
+[Fixed] Missions did not complete correctly under certain circumstances.
+
+3/23/17 Verision 6.58 build 48
 Turned debugging off
 Added some preprocessor commands to minimize the use of if()then for debugging purposes when running without any debugging settings on.
-	
+Teaks to heli patrol waypoint system.
+bugfixes.
+
 3/21/17 Version 6.58 Build 44
 [Added] Each mission now has a setting for mines which is set to false. To use the global setting in blck_config for yoru mission just change this to read:
 	_useMines = blck_useMines;

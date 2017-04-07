@@ -132,7 +132,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 						
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
-	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG + blck_apexWeapons;
+	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG;
 	blck_WeaponList_Green = blck_RifleSniper + 	blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
 	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 +blck_RifleAsault_650;
 	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + 	blck_RifleAsault_650 + blck_RifleLMG;

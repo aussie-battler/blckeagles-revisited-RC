@@ -1,6 +1,6 @@
 /*
 	By Ghostrider-DbD-
-	Last modified 3-18-17
+	Last modified 4-5-17
 	--------------------------
 	License
 	--------------------------
@@ -51,14 +51,16 @@ while {true} do
 	{
 		_timer1min = diag_tickTime;
 		[] call blck_fnc_spawnPendingMissions;
-		
 		if (_modType isEqualTo "Epoch") then 
 		{
 			[] call blck_fnc_cleanEmptyGroups;
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.		
 	};	
-	if (diag_tickTime - _timer5min > 300) then
+	if (blck_useTimeAcceleration) then
 	{
-		if (blck_timeAcceleration) then {[] call blck_fnc_timeAcceleration;};
+		if (diag_tickTime - _timer5min > 30) then {
+			[] call blck_fnc_timeAcceleration;
+			_timer5min = diag_tickTime;
+		};
 	};
 };

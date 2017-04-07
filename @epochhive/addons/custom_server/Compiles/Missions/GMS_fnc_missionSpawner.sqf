@@ -106,13 +106,18 @@ while {_wait} do
 
 if (_missionTimedOut) exitWith
 {
+/*
+
+*/
 	//  Deal with the case in which the mission timed out.
 	//["timeOut",_endMsg,_blck_localMissionMarker select 2] call blck_fnc_messageplayers;
+	blck_recentMissionCoords pushback [_coords,diag_tickTime]; 
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];
 	[_mission,"inactive",[0,0,0]] call blck_fnc_updateMissionQue;
+	blck_missionsRunning = blck_missionsRunning - 1;
 	[_blck_localMissionMarker select 0] call compile preprocessfilelinenumbers "debug\deleteMarker.sqf";
-	_blck_localMissionMarker set [1,[0,0,0]];
-	_blck_localMissionMarker set [2,""];
+	//_blck_localMissionMarker set [1,[0,0,0]];
+	//_blck_localMissionMarker set [2,""];
 	[_objects, 0.1] spawn blck_fnc_cleanupObjects;
 
 	#ifdef blck_debugMode
@@ -392,8 +397,12 @@ switch (_endCondition) do
 };
 //diag_log format["missionSpawner :: (269) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
 private["_locations"];
-_locations = [_coords] + _crates;
+_locations = [_coords];
+{
+	_locations pushback (getPos _x);
+} forEach _crates;
 
+//diag_log format["missionSpawner::  _coords = %1 | _crates = %2 | _locations = %3",_coords,_crates,_locations];
 //diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
 while {_missionComplete  isEqualTo -1} do
 {
@@ -405,21 +414,16 @@ while {_missionComplete  isEqualTo -1} do
 };
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then
+if (blck_debugLevel > 0) then
 {
-	diag_log format["[blckeagls] missionSpawner:: (288) Mission completion criteria fulfilled: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] missionSpawner:: (414) Mission completion criteria fulfilled: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["missionSpawner :: (415) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
 };
 #endif
+//diag_log format["[blckeagls] missionSpawner:: (418) calling endMission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
-{
-	// Using a variable attached to the crate rather than the global setting to be sure we do not fill a crate twice.
-	// the "lootLoaded" loaded should be set to true by the crate filler script so we can use that for our check.
-	if !(_x getVariable["lootLoaded",false]) then
-	{
-		// _crateLoot,_lootCounts are defined above and carry the loot table to be used and the number of items of each category to load
-		[_x,_crateLoot,_lootCounts] call blck_fnc_fillBoxes;
-	};
-}forEach _crates;
-[_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,false] call blck_fnc_endMission;
-diag_log format["[blckeagls] missionSpawner:: (292)end of mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+private["_result"];
+_result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,false] call blck_fnc_endMission;
+
+//diag_log format["[blckeagls] missionSpawner:: (420)end of mission: blck_fnc_endMission returned value of %1","pending"];
 

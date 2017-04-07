@@ -169,12 +169,29 @@ if !(isNull _grpPilot)  then
 	//[_coords,2,10,_grpPilot,"random",["MOVE","SENTRY"]] call blck_fnc_setupWaypoints;
 	private["_wpDestination"];
 	
-	[_grpPilot, 0] setWPPos _coords; 
-	[_grpPilot, 0] setWaypointType "SENTRY";
-	[_grpPilot, 0] setWaypointSpeed "NORMAL";
-	[_grpPilot, 0] setWaypointBehaviour "AWARE";
-	[_grpPilot, 0] setWaypointStatements ["true","[group this, 0] setCurrentWaypoint [group this,0];"];
-	[_grpPilot,0] setWaypointTimeout [20,30,40];
+	for "_i" from 1 to 5 do
+	{
+		_pos = _coords getPos [15 + random (15), random(360)];	
+		if (_i == 1) then
+		{
+			_wp = [_grpPilot, 0];
+			_wp setWPPos _pos;
+		} else {
+			_wp = _grpPilot addWaypoint [_pos, 25];	
+		};
+ 
+		_wp setWaypointType "SAD";
+		_wp setWaypointSpeed "NORMAL";
+		_wp setWaypointBehaviour "AWARE";
+		//[_grpPilot, 0] setWaypointStatements ["true","[group this, 0] setCurrentWaypoint [group this,0];"];
+		_wp setWaypointTimeout [20,30,40];
+		_wp = _grpPilot addWaypoint [_coords,25];
+		_wp setWaypointType "MOVE";
+		_wp setWaypointBehaviour "AWARE";
+		_wp setWaypointTimeout [1, 1.1, 1.2];
+	};
+	_wp = _grpPilot addWaypoint [_coords,25];	
+	_wp setWaypointType "CYCLE";
 	_grpPilot setCurrentWaypoint [_grpPilot,0];
 	
 	#ifdef blck_debugMode

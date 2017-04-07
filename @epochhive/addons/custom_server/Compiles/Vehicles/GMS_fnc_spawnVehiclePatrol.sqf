@@ -85,7 +85,7 @@ if !(isNull _group) then
 		_wp setWaypointCombatMode blck_combatMode;
 		_wp setWaypointTimeout [1,1.1,1.2];	
 		_wp = _group addWaypoint [_p2, 25];
-		_wp setWaypointType "SENTRY";
+		_wp setWaypointType "SAD";
 		_wp setWaypointName "sentry";	
 		_wp setWaypointBehaviour "AWARE";
 		_wp setWaypointCombatMode blck_combatMode;	
