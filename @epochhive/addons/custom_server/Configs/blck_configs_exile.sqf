@@ -17,8 +17,6 @@
 ////////////
 // Exile-specific settings
 ////////////	
-blck_blacklistSpawns = false;
-blck_listConcreteMixerZones	= false;
 	
 // list of locations that are protected against mission spawns
 
@@ -41,7 +39,10 @@ switch (toLower(worldName)) do
 AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
-
+	
+	blck_blacklistSpawns = false;
+	blck_listConcreteMixerZones	= false;
+	blck_AI_Side = EAST;
 	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert",/*"Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Desert",*/"B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
 
 	// Blacklisted itesm
@@ -133,8 +134,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	//This defines the random weapon to spawn on the AI
 	//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Weapons
 	blck_WeaponList_Orange = blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG + blck_DLC_Sniper + blck_DLC_MMG;
-	blck_WeaponList_Green = blck_RifleSniper + blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG + blck_apexWeapons;
-	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 +blck_RifleAsault_650;
+	blck_WeaponList_Green = blck_RifleSniper + blck_RifleAsault_650 +blck_RifleLMG + blck_DLC_MMG;
+	blck_WeaponList_Blue = blck_RifleOther + blck_RifleAsault_556 + blck_RifleAsault_650;
 	blck_WeaponList_Red = blck_RifleAsault_556 + blck_RifleSniper + blck_RifleAsault_650 + blck_RifleLMG;
 
 	#ifdef useAPEX

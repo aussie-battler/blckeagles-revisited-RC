@@ -86,4 +86,5 @@
 	//diag_log format["_fnc_endMission:: (34) _mission = %1",_mission];
 	[_mission,"inactive",[0,0,0]] call blck_fnc_updateMissionQue;
 	blck_missionsRunning = blck_missionsRunning - 1;
+
 	_aborted

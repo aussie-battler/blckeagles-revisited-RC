@@ -32,13 +32,14 @@ for "_i" from 1 to (count blck_liveMissionAI) do
 		//diag_log format["_fnc_cleanupAliveAI:: (34) evaluating with delete time = %2 and diag_tickTime %1", diag_tickTime, _units select 1];
 		if (diag_tickTime > (_units select 1) ) then
 		{
-			//diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
+			diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
 			{
+			
 				diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
 				diag_log format["_fnc_cleanupAliveAI:: vehicle _x = %1",vehicle _x];
-				if (_x != vehicle _x) then 
+				if (vehicle _x != _x) then // mark the vehicle for deletion
 				{
-					[vehicle _x] call blck_fnc_decomissionAIVehicle;
+					(vehicle _x) setVariable["blck_DeleteAt",diag_tickTime];
 				};
 				[_x] call blck_fnc_deleteAI;
 			}forEach (_units select 0);

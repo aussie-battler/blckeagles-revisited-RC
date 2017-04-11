@@ -109,16 +109,16 @@
 	// The behavior of these can be linked to some degree to the spawning of patrolling helis.
 	// For example, if you always want a helicopter to spawn paratroops set the value 1.
 	// If you never want helicopters to spawn them set the value to 0.
-	blck_chanceParaBlue = 0.2; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
+	blck_chanceParaBlue = 0.1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
 	blck_noParaBlue = 3; //  [1-N]
 	
 	blck_chanceParaRed = 0.3;
 	blck_noParaRed = 3;
 	
-	blck_chanceParaGreen = 0.2;
+	blck_chanceParaGreen = 0.4;
 	blck_noParaGreen = 0.4;
 	
-	blck_chanceParaOrange = 0.4;
+	blck_chanceParaOrange = 0.5;
 	blck_noParaOrange = 4;
 	
 	// Supplemental Loot Parameters.
@@ -152,7 +152,7 @@
 	blck_patrolHelisGreen = _blck_littleBirds;
 	
 	blck_chanceHeliPatrolOrange = 0.5;
-	blck_patrolHelisOrange = _blck_armed_hellcats+_blck_armed_orcas;
+	blck_patrolHelisOrange = _blck_littleBirds; //_blck_armed_hellcats+_blck_armed_orcas;
 
 
 	////////////////////
@@ -251,7 +251,6 @@
 	blck_groupBehavior = "SENTRY";  // Suggested choices are "SAD", "SENTRY", "AWARE"   https://community.bistudio.com/wiki/ArmA:_AI_Combat_Modes
 	blck_combatMode = "RED"; // Change this to "YELLOW" if the AI wander too far from missions for your tastes.
 	blck_groupFormation = "WEDGE"; // Possibilities include "WEDGE","VEE","FILE","DIAMOND"
-	blck_AI_Side = RESISTANCE; 
 	blck_addAIMoney = true;
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
@@ -287,7 +286,7 @@
 	// Orange Missions
 	blck_MinAI_Orange = 20;
 	blck_MaxAI_Orange = 25;
-	blck_AIGrps_Orange = 6;
+	blck_AIGrps_Orange = 5;
 	blck_SkillsOrange = [
 		["aimingAccuracy",0.4],["aimingShake",0.7],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
@@ -295,7 +294,7 @@
 	// Green Missions
 	blck_MinAI_Green = 16;
 	blck_MaxAI_Green = 21;
-	blck_AIGrps_Green = 5;
+	blck_AIGrps_Green = 4;
 	blck_SkillsGreen = [
 		["aimingAccuracy",0.3],["aimingShake",0.65],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
@@ -322,7 +321,60 @@
 	blck_maxMoneyRed = 15;
 	blck_maxMoneyBlue = 10;
 
-
+	#ifdef DBDserver
+	blck_AIAlertDistance = [150,225,250,300];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	//blck_AIAlertDistance = [150,225,400,500];
+	// How precisely player locations will be revealed to AI after an AI kill
+	// values are ordered as follows [blue, red, green, orange];
+	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9];  
+	
+	blck_baseSkill = 0.7;  // The overal skill of the AI - range 0.1 to 1.0.
+	
+	/***************************************************************
+	
+	MISSION TYPE SPECIFIC AI SETTINGS
+	
+	**************************************************************/
+	//This defines the skill, minimum/Maximum number of AI and how many AI groups are spawned for each mission type
+	// Orange Missions
+	blck_MinAI_Orange = 20;
+	blck_MaxAI_Orange = 25;
+	blck_AIGrps_Orange = 5;
+	blck_SkillsOrange = [
+		["aimingAccuracy",0.2],["aimingShake",0.5],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+	];
+	
+	// Green Missions
+	blck_MinAI_Green = 16;
+	blck_MaxAI_Green = 21;
+	blck_AIGrps_Green = 4;
+	blck_SkillsGreen = [
+		["aimingAccuracy",0.18],["aimingShake",0.45],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+	];
+	
+	// Red Missions
+	blck_MinAI_Red = 12;
+	blck_MaxAI_Red = 15;
+	blck_AIGrps_Red = 3;
+	blck_SkillsRed = [
+		["aimingAccuracy",0.16],["aimingShake",0.4],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+	];
+	
+	// Blue Missions
+	blck_MinAI_Blue = 8;	
+	blck_MaxAI_Blue = 12;
+	blck_AIGrps_Blue = 2;
+	blck_SkillsBlue = [
+		["aimingAccuracy",0.12],["aimingShake",0.3],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+	];
+		
+	// Add some money to AI; only works with Exile for now.
+	blck_maxMoneyOrange = 25;
+	blck_maxMoneyGreen = 20;
+	blck_maxMoneyRed = 15;
+	blck_maxMoneyBlue = 10;	
+	#endif
+	
 	private["_modType"];
 	_modType = [] call blck_fnc_getModType;
 	if (_modType isEqualTo "Epoch") then

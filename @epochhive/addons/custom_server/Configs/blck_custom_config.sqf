@@ -90,17 +90,19 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	// Used primarily for debugging.
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 
-	blck_timeAccelerationDay = 6;  // Daytime time accelearation
-	blck_timeAccelerationDusk = 6; // Dawn/dusk time accelearation
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_timeAccelerationDay = 12;  // Daytime time accelearation
+	blck_timeAccelerationDusk = 18; // Dawn/dusk time accelearation
+	blck_timeAccelerationNight = 24;  // Nighttim time acceleration	
 	
 	blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-	blck_enableHunterMissions = 1;
-	blck_enableScoutsMissions = 1;
-	blck_maxCrashSites = 0; 
+	blck_enableHunterMissions = -1;
+	blck_enableScoutsMissions = -1;
+	blck_maxCrashSites = 1; 
 	
 	blck_enabeUnderwaterMissions = -1;
 	
@@ -108,6 +110,7 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	blck_AliveAICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
 	blck_bodyCleanUpTimer = 10;
 	
+	blck_chanceHeliPatrolBlue = 1;
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
@@ -135,12 +138,12 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	blck_TMax_Scouts = 22;
 	blck_TMax_Crashes = 15;
 	
-	//blck_MissionTimout = 120;  // 40 min
-	//blck_MinAI_Blue = 2;	
-	//blck_MaxAI_Blue = 4;
-	//blck_AIGrps_Blue = 4;
+	//blck_MissionTimout = 360;  // 40 min
+	blck_MinAI_Blue = 1;	
+	blck_MaxAI_Blue = 2;
+	blck_AIGrps_Blue = 1;
 	
-	/*
+	
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
 		["aimingShake",0.01],
@@ -153,7 +156,7 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 		["commanding",0.8],
 		["general",1.00]
 	];
-	*/
+	
 };
 
 

@@ -13,16 +13,41 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-// Unused at present, reserved for the future
 
-private ["_ai_veh","_ai_veh_type","_ai_veh_name"];
+diag_log "Vehicle Decommisioning handler activated";
+params["_veh"];
 
-//diag_log "Vehicle Decommisioning handler activated";
-params["_ai_veh"];
+if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then  // Deal with a static weapon
+{
+	if (blck_killEmptyStaticWeapons) then
+	{
+		if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
+		_veh setDamage 1;
+		_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
+	} else {
+		[_veh] call blck_fnc_releaseVehicleToPlayers;
+	};
+}else {  // Deal with vehicles
+	if (blck_killEmptyAIVehicles) then
+	{
+		if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];};			
+		{
+			_veh setHitPointDamage [_x, 1];
+			
+		} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
+		_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
+	} else {
+		if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: case of release vehicle = %1 to player with blck_missionVehicles = %2",_veh, blck_missionVehicles];};	
+		blck_missionVehicles = blck_missionVehicles - [_veh];
+		if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: blck_missionVehicles updated to %1", blck_missionVehicles];};	
+		[_veh] call blck_fnc_releaseVehicleToPlayers;
+	};
+};
 
 /*
+
 _ai_veh = _this select 0;
-*/
+
 _if (_ai_veh getVariable["disabled",false]) exitWith {};
 
 _ai_veh setVariable["disabled",true];

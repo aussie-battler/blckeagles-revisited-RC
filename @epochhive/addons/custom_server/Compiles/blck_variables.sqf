@@ -14,7 +14,7 @@
 
 blck_debugON = false;
 blck_debugLevel = 0;  // Sets level of detail for debugging info - WIP.
-blck_minFPS = 10;
+blck_minFPS = 10; 
 
 ////////////////////////////////////////////////
 //  Do Not Touch Anything Below This Line
