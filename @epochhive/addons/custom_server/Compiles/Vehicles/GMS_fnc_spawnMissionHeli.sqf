@@ -164,11 +164,46 @@ if !(isNull _grpPilot)  then
 	{
 		[_coords,_skillAI,_weapons,_uniforms,_headGear,_grpParatroops,_patrolHeli] call blck_fnc_spawnMissionParatroops;
 	};
-	//set waypoint for helicopter
-	// params["_pos","_minDis","_maxDis","_grpPilot",["_mode","random"],["_pattern",["MOVE","SAD"]]];
-	//[_coords,2,10,_grpPilot,"random",["MOVE","SENTRY"]] call blck_fnc_setupWaypoints;
-	private["_wpDestination"];
 	
+	//set waypoint for helicopter
+	private["_wpDestination"];
+	//set waypoint for helicopter
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	[_coords,2,10,_grpPilot,"random",["SENTRY"]] call blck_fnc_setupWaypoints;
+	
+	/*												
+	_grpPilot setVariable["patrolCenter",_coords];
+	_grpPilot setVariable["minDis",10];
+	_grpPilot setVariable["maxDis",25];
+	_grpPilot setVariable["timeStamp",diag_tickTime];
+	_grpPilot setVariable["arc",0];
+	_grpPilot setVariable["wpRadius",30];
+	//_grpPilot setVariable["wpMode",_mode];
+
+	_dir = 0;
+	_arc = 30;
+	_noWp = 1;
+	_wpradius = 30;
+	_newPos = _pos getPos [(_minDis+(random (_maxDis - _minDis))), _dir];
+	_wp = [_grpPilot, 0];
+
+	#ifdef wpModeMove
+	_wp setWaypointType "MOVE";
+	_wp setWaypointName "move";
+	_wp setWaypointTimeout [1,1.1,1.2];
+	_wp setWaypointStatements ["true","this call blck_fnc_changeToSADWaypoint;diag_log format['====Updating waypoint to SAD for group %1',group this];"];
+	#else
+	_wp setWaypointType "SAD";
+	_wp setWaypointName "sad";
+	_wp setWaypointTimeout [20,25,30];
+	_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;diag_log format['====Updating waypoint to Move for group %1',group this];"];
+	#endif
+
+	_wp setWaypointBehaviour blck_groupBehavior;
+	_wp setWaypointCombatMode blck_combatMode;
+	_grpPilot setCurrentWaypoint _wp;	
+	*/															
+	/*
 	for "_i" from 1 to 5 do
 	{
 		_pos = _coords getPos [15 + random (15), random(360)];	
@@ -193,6 +228,7 @@ if !(isNull _grpPilot)  then
 	_wp = _grpPilot addWaypoint [_coords,25];	
 	_wp setWaypointType "CYCLE";
 	_grpPilot setCurrentWaypoint [_grpPilot,0];
+	*/
 	
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then

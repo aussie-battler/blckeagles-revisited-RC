@@ -5,7 +5,14 @@
 	By Ghostrider-DBD-
 	Copyright 2016
 	Last updated 3-24-17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 	params["_v"];
 	//diag_log format["_fnc_releastVehicletoPlayers.sqf: removing vehicle %1 from ",_v,blck_missionVehicles];	

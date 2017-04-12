@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 3/20/17
+	Last modified 4/11/17
 	
 	--------------------------
 	License
@@ -13,6 +13,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 private ["_abort","_crates","_aiGroup","_objects","_groupPatrolRadius","_missionLandscape","_mines","_blck_AllMissionAI","_blck_localMissionMarker","_AI_Vehicles","_timeOut","_aiDifficultyLevel"];
 params["_coords","_mission",["_allowReinforcements",true]];
 diag_log format["_missionSpawner (18)::  _allowReinforcements = %1",_allowReinforcements];
@@ -246,6 +247,7 @@ if (blck_debugLevel > 0) then
 
 _temp = [[],[],false];
 _abort = false;
+private["_patrolVehicles"];
 if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 {
 	_temp = [_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
@@ -262,13 +264,13 @@ if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 	};
 	if !(_abort) then
 	{
-		_objects append (_temp select 0);
-		_blck_AllMissionAI append (_temp select 1);
+		_patrolVehicles = _temp select 0;
+		//_blck_AllMissionAI append (_temp select 1);
 
 		#ifdef blck_debugMode
 		if (blck_debugLevel > 0) then
 		{
-			diag_log format["[blckeagls] missionSpawner:: (216) Vehicle Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+			diag_log format["[blckeagls] missionSpawner:: (272) Vehicle Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 		};
 		#endif
 
@@ -277,7 +279,6 @@ if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 
 if (_abort) exitWith 
 {
-
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {
 		diag_log "missionSpawner:: (222) grpNull returned, mission termination criteria met, calling blck_endMission";
@@ -323,7 +324,7 @@ if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 	if !(_abort) then
 	{
 		_objects append (_temp select 0);
-		_blck_AllMissionAI append (_temp select 1);
+		//_blck_AllMissionAI append (_temp select 1);
 
 		#ifdef blck_debugMode
 		if (blck_debugLevel > 0) then
@@ -342,7 +343,7 @@ if (_abort) exitWith
 	};
 	#endif
 
-	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true] call blck_fnc_endMission;
+	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
 };
 
 if (_allowReinforcements) then
@@ -380,7 +381,7 @@ if (_allowReinforcements) then
 		};
 		#endif
 
-		[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true] call blck_fnc_endMission;
+		[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
 	};
 };
 // Trigger for mission end
@@ -423,7 +424,7 @@ if (blck_debugLevel > 0) then
 //diag_log format["[blckeagls] missionSpawner:: (418) calling endMission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
 private["_result"];
-_result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,false] call blck_fnc_endMission;
+_result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,false,_patrolVehicles] call blck_fnc_endMission;
 
 //diag_log format["[blckeagls] missionSpawner:: (420)end of mission: blck_fnc_endMission returned value of %1","pending"];
 

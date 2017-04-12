@@ -3,7 +3,14 @@
 	Last Modified 3/23/17
 	By Ghostrider-DBD-
 	Copyright 2016
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_group","_isLegal","_weapon","_lastkill","_kills","_message","_killstreakMsg"];
 params["_unit","_killer","_isLegal"];

@@ -4,7 +4,14 @@
 	Code fragment adapted from VEMF
 	call as [_unit,_killer] call blck_fnc_rewardKiller;
 	Last modified 1/22/17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_unit","_killer","_kills"];
 //diag_log format["rewardKiller::  _unit = %1 and _killer %2",_unit,_killer];

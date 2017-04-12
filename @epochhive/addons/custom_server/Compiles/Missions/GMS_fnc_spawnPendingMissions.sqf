@@ -4,7 +4,16 @@
 	Copyright 2016
 	Last modified 3/20/17
 	checks the status of each entry in 
+/*
+	By Ghostrider-DbD-
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then {

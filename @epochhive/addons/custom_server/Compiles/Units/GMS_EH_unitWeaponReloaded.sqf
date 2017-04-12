@@ -1,5 +1,10 @@
 /*
 
+    Handle case where a unit reloads weapon.
+    This was used in place of fired event handlers to add realism and deal with issues with the arma engine post v1.64
+    By Ghostrider-DbD-
+    Last modified 4-11-17
+
 	https://community.bistudio.com/wiki/Arma_3:_Event_Handlers/Reloaded
 	
 	The EH returns array in _this variable of the following format [entity, weapon, muzzle, newMagazine, (oldMagazine)], where:
@@ -13,7 +18,14 @@
         magazineID: Number - global magazine id
         magazineCreator: Number - owner of the magazine creator	
 	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 //private ["_unit","_mag"];
 //_unit = _this select 0;

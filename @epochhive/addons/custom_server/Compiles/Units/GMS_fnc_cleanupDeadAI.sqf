@@ -2,7 +2,14 @@
   Delete Dead AI and nearby weapons after an appropriate period.
   by Ghostrider
   Last updated 1/24/17   
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["fnc_cleanupDeadAI called at time %1",diag_tickTime];};

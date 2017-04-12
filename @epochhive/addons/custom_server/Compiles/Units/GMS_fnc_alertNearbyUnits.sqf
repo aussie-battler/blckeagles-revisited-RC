@@ -1,8 +1,16 @@
 /*
 	by Ghostrider
 	9-20-15
-	Because this is p-ecompiled there is less concern about keeping comments in.
+	Allerts all units within a certain radius of the location of a killer.
+	**  Not in use at this time; reserved for the future  **
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_alertDist","_intelligence"];
 params["_unit","_killer"];

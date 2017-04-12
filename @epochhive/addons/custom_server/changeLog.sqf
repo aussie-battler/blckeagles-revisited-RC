@@ -4,11 +4,14 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-4/6/17 Version 6.58 Build 50
+4/6/17 Version 6.58 Build 53
 [Added] A FAQ presenting an overview of the mission system and addons.
+[Changed] Helicopter crew reverted to that from Build 46.
 [Fixed] Mission timouts would prevent new missions from spawning after a while.
 [Fixed] blck_timeAcceleration now determines if time acceleration is activated.
 [Fixed] Missions did not complete correctly under certain circumstances.
+[Fixed] Mission vehicles were not properly deleted, unlocked or otherwise handled at misison end or when AI crew were killed.
+[Issues] Throws errors when evaluating errors related to certain disallowed types of kills.
 
 3/23/17 Verision 6.58 build 48
 Turned debugging off

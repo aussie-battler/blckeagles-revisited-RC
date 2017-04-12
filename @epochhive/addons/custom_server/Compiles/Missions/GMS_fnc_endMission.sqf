@@ -16,9 +16,9 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false]];
-	diag_log format["_fnc_endMission:  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _aborted %4",_blck_localMissionMarker,_coords,_mission,_aborted];
-	uisleep 0.1;
+	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false],["_patrolVehicles",[]]];
+	//diag_log format["_fnc_endMission:  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _aborted %4",_blck_localMissionMarker,_coords,_mission,_aborted];
+	//uisleep 0.1;
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {
 		diag_log format["_fnc_endMission:  _aborted = %1",_aborted];
@@ -79,6 +79,10 @@
 
 	[_objects, _cleanupCompositionTimer] spawn blck_fnc_addObjToQue;
 	//diag_log format["_fnc_endMission:: (26) _blck_AllMissionAI = %1",_blck_AllMissionAI];
+	{
+		_x setVariable["missionCompleted",diag_tickTime];
+		_x setVariable["cleanupTimer",_cleanupAliveAITimer];
+	} forEach _patrolVehicles;
 	[_blck_AllMissionAI, (_cleanupAliveAITimer)] spawn blck_fnc_addLiveAItoQue;
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];

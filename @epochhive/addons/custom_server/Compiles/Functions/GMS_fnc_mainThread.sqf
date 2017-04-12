@@ -9,7 +9,6 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-//#define DBDserver 1
 
 diag_log format["starting _fnc_mainThread with time = %1",diag_tickTime];
 

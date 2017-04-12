@@ -2,7 +2,16 @@
 	Check if an HC is connected and if so transfer some AI to it.
 	By Ghostrider-DbD-
 	Last modified 11-8-16
+/*
+	By Ghostrider-DbD-
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private _hc = missionNamespace getVariable["HC1","null"];
 diag_log format["monitorHC::->> _hc = %1",_hc];

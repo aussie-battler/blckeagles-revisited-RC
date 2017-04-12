@@ -1,7 +1,18 @@
 /*
 	By Ghostrider-DbD-
 	Last Modified 3-12-17
+
+	Handles the case where a unit is hit.
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 private ["_unit","_instigator","_group","_wp"];
 //diag_log format["_EH_AIHit::-->> _this = %1",_this];
 _unit = _this select 0 select 0;

@@ -9,7 +9,14 @@
 	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_missionPos","_paraGroup","_numAI","_skillAI","_weapons","_uniforms","_headGear",["_heli",objNull]];
 private["_arc","_dir","_spawnPos","_chute","_unit","_launcherType","_aborted"];

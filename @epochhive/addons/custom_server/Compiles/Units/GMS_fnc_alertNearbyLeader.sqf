@@ -1,8 +1,16 @@
 /*
 	by Ghostrider
 	4-5-17
+	Alerts the leader of a group of the location of an enemy.
 	 
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_knowsAbout","_intelligence","_group"];
 params["_unit","_target"];

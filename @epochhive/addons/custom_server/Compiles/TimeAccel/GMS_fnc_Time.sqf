@@ -12,8 +12,15 @@
 	blck_timeAccelerationDay = 1;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 6;  // Nighttim time acceleration
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 private ["_arr","_sunrise","_sunset","_time"];
 _arr = date call BIS_fnc_sunriseSunsetTime;
 _sunrise = _arr select 0;

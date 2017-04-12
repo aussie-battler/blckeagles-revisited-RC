@@ -4,7 +4,14 @@
 	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Buttface (A3XAI).
 	Everything having to do with spawning and configuring an AI should happen here
 	Last Modified 1/22/17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 //Defines private variables so they don't interfere with other scripts
 private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills",
