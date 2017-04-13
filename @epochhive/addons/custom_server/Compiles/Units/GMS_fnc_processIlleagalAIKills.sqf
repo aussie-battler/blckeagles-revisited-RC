@@ -1,6 +1,6 @@
 /*
 	by Ghostrider
-	1-22-17
+	4-12-17
 	--------------------------
 	License
 	--------------------------
@@ -18,7 +18,6 @@ _legal = true;
 
 _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
 	params["_vk","_unit"];
-	private
 	{
 		if (((position _x) distance (position _unit)) <= 350) then 
 		{

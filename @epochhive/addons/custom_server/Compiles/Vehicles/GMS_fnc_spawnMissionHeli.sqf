@@ -33,9 +33,9 @@ _helis = _this select 5;
 	5) return the _heli that was spawned.
 */
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then
+if (blck_debugLevel > 0) then
 {
-	diag_log format["_fnc_spawnMissionHeli (75):: _helis = %1",_helis];
+	diag_log format["_fnc_spawnMissionHeli (38):: _helis = %1",_helis];
 };
 #endif
 
@@ -54,7 +54,7 @@ if (isNull _grpParatroops) then
 		diag_log "BLCK_ERROR: _fnc_spawnMissionHeli::_->> NULL GROUP Returned for _grpParatroops";
 		_abort = true;
 };
-if !(isNull _grpPilot)  then
+if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 {
 	_grpPilot setBehaviour "COMBAT";
 	_grpPilot setCombatMode "RED";
@@ -73,9 +73,9 @@ if !(isNull _grpPilot)  then
 	_chopperType = selectRandom _helis;
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
-		diag_log format["_fnc_spawnMissionHeli (66):: _chopperType seleted = %1",_chopperType];
+		diag_log format["_fnc_spawnMissionHeli (78):: _chopperType seleted = %1",_chopperType];
 	};
 	#endif
 
@@ -88,16 +88,13 @@ if !(isNull _grpPilot)  then
 	_patrolHeli addEventHandler ["GetOut",{(_this select 0) setFuel 0;(_this select 0) setDamage 1;}];
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
-		diag_log format["_fnc_spawnMissionHeli (76):: heli %1 spawned",_patrolHeli];
+		diag_log format["_fnc_spawnMissionHeli (93):: heli %1 spawned",_patrolHeli];
 	};
 	#endif
 
-	clearWeaponCargoGlobal _patrolHeli;
-	clearMagazineCargoGlobal _patrolHeli;
-	clearItemCargoGlobal _patrolHeli;
-	clearBackpackCargoGlobal  _patrolHeli;
+	[_patrolHeli] call blck_fnc_emptyObject;
 
 	_launcherType = "none";
 	_unitPilot = _grpPilot createUnit ["I_helipilot_F", getPos _patrolHeli, [], 0, "FORM"];
@@ -108,16 +105,16 @@ if !(isNull _grpPilot)  then
 	_grpPilot selectLeader _unitPilot;
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
-		diag_log format["_fnc_spawnMissionHeli (90):: pilot %1 spawned",_unitPilot];
+		diag_log format["_fnc_spawnMissionHeli (113):: pilot %1 spawned",_unitPilot];
 	};
 	#endif
 
 	_turrets = allTurrets [_patrolHeli,false];
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
 		diag_log "_fnc_spawnMissionHeli (103): preparing to clear out blacklisted turrets";
 	};
@@ -133,7 +130,7 @@ if !(isNull _grpPilot)  then
 				_patrolHeli removeMagazines [_x,_turret];
 			} forEach _mags;
 			_patrolHeli removeWeaponTurret _turret;
-			if (blck_debugLevel > 2) then
+			if (blck_debugLevel > 1) then
 			{
 				diag_log format["_fnc_spawnMissionHeli (118)::-->> weapon %1 and its ammo removed from heli %2 for turret %3",_patrolHeli weaponsTurret _x,_patrolHeli, _x];
 			};
@@ -141,7 +138,7 @@ if !(isNull _grpPilot)  then
 		else
 		{
 			//  B_helicrew_F
-			_unitCrew = [[100,100,100],_weapons,_grpPilot,_skillAI,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
+			_unitCrew = [(getPosATL _patrolHeli),_weapons,_grpPilot,_skillAI,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
 			_unitCrew assignAsTurret [_patrolHeli, _x];
 			_unitCrew moveInTurret [_patrolHeli, _x];
 
@@ -152,7 +149,7 @@ if !(isNull _grpPilot)  then
 	}forEach _turrets;
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (133)::-->> Heli %1 outfited with a crew numbering %2",_patrolHeli, crew _patrolHeli];
 	};
@@ -166,12 +163,38 @@ if !(isNull _grpPilot)  then
 	};
 	
 	//set waypoint for helicopter
-	private["_wpDestination"];
+	private["_dir","_arc","_noWp","_wpradius","_newPos","_wp","_pos"];
 	//set waypoint for helicopter
-	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
-	[_coords,2,10,_grpPilot,"random",["SENTRY"]] call blck_fnc_setupWaypoints;
+
+	_dir = 0;
+	_arc = 30;
+	_noWp = 1;
+	_wpradius = 30;
+	_wp = [_grpPilot, 0];
+	_pos = getWPPos _wp;
+	_newPos = _pos getPos [(_minDis+(random (_maxDis - _minDis))), _dir];
 	
-	/*												
+	#ifdef wpModeMove
+	_wp setWaypointType "MOVE";
+	_wp setWaypointName "move";
+	_wp setWaypointTimeout [1,1.1,1.2];
+	_wp setWaypointStatements ["true","this call blck_fnc_setNextWaypoint;diag_log format['====Updating waypoint to for group %1',group this];"];
+	#else
+	_wp setWaypointType "SAD";
+	_wp setWaypointName "sad";
+	_wp setWaypointTimeout [20,25,30];
+	_wp setWaypointStatements ["true","this call blck_fnc_setNextWaypoint;diag_log format['====Updating waypointfor group %1',group this];"];
+	#endif
+
+	_wp setWaypointBehaviour "COMBAT";
+	_wp setWaypointCombatMode "RED";
+	//_wp setWaypointTimeout [1,1.1,1.2];
+	_grpPilot setCurrentWaypoint _wp;
+	
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	//[_coords,2,10,_grpPilot,"random",["SENTRY"]] call blck_fnc_setupWaypoints;
+	
+	/*										
 	_grpPilot setVariable["patrolCenter",_coords];
 	_grpPilot setVariable["minDis",10];
 	_grpPilot setVariable["maxDis",25];
@@ -202,7 +225,7 @@ if !(isNull _grpPilot)  then
 	_wp setWaypointBehaviour blck_groupBehavior;
 	_wp setWaypointCombatMode blck_combatMode;
 	_grpPilot setCurrentWaypoint _wp;	
-	*/															
+	*/												
 	/*
 	for "_i" from 1 to 5 do
 	{
@@ -231,9 +254,19 @@ if !(isNull _grpPilot)  then
 	*/
 	
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
 		diag_log format["_fnc_spawnMissionHeli (153):: initial pilot waypoints set"];
+		[_patrolHeli] spawn {
+			params["_patrolHeli"];
+			diag_log "_fnc_spawnMissionHeli:-> spawning crew monitoring loop";
+			while {!isNull _patrolHeli} do
+			{
+				uiSleep 10;
+				diag_log format["_fnc_spawnMissionHeli:-> heli %1 has %2 crew alive",_patrolHeli, {alive _x} count crew _patrolHeli];
+				diag_log format["_fnc_spawnMissionHeli:-> heli %1 fullCrew = %2",_patrolHeli, fullCrew _patrolHeli];
+			};
+		};
 	};
 	#endif
 
@@ -243,7 +276,7 @@ _ai = (units _grpParatroops) + (units _grpPilot);
 _return = [_patrolHeli,_ai,_abort];
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then
+if (blck_debugLevel > 0) then
 {
 	diag_log format["_fnc_spawnMissionHeli:: function returning value for _return of %1",_return];
 };
