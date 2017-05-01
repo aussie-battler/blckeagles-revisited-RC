@@ -37,9 +37,9 @@ if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then  // Deal w
 		} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
 		_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 	} else {
-		if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: case of release vehicle = %1 to player with blck_missionVehicles = %2",_veh, blck_missionVehicles];};	
-		blck_missionVehicles = blck_missionVehicles - [_veh];
-		if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: blck_missionVehicles updated to %1", blck_missionVehicles];};	
+		if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: case of release vehicle = %1 to player with blck_monitoredVehicles = %2",_veh, blck_monitoredVehicles];};	
+		blck_monitoredVehicles = blck_monitoredVehicles - [_veh];
+		if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: blck_monitoredVehicles updated to %1", blck_monitoredVehicles];};	
 		[_veh] call blck_fnc_releaseVehicleToPlayers;
 	};
 };

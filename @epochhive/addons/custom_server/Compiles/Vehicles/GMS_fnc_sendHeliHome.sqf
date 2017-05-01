@@ -3,15 +3,7 @@
 	Inspiration: blckeagls / A3EAI / VEMF / IgiLoad / SDROP
 	License: Attribution-NonCommercial-ShareAlike 4.0 International
 	Last Modified 1/23/17
-	--------------------------
-	License
-	--------------------------
-	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
-
-	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-#include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
 params["_grpPilot"];
 private["_heli","_pilot"];
 _pilot = (units _grpPilot) select 0;

@@ -80,6 +80,7 @@ if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 	#endif
 
 	_patrolHeli = createVehicle [_chopperType, _coords, [], 90, "FLY"];
+	_grpPilot setVariable["groupVehicle",_patrolHeli];
 	[_patrolHeli] call blck_fnc_protectVehicle;
 	_patrolHeli setFuel 1;
 	_patrolHeli engineOn true;
@@ -163,96 +164,9 @@ if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 	};
 	
 	//set waypoint for helicopter
-	private["_dir","_arc","_noWp","_wpradius","_newPos","_wp","_pos"];
-	//set waypoint for helicopter
-
-	_dir = 0;
-	_arc = 30;
-	_noWp = 1;
-	_wpradius = 30;
-	_wp = [_grpPilot, 0];
-	_pos = getWPPos _wp;
-	_newPos = _pos getPos [(_minDis+(random (_maxDis - _minDis))), _dir];
+	[_coords,30,35,_grpPilot,"random","SENTRY"] spawn blck_fnc_setupWaypoints;
 	
-	#ifdef wpModeMove
-	_wp setWaypointType "MOVE";
-	_wp setWaypointName "move";
-	_wp setWaypointTimeout [1,1.1,1.2];
-	_wp setWaypointStatements ["true","this call blck_fnc_setNextWaypoint;diag_log format['====Updating waypoint to for group %1',group this];"];
-	#else
-	_wp setWaypointType "SAD";
-	_wp setWaypointName "sad";
-	_wp setWaypointTimeout [20,25,30];
-	_wp setWaypointStatements ["true","this call blck_fnc_setNextWaypoint;diag_log format['====Updating waypointfor group %1',group this];"];
-	#endif
-
-	_wp setWaypointBehaviour "COMBAT";
-	_wp setWaypointCombatMode "RED";
-	//_wp setWaypointTimeout [1,1.1,1.2];
-	_grpPilot setCurrentWaypoint _wp;
-	
-	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
-	//[_coords,2,10,_grpPilot,"random",["SENTRY"]] call blck_fnc_setupWaypoints;
-	
-	/*										
-	_grpPilot setVariable["patrolCenter",_coords];
-	_grpPilot setVariable["minDis",10];
-	_grpPilot setVariable["maxDis",25];
-	_grpPilot setVariable["timeStamp",diag_tickTime];
-	_grpPilot setVariable["arc",0];
-	_grpPilot setVariable["wpRadius",30];
-	//_grpPilot setVariable["wpMode",_mode];
-
-	_dir = 0;
-	_arc = 30;
-	_noWp = 1;
-	_wpradius = 30;
-	_newPos = _pos getPos [(_minDis+(random (_maxDis - _minDis))), _dir];
-	_wp = [_grpPilot, 0];
-
-	#ifdef wpModeMove
-	_wp setWaypointType "MOVE";
-	_wp setWaypointName "move";
-	_wp setWaypointTimeout [1,1.1,1.2];
-	_wp setWaypointStatements ["true","this call blck_fnc_changeToSADWaypoint;diag_log format['====Updating waypoint to SAD for group %1',group this];"];
-	#else
-	_wp setWaypointType "SAD";
-	_wp setWaypointName "sad";
-	_wp setWaypointTimeout [20,25,30];
-	_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;diag_log format['====Updating waypoint to Move for group %1',group this];"];
-	#endif
-
-	_wp setWaypointBehaviour blck_groupBehavior;
-	_wp setWaypointCombatMode blck_combatMode;
-	_grpPilot setCurrentWaypoint _wp;	
-	*/												
-	/*
-	for "_i" from 1 to 5 do
-	{
-		_pos = _coords getPos [15 + random (15), random(360)];	
-		if (_i == 1) then
-		{
-			_wp = [_grpPilot, 0];
-			_wp setWPPos _pos;
-		} else {
-			_wp = _grpPilot addWaypoint [_pos, 25];	
-		};
- 
-		_wp setWaypointType "SAD";
-		_wp setWaypointSpeed "NORMAL";
-		_wp setWaypointBehaviour "AWARE";
-		//[_grpPilot, 0] setWaypointStatements ["true","[group this, 0] setCurrentWaypoint [group this,0];"];
-		_wp setWaypointTimeout [20,30,40];
-		_wp = _grpPilot addWaypoint [_coords,25];
-		_wp setWaypointType "MOVE";
-		_wp setWaypointBehaviour "AWARE";
-		_wp setWaypointTimeout [1, 1.1, 1.2];
-	};
-	_wp = _grpPilot addWaypoint [_coords,25];	
-	_wp setWaypointType "CYCLE";
-	_grpPilot setCurrentWaypoint [_grpPilot,0];
-	*/
-	
+	blck_monitoredMissionAIGroups pushBack _grpPilot;
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{
@@ -262,7 +176,7 @@ if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 			diag_log "_fnc_spawnMissionHeli:-> spawning crew monitoring loop";
 			while {!isNull _patrolHeli} do
 			{
-				uiSleep 10;
+				uiSleep 120;
 				diag_log format["_fnc_spawnMissionHeli:-> heli %1 has %2 crew alive",_patrolHeli, {alive _x} count crew _patrolHeli];
 				diag_log format["_fnc_spawnMissionHeli:-> heli %1 fullCrew = %2",_patrolHeli, fullCrew _patrolHeli];
 			};

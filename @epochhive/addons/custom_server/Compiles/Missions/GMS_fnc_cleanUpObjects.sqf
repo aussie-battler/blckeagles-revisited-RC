@@ -6,7 +6,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 1-24-17
+	Last Modified 4-11-17
 	
 	--------------------------
 	License
@@ -25,20 +25,11 @@ _fn_deleteObjects = {
 	#endif
 
 	{
-		if ((typeOf _x) isKindOf "LandVehicle") then
-		{
-			if !(_x getVariable["releasedToPlayers",false]) then
-			{
-				private _crew = crew _x;
-				{
-					[_x] call blck_fnc_deleteAI;
-				}forEach _crew;
-			};
-			_x setVariable["blck_DeleteAt",0];  // Schedule it to be deleted by fnc_vehicleMonitor immediately
-		} else {
-			if (blck_debugLevel > 1) then {diag_log format["_fnc_cleanUpObjects: -> deleting object %1",_x];};
-			deleteVehicle _x;
-		};
+		#ifdef blck_debugMode
+		if (blck_debugLevel > 1) then {diag_log format["_fnc_cleanUpObjects: -> deleting object %1",_x];};
+		#endif
+		
+		deleteVehicle _x;
 	} forEach _objects;
 };
 

@@ -17,8 +17,10 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-//diag_log format["_fnc_waypointMonitor::-->> running function at diag_tickTime = %1 with blck_fnc_missionGroupMonitor = %2",diag_tickTime,blck_monitoredMissionAIGroups];
-
+//diag_log format["_fnc_missionGroupMonitor (4/29:4:09 PM)::-->> running function at diag_tickTime = %1 with blck_fnc_missionGroupMonitor = %2",diag_tickTime,blck_monitoredMissionAIGroups];
+#ifdef blck_debugMode
+	//diag_log format["_fnc_missionGroupMonitor:: blck_debugMode defined"];
+#endif
 _fn_allPlayers = {
 	private ["_players"];
 	_players = [];
@@ -75,43 +77,90 @@ _fn_removeEmptyOrNullGroups = {
 
 _fn_monitorGroupWaypoints = {
 	{
-		private["_timeStamp","_index","_unit"];
+		private["_timeStamp","_index","_unit","_soldierType"];
 		
 		_timeStamp = _x getVariable ["timeStamp",0];
 		if (_timeStamp isEqualTo 0) then {
-			_group setVariable["timeStamp",diag_tickTime];
-			//diag_log format["_fn_monitorGroupWaypoints::--> updating timestamp for group %1 at time %2",__x,diag_tickTime];
+			_x setVariable["timeStamp",diag_tickTime];
+			//diag_log format["_fn_monitorGroupWaypoints::--> updating timestamp for group %1 at time %2",_x,diag_tickTime];
 		};
-		if (diag_tickTime > (_x getVariable "timeStamp") + 300) then
+		_soldierType = _x getVariable["soldierType","null"];
+		//diag_log format["_fn_monitorGroupWaypoints::--> soldierType for group %1 = %2 and timeStamp = %3",_x,_soldierType,_timeStamp];
+		
+		if (_soldierType isEqualTo "infantry") then
 		{
-			if !([_x] call _fn_inCombat) then
+			if (diag_tickTime > (_x getVariable "timeStamp") + 60) then
 			{
 				_units = [_x] call _fn_aliveGroupUnits;
 				if (count _units > 0) then
 				{
-					_u = _units select 0;
-					if (vehicle _u isEqualTo _u) then  // Only do this for foot patrols at present.
+					private _leader = leader _x;
+					(_leader) call blck_fnc_changeToMoveWaypoint;
+					#ifdef blck_debugMode
+					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: infantry group %1 stuck, waypoint reset",_x];};
+					#endif
+					/*
+					if ( (getPos _leader) distance2d (_group getVariable "patrolCenter") > 200) then 
 					{
-						_index = currentWaypoint _x;
-						if ( (waypointName [_x, _index]) isEqualTo "move") then {
-							//diag_log format["_fn_monitorGroupWaypoints::  -- >> updating waypoint for group %1 to SAD at %2",_x,diag_tickTime];
-							[_u] call blck_fnc_changetoSADWaypoint;
-						};
-						if ( (waypointName [_x, _index])isEqualTo "sad") then {
-							//diag_log format["_fn_monitorGroupWaypoints::  -- >> updating waypoint for group %1 to Move at %2",_x,diag_tickTime];
-							[_u] call blck_fnc_changeToMoveWaypoint;
-						};
+
 					};
+					*/
 				};
+
 			};
 		};
+		if (_soldierType isEqualTo "vehicle") then
+		{
+			if (diag_tickTime > (_x getVariable "timeStamp") + 60) then
+			{
+				_units = [_x] call _fn_aliveGroupUnits;
+				if (count _units > 0) then
+				{
+					private _leader = leader _x;
+					(_leader) call blck_fnc_changeToMoveWaypoint;
+					#ifdef blck_debugMode
+					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: vehicle group %1 stuck, waypoint reset",_x];};
+					#endif
+					/*
+					if ( (getPos _leader) distance2d (_group getVariable "patrolCenter") > 200) then 
+					{
+					};
+					*/
+				};
+
+			};
+		};
+		if (_soldierType isEqualTo "helicopter") then
+		{
+			if (diag_tickTime > (_x getVariable "timeStamp") + 60) then
+			{
+				_units = [_x] call _fn_aliveGroupUnits;
+				if (count _units > 0) then
+				{
+					private _leader = leader _x;
+					(_leader) call blck_fnc_changeToMoveWaypoint;
+					#ifdef blck_debugMode
+					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: helicopter group %1 stuck, waypoint reset",_x];};
+					#endif
+					/*
+					if ( (getPos _leader) distance2d (_group getVariable "patrolCenter") > 200) then 
+					{
+						
+					};
+					*/
+				};
+
+			};
+		};		
 	} forEach blck_monitoredMissionAIGroups;
 };
 
 ////////
 //  Start of main function
 ////////
-//diag_log format["_fnc_missionGroupMonitor: executing function at %1",diag_tickTime];
-uiSleep 0.1;
+#ifdef blck_debugMode
+if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: executing function at %1",diag_tickTime];};
+#endif
 [] call _fn_removeEmptyOrNullGroups;
+uiSleep 0.1;
 [] call _fn_monitorGroupWaypoints;

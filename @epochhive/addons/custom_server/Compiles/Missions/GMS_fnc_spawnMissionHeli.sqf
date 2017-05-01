@@ -37,6 +37,8 @@ _grpPilot allowFleeing 0;
 private["_supplyHeli"];
 //create helicopter and spawn it
 _supplyHeli = createVehicle [_chopperType, _spawnPos, [], 90, "FLY"];
+blck_monitoredVehicles pushback _supplyHeli;
+
 [_supplyHeli] call blck_fnc_protectVehicle;
 /*
 if ([] call blck_fnc_getModType isEqualTo "Epoch") then
@@ -68,15 +70,8 @@ diag_log format["_fnc_missionSpawner:: heli spawned and pilot added"];
 #endif
 
 //set waypoint for helicopter
-private["_wpDestination"];
-[_grpPilot, 0] setWPPos _coords; 
-[_grpPilot, 0] setWaypointType "MOVE";
-[_grpPilot, 0] setWaypointSpeed "FULL";
-[_grpPilot, 0] setWaypointBehaviour "CARELESS";
-[_grpPilot, 0] setWaypointCompletionRadius 30;
-[_grpPilot, 0] setWaypointStatements ["true","[this, 0] setWaypointName ""done"" ;"];
-[_grpPilot,0] setWaypointTimeout [0.5,0.5,0.5];
-_grpPilot setCurrentWaypoint [_grpPilot,0];
+//params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAD"],["_soldierType","null"] ];
+[_coords,25,40,_grpPilot,"random","SAD","helicpoter"] spawn blck_fnc_setupWaypoints;
 
 #ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: initial pilot waypoints set"];

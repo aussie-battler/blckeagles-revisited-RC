@@ -24,7 +24,12 @@ _objs = [];
 {
 	_x params["_crateType","_crateOffset","_lootArray","_lootCounts"];
 	//_pos = [(_coords select 0)+(_crateOffset select 0),(_coords select 1) + (_crateOffset select 1),(_coords select 2)+(_crateOffset select 2)]; // calculate the world coordinates
-	diag_log format["_fnc_spawnMissionCrates: _crateType = %1 | _crateOffset = %2 | _lootArray = %3 | _lootCounts = %4",_crateType,_crateOffset,_lootArray,_lootCounts];
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 1) then
+	{
+		diag_log format["_fnc_spawnMissionCrates: _crateType = %1 | _crateOffset = %2 | _lootArray = %3 | _lootCounts = %4",_crateType,_crateOffset,_lootArray,_lootCounts];
+	};
+	#endif
 	_pos = _coords vectorAdd _crateOffset;
 	_crate = [_pos,_crateType] call blck_fnc_spawnCrate;
 	_objs pushback _crate;

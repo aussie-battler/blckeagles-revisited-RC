@@ -26,13 +26,12 @@ blck_locationBlackList = [];
 blck_monitoredVehicles = [];
 blck_livemissionai = [];
 blck_monitoredMissionAIGroups = [];  //  Used to track groups in active missions for whatever purpose
-blck_liveMissionAIGroups = [];  // Used to track groups assigned to completed missions for eventual cleanup.
 blck_oldMissionObjects = [];
 blck_pendingMissions = [];
 blck_missionsRunning = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
-blck_missionVehicles = [];
+
 
 // Arrays for use during cleanup of alive AI at some time after the end of a mission
 DBD_HeliCrashSites = [];

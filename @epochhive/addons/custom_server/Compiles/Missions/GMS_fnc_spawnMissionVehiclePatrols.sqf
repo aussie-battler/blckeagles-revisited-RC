@@ -33,35 +33,42 @@ _vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPosit
 {
 	private ["_spawnPos"];
 	_spawnPos = _x;
-	_vehGroup = [_spawnPos,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear] call blck_fnc_spawnGroup;
+	_vehGroup = [_spawnPos,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
 	if (isNull _vehGroup) exitWith 
 	{
 		_abort = true;
 	};
-
-	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then 
+	if !(isNull _vehGroup) then
 	{
+		blck_monitoredMissionAIGroups pushBack _vehGroup;
+	};
+
+	
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 1) then 
+	{
+		diag_log format["_fnc_spawnMissionVehiclePatrols: group spawned = %1",_vehGroup];
 		diag_log format["_fnc_spawnMissionVehiclePatrols (40):: -> _missionType = %3 _vehGroup = %1 and units _vehGroup = %2",_vehGroup, units _vehGroup,_missionType];
 	};
 	#endif
 
 	_randomVehicle = selectRandom blck_AIPatrolVehicles;
-
+	
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then 
+	if (blck_debugLevel > 1) then 
 	{
+		diag_log format["_fnc_spawnMissionVehiclePatrols: _randomVehicle = %1",_randomVehicle];
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: -> randomly selected vehicle = %1",_randomVehicle];
 	};	
 	#endif
 
 	//params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull]];
-	_patrolVehicle = [_coords,_spawnPos,_randomVehicle,30,45,_vehGroup] call blck_fnc_spawnVehiclePatrol;
+	_patrolVehicle = [_coords,_spawnPos,_randomVehicle,35,45,_vehGroup] call blck_fnc_spawnVehiclePatrol;
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
-		diag_log format["_fnc_spawnMissionVehiclePatrols:: - > patrol vehicle spawned was %1",_patrolVehicle];
+		diag_log format["_fnc_spawnMissionVehiclePatrols (65):: - > patrol vehicle spawned was %1",_patrolVehicle];
 	};
 	#endif
 
@@ -72,7 +79,7 @@ _vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPosit
 	};
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 1) then
 	{
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: -- > _vehicles updated to %1",_vehicles];
 	};
@@ -80,7 +87,7 @@ _vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPosit
 	
 } forEach _vehiclePatrolSpawns;
 
-blck_missionVehicles append _vehicles; 
+blck_monitoredVehicles append _vehicles; 
 _return = [_vehicles, _missionAI, _abort];
 
 _return

@@ -30,6 +30,7 @@ if (isNull _paraGroup) then
 {
 	_aborted = true;
 } else {
+	_paraGroup setVariable["groupVehicle",objNull];
 	_launcherType = "none";
 	private ["_arc","_spawnPos"];
 	_arc = 45;
@@ -47,15 +48,26 @@ if (isNull _paraGroup) then
 		_unit moveInDriver _chute;
 		_unit allowDamage true;
 		_dir = _dir + _arc;
-		diag_log format["_fnc_spawnParaUnits:: spawned unit %1, at location %2 and vehicle _unit %1",_unit,getPos _unit, vehicle _unit];
+		
+		#ifdef blck_debugMode
+		if (blck_debugLevel > 1) then
+		{
+			diag_log format["_fnc_spawnParaUnits:: spawned unit %1, at location %2 and vehicle _unit %1",_unit,getPos _unit, vehicle _unit];
+		};
+		#endif
+		
 		uiSleep 2;
 	};
 	_paraGroup selectLeader ((units _paraGroup) select 0);
 	//params["_pos","_minDis","_maxDis","_group"];
-	[_missionPos,10,20,_paraGroup] call blck_fnc_setupWaypoints;
-
+	//  [_pos,_minDist,_maxDist,_groupSpawned,"random","SAD"] spawn blck_fnc_setupWaypoints;
+	[_missionPos,20,30,_paraGroup,"random","SAD","paraUnits"] call blck_fnc_setupWaypoints;
+	blck_monitoredMissionAIGroups pushback _paraGroup;
 	#ifdef blck_debugMode
-	diag_log "_fnc_spawnParaUnits (44):  All Units spawned";
+	if (blck_debugLevel > 1) then
+	{
+		diag_log "_fnc_spawnParaUnits (44):  All Units spawned";
+	};
 	#endif
 
 };

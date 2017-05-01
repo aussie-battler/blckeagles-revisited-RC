@@ -91,8 +91,9 @@ if ( (random(1) < _chanceParatroops)) then
 	_aborted = [_coords,_grpParatroops,_noPara,_skillAI,_weapons,_uniforms,_headGear,_heli] call blck_fnc_spawnParaUnits;
 	//diag_log format["_fnc_spawnMissionParatroops:  blck_fnc_spawnParaUnits returned a value of %1",_aborted];
 };
-
+#ifdef blck_debugMode
 diag_log format["_fnc_spawnMissionParatroops:  _aborted = %1",_aborted];
+#endif
 if (_aborted) then
 {
 	_return = [[],true];

@@ -23,15 +23,14 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-_fn_removeVehicleFromVehicleMonitoring = {
-	params["_veh"];
-	blck_missionVehicles = blck_missionVehicles - [_veh];
-};
+//diag_log "_fnc_vehicleMonitor: starting function";
+#ifdef blck_debugMode
+	//diag_log format["_fnc_vehicleMonitor:: blck_debugMode defined"];
+#endif
 
 _fn_releaseVehicle = {
 	params["_v"];
-	//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from _v %1",_v];	
-	[_v] call _fn_removeVehicleFromVehicleMonitoring;
+	blck_monitoredVehicles = blck_monitoredVehicles - [_veh];
 	_v setVehicleLock "UNLOCKED" ;
 	//_v setVariable["releasedToPlayers",true];
 	[_v] call blck_fnc_emptyObject;
@@ -40,20 +39,11 @@ _fn_releaseVehicle = {
 	} forEach ["GetIn","GetOut","fired","hit","hitpart","reloaded","dammaged","HandleDamage"];
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel > 3) then
 	{
 		diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_v];
 	};
 	#endif
-};
-
-_fn_deleteAIvehicle = {
-	params["_veh"];
-	{
-		_veh removeAllEventHandlers _x;
-	}forEach ["Hit","HitPart","GetIn","GetOut","Fired","FiredNear"];
-	[_veh] call _fn_removeVehicleFromVehicleMonitoring;			
-	deleteVehicle _veh;
 };
 
 _fn_destroyVehicleAndCrew = {
@@ -61,7 +51,7 @@ _fn_destroyVehicleAndCrew = {
 	private["_crew"];
 	_crew = crew _veh;
 	{[_x] call blck_fnc_deleteAI;} forEach _crew;
-	[_veh] call _fn_deleteAIvehicle;
+	[_veh] call blck_fn_deleteAIvehicle;
 };
 
 _fn_reloadAmmo = {
@@ -91,16 +81,30 @@ _fn_reloadAmmo = {
 		} forEach _crew;
 	};
 };
-
+blck_fn_deleteAIvehicle = {
+	params["_veh"];
+	{
+		_veh removeAllEventHandlers _x;
+	}forEach ["Hit","HitPart","GetIn","GetOut","Fired","FiredNear"];
+	blck_monitoredVehicles = blck_monitoredVehicles - [_veh];			
+	deleteVehicle _veh;
+};
 private ["_veh","_vehList"];
-_vehList = blck_missionVehicles;
+_vehList = +blck_monitoredVehicles;
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
+if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];};
 #endif
 
 {
 	_veh = _x; // (purely for clarity at this point, _x could be used just as well)
+	
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 3) then 
+	{
+		diag_log format["_fnc_vehicleMonitor: vehicle %1 with missionCompleted = %2 being evaluated",_x, _x getVariable"missionCompleted",0];
+	};
+	#endif
 	private["_evaluate"];
 	_evaluate = true;
 	// Case where vehicle has been marked for deletion after a certain time.
@@ -118,7 +122,7 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 			if (blck_killEmptyStaticWeapons) then
 			{
 				#ifdef blck_debugMode
-				if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
+				if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
 				#endif
 
 				_veh setDamage 1;
@@ -154,7 +158,7 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 			private["_cleanupTimer"];
 			_cleanupTimer = _veh getVariable["cleanupTimer",0];  // The time delat to deleting any alive AI units
 			//  "missionCompleted" = the time at which the mission was completed or aborted
-			if (diag_tickTime > (_cleanupTimer + (_veh getVariable["missionCompleted",0])) ) then 
+			if (diag_tickTime > ((blck_AliveAICleanUpTimer - 70) + (_veh getVariable["missionCompleted",0])) ) then 
 			{
 				[_veh] call _fn_destroyVehicleAndCrew;
 				_evaluate = false;

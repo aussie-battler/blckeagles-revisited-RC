@@ -324,7 +324,7 @@ if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 	if !(_abort) then
 	{
 		_objects append (_temp select 0);
-		//_blck_AllMissionAI append (_temp select 1);
+		_blck_AllMissionAI append (_temp select 1);
 
 		#ifdef blck_debugMode
 		if (blck_debugLevel > 0) then
@@ -352,7 +352,10 @@ if (_allowReinforcements) then
 	temp = [];
 
 	#ifdef blck_debugMode
-	diag_log format["[blckeagls] missionSpawner:: (268) calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	if (blck_debugLevel > 1) then
+	{
+		diag_log format["[blckeagls] missionSpawner:: (268) calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	};
 	#endif
 	
 	//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];

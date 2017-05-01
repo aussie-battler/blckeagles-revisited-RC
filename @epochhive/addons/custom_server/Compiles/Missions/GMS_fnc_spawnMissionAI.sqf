@@ -47,7 +47,7 @@
 				};
 				#endif
 
-				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,3,18,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,25,30,_uniforms,_headGear,true] call blck_fnc_spawnGroup;
 				
 				#ifdef blck_debugMode
 				if (blck_debugLevel > 2) then
@@ -63,7 +63,7 @@
 				else
 				{
 					_newAI = units _newGroup;
-
+					blck_monitoredMissionAIGroups pushback _newGroup;
 					#ifdef blck_debugMode
 					if (blck_debugLevel > 2) then
 					{
@@ -72,6 +72,7 @@
 					#endif
 					
 					_blck_AllMissionAI append _newAI;
+					
 				};
 			 };
 		case 2: {
@@ -93,7 +94,7 @@
 					} else {
 						_adjusttedGroupSize = _unitsPerGroup;
 					};
-					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,15,25,_uniforms,_headGear] call blck_fnc_spawnGroup;
 					if (isNull _newGroup) then 
 					{
 						_abort = true;
@@ -124,7 +125,7 @@
 				#endif
 
 
-				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,10,15,_uniforms,_headGear] call blck_fnc_spawnGroup;
 				if (isNull _newGroup) then 
 				{
 					_abort = true;

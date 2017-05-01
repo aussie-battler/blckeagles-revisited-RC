@@ -1,11 +1,18 @@
-Core Mission System.
+This addon includes several modules which will be discussed in the following order: 
+1. The core, dynamic mission system
+2. A static mission system (WIP)
+3. A custom time acceleration module
+4. A module to execute scripts for custom bases and so forths.
+5. A module to spawn loot crates in specific locations at server startup.
+
+1. Core Mission System.
 
 The core mission system is configured to run 4 different classes of mission (Blue, Red, Green and Orange) simultaneously.
 Reducing value for 	...\custom_serer\configs\blck_configs.sqf\blck_maxSpawnedMissions will reduce the number of missions running on the server.
 
-General settings include the ability set whether and how messages to players regarding missions spawned or completed are displayed,
+General settings include:
+	 the ability set whether and how messages to players regarding missions spawned or completed are displayed,
 	whether and how messages to players regarding killed AI are displayed
-	
 	Number of AI groups;
 	Number of AI per group;
 	AI skills;
@@ -13,7 +20,12 @@ General settings include the ability set whether and how messages to players reg
 	Number and type of armed vehicle patrols.
 	Presence of AI helicopter patrols.
 	Whether such patrols drop AI reinforcements.
-
+	Whether vehicles are destroyed when AI are killed
+	Whether static weapons are destroyed when AI are killed.
+	Whether AI spawn with NVG or launchers and what types they spawn with.
+	Whether NVG or launchers are deleted.
+	Whether players are penalized for running over AI.
+	
 	Loot can also be configured for each mission class. You can modify the number of weapons, magazines, items, construction materials, etc. 
 	You can also adjust the choices for each of these types of items.
 	The equipment selected for each class of mission can also be specified.
@@ -23,7 +35,7 @@ General settings include the ability set whether and how messages to players reg
 
 Where possible, I have tried group weapons based on desirability from low rank (5.56 ammo) to high rank (7.6 caliber or larger, large bore sniper, heavy LMG) then combine these groups to define parameters as needed.
 
-The missions themselves are spawned from templates which can be used to define:
+The missions themselves are spawned from templates which can be used to define most aspects of the missions including:
  the messages sent to players; 
  text used to label the mark
  type of marker used to label the map
@@ -45,12 +57,13 @@ Performance considerations.
 At present, missions do not actually spawn objects or players untill a player is within the trigger distance (1000 M). 
 Hence, performance penalties should be modest to none until players engage a mission. 
 There is some performance penalty to having a lot of dead AI on the server, or a lot of spawned objects used for scenery at AI missions. Hence, these are deleted after a certain time.
+You can shorten the time after which bodies or scenery are deleted if you believe performance is an issue.
 
-Static Mission System (WIP).
+2. Static Mission System (WIP).
 
 Additional Modules Available:
 
-1. Time Acceleration
+3. Time Acceleration
 
 This provides an optional ability to accelerate time by user-specified factors.
 The time acceleration can be specified for night, daytime and dusk.
@@ -63,7 +76,7 @@ Variables controlling the time acceleration module are located in ...\custom_ser
 	
 Note that map/mod specific settings can be specified in blck_custom_config.sqf if that is helpful.
 
-2. Map Addons
+4. Map Addons
 
 This module allows you to load map-addons (custom bases, enhancements to villages or towns, ATMs at traders etc) but to do so in a way that is map and mod-specific.
 I use it to manage the map addons we run on multiple different Arma servers.
@@ -74,18 +87,18 @@ blck_spawnMapAddons = false;
 
 You can define which addons you wish to load in ...\custom_server\MapAddons\MapAddons_init.sqf.
 
-3. Static Loot System
+5. Static Loot System
 
 This module spawns loot crates at pre-specified locations on the ground, inside buildings or on roofs.
 It is designed to function in conjunction with the Map Addons module if you wish it to.
 It was derived from the loot crate spawner originally released by DarthRogue but has been extensively revised.
-One enhancement is that I have written the code so that you do not need to sort items by there arma type (weapon, magazine, item).
+One enhancement is that I have written the code so that you do not need to sort items by their arma type (weapon, magazine, item).
 In any event, it is a great tool for placing loot chests at AI strongholds or static missions.
 
 Some basic features are:
 Crates can be spawned at precise locations with / without a nearby smoking wreck to mark their location (which crates an apololyptic feel).
 Crates can be loaded with one of 3 different loadouts (add more if you like) which can be specified or randomly determined.
-If the number of possible spawn locations is greater than the number of crates to spawned, spawn locations will be randomly chosen giving some variation to your mission.
+If the number of possible spawn locations is greater than the number of crates to spawned, spawn locations will be randomly chosen giving some variation to your mission from one server restart to the next.
 
 The static loot crate spawner is enabled/disable by changing the following variable in ...\custom_server\configs\blck_configs.sqf
 
@@ -94,6 +107,4 @@ The static loot crate spawner is enabled/disable by changing the following varia
 I wrote the crate spawner in a way that helps me manage static loot crates across multiple maps and mods. 
 The configuration files for Epoch or Exile give examples of how to implement the system.
 
-Known issues
 
-1. 

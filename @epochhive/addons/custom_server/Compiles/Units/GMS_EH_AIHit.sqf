@@ -17,7 +17,14 @@ private ["_unit","_instigator","_group","_wp"];
 //diag_log format["_EH_AIHit::-->> _this = %1",_this];
 _unit = _this select 0 select 0;
 _instigator = _this select 0 select 3;
-diag_log format["EH_AIHit:: _units = %1 and _instigator = %2 units damage is %3",_unit,_instigator, damage _unit];
+
+#ifdef blck_debugMode
+if (blck_debugLevel ? 1) then
+{
+	diag_log format["EH_AIHit:: _units = %1 and _instigator = %2 units damage is %3",_unit,_instigator, damage _unit];
+};
+#endif
+
 if (!(alive _unit)) exitWith {};
 if (!(isPlayer _instigator)) exitWith {};
 [_unit,_instigator] call blck_fnc_alertNearbyLeader;
@@ -33,9 +40,11 @@ if ((damage _unit) > 0.1 ) then
 {
 		//diag_log format["_EH_AIHit::-->> Healing unit %1",_unit];
 		_unit setVariable["hasHealed",true,true];
-		//_unit  addMagazine "SmokeShellOrange";
-		_unit fire ["SmokeShellMuzzle","SmokeShellMuzzle","SmokeShellRed"];
-		_unit addItem "FirstAidKit";
-		_unit action ["HealSoldierSelf", soldier1];
+		_unit  addMagazine "SmokeShellOrange";
+		_unit fire "SmokeShellMuzzle";
+		_unit addItem "FAK";
+		_unit action ["HealSoldierSelf",  _unit];
+		_unit setDamage 0;
+		_unit removeItem "FAK";
 };
 

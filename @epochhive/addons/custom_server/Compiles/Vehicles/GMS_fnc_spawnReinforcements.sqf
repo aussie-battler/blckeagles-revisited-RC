@@ -21,34 +21,43 @@ _uniforms = _this select 3;
 _headgear = _this select 4;
 
 private["_chanceHeliPatrol","_return","_temp","_missionHelis"];
-
-if (blck_debugON) then {diag_log format["_fnc_spawnMissionReinforcements (25):  Script Starting with _aiSkillsLevel = %1",_aiSkillsLevel]};
+#ifdef blck_debugMode
+if (blck_debugLevel > 0) then {diag_log format["_fnc_spawnMissionReinforcements (25):  Script Starting with _aiSkillsLevel = %1",_aiSkillsLevel]};
+#endif
 _aiSkillsLevel = toLower _aiSkillsLevel;
 
 if (_aiSkillsLevel isEqualTo "blue") then {
-	if (blck_debugON) then {diag_log "_fnc_spawnMissionReinforcements (29): BLUE difficulty settings applied";};
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 0) then {diag_log "_fnc_spawnMissionReinforcements (29): BLUE difficulty settings applied";};
+	#endif
 	_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
 	_missionHelis = blck_patrolHelisBlue;
 };
 if (_aiSkillsLevel isEqualTo "green") then {
-	if (blck_debugON) then {diag_log "_fnc_spawnMissionReinforcements (34): GREEN difficulty settings applied";};
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 0) then {diag_log "_fnc_spawnMissionReinforcements (34): GREEN difficulty settings applied";};
+	#endif
 	_chanceHeliPatrol = blck_chanceHeliPatrolGreen;
 	_missionHelis = blck_patrolHelisGreen;
 };
 if (_aiSkillsLevel isEqualTo "orange") then {
-	if (blck_debugON) then {diag_log "_fnc_spawnMissionReinforcements (39): ORANGE difficulty settings applied";};
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 0) then {diag_log "_fnc_spawnMissionReinforcements (39): ORANGE difficulty settings applied";};
+	#endif
 	_chanceHeliPatrol = blck_chanceHeliPatrolOrange;
 	_missionHelis = blck_patrolHelisOrange;
 };
 if (_aiSkillsLevel isEqualTo "red") then
 {
-	if (blck_debugON) then {diag_log "_fnc_spawnMissionReinforcements (46): RED difficulty settings applied";};
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 0) then {diag_log "_fnc_spawnMissionReinforcements (46): RED difficulty settings applied";};
+	#endif
 	_chanceHeliPatrol = blck_chanceHeliPatrolRed;
 	_missionHelis = blck_patrolHelisRed;	
 };
-
+#ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["_fnc_spawnMissionReinforcements (50): Variables defined: _chanceHeliPatrol %1 | _missionHelis %2",_chanceHeliPatrol,_missionHelis];};
-
+#endif
 if ( (_chanceHeliPatrol > 0) && (random (1) < _chanceHeliPatrol) ) then // if helipatrols are 'enabled' then paratroops will only drop if a heli spawns.
 																		// The chance that they drop is linked to the value for them for that difficulty _aiSkillsLevel
 																		//see _fnc_spannMissionParatroops for how this is handled.

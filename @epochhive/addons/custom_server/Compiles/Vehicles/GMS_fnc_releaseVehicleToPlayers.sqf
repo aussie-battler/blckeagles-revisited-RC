@@ -15,8 +15,8 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 	params["_v"];
-	//diag_log format["_fnc_releastVehicletoPlayers.sqf: removing vehicle %1 from ",_v,blck_missionVehicles];	
-	//blck_missionVehicles = blck_missionVehicles - [_v];
+	//diag_log format["_fnc_releastVehicletoPlayers.sqf: removing vehicle %1 from ",_v,blck_monitoredVehicles];	
+	//blck_monitoredVehicles = blck_monitoredVehicles - [_v];
 	_v removeAllEventHandlers "GetIn";
 	_v removeAllEventHandlers "GetOut";
 	_v removeAllEventHandlers "Fired";

@@ -2,7 +2,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 3/20/17
+	Last modified 4/29/17
 	checks the status of each entry in 
 /*
 	By Ghostrider-DbD-
@@ -39,8 +39,12 @@ _readyToSpawnQue = [];
 		_readyToSpawnQue pushback _x;
 	};
 } forEach blck_pendingMissions;
-diag_log format["_fnc_spawnPendingMissions:: --- >> _readyToSpawnQue = %1",_readyToSpawnQue];
-
+#ifdef blck_debugMode
+if (blck_debugLevel > 0) then 
+{
+	diag_log format["_fnc_spawnPendingMissions:: --- >> _readyToSpawnQue = %1",_readyToSpawnQue];
+};
+#endif
 if (count _readyToSpawnQue > 0) then
 {
 	_missionToSpawn = selectRandom _readyToSpawnQue;

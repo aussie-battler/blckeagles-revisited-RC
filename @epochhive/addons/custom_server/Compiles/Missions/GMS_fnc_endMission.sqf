@@ -16,11 +16,10 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false],["_patrolVehicles",[]]];
-	//diag_log format["_fnc_endMission:  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _aborted %4",_blck_localMissionMarker,_coords,_mission,_aborted];
-	//uisleep 0.1;
+	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false],["_vehicles",[]]];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {
+		diag_log format["_fnc_endMission:  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _aborted %4",_blck_localMissionMarker,_coords,_mission,_aborted];
 		diag_log format["_fnc_endMission:  _aborted = %1",_aborted];
 	};
 	#endif
@@ -28,7 +27,7 @@
 	private["_cleanupAliveAITimer","_cleanupCompositionTimer"];
 	if (blck_useSignalEnd && !_aborted) then
 	{
-		diag_log format["**** Minor\SM1.sqf::    _crate = %1",_crates select 0];
+		//diag_log format["**** Minor\SM1.sqf::    _crate = %1",_crates select 0];
 		[_crates select 0] spawn blck_fnc_signalEnd;
 
 		#ifdef blck_debugMode	
@@ -67,22 +66,30 @@
 	// Using a variable attached to the crate rather than the global setting to be sure we do not fill a crate twice.
 	// the "lootLoaded" loaded should be set to true by the crate filler script so we can use that for our check.
 	{
-		diag_log format["_fnc_endMission:  for crate %1 lootLoaded = %2",_x,_x getVariable["lootLoaded",false]];
+		//diag_log format["_fnc_endMission:  for crate %1 lootLoaded = %2",_x,_x getVariable["lootLoaded",false]];
 		if !(_x getVariable["lootLoaded",false]) then
 		{
 			// _crateLoot,_lootCounts are defined above and carry the loot table to be used and the number of items of each category to load
 			[_x,_crateLoot,_lootCounts] call blck_fnc_fillBoxes;
 		};
 	}forEach _crates;
+	{
+		private ["_v","_posnVeh"];
+		_posnVeh = blck_monitoredVehicles find _x;  // returns -1 if the vehicle is not in the array else returns 0-(count blck_monitoredVehicles -1)
+		if (_posnVeh >= 0) then
+		{
+			//diag_log format["_fnc_endMission: setting missionCompleted for vehicle %1 to %2",_x,diag_tickTime];
+			(blck_monitoredVehicles select _posnVeh) setVariable ["missionCompleted", diag_tickTime];
+		} else {
+			_x setVariable ["missionCompleted", diag_tickTime];
+			blck_monitoredVehicles pushback _x;
+		};
+	} forEach _vehicles;
+	
 	[_mines] spawn blck_fnc_clearMines;
 	//diag_log format["_fnc_endMission: (23) _objects = %1",_objects];
-
 	[_objects, _cleanupCompositionTimer] spawn blck_fnc_addObjToQue;
 	//diag_log format["_fnc_endMission:: (26) _blck_AllMissionAI = %1",_blck_AllMissionAI];
-	{
-		_x setVariable["missionCompleted",diag_tickTime];
-		_x setVariable["cleanupTimer",_cleanupAliveAITimer];
-	} forEach _patrolVehicles;
 	[_blck_AllMissionAI, (_cleanupAliveAITimer)] spawn blck_fnc_addLiveAItoQue;
 	[_blck_localMissionMarker select 0] execVM "debug\deleteMarker.sqf";
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];

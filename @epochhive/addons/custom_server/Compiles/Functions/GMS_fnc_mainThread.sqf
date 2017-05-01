@@ -41,8 +41,7 @@ while {true} do
 		[] call blck_fnc_cleanupAliveAI;
 		[] call blck_fnc_cleanupObjects;
 		[] call blck_fnc_cleanupDeadAI;
-
-		//[] call blck_fnc_missionGroupMonitor;		
+		[] call blck_fnc_missionGroupMonitor;
 		_timer20sec = diag_tickTime;
 		//diag_log format["_mainThread::-->> diag_tickTime = %1",diag_tickTime];
 	};
@@ -50,6 +49,7 @@ while {true} do
 	{
 		_timer1min = diag_tickTime;
 		[] call blck_fnc_spawnPendingMissions;
+		//[] call blck_fnc_missionGroupMonitor;
 		if (_modType isEqualTo "Epoch") then 
 		{
 			[] call blck_fnc_cleanEmptyGroups;

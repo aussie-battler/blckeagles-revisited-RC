@@ -148,10 +148,10 @@
 	blck_chanceHeliPatrolRed = 0; // 0.4;
 	blck_patrolHelisRed = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolGreen = 0.2;
+	blck_chanceHeliPatrolGreen = 0;
 	blck_patrolHelisGreen = _blck_littleBirds;
 	
-	blck_chanceHeliPatrolOrange = 0.5;
+	blck_chanceHeliPatrolOrange = 0;
 	blck_patrolHelisOrange = _blck_littleBirds; //_blck_armed_hellcats+_blck_armed_orcas;
 
 

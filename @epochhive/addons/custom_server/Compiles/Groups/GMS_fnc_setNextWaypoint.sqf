@@ -19,6 +19,8 @@ private["_group","_wp","_index","_pattern","_mode","_arc","_dis","_wpPos"];
 _group = group _this;
 
 _group setVariable["timeStamp",diag_tickTime];
+_group setcombatmode "YELLOW";
+_group setBehaviour "COMBAT"
 _wp = [_group, 0];
 
 _pattern = _group getVariable["wpPattern",[]];
@@ -26,8 +28,10 @@ _index = _group getVariable["wpIndex",0];
 _index = _index + 1;
 _minDis = _group getVariable["minDis",0];
 _maxDis = _group getVariable["maxDis",0];
-_arc = (_group getVariable["arc",0]) + 70;
-//diag_log format["_fnc_setNextWaypoint: ->  _minDis = %1 | _maxDis = %2 | _arc = %3",_minDis,_maxDis,_arc];
+dir = (_group getVariable["wpDir",0]) + _group getVariable["wpArc",360/5];
+_group setVariable["wpDir",_dir];
+
+diag_log format["_fnc_setNextWaypoint: ->  _minDis = %1 | _maxDis = %2 | _arc = %3",_minDis,_maxDis,_arc];
 if (_index >= (count _pattern)) then
 {
 	_index = 0;
@@ -47,25 +51,27 @@ _wpPos = waypointPosition  _wp;
 
 _wp setWaypointType _type;
 _wp setWaypointName toLower _type;
-if (true /*_type isEqualTo toLower "move"*/) then
+if (_type isEqualTo (toLower "move"))  then
 { 
 	_dis = (_minDis) + random( (_maxDis) - (_minDis) );
-	if (toLower (_group getVariable["wpMode","random"]) isEqualTo "random") then
+	if (_group getVariable["wpMode",""] isEqualTo "random") then 
 	{
-		_arc = random(360);
+		_dir = random(360)
 	} else {
-		_group setVariable["arc",_arc];
+		_dir = _group getVariable["wpDir",0] + _group getVariable["wpArc",360/5];
 	};
+	_group setVariable["wpDir",_dir];
 	_oldPos = waypointPosition _wp;
+
 	_newPos = (_group getVariable ["patrolCenter",_wpPos]) getPos[_dis,_arc];
-	_wp setWPPos _newPos;
+	_wp setWPPos [_newPos select 0, _newPos select 1];
 
 	#ifdef blck_debugMode
 	diag_log format["_fnc_setNextWaypoint: -- > for group %5 | _dis = %1 | _arc = %2 _oldPos = %3 | _newPos = %4",_dis,_arc,_oldPos,_newPos,_group];
 	#endif
-
-	//_wp setWaypointTimeout [1.0,1.1,1.2];
-	_wp setWaypointTimeout [20,25,30];
+	
+	_wp setWaypointTimeout [1.0,1.1,1.2];
+	//_wp setWaypointTimeout [20,25,30];
 } else {
 	_wp setWaypointTimeout [20,25,30];
 	_newPos = _wpPos;
