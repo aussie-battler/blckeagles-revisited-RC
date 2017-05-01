@@ -1,7 +1,15 @@
 /*
 	by Ghostrider
 	1-22-17
+	Removes an AI launcher and ammo
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_launcher","_launcherRounds"];
 params["_unit"];  // = _this select 0;

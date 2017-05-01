@@ -5,7 +5,15 @@
 	Copyright 2016
 	Last Modified 11-11-16
 	Fill a crate with items
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 	private["_a1","_item","_diff"];
 	params["_crate","_boxLoot","_itemCnts"];

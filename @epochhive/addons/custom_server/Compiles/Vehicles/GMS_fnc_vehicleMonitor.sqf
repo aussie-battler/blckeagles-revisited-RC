@@ -3,79 +3,66 @@
 	Allows players to enter and use the vehicle when appropriate
 	or otherwise destroys the vehicle.
 	
+	Logic:
+	1) Mission ended; players can keep vehicles BUT not all vehicle AI were killed - > delete vehicle when live AI are killed;
+	2) Vehicle has a blck_deleteAT timer set - > delete vehicle;
+	3) All AI killed an players may NOT keep vehicles - > detroy vehicle
+	4) All AI Killed and players MAY keep vehicles -> release vehicle
+	5) vehicle ammo low AND vehicle gunner is alive - > reloaded
+
 	By Ghostrider-DBD-
 	Copyright 2016
 	Last updated 1-22-17
-*/
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
 
-private ["_veh","_vehList"];
-_vehList = blck_missionVehicles;
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
+//diag_log "_fnc_vehicleMonitor: starting function";
+#ifdef blck_debugMode
+	//diag_log format["_fnc_vehicleMonitor:: blck_debugMode defined"];
+#endif
 
 _fn_releaseVehicle = {
 	params["_v"];
-	//diag_log format["vehicleMonitor.sqf: make vehicle available to players; stripping eventHandlers from _v %1",_v];	
-	blck_missionVehicles = blck_missionVehicles - [_v];
-	_v removealleventhandlers "GetIn";
-	_v removealleventhandlers "GetOut";
+	blck_monitoredVehicles = blck_monitoredVehicles - [_veh];
 	_v setVehicleLock "UNLOCKED" ;
-	_v setVariable["releasedToPlayers",true];
+	//_v setVariable["releasedToPlayers",true];
 	[_v] call blck_fnc_emptyObject;
-	if (blck_debugLevel > 2) then
+	{
+		_v removealleventhandlers _x;
+	} forEach ["GetIn","GetOut","fired","hit","hitpart","reloaded","dammaged","HandleDamage"];
+
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 3) then
 	{
 		diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_v];
 	};
+	#endif
 };
 
-if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function called at %1",diag_tickTime];};
-{
-	_veh = _x;
-	if (_veh getVariable["blck_DeleteAt",0] > 0) then
+_fn_destroyVehicleAndCrew = {
+	params["_veh"];
+	private["_crew"];
+	_crew = crew _veh;
+	{[_x] call blck_fnc_deleteAI;} forEach _crew;
+	[_veh] call blck_fn_deleteAIvehicle;
+};
+
+_fn_reloadAmmo = {
+	params["_veh"];
+	private ["_crew","_mag","_allMags","_cnt"];
+	//  https://community.bistudio.com/wiki/fullCrew
+	//							0				1			2					3				4
+	// returns Array - format [[<Object>unit,<String>role,<Number>cargoIndex,<Array>turretPath,<Boolean>personTurret], ...] 
+	//diag_log format["_fnc_vehicleMonitor:: (65) _veh = %1",_veh];
+	if ({alive _x and !(isPlayer _x)} count (crew _veh) > 0) then
 	{
-		if (diag_tickTime > (_veh getVariable["blck_DeleteAt",0])) then 
-		{
-			[_veh] call blck_deleteVehicle;
-			blck_missionVehicles = blck_missionVehicles - [_veh];
-		};
-	};
-	if ({alive _x} count crew _veh < 1) then
-	{
-		if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then  // Deal with a static weapon
-		{
-			if (blck_killEmptyStaticWeapons) then
-			{
-				if (blck_debugLevel > 2) then
-				{
-					diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
-				};
-				_veh setDamage 1;
-				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
-			} else {
-				[_veh] call _fn_releaseVehicle;
-			};
-		}else {  // Deal with vehicles
-			if (blck_killEmptyAIVehicles) then
-			{
-				if (blck_debugLevel > 2) then
-				{
-					diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle destroyed where vehicle = %1",_veh];
-				};			
-				{
-					_veh setHitPointDamage [_x, 1];
-					
-				} forEach ["HitLFWheel","HitLF2Wheel","HitRFWheel","HitRF2Wheel","HitEngine","HitLBWheel","HitLMWheel","HitRBWheel","HitRMWheel","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun","HitTurret","HitGun"];
-				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
-			} else {
-				[_veh] call _fn_releaseVehicle;
-			};
-		};
-	} else {  // Add magazine to vehicle if possible
-		private ["_crew","_mag","_allMags","_cnt"];
-		//_veh setVehicleAmmo 1;
-		//_veh setFuel 1;
-		//  https://community.bistudio.com/wiki/fullCrew
-		//							0				1			2					3				4
-		// returns Array - format [[<Object>unit,<String>role,<Number>cargoIndex,<Array>turretPath,<Boolean>personTurret], ...] 
-		//diag_log format["_fnc_vehicleMonitor:: (65) _veh = %1",_veh];
 		_crew = fullCrew _veh;
 		//diag_log format["_fnc_vehicleMonitor:: (67) _crew = %1",_crew];
 		{
@@ -92,6 +79,96 @@ if (blck_debugLevel > 1) then {diag_log format["_fnc_vehicleMonitor:: function c
 				if (_cnt < 2) then {_veh addMagazineCargo [_mag,2]};
 			};
 		} forEach _crew;
+	};
+};
+blck_fn_deleteAIvehicle = {
+	params["_veh"];
+	{
+		_veh removeAllEventHandlers _x;
+	}forEach ["Hit","HitPart","GetIn","GetOut","Fired","FiredNear"];
+	blck_monitoredVehicles = blck_monitoredVehicles - [_veh];			
+	deleteVehicle _veh;
+};
+private ["_veh","_vehList"];
+_vehList = +blck_monitoredVehicles;
+
+#ifdef blck_debugMode
+if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];};
+#endif
+
+{
+	_veh = _x; // (purely for clarity at this point, _x could be used just as well)
+	
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 3) then 
+	{
+		diag_log format["_fnc_vehicleMonitor: vehicle %1 with missionCompleted = %2 being evaluated",_x, _x getVariable"missionCompleted",0];
+	};
+	#endif
+	private["_evaluate"];
+	_evaluate = true;
+	// Case where vehicle has been marked for deletion after a certain time.
+	if ( (_veh getVariable["blck_DeleteAt",0] > 0) && (diag_tickTime > _veh getVariable "blck_DeleteAt")) then
+	{
+		[_veh] call _fn_destroyVehicleAndCrew;
+		_evaluate = false;
+	};
+
+	// Case where is an emplaced / static wweapon and has no alive crew and such vehicles should be 'killed' or release to players
+	if (_evaluate) then
+	{
+		if ( (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") && {alive _x} count crew _veh isEqualTo 0) then
+		{
+			if (blck_killEmptyStaticWeapons) then
+			{
+				#ifdef blck_debugMode
+				if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
+				#endif
+
+				_veh setDamage 1;
+				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
+			}else {
+				[_veh] call _fn_releaseVehicle;
+			};
+			_evaluate = false;
+		};
+	};
+
+	// Case where a vehicle is NOT an emplaced / static weapon and has no alive crew and such vehicles should be 'killed' or release to players
+	if (_evaluate) then
+	{
+		if (_veh getVariable["DBD_vehType","none"] isEqualTo "none" && ({alive _x} count crew _veh isEqualTo 0) ) then
+		{
+			if (blck_killEmptyAIVehicles) then
+			{
+				_veh setDamage 0.7;
+				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
+			} else {
+				[_veh] call _fn_releaseVehicle;
+			};
+			_evaluate = false;
+		};
+	};
+
+	// Case where a vehicle is part of a mission that has been completed and containes live AI.
+	if (_evaluate) then
+	{
+		if ( _veh getVariable["missionCompleted",0] > 0 && ({alive _x} count crew _veh > 0)) then
+		{
+			private["_cleanupTimer"];
+			_cleanupTimer = _veh getVariable["cleanupTimer",0];  // The time delat to deleting any alive AI units
+			//  "missionCompleted" = the time at which the mission was completed or aborted
+			if (diag_tickTime > ((blck_AliveAICleanUpTimer - 70) + (_veh getVariable["missionCompleted",0])) ) then 
+			{
+				[_veh] call _fn_destroyVehicleAndCrew;
+				_evaluate = false;
+			};
+		};
+	};
+
+	if (_evaluate) then
+	{
+		[_veh] call _fn_reloadAmmo;
 	};
 }forEach _vehList;
 

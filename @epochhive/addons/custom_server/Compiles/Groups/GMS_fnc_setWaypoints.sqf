@@ -3,11 +3,20 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 8-13-16
-*/
+	Last modified 3/17/17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
 
-private["_dist","_dir","_arc","_xpos","_ypos","_newpos","_wpradius","_wpnum","_oldpos"];
-params["_pos","_minDis","_maxDis","_group"];
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
+
+private["_dir","_arc","_noWp","_newpos","_wpradius","_wp"];
+params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_patrolMode","SAD"]];
 
 /*
 _pos = _this select 0; // center of the patrol area
@@ -16,27 +25,68 @@ _maxDis = _this select 2; // maximum distance from the center of a patrol area f
 _group = _this select 3;
 */
 
+
+_group setVariable["patrolCenter",_pos];
+_group setVariable["minDis",_minDis];
+_group setVariable["maxDis",_maxDis];
+_group setVariable["timeStamp",diag_tickTime];
+_group setVariable["arc",0];
+_group setVariable["wpRadius",30];
+_group setVariable["wpMode",_mode];
+
+_dir = 0;
+_arc = 30;
+_noWp = 1;
+_wpradius = 30;
+_newPos = _pos getPos [(_minDis+(random (_maxDis - _minDis))), _dir];
+_wp = [_group, 0];
+
+#ifdef wpModeMove
+_wp setWaypointType "MOVE";
+_wp setWaypointName "move";
+_wp setWaypointTimeout [1,1.1,1.2];
+_wp setWaypointStatements ["true","this call blck_fnc_changeToSADWaypoint;diag_log format['====Updating waypoint to SAD for group %1',group this];"];
+#else
+_wp setWaypointType "SAD";
+_wp setWaypointName "sad";
+_wp setWaypointTimeout [20,25,30];
+_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;diag_log format['====Updating waypoint to Move for group %1',group this];"];
+#endif
+
+_wp setWaypointBehaviour blck_groupBehavior;
+_wp setWaypointCombatMode blck_combatMode;
+_group setCurrentWaypoint _wp;
+
+/*
+Code for Build 44 as a referemce/
+private["_dist","_dir","_arc","_xpos","_ypos","_newpos","_wpradius","_wpnum","_oldpos"];
+params["_pos","_minDis","_maxDis","_group"];
+
 _wpradius = 30;
 _wpnum = 6;
-_oldpos = _pos;
-_newpos = _oldpos;
 _dir = random 360;
 _arc = 360/_wpnum;
-//Set up waypoints for our AI
-for [{ _x=1 },{ _x < _wpnum },{ _x = _x + 1; }] do {
-	_dir = _dir + _arc;
-	if (_dir > 360) then {_dir = _dir - 360;};
-	while{_oldpos distance2D _newpos < 20}do{ 
-			sleep .1;
 
-			_dist = (_minDis+(random (_maxDis - _minDis)));
-			_xpos = (_pos select 0) + sin (_dir) * _dist;
-			_ypos = (_pos select 1) + cos (_dir) * _dist;
-			_newpos = [_xpos,_ypos,0];
-	};	
-	_oldPos = _newpos;	
-	_wp = _group addWaypoint [[_xpos,_ypos,0], _wpradius];
+for  "_i" from 0 to (_wpnum - 1) do 
+{
+	_dir = _dir + _arc;
+	_dist = (_minDis+(random (_maxDis - _minDis)));
+	_newpos = _pos getPos [_dist, _arc];
+
+	_wp = _group addWaypoint [_newpos, 0];
+	_wp setWaypointTimeout [1, 1.1, 1.2];
 	_wp setWaypointType "MOVE";
+	_wp setWaypointBehaviour "COMBAT";
+	_wp setWaypointCombatMode "RED";
+	_wp setWaypointName "move";
+	_wp = _group addWaypoint [_newpos, 0];
+	_wp setWaypointTimeout [15,20,25];
+	_wp setWaypointType "SAD";
+	_wp setWaypointBehaviour "COMBAT";
+	_wp setWaypointCombatMode "RED";
+	_wp setWaypointName "sad";	
 };
-_wp = _group addWaypoint [[_xpos,_ypos,0], _wpradius];
+deleteWaypoint [_group, 0];
+_group setVariable["wpIndex",0];
+_wp = _group addWaypoint [_newpos, _wpradius];
 _wp setWaypointType "CYCLE";

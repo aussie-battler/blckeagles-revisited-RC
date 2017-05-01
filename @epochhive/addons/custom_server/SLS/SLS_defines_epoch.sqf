@@ -1,8 +1,19 @@
 /*
 	Define loot crate configurations for Epoch.
-*/
-diag_log "[blckeagls] SLS : Loading Static Loot Container Spawning System for Epoch";
 
+	for DBD Clan
+	By Ghostrider-DBD-
+	Copyright 2016
+	Last Modified 3-14-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
+diag_log "Loading Static Loot Container Spawning System for Epoch";
 _lootBoxes = 
 [
 	/*[	

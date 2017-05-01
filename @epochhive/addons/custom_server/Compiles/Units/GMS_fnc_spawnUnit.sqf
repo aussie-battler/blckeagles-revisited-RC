@@ -4,7 +4,14 @@
 	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Buttface (A3XAI).
 	Everything having to do with spawning and configuring an AI should happen here
 	Last Modified 1/22/17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 //Defines private variables so they don't interfere with other scripts
 private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills",
@@ -151,7 +158,9 @@ else
 //_ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
 _ai1 addEventHandler ["reloaded", {_this call compile preprocessfilelinenumbers blck_EH_unitWeaponReloaded;}];
 _ai1 addEventHandler ["killed",{ [(_this select 0), (_this select 1)] call compile preprocessfilelinenumbers blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
-//_ai addEventHandler ["HandleDamage",{ [(_this select 0), (_this select 1)] execVM blck_EH_AIHandleDamage;}];
+_ai1 addEventHandler ["Hit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AHHit;}];
+//_ai1 addEventHandler ["FiredNear",{diag_log "-------->>>>>>>> Weapon fired Near Unit";}];
+//_ai1 addEventHandler ["FiredNear",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIFiredNear;};];
 
 switch (_skillLevel) do 
 {

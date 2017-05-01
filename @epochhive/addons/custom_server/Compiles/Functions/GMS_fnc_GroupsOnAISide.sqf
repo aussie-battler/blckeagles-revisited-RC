@@ -2,7 +2,16 @@
 	Determines the total number of spawned groups on the side used by the mission system and returns this value.
 	By Ghostrider-DbD-
 	Last updated 12/21/16
+/*
+	By Ghostrider-DbD-
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private _Groups_AI_Side = 0;
 

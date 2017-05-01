@@ -1,14 +1,29 @@
 /*
 	Handle AI Deaths
-	Last Modified 1/13/17
+	Last Modified 3/23/17
 	By Ghostrider-DBD-
 	Copyright 2016
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_group","_isLegal","_weapon","_lastkill","_kills","_message","_killstreakMsg"];
 params["_unit","_killer","_isLegal"];
 
 _unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, true];
+
+/*
+if (vehicle _unit != _unit) then {
+	if (count crew (vehicle _unit) isEqualTo 0) then
+	{
+		[vehicle _unit] call blck_fnc_releaseVehicleToPlayers;
+	};
+};*/
 
 blck_deadAI pushback _unit;
 _group = group _unit;
@@ -17,7 +32,15 @@ if (count(units _group) < 1) then {deleteGroup _group;};
 if (blck_launcherCleanup) then {[_unit] spawn blck_fnc_removeLaunchers;};
 if (blck_removeNVG) then {[_unit] spawn blck_fnc_removeNVG;};
 if !(isPlayer _killer) exitWith {};
-[_unit,_killer] call blck_fnc_alertNearbyUnits;
+//[_unit,_killer] call blck_fnc_alertNearbyUnits;
+[_unit,_killer] call blck_fnc_alertNearbyLeader;
+_group = group _unit;
+//_group setBehavior "COMBAT";
+_wp = [_group, currentWaypoint _group];
+_wp setWaypointBehaviour "COMBAT";
+_group setCombatMode "RED";
+_wp setWaypointCombatMode "RED";
+
 _isLegal = [_unit,_killer] call blck_fnc_processIlleagalAIKills;
 
 if !(_isLegal) exitWith {};
@@ -50,5 +73,5 @@ if (blck_useKillMessages) then
 [_unit,_killer,_kills] call blck_fnc_rewardKiller;
 {
 	_unit removeAllEventHandlers  _x;
-}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear"]
+}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear","Hit"]
 

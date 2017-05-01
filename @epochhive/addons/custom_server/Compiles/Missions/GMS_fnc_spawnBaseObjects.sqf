@@ -3,7 +3,15 @@
  The code provided by M3Editor EDEN has been addapted to add checks for vehicles, should they be present.
  Returns an array of spawned objects. 
  version of 1/13/17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_center","_azi","_objects","_setVector"];
 

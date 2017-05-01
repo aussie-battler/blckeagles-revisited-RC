@@ -1,4 +1,5 @@
 /*
+Pulled from Arma
  version of 11/9/16
 */
 
@@ -22,7 +23,9 @@ _newObjs = [];
 	// Lock any vehicles placed as part of the mission landscape. Note that vehicles that can be taken by players can be added via the mission template.
 	if ( (typeOf _object) isKindOf "LandVehicle" || (typeOf _object) isKindOf "Air" || (typeOf _object) isKindOf "Sea") then
 	{
+		#ifdef blck_debugMode
 		diag_log format["MAP ADDONS:: Locking vehicle of type %1",typeOf _object];
+		#endif
 		//_object = _x select 0;
 		_object setVehicleLock  "LOCKEDPLAYER";
 		_object addEventHandler ["GetIn",{  // forces player to be ejected if he/she tries to enter the vehicle

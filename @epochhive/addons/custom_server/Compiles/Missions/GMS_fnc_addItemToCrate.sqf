@@ -8,7 +8,15 @@
 		if _item is an array with 3 elements ["itemName",2,6] assume that the first element is the item name (string), the second the min # to add and the third the max # to add.
 		by Ghostrider-DbD-
 		11/14/16
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 
 	params["_itemInfo","_crate",["_addAmmo",0]];

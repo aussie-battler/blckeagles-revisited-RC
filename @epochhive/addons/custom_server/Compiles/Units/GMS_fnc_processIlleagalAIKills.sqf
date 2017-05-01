@@ -1,7 +1,14 @@
 /*
 	by Ghostrider
-	1-22-17
+	4-12-17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_missionType","_wasRunover","_launcher","_legal"];
 params["_unit","_killer"];
@@ -10,10 +17,10 @@ _launcher = _unit getVariable ["Launcher",""];
 _legal = true;
 
 _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
-	params["_vk","_unit"];
+	params["_unit","_vk"];
 	private
 	{
-		if (((position _x) distance (position _unit)) <= 350) then 
+		if ( ( (getPos _vk) distance2d (getPos _x) ) < 500 ) then 
 		{
 			_x reveal [_vk, 4];
 			_x dowatch _vk; 
@@ -27,7 +34,7 @@ _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equi
 				_x doFire _vk;		
 			};
 		};
-	} forEach allUnits;
+	} forEach (call blck_fnc_allPlayers);
 };
 
 _fn_applyVehicleDamage = {  // apply a bit of damage 
@@ -45,7 +52,7 @@ _fn_deleteAIGear = {
 
 _fn_msgIED = {
 	params["_killer"];
-	diag_log format["fn_msgIED:: -- >> msg = %1 and owner _killer = %2",blck_Message, (owner _killer)];
+	//diag_log format["fn_msgIED:: -- >> msg = %1 and owner _killer = %2",blck_Message, (owner _killer)];
 	[["IED","",0,0],[_killer]] call blck_fnc_MessagePlayers;
 };
 
@@ -54,10 +61,12 @@ if (typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehi
 	if(_killer == driver(vehicle _killer))then{  // The AI was runover
 		if(blck_RunGear) then {  // If we are supposed to delete gear from AI that were run over then lets do it. 
 			[_unit] call _fn_deleteAIGear;
-			if (blck_debugON) then
+			#ifdef blck_debugMode
+			if (blck_debugLevel > 2) then
 			{
 				diag_log format["<<--->> Unit %1 was run over by %2",_unit,_killer];
 			};
+			#endif
 		};
 		if (blck_VK_RunoverDamage) then {//apply vehicle damage
 			[vehicle _killer] call _fn_applyVehicleDamage;
@@ -70,11 +79,12 @@ if (typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehi
 };
 
 if ( blck_VK_GunnerDamage &&((typeOf vehicle _killer) in blck_forbidenVehicles or (currentWeapon _killer) in blck_forbidenVehicleGuns) ) then {
-	if (blck_debugON) then
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 2) then
 	{
 		diag_log format["!!---!! Unit was killed by a forbidden vehicle or gun",_unit];
 	};
-	
+	#endif
 	if (blck_VK_Gear) then {[_unit] call _fn_deleteAIGear;};
 	[_unit, vehicle _killer] call _fn_targetVehicle;
 	[vehicle _killer] call _fn_applyVehicleDamage;

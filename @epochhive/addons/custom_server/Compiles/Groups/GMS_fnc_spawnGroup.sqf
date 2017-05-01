@@ -3,36 +3,58 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 1/22/17
+	Last modified 4/25/17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_numbertospawn","_groupSpawned","_safepos","_weaponList","_useLauncher","_launcherType"];	
 
-params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-if (blck_debugLevel > 2) then
+params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true] ];
+if (blck_debugLevel > 1) then
 {
-	//diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
+	diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
 };
 //Spawns correct number of AI
-if (_numai2 > _numai1) then {
+if (_numai2 > _numai1) then 
+{
 	_numbertospawn = floor( (random (_numai2 - _numai1) + _numai1 ) );
 } else {
 	_numbertospawn = _numai2;
 };
-if (blck_debugLevel  > 2) then
+
+#ifdef blck_debugMode
+if (blck_debugLevel  > 1) then
 {
-	//diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
+	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };
+#endif
 
 _groupSpawned = createGroup blck_AI_Side; 
+_groupSpawned setVariable["groupVehicle",objNull];
+#ifdef blck_debugMode
+if (blck_debugLevel  > 1) then
+{
+	diag_log format["spawnGroup.sqf:  _groupSpawned = %1",_groupSpawned];
+};
+#endif
 if !(isNull _groupSpawned) then
 {
+	#ifdef blck_debugMode
 	if (blck_debugLevel  > 1) then {diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned]};
-	_groupSpawned setcombatmode blck_combatMode;
+	#endif
+	_groupSpawned setcombatmode "RED";
+	_groupSpawned setBehaviour "COMBAT";
 	_groupSpawned allowfleeing 0;
 	_groupSpawned setspeedmode "FULL";
 	_groupSpawned setFormation blck_groupFormation; 
-	_groupSpawned setVariable ["blck_group",true,true];
+	_groupSpawned setVariable ["blck_group",true];
 
 	//diag_log format["spawnGroup:: group is %1",_groupSpawned];
 	// Determines whether or not the group has launchers
@@ -69,9 +91,20 @@ if !(isNull _groupSpawned) then
 		[_safepos,_weaponList,_groupSpawned,_skillLevel,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
 	};
 	_groupSpawned selectLeader (units _groupSpawned select 0);
-	[_pos,_minDist,_maxDist,_groupSpawned] spawn blck_fnc_setupWaypoints;
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	if (_configureWaypoints) then
+	{
+		[_pos,_minDist,_maxDist,_groupSpawned,"random","SAD","infantry"] spawn blck_fnc_setupWaypoints;
+	};
+	//[_pos,_minDist,_maxDist,_groupSpawned,"random","SENTRY"] spawn blck_fnc_setupWaypoints;
+	//diag_log format["_fnc_spawnGroup: blck_fnc_setupWaypoints called for group %1",_groupSpawned];
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 1) then
+	{
+		diag_log format["fnc_spawnGroup:: Group spawned was %1 with units of %2",_groupSpawned, units _groupSpawned];
+	};
+	#endif
 
-	//diag_log format["fnc_spawnGroup:: Group spawned was %1 with units of %2",_groupSpawned, units _groupSpawned];
 } else {
 	diag_log "_fnc_spawnGroup:: ERROR CONDITION : NULL GROUP CREATED";
 };

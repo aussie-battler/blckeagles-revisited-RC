@@ -6,27 +6,30 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 1-24-17
+	Last Modified 4-11-17
+	
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 _fn_deleteObjects = {
 	params["_objects"];
+	
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then {diag_log format["_fn_deleteObjects:: -> _objects = %1",_objects];};
+	#endif
+
 	{
-		if ((typeOf _x) isKindOf "LandVehicle") then
-		{
-			if !(_x getVariable["releasedToPlayers",false]) then
-			{
-				private _crew = crew _x;
-				{
-					[_x] call blck_fnc_deleteAI;
-				}forEach _crew;
-			};
-			_x setVariable["blck_DeleteAt",0];  // Schedule it to be deleted by fnc_vehicleMonitor immediately
-		} else {
-			if (blck_debugLevel > 1) then {diag_log format["_fnc_cleanUpObjects: -> deleting object %1",_x];};
-			deleteVehicle _x;
-		};
+		#ifdef blck_debugMode
+		if (blck_debugLevel > 1) then {diag_log format["_fnc_cleanUpObjects: -> deleting object %1",_x];};
+		#endif
+		
+		deleteVehicle _x;
 	} forEach _objects;
 };
 
@@ -44,8 +47,11 @@ for "_i" from 1 to (count blck_oldMissionObjects) do
 			uiSleep 0.1;
 			blck_oldMissionObjects set[(_i - 1), -1];
 			blck_oldMissionObjects = blck_oldMissionObjects - [-1];
+
+			#ifdef blck_debugMode
 			//diag_log format["_fn_deleteObjects:: blck_oldMissionObjects updated from %1",_obj];
 			if (blck_debugLevel > 1) then {diag_log format["_fn_deleteObjects:: (48)  blck_oldMissionObjects updated to %1",blck_oldMissionObjects];};
+			#endif
 		};
 	};
 };

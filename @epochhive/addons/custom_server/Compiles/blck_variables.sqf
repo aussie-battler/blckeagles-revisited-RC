@@ -3,12 +3,18 @@
 	For the Mission System originally coded by blckeagls
 	By Ghostrider
 	Functions and global variables used by the mission system.
-	Last modified 10/25/16
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-//blck_variablesLoaded = false;
+#include"\q\addons\custom_server\Configs\blck_defines.hpp";
+
 blck_debugON = false;
 blck_debugLevel = 0;  // Sets level of detail for debugging info - WIP.
-blck_minFPS = 10;
+blck_minFPS = 10; 
 
 ////////////////////////////////////////////////
 //  Do Not Touch Anything Below This Line
@@ -18,12 +24,14 @@ blck_ActiveMissionCoords = [];
 blck_recentMissionCoords = [];
 blck_locationBlackList = [];
 blck_monitoredVehicles = [];
-blck_liveMissionAI = [];
+blck_livemissionai = [];
+blck_monitoredMissionAIGroups = [];  //  Used to track groups in active missions for whatever purpose
 blck_oldMissionObjects = [];
 blck_pendingMissions = [];
+blck_missionsRunning = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
-blck_missionVehicles = [];
+
 
 // Arrays for use during cleanup of alive AI at some time after the end of a mission
 DBD_HeliCrashSites = [];

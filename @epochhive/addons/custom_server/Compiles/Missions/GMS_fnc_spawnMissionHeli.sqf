@@ -1,8 +1,21 @@
 
+/*
+	By Ghostrider-DbD-
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 params["_coords","_grpPilot","_chanceLoot"];
 _chopperType = selectRandom blck_AIHelis;
 
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: _chopperType seleted = %1",_chopperType];
+#endif
 
 _spawnVector = round(random(360));
 _spawnDistance = 1000; // + floor(random(1500)); // We need the heli to be on-site quickly to minimize the chance that a small mission has been completed before the paratroops are deployed and added to the list of live AI for the mission
@@ -12,7 +25,9 @@ _dropLoot = (random(1) < _chanceLoot);
 //  https://community.bistudio.com/wiki/getPos
 _spawnPos = _coords getPos [_spawnDistance,_spawnVector];
 
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: vector was %1 with distance %2 yielding a spawn position of %3 at distance from _coords of %4",_spawnVector,_spawnDistance,_spawnPos, (_coords distance2d _spawnPos)];
+#endif
 
 _grpPilot setBehaviour "CARELESS";
 _grpPilot setCombatMode "RED";
@@ -22,10 +37,15 @@ _grpPilot allowFleeing 0;
 private["_supplyHeli"];
 //create helicopter and spawn it
 _supplyHeli = createVehicle [_chopperType, _spawnPos, [], 90, "FLY"];
+blck_monitoredVehicles pushback _supplyHeli;
+
+[_supplyHeli] call blck_fnc_protectVehicle;
+/*
 if ([] call blck_fnc_getModType isEqualTo "Epoch") then
 {
 	_supplyHeli call EPOCH_server_setVToken;
 };
+*/
 _supplyHeli setDir (_spawnVector -180);
 _supplyHeli setFuel 1;
 _supplyHeli engineOn true;
@@ -44,19 +64,17 @@ _unitPilot assignAsDriver _supplyHeli;
 _unitPilot moveInDriver _supplyHeli;
 _grpPilot selectLeader _unitPilot;
 _grpPilot setVariable["paraGroup",_paraGroup];
+
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: heli spawned and pilot added"];
+#endif
 
 //set waypoint for helicopter
-private["_wpDestination"];
-[_grpPilot, 0] setWPPos _coords; 
-[_grpPilot, 0] setWaypointType "MOVE";
-[_grpPilot, 0] setWaypointSpeed "FULL";
-[_grpPilot, 0] setWaypointBehaviour "CARELESS";
-[_grpPilot, 0] setWaypointCompletionRadius 30;
-[_grpPilot, 0] setWaypointStatements ["true","[this, 0] setWaypointName ""done"" ;"];
-[_grpPilot,0] setWaypointTimeout [0.5,0.5,0.5];
-_grpPilot setCurrentWaypoint [_grpPilot,0];
+//params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAD"],["_soldierType","null"] ];
+[_coords,25,40,_grpPilot,"random","SAD","helicpoter"] spawn blck_fnc_setupWaypoints;
 
+#ifdef blck_debugMode
 diag_log format["_fnc_missionSpawner:: initial pilot waypoints set"];
-		
+#endif
+
 _supplyHeli

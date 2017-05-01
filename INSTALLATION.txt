@@ -17,22 +17,14 @@ Installation:
 /////////////////////////
 // Battleye Exceptions
 
-9) update the scripts.txt file in the Battleye directory in your server directory as directed below.
+More to come on this.
+Please see the links below for some how-to's and two useful tools to automate adding appropriate exceptions:
 
-7 deletemarker
-  
-    !"_MainMarker 
-	
-7 setMarker
-		!"_MainMarker"
-  
-7 createMarker
-		!"_MainMarker"
-10) Add the following to publicvariable.txt
-	!="blck_Message"
-	
-11) Merge the following into addbackpackcargo.txt
- !"B_Kitbag_(cbr|mcamo|rgr|sgg)" !"B_Bergen_(mcamo|dgtl|hex|tna)_F" !"ViperHarness_(blk|ghex|hex|khk|oli)_F" !"ViperLightHarness_(blk|ghex|hex|khk|oli)_F"  !"B_Carryall_(cbr|khk|mcamo|ocamo|oli|oucamo|hex|ghex)" !"B_AssaultPack_(cbr|dgtl|khk|mcamo|ocamo|rgr|sgg|blk)" !"B_FieldPack_(blk|cbr|khk|ocamo|oli|oucamo)" !"B_TacticalPack_(blk|mcamo|ocamo|oli|rgr)"
+http://opendayz.net/threads/a-guide-to-battleye-filters.21066/
+https://epochmod.com/forum/topic/29736-all-you-need-to-know-about-be-filters-but-were-too-lazy-to-google/
+http://www.exilemod.com/topic/9779-releasetool-bem-battleye-filter-manager-by-themeq/
+http://www.exilemod.com/topic/9256-battleye-filter-tool/
+http://www.exilemod.com/topic/9708-battleye-filter-editor/
 
 12) To permit you to loot crypto from dead AI on Epoch, Open Epoch.<MAP Name>\epoch_config\CfgObjectInteractions.hpp
 

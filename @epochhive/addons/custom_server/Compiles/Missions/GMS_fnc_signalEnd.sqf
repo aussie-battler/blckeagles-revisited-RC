@@ -3,6 +3,15 @@
 // by Ghostrider-DBD- based on code from Wicked AI for Arma 2 Dayz Epoch 
 // Last modified 8/2/15
 /////////////////////////////////////////////////////
+/*
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 	private ["_start","_bbr","_p1","_p2","_maxHeight","_signalCrate","_smokeShell","_light","_lightSource"];
 	params["_crate",["_time",60]]; 
