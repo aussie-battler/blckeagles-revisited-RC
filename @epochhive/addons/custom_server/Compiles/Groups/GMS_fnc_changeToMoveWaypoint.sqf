@@ -19,8 +19,8 @@
 private["_group","_wp","_wpPos","_dis","_arc","_dir","_newPos","_marker","_center","_minDis","_maxDis"];
 
 _group = group _this;
-_groupSpawned setcombatmode "YELLOW";
-_groupSpawned setBehaviour "COMBAT";
+_group setcombatmode "YELLOW";
+_group setBehaviour "COMBAT";
 _group setVariable["timeStamp",diag_tickTime];
 _wp = [_group, 0];
 _wpPos = getPos ((units _group) select 0);
