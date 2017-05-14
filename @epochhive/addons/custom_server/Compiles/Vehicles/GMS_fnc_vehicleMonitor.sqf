@@ -33,7 +33,7 @@ _fn_releaseVehicle = {
 	blck_monitoredVehicles = blck_monitoredVehicles - [_veh];
 	_v setVehicleLock "UNLOCKED" ;
 	//_v setVariable["releasedToPlayers",true];
-	[_v] call blck_fnc_emptyObject;
+	//[_v] call blck_fnc_emptyObject;
 	{
 		_v removealleventhandlers _x;
 	} forEach ["GetIn","GetOut","fired","hit","hitpart","reloaded","dammaged","HandleDamage"];
