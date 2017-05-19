@@ -265,7 +265,7 @@ if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 	if !(_abort) then
 	{
 		_patrolVehicles = _temp select 0;
-		//_blck_AllMissionAI append (_temp select 1);
+		_blck_AllMissionAI append (_temp select 1);
 
 		#ifdef blck_debugMode
 		if (blck_debugLevel > 0) then
