@@ -403,10 +403,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_medicalItems = ["FAK"];
 		blck_specialItems = blck_throwableExplosives + blck_medicalItems;		
 		blck_NVG = ["NVG_EPOCH"];
-		blck_epochValuables = ["class PartOreGold","class PartOreSilver","class PartOre","class ItemGoldBar","class ItemSilverBar",
-			"class ItemGoldBar10oz","class ItemTopaz","class ItemOnyx","class ItemSapphire","class ItemAmethyst",
-			"class ItemEmerald","class ItemCitrine","class ItemRuby","class ItemQuartz","class ItemJade",
-			"class ItemGarnet","class ItemKiloHemp"];
+		blck_epochValuables = ["PartOreGold","PartOreSilver","PartOre","ItemGoldBar","ItemSilverBar",
+			"ItemGoldBar10oz","ItemTopaz","ItemOnyx","ItemSapphire","ItemAmethyst",
+			"ItemEmerald","ItemCitrine","ItemRuby","ItemQuartz","ItemJade",
+			"ItemGarnet","ItemKiloHemp"];
 		blck_epochBuildingSupplies = ["PartPlankPack","CinderBlocks","MortarBucket","ItemScraps",
 			"ItemCorrugated","ItemCorrugatedLg","ItemSolar","ItemCables",
 			"ItemBattery","Pelt_EPOCH"];
