@@ -2,7 +2,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 3-14-17
+	Last Modified 5-21-17
 	
 	--------------------------
 	License
@@ -403,7 +403,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_medicalItems = ["FAK"];
 		blck_specialItems = blck_throwableExplosives + blck_medicalItems;		
 		blck_NVG = ["NVG_EPOCH"];
-		blck_epochValuables = ["class PartOreGold","cass PartOreSilver","class PartOre","class ItemGoldBar","class ItemSilverBar",
+		blck_epochValuables = ["class PartOreGold","class PartOreSilver","class PartOre","class ItemGoldBar","class ItemSilverBar",
 			"class ItemGoldBar10oz","class ItemTopaz","class ItemOnyx","class ItemSapphire","class ItemAmethyst",
 			"class ItemEmerald","class ItemCitrine","class ItemRuby","class ItemQuartz","class ItemJade",
 			"class ItemGarnet","class ItemKiloHemp"];
