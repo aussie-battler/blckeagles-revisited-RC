@@ -4,6 +4,11 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+5/21/17 Version 6.58 build 58
+[Fixed] typos for blck_epochValuables.
+[Fixed] All loot was removed from AI vehicles at the time a mission was completed.
+[Fixed] When mission completion criteria included killing all AI, missions could be completed with alive AI in vehicles. 
+
 4/29/17 Version 6.58 Build 57
 [Added] A FAQ presenting an overview of the mission system and addons.
 [Added] Optional helicopter patrols that drop paratroops. These can be configured using variables in blck_configs.sqf:
