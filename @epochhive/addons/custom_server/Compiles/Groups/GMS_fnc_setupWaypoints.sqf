@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 4/29/17
+	Last modified 6/1/17
 	
 	--------------------------
 	License
@@ -43,6 +43,7 @@ if (_soldierType isEqualTo "emplaced") then
 };
 if !(_soldierType isEqualTo "emplaced") then 
 {
+	_arc = 360/5;
 	_group setcombatmode "YELLOW";
 	_group setBehaviour "COMBAT";
 	_group setVariable["patrolCenter",_pos];
@@ -56,7 +57,7 @@ if !(_soldierType isEqualTo "emplaced") then
 	_group setVariable["wpArc",_arc];
 	_group setVariable["soldierType",_soldierType];
 	_dir = 0;
-	_arc = 360/5;
+
 	_wpradius = 30;
 	_dis = (_minDis) + random( (_maxDis) - (_minDis) );
 	_newPos = _pos getPos[_dis,_dir];
