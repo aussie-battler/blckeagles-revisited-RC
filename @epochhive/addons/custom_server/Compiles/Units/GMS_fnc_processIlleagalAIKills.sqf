@@ -1,6 +1,6 @@
 /*
 	by Ghostrider
-	4-12-17
+	6-1-17
 	--------------------------
 	License
 	--------------------------
@@ -12,13 +12,13 @@
 
 private["_missionType","_wasRunover","_launcher","_legal"];
 params["_unit","_killer"];
-//diag_log format["##-processIlleagalAIKills.sqf-## processing illeagal kills for unit %1",_unit];
+diag_log format["##-processIlleagalAIKills.sqf-## processing illeagal kills for unit %1",_unit];
 _launcher = _unit getVariable ["Launcher",""];
 _legal = true;
 
 _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equiped
 	params["_unit","_vk"];
-	private
+	private["_unit"];
 	{
 		if ( ( (getPos _vk) distance2d (getPos _x) ) < 500 ) then 
 		{
