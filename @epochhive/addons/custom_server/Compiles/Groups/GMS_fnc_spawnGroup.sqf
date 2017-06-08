@@ -37,7 +37,7 @@ if (blck_debugLevel  > 1) then
 #endif
 
 _groupSpawned = createGroup blck_AI_Side; 
-_groupSpawned setVariable["groupVehicle",objNull];
+
 #ifdef blck_debugMode
 if (blck_debugLevel  > 1) then
 {
@@ -49,6 +49,12 @@ if !(isNull _groupSpawned) then
 	#ifdef blck_debugMode
 	if (blck_debugLevel  > 1) then {diag_log format["_fnc_spawnGroup::  -- >> Group created = %1",_groupSpawned]};
 	#endif
+	_groupSpawned setVariable["groupVehicle",objNull];
+
+	#ifdef useDynamicSimulation
+	_groupSpawned enableDynamicSimulation true;
+	#endif
+
 	_groupSpawned setcombatmode "RED";
 	_groupSpawned setBehaviour "COMBAT";
 	_groupSpawned allowfleeing 0;

@@ -19,7 +19,7 @@ _unit = _this select 0 select 0;
 _instigator = _this select 0 select 3;
 
 #ifdef blck_debugMode
-if (blck_debugLevel ? 1) then
+if (blck_debugLevel > 1) then
 {
 	diag_log format["EH_AIHit:: _units = %1 and _instigator = %2 units damage is %3",_unit,_instigator, damage _unit];
 };

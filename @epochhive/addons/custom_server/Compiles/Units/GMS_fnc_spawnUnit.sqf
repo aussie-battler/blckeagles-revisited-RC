@@ -46,10 +46,10 @@ if (_modType isEqualTo "Exile") then
 	"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
 	switch(_skillLevel) do
 	{
-		case "blue":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyBlue)),true];};
-		case "red":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyRed)),true];};
-		case "green":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyGreen)),true];};
-		case "orange":{_ai1 setVariable["ExileMoney",floor(random(blck_maxMoneyOrange)),true];};
+		case "blue":{_ai1 setVariable["ExileMoney",2 + floor(random(blck_maxMoneyBlue)),true];};
+		case "red":{_ai1 setVariable["ExileMoney",4 + floor(random(blck_maxMoneyRed)),true];};
+		case "green":{_ai1 setVariable["ExileMoney",6 + floor(random(blck_maxMoneyGreen)),true];};
+		case "orange":{_ai1 setVariable["ExileMoney",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
 };
 [_ai1] call blck_fnc_removeGear;

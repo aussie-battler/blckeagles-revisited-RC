@@ -4,30 +4,24 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+6/1/17 Version 6.59 Build 59
+[changed] Players are no longer given crypto for each AI kill. Crypto added to AI Bodies was increased.
+[fixed] error in GMS_fnc_setupWaypoints wherein _arc was not defined early enough in the script.
+[fixed] Exile Respect Loss bug (temporary fix only).
+
 5/21/17 Version 6.58 build 58
 [Fixed] typos for blck_epochValuables.
 [Fixed] All loot was removed from AI vehicles at the time a mission was completed.
 [Fixed] When mission completion criteria included killing all AI, missions could be completed with alive AI in vehicles. 
 
-4/29/17 Version 6.58 Build 57
+4/6/17 Version 6.58 Build 54
 [Added] A FAQ presenting an overview of the mission system and addons.
-[Added] Optional helicopter patrols that drop paratroops. These can be configured using variables in blck_configs.sqf:
-
-	For example, settings for the blue difficulty for missions are shown below.
-	
-	blck_chanceParaBlue = 0.1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
-	blck_noParaBlue = 3; //  [1-N]
-	
-[Changed] A new method for dynamically setting waypoints was added and waypoints are now scanned to detect and correct the case that AI get 'stuck', meaning the waypoint is never completed.
-[Changes] AI behaviors should be more agressive.
-[Changed] License information added to all files.
-[Added] Preprocessor definitions included in all files.
+[Changed] Helicopter crew waypoint system reverted to that from Build 46.
 [Fixed] Mission timouts would prevent new missions from spawning after a while.
 [Fixed] blck_timeAcceleration now determines if time acceleration is activated.
 [Fixed] Missions did not complete correctly under certain circumstances.
 [Fixed] Mission vehicles were not properly deleted, unlocked or otherwise handled at misison end or when AI crew were killed.
 [Fixed] Throws errors when evaluating errors related to certain disallowed types of kills.
-[Fixed] Static loot crate spawner spawned empty crates under some circumstances.
 Known errors: throws errors with certain loot crate setups (Exile)
 
 3/23/17 Verision 6.58 build 48
