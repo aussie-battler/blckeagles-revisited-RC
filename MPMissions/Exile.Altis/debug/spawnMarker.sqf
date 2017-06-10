@@ -64,7 +64,7 @@ _blck_fn_configureRoundMarker = {
 _blck_fn_configureIconMarker = {
 	private["_MainMarker"];
 	params["_name","_pos",["_color","ColorBlack"],["_text",""],["_icon","mil_triangle"]];
-	if (blck_debugLevel > 2) then {diag_log format["_blck_fn_configureIconMarker: _name=%1;  _pos=%2;  _color=%3;  _text=%4",_name,_pos,_color,_text];};
+	//diag_log format["_blck_fn_configureIconMarker: _name=%1;  _pos=%2;  _color=%3;  _text=%4",_name,_pos,_color,_text];
 	
 	_name = "label" + _name;
 	_MainMarker = createMarker [_name, _pos];
@@ -74,15 +74,14 @@ _blck_fn_configureIconMarker = {
 	_MainMarker setMarkerText _text;	
 };
 
+//diag_log format["spawnMarker::  --  >> _this = %1",_this];
 //  _this = [[""BlueMarker"",[12524.1,18204.7,0],""Bandit Patrol"",""center"",""ColorBlue"",[""ELIPSE"",[175,175]]],""ColorBlue"",""BlueMarker""]"
 params["_mArray"];
+
 _mArray params["_missionType","_markerPos","_markerLabel","_markerLabelType","_markerColor","_markerType"];
 _markerType params["_mShape","_mSize","_mBrush"];
+//diag_log format["spawnMarker.sqf::  --  >> _missionType %1 | _markerPos %2 | _markerLabel %3 | _markerLabelType %4 | _markerColor %5 | _markerType %6",_missionType,_markerPos,_markerLabel,_markerLabelType,_markerColor,_markerType];
 
-//if (isServer && (blck_debugLevel > 0)) then
-//{
-	if (blck_debugLevel > 1) then {diag_log format["spawnMarker.sqf::  --  >> _missionType %1 | _markerPos %2 | _markerLabel %3 | _markerLabelType %4 | _markerColor %5 | _markerType %6",_missionType,_markerPos,_markerLabel,_markerLabelType,_markerColor,_markerType];};
-//};
 if ((_markerType select 0) in ["ELIPSE","RECTANGLE"]) then // not an Icon .... 
 {		
 	switch (_missionType) do {
@@ -91,9 +90,10 @@ if ((_markerType select 0) in ["ELIPSE","RECTANGLE"]) then // not an Icon ....
 		default {[_missionType,_markerPos,_markerColor,_markerLabel, _mSize,_markerLabelType,_mShape,_mBrush] call _blck_fn_configureRoundMarker;};
 	};
 };
-if !((_markerType select 0) in ["ELIPSE","RECTANGLE"]) then {  //  Deal with case of an icon
+if !((_markerType select 0) in ["ELIPSE","RECTANGLE"]) then 
+{  //  Deal with case of an icon
 	//  params["_name","_pos",["_color","ColorBlack"],["_text",""],["_icon","mil_triangle"]];
 	[_missionType,_markerPos, _markerColor,_markerLabel,_markerType select 0] call _blck_fn_configureIconMarker;
 };
-
+//diag_log format["spawnMarker complete script for _this = %1",_this];
 

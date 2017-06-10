@@ -3,7 +3,9 @@
 // Last Updated 1/11/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
-
+blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
+blck_fnc_deleteMarker = compileFinal preprocessfilelinenumbers "debug\deleteMarker.sqf";
+blck_fnc_missionCompleteMarker = compileFinal preprocessfilelinenumbers "debug\missionCompleteMarker.sqf";
 if !(isServer) then
 {
 	//diag_log "[blckeagls] initializing client variables";
@@ -171,7 +173,7 @@ if !(isServer) then
 	};
 	
 	diag_log "blck client loaded ver 1/11/17 2.0 8 PM";	
-	//diag_log "[blckeagls] starting client loop";
+	diag_log "[blckeagls] starting client loop";
 	
 	while {true} do
 	{
