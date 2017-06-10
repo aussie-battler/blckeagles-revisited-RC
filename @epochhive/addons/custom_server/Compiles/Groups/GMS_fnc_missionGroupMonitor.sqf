@@ -155,6 +155,39 @@ _fn_monitorGroupWaypoints = {
 	} forEach blck_monitoredMissionAIGroups;
 };
 
+_fn_simulationMonitor = {
+	_modType = call blck_fnc_getModType;
+	if (_modType isEqualTo "Exile") then
+	{
+		_playerType = ["Exile_Unit_Player"];
+	}else{
+		_playerType = ["Epoch_Male_F","Epoch_Female_F"];
+	};
+	{
+		//  player nearEntities [["Car", "Motorcycle", "Tank"], 50];
+		_players = (leader _x) nearEntities [_playerType, 1800];
+		if (count _players > 0) then
+		{
+		  // Be sure simulation is on for all units in the group
+		  if !(_x getVariable["blck_simulationStatus",false]) then
+		  {
+			_x setVariable["blck_simulationStatus",true];
+			{
+				_x enableSimulationGlobal  true;
+			}forEach (units _x);
+		  };
+		}else{
+			// Be sure simulation is off for all units in the group.
+			if !(_x getVariable["blck_simulationStatus",true]) then
+			{
+				_x setVariable["blck_simulationStatus",false];
+				{
+					_x enableSimulationGlobal false;
+				}forEach (units _x);		
+			};
+		};
+	} forEach blck_monitoredMissionAIGroups;
+};
 ////////
 //  Start of main function
 ////////
@@ -164,3 +197,7 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: execut
 [] call _fn_removeEmptyOrNullGroups;
 uiSleep 0.1;
 [] call _fn_monitorGroupWaypoints;
+
+#ifndef useDynamicSimulation
+[] call _fn_simulationMonitor;
+#endif

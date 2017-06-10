@@ -31,8 +31,10 @@ blck_pendingMissions = [];
 blck_missionsRunning = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
-
-
+#ifdef useDynamicSimulation
+"Group" setDynamicSimulationDistance 1800;
+enableDynamicSimulationSystem true;
+#endif
 // Arrays for use during cleanup of alive AI at some time after the end of a mission
 DBD_HeliCrashSites = [];
 

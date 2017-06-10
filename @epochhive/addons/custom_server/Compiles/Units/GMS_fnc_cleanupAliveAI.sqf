@@ -41,16 +41,16 @@ for "_i" from 1 to (count blck_liveMissionAI) do
 		//diag_log format["_fnc_cleanupAliveAI:: (34) evaluating with delete time = %2 and diag_tickTime %1", diag_tickTime, _units select 1];
 		if (diag_tickTime > (_units select 1) ) then
 		{
-			diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
+			//diag_log format["_fnc_cleanupAliveAI:: cleaning up AI group %1",_units];
 			{
 			
-				diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
-				diag_log format["_fnc_cleanupAliveAI:: vehicle _x = %1",vehicle _x];
-				diag_log format["_fnc_cleanupAliveAI:: objectParent _x = %1",objectParent _x];
+				//diag_log format["_fnc_cleanupAliveAI:: deleting unit %1",_x];
+				//diag_log format["_fnc_cleanupAliveAI:: vehicle _x = %1",vehicle _x];
+				//diag_log format["_fnc_cleanupAliveAI:: objectParent _x = %1",objectParent _x];
 				
 				if ((alive _x) && !(isNull objectParent _x)) then // mark the vehicle for deletion
 				{
-					diag_log format["_fnc_cleanupAliveAI: deleteing objectParent %1 [%3] for unit %2",objectParent _x, _x, typeName (objectParent _x), typeOf (objectParent _x)];
+					//diag_log format["_fnc_cleanupAliveAI: deleteing objectParent %1 [%3] for unit %2",objectParent _x, _x, typeName (objectParent _x), typeOf (objectParent _x)];
 					[objectParent _x] call blck_fn_deleteAIvehicle;
 				};
 				[_x] call blck_fnc_deleteAI;

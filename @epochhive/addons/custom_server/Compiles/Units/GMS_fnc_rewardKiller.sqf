@@ -19,7 +19,11 @@ params["_unit","_killer"];
 private["_modType","_reward","_maxReward","_dist","_killstreakReward","_distanceBonus","_newKillerScore","_newKillerFrags","_money"];
 _modType = call blck_fnc_getModType;
 
+
+//diag_log format["[blckeagles] rewardKiller:: - _modType = %1",_modType];
+
 diag_log format["[blckeagles] rewardKiller:: - _modType = %1",_modType];
+
 if (_modType isEqualTo "Epoch") exitWith {};  // Have players pull crypto from AI bodies now that this feature is available.
 /*
 if (_modType isEqualTo "Epoch") then
@@ -83,9 +87,15 @@ if (_modType isEqualTo "Exile") then
 		_killstreakBonus = 3 * (_killer getVariable["blck_kills",0]);
 		_respectGained = 25 + _distanceBonus + _killstreakBonus;
 		_score = _killer getVariable ["ExileScore", 0];
+
+		//diag_log format["GMS_fnc_rewardKiller.sqf:: ExileScore = %1",_killer getVariable ["ExileScore", 0]];
+		_score = _score + (_respectGained);
+		//diag_log format["GMS_fnc_rewardKiller.sqf:: _new = %1",_score];	
+
 		diag_log format["GMS_fnc_rewardKiller.sqf:: ExileScore = %1",_killer getVariable ["ExileScore", 0]];
 		_score = _score + (_respectGained);
 		diag_log format["GMS_fnc_rewardKiller.sqf:: _new = %1",_score];	
+
 		_killer setVariable ["ExileScore", _score];
 		format["setAccountScore:%1:%2", _score,getPlayerUID _killer] call ExileServer_system_database_query_fireAndForget;
 		_newKillerFrags = _killer getVariable ["ExileKills", 0];

@@ -3,7 +3,9 @@
 // Last Updated 1/11/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
-
+blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
+blck_fnc_deleteMarker = compileFinal preprocessfilelinenumbers "debug\deleteMarker.sqf";
+blck_fnc_missionCompleteMarker = compileFinal preprocessfilelinenumbers "debug\missionCompleteMarker.sqf";
 if !(isServer) then
 {
 	//diag_log "[blckeagls] initializing client variables";
@@ -119,25 +121,25 @@ if !(isServer) then
 	
 	fn_handleMessage = {
 		//private["_event","_msg","_mission"];
-		diag_log format["blck_Message ====]  Paremeters = _this = %1",_this];
+		//diag_log format["blck_Message ====]  Paremeters = _this = %1",_this];
 		params["_event","_message",["_mission",""]];
 
-		diag_log format["blck_Message ====]  Paremeters _event %1  _message %2 paramter #3 %3",_event,_message,_mission];
-		diag_log format["blck_Message ====] _message isEqualTo  %1",_message];
+		//diag_log format["blck_Message ====]  Paremeters _event %1  _message %2 paramter #3 %3",_event,_message,_mission];
+		//diag_log format["blck_Message ====] _message isEqualTo  %1",_message];
 		
 		switch (_event) do 
 		{
 			case "start": 
 					{
 						playSound "UAV_05";
-						diag_log "switch start";
+						//diag_log "switch start";
 						//_mission = _this select 1 select 2;
 						[_event,_message,_mission] spawn fn_missionNotification;
 					};
 			case "end": 
 					{
 						playSound "UAV_03";
-						diag_log "switch end";
+						//diag_log "switch end";
 						//_mission = _this select 1 select 2;
 						[_event,_message,_mission] spawn fn_missionNotification;
 					};
@@ -153,7 +155,7 @@ if !(isServer) then
 			case "reinforcements":
 					{
 						if ( (player distance _mission) < 1000) then {playsound "AddItemOK"; ["Alert",_message] call fn_dynamicNotification;};
-						diag_log "---->>>>  Reinforcements Spotted";
+						//diag_log "---->>>>  Reinforcements Spotted";
 					};
 			case "IED":
 					{

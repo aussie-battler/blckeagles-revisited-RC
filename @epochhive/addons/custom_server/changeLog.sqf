@@ -4,6 +4,11 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+6/1/17 Version 6.59 Build 59
+[changed] Players are no longer given crypto for each AI kill. Crypto added to AI Bodies was increased.
+[fixed] error in GMS_fnc_setupWaypoints wherein _arc was not defined early enough in the script.
+[fixed] Exile Respect Loss bug (temporary fix only).
+
 5/21/17 Version 6.58 build 58
 [Fixed] typos for blck_epochValuables.
 [Fixed] All loot was removed from AI vehicles at the time a mission was completed.

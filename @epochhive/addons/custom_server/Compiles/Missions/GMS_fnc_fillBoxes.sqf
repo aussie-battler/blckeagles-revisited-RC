@@ -19,15 +19,6 @@
 	params["_crate","_boxLoot","_itemCnts"];
 	
 	_itemCnts params["_wepCnt","_magCnt","_opticsCnt","_materialsCnt","_itemCnt","_bkcPckCnt"];
-	/*
-	_wepCnt  // number of types of weapons to load
-	_magCnt // Number of types of additional, optional magazines to add (this includes building supplies)
-	_opticsCnt  // number of types of optics to be added
-	_materialsCnt // Number of cinder, motar etc to be added
-	_itemCnt  // number of items (first aid packs, multigun bits) to load
-	_bkcPckCnt  // Number of backpacks to add
-	*/
-
 	
 	if (_wepCnt > 0) then
 	{

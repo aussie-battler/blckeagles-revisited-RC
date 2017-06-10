@@ -20,7 +20,12 @@ _unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, tr
 blck_deadAI pushback _unit;
 _group = group _unit;
 [_unit] joinSilent grpNull;
-if (count(units _group) < 1) then {deleteGroup _group;};
+if (count(units _group) < 1) then {
+	#ifdef useDynamicSimulation
+	_group enableDynamicSimulation false;
+	#endif
+	deleteGroup _group;
+};
 if (blck_launcherCleanup) then {[_unit] spawn blck_fnc_removeLaunchers;};
 if (blck_removeNVG) then {[_unit] spawn blck_fnc_removeNVG;};
 if !(isPlayer _killer) exitWith {};
