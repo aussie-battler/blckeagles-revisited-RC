@@ -99,6 +99,15 @@ if (blck_spawnStaticLootCrates) then
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
 };
 
+#ifdef DBDserver
+diag_log "[blckegls] Running DBD Clan Version";
+#endif
+#ifdef useDynamicSimulation
+diag_log "[blckegls] dynamic simulation manager enabled";
+#else
+diag_log "[blckegls] blckegls simulation manager enabled";
+#endif
+
 //Start the mission timers
 if (blck_enableOrangeMissions > 0) then
 {
