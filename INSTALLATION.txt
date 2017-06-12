@@ -2,31 +2,17 @@ Installation:
 
 /////////////////////////////
 // MPMissions - modify your mission pbo (epoch.Altis.pbo) as follows.
-1) Unpack the Zip file to a folder in a convenient location.
+1) Unpack the Zip file you downloaded from the Github to a folder in a convenient location.
 2) Unpack your mission pbo (epoch.Altis.pbo or Exile.Altis.pbo). 
-3) Open the folder you just created.
-4) Copy the debug folder from MPMissions\epoch.Altis.
+3) Open the folder containing the unpacked mission.
+4) Copy the debug folder from MPMissions\epoch.Altis
 5) Merge the line in MPMissions\epoch.Altis\init.sqf with your init.sqf, or use the one provided if you do not have one.
-6) Repack your mission.pbo.
-
+6) Adjust settings for messages shown by the client by changing values in \debug\blckclient.sqf to suit your needs.
+  (see blckClient.sqf for details)
+7) Repack your mission.pbo.
 ///////////////////////////
-//  @epochhive\addons
-7) pack @epochhive\addons\custom_server
-8) Copy custom_server.pbo to the @epochhive\addons folder on your server.
-
-/////////////////////////
-// Battleye Exceptions
-
-More to come on this.
-Please see the links below for some how-to's and two useful tools to automate adding appropriate exceptions:
-
-http://opendayz.net/threads/a-guide-to-battleye-filters.21066/
-https://epochmod.com/forum/topic/29736-all-you-need-to-know-about-be-filters-but-were-too-lazy-to-google/
-http://www.exilemod.com/topic/9779-releasetool-bem-battleye-filter-manager-by-themeq/
-http://www.exilemod.com/topic/9256-battleye-filter-tool/
-http://www.exilemod.com/topic/9708-battleye-filter-editor/
-
-12) To permit you to loot crypto from dead AI on Epoch, Open Epoch.<MAP Name>\epoch_config\CfgObjectInteractions.hpp
+// For epoch only
+7) To permit you to loot crypto from dead AI on Epoch, Open Epoch.<MAP Name>\epoch_config\CfgObjectInteractions.hpp
 
 	Change
 
@@ -57,6 +43,31 @@ http://www.exilemod.com/topic/9708-battleye-filter-editor/
 	
 	Save your changes, repack your mission file.
 	You should now get an option to take crypto when you press spacebar after hovering over a dead AI body.
+
+
+///////////////////////////
+//  Server
+// ////////////////////////
+
+// Epoch
+1) Add the custom_server folder from @epochhive\addons to @epochhive\addons on your server.
+
+// Exile 
+1) Add the custom_server folder you found in @epochhive\addons to the @ExileServer\addons folder on your server.
+2) Adjust configuration, and pack the custom_server folder.
+
+/////////////////////////
+// Battleye Exceptions
+
+More to come on this.
+Please see the links below for some how-to's and two useful tools to automate adding appropriate exceptions:
+
+http://opendayz.net/threads/a-guide-to-battleye-filters.21066/
+https://epochmod.com/forum/topic/29736-all-you-need-to-know-about-be-filters-but-were-too-lazy-to-google/
+http://www.exilemod.com/topic/9779-releasetool-bem-battleye-filter-manager-by-themeq/
+http://www.exilemod.com/topic/9256-battleye-filter-tool/
+http://www.exilemod.com/topic/9708-battleye-filter-editor/
+
 	
 11) Start your server and join. By default missions will start spawning in around 5-10 min. 
 
@@ -64,7 +75,7 @@ http://www.exilemod.com/topic/9708-battleye-filter-editor/
 // Adjusting configurations settings
 a) Unpack custom_server.pbo
 b) Make a backup of the relevant configuration file (custom_server\Configs\epoch_configs.sqf)
-c) open the configuration file custom_server\Configs\epoch_configs.sqf) in Notepad++ or another text editor
+c) open the mod-specific configuration file custom_server\Configs\epoch_configs.sqf) in Notepad++ or another text editor
 d) Modify settings as desired.
 e) Repack custom_server.pbo
 
@@ -77,33 +88,17 @@ You can use blck_custom_config.sqf to code any overrides you like. An example fo
 
 ////////////////////////
 // What is this blck_debugON variable about?
-It turns on accelerated mission spawning by default and activated additional logging.
+It turns on accelerated mission spawning by default and activates additional logging.
 You can turn it on or of in custom_server\Compiles\blck_variables.sqf.
 Be careful about what you change in this file. 
 
 ///////////////////////////////////////////
 // Further customization
 
-Just about anything about the missions can be modified. The mission template (see Missions\Orange\supply_camp.sqf and Missions\Blue\default.sqf for examples) allow you to define mission specific parameters.
+Just about anything about the missions can be modified. The mission template (see Missions\Orange\supply_camp.sqf and Missions\Blue\default.sqf for examples) allows you to define mission specific parameters.
 To create a new mission, make a copy of a mission template (e.g., custom_server\Blue\default.sqf). Edit the parameters to your liking and rename to file appropriately.
-Add the file name (e.g., "newmissions.sqf") the the mission list found in custom_server\Missions. 
+To add a new mission, create a new mission template, then add the file name (e.g., "newmissions.sqf") tothe mission list found in custom_server\Missions. 
 That mission will now be spawned whenever it is selected from teh list.
 
-Items you can edit include includes:
-the objects that are spawned,
-The vehicles AI patrol in,
-The loot added to loot chests, which can either be that defined in the default configurations or something custom for that particular loot container or mission,
-The objects that are spawned with the AI, which could be a few objects as is the case with the default missions or an entire base,
-Whether the objects are spawned in a precise ordered way or randomly (see the Missions\Blue\default.sqf for an example of randomly spawned objects),
-The difficulty of the mission,
+Please see the FAQ for more information
 
-Settings for the mission system as a whole, and default values for most variables, are found in the mod-specific config (blck_configs_epoch.sqf or blck_configs_exile.sqf).
-
-You can set whether:
-
-whether vehicles are spawned as loot and whether they have anything inside them,
-whether mines are spawned (better not have these if you have vehicle patrols),
-whether players get to keep the AI patrol vehicles,
-whether smoke is present to indicate the location of the mission,
-whether players are penalized for running over AI or killing them with certain vehicle guns,
-whether map markers are centered over the mission or not
