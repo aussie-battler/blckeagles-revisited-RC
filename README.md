@@ -1,10 +1,4 @@
-Blckegls mission system Ver 6.59
-
-<<<<<<< HEAD
-Build 63
-=======
-Build 60
->>>>>>> origin/Version-6.59-Build-63
+Blckegls mission system Version-6.60-Build-69
 
 Included is an updated version of blckeagls mission system. This began as an effort to fix bugs in and upgrade version 2.0.2 as updated by Narines and has now evolved to a complete reworking of almost all code. 
 
