@@ -4,11 +4,11 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+8/3/17  Version 6.60 Build 66
+[added] AI units in mission vehicles and emplaced weapons are notified of the location of the shooter when an AI unit is hit or killed. Location of the unit is revealed gradually between 0.1 and 4 where 4 is precise. Increments increase with increasing mission difficulty.
+[Changed] Removed some unused code from files in the debug folder of the mission.pbo.
 
 6/1/17 Version 6.59 Build 59
-
-6/1/17 Version 6.59 Build 60
-
 [changed] Players are no longer given crypto for each AI kill. Crypto added to AI Bodies was increased.
 [fixed] error in GMS_fnc_setupWaypoints wherein _arc was not defined early enough in the script.
 [fixed] Exile Respect Loss bug (temporary fix only).

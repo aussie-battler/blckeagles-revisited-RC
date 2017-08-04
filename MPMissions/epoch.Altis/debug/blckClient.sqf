@@ -1,6 +1,6 @@
 ////////////////////////////////////////////
 // Start Server-side functions and Create, Display Mission Messages for blckeagls mission system for Arma 3 Epoch
-// Last Updated 1/11/17
+// Last Updated 8/3/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
 blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
@@ -172,7 +172,7 @@ if !(isServer) then
 
 	};
 	
-	diag_log "blck client loaded ver 1/11/17 2.0 8 PM";	
+	diag_log "blck client loaded ver 8/3/17";	
 	diag_log "[blckeagls] starting client loop";
 	
 	while {true} do
