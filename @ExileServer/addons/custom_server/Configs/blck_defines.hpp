@@ -13,10 +13,9 @@
 */
 
 #define modUsed 
-//#define DBDserver
+#define DBDserver
 #define wpModeMove
 #define useAPEX 
 #define useDynamicSimulation
 //#define blck_debugMode
-//#define blck_debugMode3 
 //#define blck_milServer

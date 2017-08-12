@@ -14,7 +14,7 @@ params["_coords","_grpPilot","_chanceLoot"];
 _chopperType = selectRandom blck_AIHelis;
 _grpPilot setVariable["groupVehicle",_chopperType];
 #ifdef blck_debugMode
-diag_log format["_fnc_spawnMissionHeli:: _chopperType seleted = %1",_chopperType];
+diag_log format["_fnc_missionSpawner:: _chopperType seleted = %1",_chopperType];
 #endif
 
 _spawnVector = round(random(360));
@@ -26,7 +26,7 @@ _dropLoot = (random(1) < _chanceLoot);
 _spawnPos = _coords getPos [_spawnDistance,_spawnVector];
 
 #ifdef blck_debugMode
-diag_log format["_fnc_spawnMissionHeli:: vector was %1 with distance %2 yielding a spawn position of %3 at distance from _coords of %4",_spawnVector,_spawnDistance,_spawnPos, (_coords distance2d _spawnPos)];
+diag_log format["_fnc_missionSpawner:: vector was %1 with distance %2 yielding a spawn position of %3 at distance from _coords of %4",_spawnVector,_spawnDistance,_spawnPos, (_coords distance2d _spawnPos)];
 #endif
 
 _grpPilot setBehaviour "CARELESS";
@@ -61,7 +61,7 @@ _grpPilot selectLeader _unitPilot;
 _grpPilot setVariable["paraGroup",_paraGroup];
 
 #ifdef blck_debugMode
-diag_log format["_fnc_spawnMissionHeli:: heli spawned and pilot added"];
+diag_log format["_fnc_missionSpawner:: heli spawned and pilot added"];
 #endif
 
 //set waypoint for helicopter
@@ -69,7 +69,7 @@ diag_log format["_fnc_spawnMissionHeli:: heli spawned and pilot added"];
 [_coords,25,40,_grpPilot,"random","SAD","helicpoter"] spawn blck_fnc_setupWaypoints;
 
 #ifdef blck_debugMode
-diag_log format["_fnc_spawnMissionHeli:: initial pilot waypoints set"];
+diag_log format["_fnc_missionSpawner:: initial pilot waypoints set"];
 #endif
 _supplyHeli allowDamage true;
 _supplyHeli

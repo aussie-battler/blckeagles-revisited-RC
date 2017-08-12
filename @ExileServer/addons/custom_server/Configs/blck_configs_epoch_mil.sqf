@@ -45,6 +45,29 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	
 	#define useAPEX 1
 	
+	blck_AIPatrolVehicles = 
+	[
+	//"Exile_Car_Offroad_Armed_Guerilla01",
+	//"Exile_Car_Offroad_Armed_Guerilla02",
+	//"Exile_Car_BTR40_MG_Green",
+	//"Exile_Car_BTR40_MG_Camo",
+	//"Exile_Car_HMMWV_M134_Green",
+	//"Exile_Car_HMMWV_M134_Desert",
+	//"Exile_Car_HMMWV_M134_Desert",
+	//"Exile_Car_HMMWV_M2_Desert",
+	//"B_LSV_01_armed_F",
+	//"_MRAP_02_gmg_ghex_F",
+	//"O_MRAP_02_hmg_ghex_F",
+	//"O_MRAP_03_gmg_ghex_F",
+	"O_MRAP_03_hmg_ghex_F",	
+	"B_MBT_01_cannon_F",
+	//"B_MBT_01_mlrs_base_F",
+	"B_MBT_01_mlrs_F",
+	"B_MBT_01_TUSK_F",
+	"B_APC_Tracked_01_AA_F",
+	"B_APC_Tracked_01_CRV_F",
+	"B_APC_Tracked_01_rcws_F"																						
+	]; // Type of vehicle spawned to defend AI bases	
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
 	
@@ -60,9 +83,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_LRPS",
 		"optic_Nightstalker",
 		"optic_NVS",
-		"optic_SOS"
-		//"optic_tws",
-		//"optic_tws_mg",
+		"optic_SOS",
+		"optic_tws",
+		"optic_tws_mg"
 		];
 	blck_Optics_Apex = [
 		//Apex

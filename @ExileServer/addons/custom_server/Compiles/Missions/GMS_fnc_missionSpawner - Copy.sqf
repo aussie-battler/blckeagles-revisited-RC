@@ -349,7 +349,7 @@ if (_abort) exitWith
 if (_allowReinforcements) then
 {
 	_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
-	_temp = [];
+	temp = [];
 
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
@@ -357,47 +357,34 @@ if (_allowReinforcements) then
 		diag_log format["[blckeagls] missionSpawner:: (268) calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 	};
 	#endif
-	private _noChoppers = 3;
-	switch (toLower _aiDifficultyLevel) do
-	{
-		case "blue":{_noChoppers = blck_noPatrolHelisBlue};
-		case "red":{_noChoppers = blck_noPatrolHelisRed};
-		case "green":{_noChoppers = blck_noPatrolHelisGreen};
-		case "orange":{_noChoppers = blck_noPatrolHelisOrange};
-	};
 	
-	for "_i" from 1 to (_noChoppers) do
-	{
-		//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];
-		
-		_temp = [_coords,_aiDifficultyLevel,_weaponList,_uniforms,_headGear] call blck_fnc_spawnMissionReinforcements;
+	//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];
+	_temp = [_coords,_aiDifficultyLevel,_weaponList,_uniforms,_headGear] call blck_fnc_spawnMissionReinforcements;
 
-		#ifdef blck_debugMode
-		if (blck_debugLevel >= 2) then
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 2) then
+	{
+		diag_log format["missionSpawner:: _temp = %1",_temp];
+	};
+	#endif
+
+	if (typeName _temp isEqualTo "ARRAY") then
+	{
+		_abort = _temp select 2;
+		_objects pushback (_temp select 0);
+		_blck_AllMissionAI append (_temp select 1);
+	};
+	if (_abort) then
+	{
+
+			#ifdef blck_debugMode
+		if (blck_debugLevel > 2) then 
 		{
-			diag_log format["missionSpawner:: blck_fnc_spawnMissionReinforcements call for chopper # %1 out of a total of %2 choppers",_i, _noChoppers];
-			diag_log format["missionSpawner:: _temp = %1",_temp];
+			diag_log "missionSpawner:: (276) grpNul or ERROR in blck_fnc_spawnMissionReinforcements, mission termination criteria met, calling blck_endMission";
 		};
 		#endif
 
-		if (typeName _temp isEqualTo "ARRAY") then
-		{
-			_abort = _temp select 2;
-			_objects pushback (_temp select 0);
-			_blck_AllMissionAI append (_temp select 1);
-		};
-		if (_abort) then
-		{
-
-				#ifdef blck_debugMode
-			if (blck_debugLevel > 2) then 
-			{
-				diag_log "missionSpawner:: (276) grpNul or ERROR in blck_fnc_spawnMissionReinforcements, mission termination criteria met, calling blck_endMission";
-			};
-			#endif
-
-			[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
-		};
+		[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
 	};
 };
 // Trigger for mission end

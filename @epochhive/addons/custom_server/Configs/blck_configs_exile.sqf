@@ -14,6 +14,12 @@
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";	
 
+#ifdef blck_milServer
+execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
+if (true) exitWith {};
+#endif
+
+diag_log "[blckeagls] Loading Exile-specific configs for Non-militarized servers: blck_configs_exile.sqf";
 ////////////
 // Exile-specific settings
 ////////////	
@@ -40,8 +46,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
 	
-	blck_blacklistSpawns = false;
-	blck_listConcreteMixerZones	= false;
+	blck_blacklistSpawns = true;
+	blck_listConcreteMixerZones	= true;
 	blck_AI_Side = EAST;
 	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert",/*"Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Desert",*/"B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
 
@@ -491,6 +497,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_specialItems = blck_throwableExplosives + blck_medicalItems;
 	
 	blck_NVG = ["NVGoggles","NVGoggles_INDEP","NVGoggles_OPFOR","Exile_Item_XM8"];
+	blck_buildingMaterials = ["Exile_Item_ExtensionCord","Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_MetalBoard",
+			"Exile_Item_MetalPole","Exile_Item_MetalScrews","Exile_Item_Cement","Exile_Item_Sand"];	
+	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Melee_SledgeHammmer","Exile_Item_Handsaw","Exile_Item_Pliers"];
 
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION

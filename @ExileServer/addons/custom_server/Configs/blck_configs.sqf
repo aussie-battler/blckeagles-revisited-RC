@@ -13,9 +13,13 @@
 */
 
 	#include "\q\addons\custom_server\Configs\blck_defines.hpp";
-	
-	if (blck_debugON) then {diag_log "[blckeagls] Loading blck_configs.sqf";};
 
+	#ifdef blck_milServer
+	execVM "\q\addons\custom_server\Configs\blck_configs_mil.sqf";
+	if (true) exitWith {};
+	#endif
+	
+	diag_log "[blckeagls] Loading configurations for Non-militarized servers: blck_configs.sqf";
 	/*
 		Configuration for Addons that support the overall Mission system.
 		These are a module to spawn map  addons generated with the Eden Editor
@@ -23,11 +27,11 @@
 		A time acceleration module.
 	*/
 	
-	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 1;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
@@ -52,7 +56,7 @@
 	///////////////////////////////
 	//  Kill message configurations
 	// These determine whether and when messages are sent to players regarding AI Kills or illegal kills that might damage a vehicle.
-	blck_useKillMessages = false;  // when true a message will be broadcast to all players each time an AI is killed; may impact server performance.
+	blck_useKillMessages = true;  // when true a message will be broadcast to all players each time an AI is killed; may impact server performance.
 	blck_useKillScoreMessage = true; // when true a tile is displayed to the killer with the kill score information
 	blck_useIEDMessages = true;  // Displayes a message when a player vehicle detonates and IED (such as would happen if a player killed AI with a forbidden weapon).
 	
@@ -88,10 +92,10 @@
 	blck_VK_Gear = true; // When set to true, AI that have been killed by a player in a vehicle in the list of forbidden vehicles or using a forbiden gun will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
 	blck_VK_RunoverDamage = true; // when the AI was run over blck_RunGearDamage of damage will be applied to the killer's vehicle.
 	blck_VK_GunnerDamage = true; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
-	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills	
+	blck_forbidenVehicles = [/*"B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","I_MRAP_03_hmg_F","B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"*/]; // Add any vehicles for which you wish to forbid vehicle kills	
 	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
 	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
-	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC",/*"HMG_M2",*/"HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"]; // Add any vehicles for which you wish to forbid vehicle kills, o
+	blck_forbidenVehicleGuns = [/*"LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"*/]; // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 
 	///////////////////////////////
@@ -108,17 +112,17 @@
 	// AI paratrooper reinforcement paramters
 	// The behavior of these can be linked to some degree to the spawning of patrolling helis.
 	// For example, if you always want a helicopter to spawn paratroops set the value 1.
-	// If you never want helicopters to spawn them set the value to 0.
-	blck_chanceParaBlue = 0.1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
+	// Recommended that you disable paratroops if using muliple aircraft/vehicle patrols
+	blck_chanceParaBlue = 0; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
 	blck_noParaBlue = 3; //  [1-N]
 	
-	blck_chanceParaRed = 0.3;
+	blck_chanceParaRed = 0;
 	blck_noParaRed = 3;
 	
-	blck_chanceParaGreen = 0.4;
-	blck_noParaGreen = 0.4;
+	blck_chanceParaGreen = 0;
+	blck_noParaGreen = 4;
 	
-	blck_chanceParaOrange = 0.5;
+	blck_chanceParaOrange = 0;
 	blck_noParaOrange = 4;
 	
 	// Supplemental Loot Parameters.
@@ -134,6 +138,13 @@
 	_blck_armed_hurons = ["B_Heli_Transport_03_F","B_Heli_Transport_03_black_F"];
 	_blck_armed_attackHelis = ["B_Heli_Attack_01_F"];
 	_blck_armed_heavyAttackHelis = ["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F"];
+		_blck_fighters = [
+		"O_Plane_CAS_02_F",  // /ti-199 Neophron (CAS)
+		"I_Plane_Fighter_03_AA_F",  //  A-143 Buzzard (AA)
+		"I_Plane_Fighter_04_F",  //   	A-149 Gryphon
+		"B_Plane_CAS_01_F",  // 	A-164 Wipeout (CAS)
+		"B_Plane_Fighter_01_F"  //	F/A-181 Black Wasp II
+		];
 	blck_blacklisted_heli_ammo = ["24Rnd_missiles","24Rnd_PG_missiles","12Rnd_PG_missiles","2Rnd_LG_scalpel","6Rnd_LG_scalpel","8Rnd_LG_scalpel","M_Scalpel_AT ","14Rnd_80mm_rockets","38Rnd_80mm_rockets"];
 	blck_blacklisted_heli_weapons = ["missiles_SCALPEL","missiles_titan","rockets_Skyfire","missiles_DAGR","missiles_DAR"];
 	
@@ -142,18 +153,23 @@
 	//  Heli Patrol Settings
 	///////////////////////////////
 
-	blck_chanceHeliPatrolBlue = 0;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
+	blck_chanceHeliPatrolBlue = 0;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. 
+									//  The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
+									// Recommend setting the change = 1 if you wish to spawn multiple helis at a mission.
 	blck_patrolHelisBlue = _blck_littleBirds;
+	blck_noPatrolHelisBlue = 1;
 	
-	blck_chanceHeliPatrolRed = 0; // 0.4;
+	blck_chanceHeliPatrolRed = 0.1; // 0.4;
 	blck_patrolHelisRed = _blck_littleBirds;
+	blck_noPatrolHelisRed = 1;
 	
-	blck_chanceHeliPatrolGreen = 0;
+	blck_chanceHeliPatrolGreen = 0.4;
 	blck_patrolHelisGreen = _blck_littleBirds;
+	blck_noPatrolHelisGreen = 1;
 	
-	blck_chanceHeliPatrolOrange = 0;
-	blck_patrolHelisOrange = _blck_littleBirds; //_blck_armed_hellcats+_blck_armed_orcas;
-
+	blck_chanceHeliPatrolOrange = 0.5;
+	blck_patrolHelisOrange = _blck_armed_hellcats+_blck_armed_orcas;
+	blck_noPatrolHelisOrange = 1;
 
 	////////////////////
 	// Enable / Disable Missions
@@ -228,7 +244,7 @@
 	
 	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
 	blck_killEmptyStaticWeapons = true;  // When true, static weapons will have damage set to 1 when the AI manning them is killed.
-	blck_staticWeapons = ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];  // [0.50 cal, grenade launcher, AT Launcher]
+	blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"/*,"O_static_AT_F"*/];  // [0.50 cal, grenade launcher, AT Launcher]
 
 	////////////////////
 	// Mission Static Weapon Settings
@@ -269,7 +285,7 @@
 
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];	
-	blck_AIAlertDistance = [150,225,250,300];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	blck_AIAlertDistance = [250,325,450,500];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
@@ -341,7 +357,7 @@
 	blck_MaxAI_Orange = 25;
 	blck_AIGrps_Orange = 5;
 	blck_SkillsOrange = [
-		["aimingAccuracy",0.2],["aimingShake",0.5],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+		["aimingAccuracy",0.5],["aimingShake",0.5],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
 	
 	// Green Missions
@@ -349,7 +365,7 @@
 	blck_MaxAI_Green = 21;
 	blck_AIGrps_Green = 4;
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.18],["aimingShake",0.45],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",0.4],["aimingShake",0.45],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
 	
 	// Red Missions
@@ -357,7 +373,7 @@
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",0.16],["aimingShake",0.4],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",0.3],["aimingShake",0.4],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
 	
 	// Blue Missions

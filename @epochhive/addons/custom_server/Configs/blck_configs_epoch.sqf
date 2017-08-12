@@ -2,7 +2,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 5-21-17
+	Last Modified 3-14-17
 	
 	--------------------------
 	License
@@ -403,14 +403,14 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_medicalItems = ["FAK"];
 		blck_specialItems = blck_throwableExplosives + blck_medicalItems;		
 		blck_NVG = ["NVG_EPOCH"];
-		blck_epochValuables = ["PartOreGold","PartOreSilver","PartOre","ItemGoldBar","ItemSilverBar",
-			"ItemGoldBar10oz","ItemTopaz","ItemOnyx","ItemSapphire","ItemAmethyst",
-			"ItemEmerald","ItemCitrine","ItemRuby","ItemQuartz","ItemJade",
-			"ItemGarnet","ItemKiloHemp"];
+		blck_epochValuables = ["class PartOreGold","cass PartOreSilver","class PartOre","class ItemGoldBar","class ItemSilverBar",
+			"class ItemGoldBar10oz","class ItemTopaz","class ItemOnyx","class ItemSapphire","class ItemAmethyst",
+			"class ItemEmerald","class ItemCitrine","class ItemRuby","class ItemQuartz","class ItemJade",
+			"class ItemGarnet","class ItemKiloHemp"];
 		blck_epochBuildingSupplies = ["PartPlankPack","CinderBlocks","MortarBucket","ItemScraps",
 			"ItemCorrugated","ItemCorrugatedLg","ItemSolar","ItemCables",
 			"ItemBattery","Pelt_EPOCH"];
-			
+		blck_buildingMaterials = blck_epochBuildingSupplies;
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION
 Note however that these configurations can be used in any way you like or replaced with mission-specific customized loot arrays
