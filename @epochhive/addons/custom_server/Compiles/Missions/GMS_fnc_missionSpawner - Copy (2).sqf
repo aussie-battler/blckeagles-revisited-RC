@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 8/13/17
+	Last modified 4/11/17
 	
 	--------------------------
 	License
@@ -247,9 +247,8 @@ if (blck_debugLevel > 0) then
 
 _temp = [[],[],false];
 _abort = false;
-private["_patrolVehicles","_vehToSpawn"];
-_vehToSpawn = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
-if (blck_useVehiclePatrols && (_vehToSpawn > 0)) then
+private["_patrolVehicles"];
+if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
 {
 	_temp = [_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
 	//[_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
@@ -297,9 +296,7 @@ _abort = false;
 if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (234) preparing to spawn emplaced weapons for _coords %4 | _markerClass %3 | blck_useStatic = %1 | _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass,_coords];};
 #endif
 
-private["_noEmplacedToSpawn"];
-_noEmplacedToSpawn = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
-if (blck_useStatic && (_noEmplacedToSpawn > 0)) then
+if (blck_useStatic && (_noEmplacedWeapons > 0)) then
 {
 	// params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
 	_temp = [_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
@@ -363,10 +360,10 @@ if (_allowReinforcements) then
 	private _noChoppers = 3;
 	switch (toLower _aiDifficultyLevel) do
 	{
-		case "blue":{_noChoppers = [blck_noPatrolHelisBlue] call blck_fnc_getNumberFromRange};
-		case "red":{_noChoppers = [blck_noPatrolHelisRed] call blck_fnc_getNumberFromRange};
-		case "green":{_noChoppers = [blck_noPatrolHelisGreen] call blck_fnc_getNumberFromRange};
-		case "orange":{_noChoppers = [blck_noPatrolHelisOrange] call blck_fnc_getNumberFromRange};
+		case "blue":{_noChoppers = blck_noPatrolHelisBlue};
+		case "red":{_noChoppers = blck_noPatrolHelisRed};
+		case "green":{_noChoppers = blck_noPatrolHelisGreen};
+		case "orange":{_noChoppers = blck_noPatrolHelisOrange};
 	};
 	
 	for "_i" from 1 to (_noChoppers) do
@@ -426,7 +423,7 @@ _locations = [_coords];
 //diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
 while {_missionComplete  isEqualTo -1} do
 {
-	//if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 180};
+	//if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 300};
 	if ((_endIfPlayerNear) && [_locations,10,true] call blck_fnc_playerInRangeArray) exitWith {};
 	if ((_endIfAIKilled) &&  ({alive _x} count _blck_AllMissionAI) < 1  /*[_blck_AllMissionAI] call blck_fnc_missionAIareDead*/ ) exitWith {};
 	//diag_log format["missionSpawner:: (283) missionCompleteLoop - > players near = %1 and ai alive = %2",[_coords,20] call blck_fnc_playerInRange, {alive _x} count _blck_AllMissionAI];

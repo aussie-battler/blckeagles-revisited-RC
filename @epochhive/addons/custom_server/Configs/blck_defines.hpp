@@ -12,8 +12,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#define modUsed 
-#define DBDserver
+//#define DBDserver
 #define wpModeMove
 #define useAPEX 
 #define useDynamicSimulation

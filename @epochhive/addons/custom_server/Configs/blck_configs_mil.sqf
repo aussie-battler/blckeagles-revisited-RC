@@ -238,8 +238,8 @@
 	// Mission Vehicle Settings
 	////////////////////	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = 4; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnVeh_Orange = [3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Green = [3,4]; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;  // Number of static weapons at Red Missions
 
@@ -256,8 +256,8 @@
 	////////////////////
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
-	blck_SpawnEmplaced_Orange = 5; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 4; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = [3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = [3,4]; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2;  // Number of static weapons at Red Missions	
 
@@ -290,7 +290,7 @@
 
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];	
-	blck_AIAlertDistance = [250,325,450,500];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
@@ -343,7 +343,7 @@
 	blck_maxMoneyBlue = 20;
 
 	#ifdef DBDserver
-	blck_AIAlertDistance = [250,325,450,500];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];

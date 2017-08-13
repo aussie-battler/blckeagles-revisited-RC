@@ -2,7 +2,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 3-14-17
+	Last Modified 8-23-17
 	
 	--------------------------
 	License
@@ -59,16 +59,20 @@ _fn_spawnCrate = {
 		_pos = _cratePos;
 		//diag_log format["crate spawner using exact position %1",_pos];
 	};
-	if (blck_debugON) then
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 0) then
 	{
 		diag_log format["[blckeagls[ SLS ::  _fn_spawnCrate %1  _randomLocation %2  crate position %3",_cratePos,_randomLocation,_pos];
 	};
+	#endif
 	private["_crateTypes","_selectedCrateType"];
 	//_crateTypes = ["I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F","I_supplyCrate_F","Box_East_AmmoVeh_F","Box_NATO_AmmoVeh_F"];
 	_selectedCrateType = selectRandom blck_crateTypes;	
 	_crate = [[0,0,0],_selectedCrateType] call blck_fnc_spawnCrate;
 	_crate setPosATL _pos;
 	_crate setDir round(random(360));
+	//uiSleep 1;
+	_crate setVectorUp surfaceNormal _pos;
 	_crate
 };
 
@@ -77,7 +81,7 @@ _fn_setupCrates = {
 	private["_crate"];
 	
 	_crate = [_location,_randomPos] call _fn_SpawnCrate;
-	if (_lootType isEqualTo 0) then {_lootType = round(random(3));};
+	while {_lootType == 0} do {_lootType = round(random(3));};
 	switch(_lootType) do
 	{
 		// format here is [_arrayOfLoot, crateToLoad, magazinesToAddForEachWeaponLoaded]
@@ -86,6 +90,7 @@ _fn_setupCrates = {
 		case 3:{[_box3_loadout, _crate,3] call blck_fnc_loadLootItemsFromArray;};
 	};
 	if (_useSmoke) then {[getPos _crate] call _fn_smokeAtCrate;};
+	#ifdef blck_debugMode
 	if (blck_debugON) then 
 	{
 		_blck_localMissionMarker = [format["SLS%1%2",_location select 0, _location select 1],(getPos _crate),"","","ColorGreen",["mil_box",[]]];
@@ -93,6 +98,7 @@ _fn_setupCrates = {
 		// params["_missionType","_markerPos","_markerLabel","_markerLabelType","_markerColor","_markerType"];
 		[_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
 	};
+	#endif
 	_crate
 };
 
@@ -107,8 +113,8 @@ private["_cratePosnList","_no","_ar","_x","_cratePos","_lootType","_randomPos","
 		_index = 1;
 		if (blck_debugON) then
 		{
-			//diag_log format["[blckeagls] SLS :: main function: Location name = %3 |count _ar = %1 | _index = %2", count _ar, _index, _name];
-			//diag_log format["[blckeagls] SLS :: main function: count _ar = %1", _ar];
+			diag_log format["[blckeagls] SLS :: main function: Location name = %3 |count _ar = %1 | _index = %2", count _ar, _index, _name];
+			diag_log format["[blckeagls] SLS :: main function: count _ar = %1", _ar];
 		};
 		if (_map isEqualto (toLower(worldName))) then
 		{

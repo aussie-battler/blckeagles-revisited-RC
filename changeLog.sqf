@@ -4,9 +4,31 @@ Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
-8/3/17  Version 6.60 Build 66
+Significant Changes:
+
+8/13/17 Version 6.61 Build 71
+
+[Added] Most parameters for numbers of loot, AI, and vehicle patrols can be defined as either a scalar value or range. 
+	Note that there is backwards compatability to prior versions so you need make no changes to your configs if you do not wish to.
+	The major reason to include this feature is so that players to do not go looking for that third static weapon at an orange mission. They have to scope out the situation.
+
+[Added] options to have multiple aircraft spawn per mission.	
+	[Note that if you spawn more than one aircraft I recommend that you disable the paratroop spawns to avoid spawning more than 124 groups].
+[Added] an optional militarized setting whereby missions use a full complement of Arma air and ground vehicles including fighter jets and tanks. This is OFF by default.
+	Uncomment #define blck_milServer in custom_server\Configs\blck_defines to enable this.
+	[ Note!!! There are both general and mod-specific configs for the militarized missions.]
+[Added] Support for setting a range for certain configurations rather than setting a single value.
+This should make missions a little more varied in that players will no longer be looking for the 4 statics that always spawn at an orange mission.
+This pertains to:
+	Numbers of Emplaced Weapons
+	Numbers of Vehicles Patrols
+	Numbers of Air Patrols 
+	AI Skills; for example you can now set ["aimingAccuracy",[0.08,16]],["aimingShake",[0.25,0.35]],["aimingSpeed",0.5],["endurance",0.50], .... ];
+	Numbers of Items to load into Mission and Static loot crates; for example, for the orange level of difficulty item counts could be revised as follows:
+	blck_lootCountsOrange = [[6,8],[24,32],[5,10],[25,35],16,1];  
+	
+7/27/17  Version 6.59 Build 60
 [added] AI units in mission vehicles and emplaced weapons are notified of the location of the shooter when an AI unit is hit or killed. Location of the unit is revealed gradually between 0.1 and 4 where 4 is precise. Increments increase with increasing mission difficulty.
-[Changed] Removed some unused code from files in the debug folder of the mission.pbo.
 
 6/1/17 Version 6.59 Build 59
 [changed] Players are no longer given crypto for each AI kill. Crypto added to AI Bodies was increased.

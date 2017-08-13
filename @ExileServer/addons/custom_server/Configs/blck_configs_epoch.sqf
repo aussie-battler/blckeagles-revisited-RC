@@ -60,8 +60,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_LRPS",
 		"optic_Nightstalker",
 		"optic_NVS",
-		"optic_SOS"
-		//"optic_tws",
+		"optic_SOS",
+		"optic_tws"
 		//"optic_tws_mg",
 		];
 	blck_Optics_Apex = [

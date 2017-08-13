@@ -4,7 +4,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 2/24/17
+	Last Modified 8/12/17
 	--------------------------
 	License
 	--------------------------
@@ -17,8 +17,11 @@
 
 private ["_result"];
 
+/*
 _result = [];
 {
 	if (isPlayer _x) then { _result pushback _x };
 } forEach playableUnits;
+*/
+_result = allPlayers;
 _result

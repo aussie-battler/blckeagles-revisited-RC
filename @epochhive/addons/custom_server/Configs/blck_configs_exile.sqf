@@ -66,8 +66,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_LRPS",
 		"optic_Nightstalker",
 		"optic_NVS",
-		"optic_SOS"
-		//"optic_tws",
+		"optic_SOS",
+		"optic_tws"
 		//"optic_tws_mg",
 		];
 		
@@ -508,9 +508,9 @@ for examples of how you can do this see \Major\Compositions.sqf
 ***************************************************************************************/			
 
 	// values are: number of things from the weapons, magazines, optics, materials(cinder etc), items (food etc) and backpacks arrays to add, respectively.
-	blck_lootCountsOrange = [8,32,8,30,16,1];   // Orange
-	blck_lootCountsGreen = [7,24,6,16,18,1]; // Green
-	blck_lootCountsRed = [5,16,4,10,6,1];  // Red	
+	blck_lootCountsOrange = [[6,8],[24,32],[5,10],[25,35],16,1];   // Orange
+	blck_lootCountsGreen = [[4,8],[20,30],[5,9],[15,18],18,1]; // Green
+	blck_lootCountsRed = [[4,6],[12,18],4,[6,12],6,1];  // Red	
 	blck_lootCountsBlue = [4,12,3,6,6,1];   // Blue
 	
 	blck_BoxLoot_Orange = 

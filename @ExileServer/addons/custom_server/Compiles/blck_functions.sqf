@@ -32,6 +32,7 @@ blck_fnc_mainThread = compileFinal  preprocessFileLineNumbers "\q\addons\custom_
 blck_fnc_allPlayers = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_allPlayers.sqf";
 blck_fnc_addItemToCrate = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_addItemToCrate.sqf";
 blck_fnc_loadLootItemsFromArray = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_loadLootItemsFromArray.sqf";
+blck_fnc_getNumberFromRange = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getNumberFromRange.sqf";
 
 #ifdef DBDserver	
 blck_fnc_broadcastServerFPS = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf"; 

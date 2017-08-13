@@ -111,18 +111,18 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	
 	blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = 1;  
-	blck_enableGreenMissions = -1;
-	blck_enableRedMissions = -1;
-	blck_enableBlueMissions = -1;
-	blck_enableHunterMissions = -1;
-	blck_enableScoutsMissions = -1;
-	blck_maxCrashSites = -3; 
+	blck_enableGreenMissions = 1;
+	blck_enableRedMissions = 1;
+	blck_enableBlueMissions = 1;
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxCrashSites = 3; 
 	
 	//blck_enabeUnderwaterMissions = 1;
 	
-	blck_cleanupCompositionTimer = 120;  // Time after mission completion at which items in the composition are deleted.
-	blck_AliveAICleanUpTimer = 120;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 120;
+	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
+	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_bodyCleanUpTimer = 20;
 	
 	//blck_chanceHeliPatrolBlue = 1;
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions

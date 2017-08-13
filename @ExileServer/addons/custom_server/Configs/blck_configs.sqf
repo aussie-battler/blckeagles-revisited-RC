@@ -165,11 +165,11 @@
 	
 	blck_chanceHeliPatrolGreen = 0.4;
 	blck_patrolHelisGreen = _blck_littleBirds;
-	blck_noPatrolHelisGreen = 1;
+	blck_noPatrolHelisGreen = [1,1];
 	
 	blck_chanceHeliPatrolOrange = 0.5;
 	blck_patrolHelisOrange = _blck_armed_hellcats+_blck_armed_orcas;
-	blck_noPatrolHelisOrange = 1;
+	blck_noPatrolHelisOrange = [1,1];
 
 	////////////////////
 	// Enable / Disable Missions
@@ -233,7 +233,7 @@
 	// Mission Vehicle Settings
 	////////////////////	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = 3; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Orange = [2,4]; // Number of static weapons at Orange Missions
 	blck_SpawnVeh_Green = 2; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 1;  // Number of static weapons at Red Missions
@@ -251,7 +251,7 @@
 	////////////////////
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
-	blck_SpawnEmplaced_Orange = 3; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Orange = [2,4]; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 2; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 1;  // Number of static weapons at Red Missions	
@@ -304,7 +304,7 @@
 	blck_MaxAI_Orange = 25;
 	blck_AIGrps_Orange = 5;
 	blck_SkillsOrange = [
-		["aimingAccuracy",0.4],["aimingShake",0.7],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+		["aimingAccuracy",[0.35,0.45]],["aimingShake",[0.65,0.75]],["aimingSpeed",[0.65,0.75]],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
 	
 	// Green Missions
@@ -338,7 +338,7 @@
 	blck_maxMoneyBlue = 10;
 
 	#ifdef DBDserver
-	blck_AIAlertDistance = [150,225,250,300];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	blck_AIAlertDistance = [250,450,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
@@ -357,7 +357,7 @@
 	blck_MaxAI_Orange = 25;
 	blck_AIGrps_Orange = 5;
 	blck_SkillsOrange = [
-		["aimingAccuracy",0.5],["aimingShake",0.5],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+		["aimingAccuracy",[0.45,0.56]],["aimingShake",[0.45,0.55]],["aimingSpeed",[0.65,0.75]],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
 	
 	// Green Missions
@@ -365,7 +365,7 @@
 	blck_MaxAI_Green = 21;
 	blck_AIGrps_Green = 4;
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.4],["aimingShake",0.45],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",[0.35,0.45]],["aimingShake",[0.4,0.5]],["aimingSpeed",[0.55,0.7]],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
 	
 	// Red Missions
@@ -373,7 +373,7 @@
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",0.3],["aimingShake",0.4],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",[0.25,0.35]],["aimingShake",[0.35,0.4]],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
 	
 	// Blue Missions
@@ -381,7 +381,7 @@
 	blck_MaxAI_Blue = 12;
 	blck_AIGrps_Blue = 2;
 	blck_SkillsBlue = [
-		["aimingAccuracy",0.12],["aimingShake",0.3],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+		["aimingAccuracy",[0.08,16]],["aimingShake",[0.25,0.35]],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
 	];
 		
 	// Add some money to AI; only works with Exile for now.
