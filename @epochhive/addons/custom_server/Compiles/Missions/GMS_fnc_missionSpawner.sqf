@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last modified 4/11/17
+	Last modified 8/13/17
 	
 	--------------------------
 	License
@@ -247,8 +247,9 @@ if (blck_debugLevel > 0) then
 
 _temp = [[],[],false];
 _abort = false;
-private["_patrolVehicles"];
-if (blck_useVehiclePatrols && (_noVehiclePatrols > 0)) then
+private["_patrolVehicles","_vehToSpawn"];
+_vehToSpawn = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
+if (blck_useVehiclePatrols && (_vehToSpawn > 0)) then
 {
 	_temp = [_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
 	//[_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
@@ -296,7 +297,9 @@ _abort = false;
 if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (234) preparing to spawn emplaced weapons for _coords %4 | _markerClass %3 | blck_useStatic = %1 | _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass,_coords];};
 #endif
 
-if (blck_useStatic && (_noEmplacedWeapons > 0)) then
+private["_noEmplacedToSpawn"];
+_noEmplacedToSpawn = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
+if (blck_useStatic && (_noEmplacedToSpawn > 0)) then
 {
 	// params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
 	_temp = [_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
@@ -349,7 +352,7 @@ if (_abort) exitWith
 if (_allowReinforcements) then
 {
 	_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
-	temp = [];
+	_temp = [];
 
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
@@ -357,34 +360,47 @@ if (_allowReinforcements) then
 		diag_log format["[blckeagls] missionSpawner:: (268) calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 	};
 	#endif
+	private _noChoppers = 3;
+	switch (toLower _aiDifficultyLevel) do
+	{
+		case "blue":{_noChoppers = [blck_noPatrolHelisBlue] call blck_fnc_getNumberFromRange};
+		case "red":{_noChoppers = [blck_noPatrolHelisRed] call blck_fnc_getNumberFromRange};
+		case "green":{_noChoppers = [blck_noPatrolHelisGreen] call blck_fnc_getNumberFromRange};
+		case "orange":{_noChoppers = [blck_noPatrolHelisOrange] call blck_fnc_getNumberFromRange};
+	};
 	
-	//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];
-	_temp = [_coords,_aiDifficultyLevel,_weaponList,_uniforms,_headGear] call blck_fnc_spawnMissionReinforcements;
-
-	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	for "_i" from 1 to (_noChoppers) do
 	{
-		diag_log format["missionSpawner:: _temp = %1",_temp];
-	};
-	#endif
+		//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];
+		
+		_temp = [_coords,_aiDifficultyLevel,_weaponList,_uniforms,_headGear] call blck_fnc_spawnMissionReinforcements;
 
-	if (typeName _temp isEqualTo "ARRAY") then
-	{
-		_abort = _temp select 2;
-		_objects pushback (_temp select 0);
-		_blck_AllMissionAI append (_temp select 1);
-	};
-	if (_abort) then
-	{
-
-			#ifdef blck_debugMode
-		if (blck_debugLevel > 2) then 
+		#ifdef blck_debugMode
+		if (blck_debugLevel >= 2) then
 		{
-			diag_log "missionSpawner:: (276) grpNul or ERROR in blck_fnc_spawnMissionReinforcements, mission termination criteria met, calling blck_endMission";
+			diag_log format["missionSpawner:: blck_fnc_spawnMissionReinforcements call for chopper # %1 out of a total of %2 choppers",_i, _noChoppers];
+			diag_log format["missionSpawner:: _temp = %1",_temp];
 		};
 		#endif
 
-		[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
+		if (typeName _temp isEqualTo "ARRAY") then
+		{
+			_abort = _temp select 2;
+			_objects pushback (_temp select 0);
+			_blck_AllMissionAI append (_temp select 1);
+		};
+		if (_abort) then
+		{
+
+				#ifdef blck_debugMode
+			if (blck_debugLevel > 2) then 
+			{
+				diag_log "missionSpawner:: (276) grpNul or ERROR in blck_fnc_spawnMissionReinforcements, mission termination criteria met, calling blck_endMission";
+			};
+			#endif
+
+			[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
+		};
 	};
 };
 // Trigger for mission end
@@ -410,7 +426,7 @@ _locations = [_coords];
 //diag_log format["missionSpawner:: Waiting for player to satisfy mission end criteria of _endIfPlayerNear %1 with _endIfAIKilled %2",_endIfPlayerNear,_endIfAIKilled];
 while {_missionComplete  isEqualTo -1} do
 {
-	//if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 300};
+	//if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 180};
 	if ((_endIfPlayerNear) && [_locations,10,true] call blck_fnc_playerInRangeArray) exitWith {};
 	if ((_endIfAIKilled) &&  ({alive _x} count _blck_AllMissionAI) < 1  /*[_blck_AllMissionAI] call blck_fnc_missionAIareDead*/ ) exitWith {};
 	//diag_log format["missionSpawner:: (283) missionCompleteLoop - > players near = %1 and ai alive = %2",[_coords,20] call blck_fnc_playerInRange, {alive _x} count _blck_AllMissionAI];

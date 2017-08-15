@@ -33,14 +33,15 @@ switch (toLower (worldName)) do
 	case "altis":
 	{
 		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 1.5;  // Daytime time accelearation
+		blck_timeAccelerationDay = 0.5;  // Daytime time accelearation
 		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = 8;  // Nighttim time acceleration					
+		blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
+		blck_maxCrashSites = 3;
 	};
 	case"tanoa": 
 	{
 		blck_maxCrashSites = 2;
-		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		blck_timeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 		blck_timeAccelerationDay = 1.4;  // Daytime time accelearation
 		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 		blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
@@ -53,10 +54,10 @@ switch (toLower (worldName)) do
 		blck_enableBlueMissions = -1;
 		blck_enableHunterMissions = 1;
 		blck_enableScoutsMissions = -1;
-		blck_maxCrashSites = -1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
+		blck_maxCrashSites = 1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
 		
-		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 2;  // Daytime time accelearation
+		blck_timeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		blck_timeAccelerationDay = 1;  // Daytime time accelearation
 		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 		blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
 	};
@@ -83,15 +84,28 @@ switch (toLower (worldName)) do
 		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 		blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
 	};
+	case "malden":
+	{
+		_arr = date call BIS_fnc_sunriseSunsetTime;
+		_sunrise = _arr select 0;
+		_sunset = _arr select 1;
+		_time = dayTime;
+		_daylight = _sunset - _sunrise;
+		
+		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		blck_timeAccelerationDay = (_daylight / 2.5);  // Daytime time accelearation
+		blck_timeAccelerationDusk = 8; // Dawn/dusk time accelearation
+		blck_timeAccelerationNight = ((24 - _daylight) / 1.5);  // Nighttim time acceleration		
+	};		
 };
 
-if (blck_debugON || (blck_debugLevel isEqualTo 3)) then 
+if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in \custom_server\compiles\blck_variables.sqf
 {
 	// Used primarily for debugging.
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 
 	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-	blck_timeAccelerationDay = 12;  // Daytime time accelearation
+	blck_timeAccelerationDay = 1;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 18; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 24;  // Nighttim time acceleration	
 	
@@ -100,17 +114,17 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	blck_enableGreenMissions = 1;
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-	blck_enableHunterMissions = -1;
-	blck_enableScoutsMissions = -1;
-	blck_maxCrashSites = 1; 
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxCrashSites = 3; 
 	
-	blck_enabeUnderwaterMissions = -1;
+	//blck_enabeUnderwaterMissions = 1;
 	
-	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
-	blck_AliveAICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 10;
+	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
+	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_bodyCleanUpTimer = 20;
 	
-	blck_chanceHeliPatrolBlue = 1;
+	//blck_chanceHeliPatrolBlue = 1;
 	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
@@ -139,8 +153,8 @@ if (blck_debugON || (blck_debugLevel isEqualTo 3)) then
 	blck_TMax_Crashes = 15;
 	
 	//blck_MissionTimout = 360;  // 40 min
-	blck_MinAI_Blue = 1;	
-	blck_MaxAI_Blue = 2;
+	blck_MinAI_Blue = 3;	
+	blck_MaxAI_Blue = 5;
 	blck_AIGrps_Blue = 1;
 	
 	

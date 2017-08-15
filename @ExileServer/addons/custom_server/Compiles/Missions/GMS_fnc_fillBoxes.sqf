@@ -3,7 +3,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 11-11-16
+	Last Modified 8-13-17
 	Fill a crate with items
 	
 	--------------------------
@@ -15,16 +15,16 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-	private["_a1","_item","_diff"];
+	private["_a1","_item","_diff","_tries"];
 	params["_crate","_boxLoot","_itemCnts"];
 	
 	_itemCnts params["_wepCnt","_magCnt","_opticsCnt","_materialsCnt","_itemCnt","_bkcPckCnt"];
-	
-	if (_wepCnt > 0) then
+	_tries = [_wepCnt] call blck_fnc_getNumberFromRange;
+	if (_tries > 0) then
 	{
 		_a1 = _boxLoot select 0; // choose the subarray of weapons and corresponding magazines
 		// Add some randomly selected weapons and corresponding magazines
-		for "_i" from 1 to _wepCnt do {
+		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
 			if (typeName _item isEqualTo "ARRAY") then  //  Check whether weapon name is part of an array that might also specify an ammo to use
 			{ 
@@ -43,50 +43,55 @@
 			};
 		};
 	};
-	if (_magCnt > 0) then
+	_tries = [_magCnt] call blck_fnc_getNumberFromRange;
+	if (_tries > 0) then
 	{	
 	// Add Magazines, grenades, and 40mm GL shells
 		_a1 = _boxLoot select 1;
-		for "_i" from 1 to _magCnt do {
+		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
 			_diff = (_item select 2) - (_item select 1);  // Take difference between max and min number of items to load and randomize based on this value
 			_crate addMagazineCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
 		};
 	};
-	if (_opticsCnt > 0) then
+	_tries = [_opticsCnt] call blck_fnc_getNumberFromRange;
+	if (_tries > 0) then
 	{
 		// Add Optics
 		_a1 = _boxLoot select 2;
-		for "_i" from 1 to _opticsCnt do {
+		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
 			_diff = (_item select 2) - (_item select 1); 
 			_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
 		};
 	};
-	if (_materialsCnt > 0) then
+	_tries = [_materialsCnt] call blck_fnc_getNumberFromRange;
+	if (_tries > 0) then
 	{
 		// Add materials (cindar, mortar, electrical parts etc)
 		_a1 = _boxLoot select 3;
-		for "_i" from 1 to _materialsCnt do {
+		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
 			_diff = (_item select 2) - (_item select 1); 
 			_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
 		};
 	};
-	if (_itemCnt > 0) then
+	_tries = [_itemCnt] call blck_fnc_getNumberFromRange;
+	if (_tries > 0) then
 	{
 		// Add Items (first aid kits, multitool bits, vehicle repair kits, food and drinks)
 		_a1 = _boxLoot select 4;
-		for "_i" from 1 to _itemCnt do {
+		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
 			_diff = (_item select 2) - (_item select 1); 
 			_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
 		};
 	};	
-	if (_bkcPckCnt > 0) then
+	_tries = [_bkcPckCnt] call blck_fnc_getNumberFromRange;
+	if (_tries > 0) then
 	{
 		_a1 = _boxLoot select 5;
-		for "_i" from 1 to _bkcPckCnt do {
+		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
 			_diff = (_item select 2) - (_item select 1); 
 			_crate addbackpackcargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];	

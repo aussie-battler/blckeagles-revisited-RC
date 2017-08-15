@@ -108,17 +108,18 @@
 	// AI paratrooper reinforcement paramters
 	// The behavior of these can be linked to some degree to the spawning of patrolling helis.
 	// For example, if you always want a helicopter to spawn paratroops set the value 1.
-	// If you never want helicopters to spawn them set the value to 0.
-	blck_chanceParaBlue = 0.1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
+	// If you never want paratroops to spawn them set the value to 0.
+	// Recommended that you disable paratroops if using muliple aircraft/vehicle patrols
+	blck_chanceParaBlue = 0; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
 	blck_noParaBlue = 3; //  [1-N]
 	
-	blck_chanceParaRed = 0.3;
+	blck_chanceParaRed = 0;
 	blck_noParaRed = 3;
 	
-	blck_chanceParaGreen = 0.4;
-	blck_noParaGreen = 0.4;
+	blck_chanceParaGreen = 0;
+	blck_noParaGreen = 4;
 	
-	blck_chanceParaOrange = 0.5;
+	blck_chanceParaOrange = 0;
 	blck_noParaOrange = 4;
 	
 	// Supplemental Loot Parameters.
@@ -141,6 +142,16 @@
 		"B_Plane_CAS_01_F",  // 	A-164 Wipeout (CAS)
 		"B_Plane_Fighter_01_F"  //	F/A-181 Black Wasp II
 		];
+	/*
+	_blck_UAVs = [
+		"I_UAV_02_CAS_F",
+		"I_UAV_02_F",
+		"B_UAV_02_CAS_F",
+		"B_UAV_02_F",,
+		"O_UAV_02_CAS_F",
+		"O_UAV_02_F"
+		];
+	*/
 	blck_blacklisted_heli_ammo = [];
 	blck_blacklisted_heli_weapons = [];
 	
@@ -151,16 +162,19 @@
 
 	blck_chanceHeliPatrolBlue = 0.2;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
 	blck_patrolHelisBlue = _blck_littleBirds;
+	blck_noPatrolHelisBlue = 1;
 	
-	blck_chanceHeliPatrolRed = 08; // 0.4;
+	blck_chanceHeliPatrolRed = 0.8; // 0.4;
 	blck_patrolHelisRed = _blck_armed_hellcats+_blck_armed_orcas + _blck_armed_ghosthawks;
+	blck_noPatrolHelisRed = 1;
 	
 	blck_chanceHeliPatrolGreen = 0.9999;
 	blck_patrolHelisGreen = _blck_armed_heavyAttackHelis+_blck_armed_ghosthawks;
+	blck_noPatrolHelisGreen = 2;
 	
 	blck_chanceHeliPatrolOrange = 0.9999;
 	blck_patrolHelisOrange = _blck_armed_heavyAttackHelis + _blck_fighters;
-
+	blck_noPatrolHelisOrange = 3;
 
 	////////////////////
 	// Enable / Disable Missions
@@ -224,8 +238,8 @@
 	// Mission Vehicle Settings
 	////////////////////	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = 4; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnVeh_Orange = [3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Green = [3,4]; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;  // Number of static weapons at Red Missions
 
@@ -242,10 +256,10 @@
 	////////////////////
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
-	blck_SpawnEmplaced_Orange = 5; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 4; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = [3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = [3,4]; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
-	blck_SpawnEmplaced_Red = 1;  // Number of static weapons at Red Missions	
+	blck_SpawnEmplaced_Red = 2;  // Number of static weapons at Red Missions	
 
 
 
@@ -276,7 +290,7 @@
 
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];	
-	blck_AIAlertDistance = [150,225,250,300];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
@@ -303,7 +317,7 @@
 	blck_MaxAI_Green = 21;
 	blck_AIGrps_Green = 4;
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.5],["aimingShake",0.75],["aimingSpeed",0.85],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",0.55],["aimingShake",0.75],["aimingSpeed",0.85],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
 	
 	// Red Missions
@@ -311,7 +325,7 @@
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",0.2],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",0.4],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
 	
 	// Blue Missions
@@ -329,13 +343,13 @@
 	blck_maxMoneyBlue = 20;
 
 	#ifdef DBDserver
-	blck_AIAlertDistance = [150,225,250,300];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9];  
 	
-	blck_baseSkill = 0.7;  // The overal skill of the AI - range 0.1 to 1.0.
+	blck_baseSkill = 1;  // The overal skill of the AI - range 0.1 to 1.0.
 	
 	/***************************************************************
 	
@@ -348,7 +362,7 @@
 	blck_MaxAI_Orange = 35;
 	blck_AIGrps_Orange = 5;
 	blck_SkillsOrange = [
-		["aimingAccuracy",0.4],["aimingShake",0.5],["aimingSpeed",0.7],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+		["aimingAccuracy",0.6],["aimingShake",0.9],["aimingSpeed",0.9],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
 	
 	// Green Missions
@@ -356,20 +370,20 @@
 	blck_MaxAI_Green = 31;
 	blck_AIGrps_Green = 4;
 	blck_SkillsGreen = [
-		["aimingAccuracy",0.3],["aimingShake",0.45],["aimingSpeed",0.65],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",0.55],["aimingShake",0.75],["aimingSpeed",0.85],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
 	
 	// Red Missions
 	blck_MinAI_Red = 12;
-	blck_MaxAI_Red = 15;
+	blck_MaxAI_Red = 18;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",0.2],["aimingShake",0.4],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",0.4],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
 	
 	// Blue Missions
 	blck_MinAI_Blue = 8;	
-	blck_MaxAI_Blue = 12;
+	blck_MaxAI_Blue = 14;
 	blck_AIGrps_Blue = 2;
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.12],["aimingShake",0.3],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
@@ -387,7 +401,7 @@
 	if (_modType isEqualTo "Epoch") then
 	{
 		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",_modType];
-		execVM "\q\addons\custom_server\Configs\blck_configs_epoch.sqf";
+		execVM "\q\addons\custom_server\Configs\blck_configs_epoch_mil.sqf";
 		waitUntil {(isNil "blck_configsEpochLoaded") isEqualTo false;};
 		waitUntil{blck_configsEpochLoaded};
 		blck_configsEpochLoaded = nil;
@@ -397,7 +411,7 @@
 	if (_modType isEqualTo "Exile") then
 	{
 		diag_log format["[blckeagls] Loading Mission System using Parameters for %1 for militarized servers",_modType];
-		execVM "\q\addons\custom_server\Configs\blck_configs_exile.sqf";
+		execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
 		waitUntil {(isNil "blck_configsExileLoaded") isEqualTo false;};
 		waitUntil{blck_configsExileLoaded};
 		blck_configsExileLoaded = nil;

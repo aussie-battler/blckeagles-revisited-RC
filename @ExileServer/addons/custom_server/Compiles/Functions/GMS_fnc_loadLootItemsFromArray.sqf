@@ -16,7 +16,7 @@
 		case 2: [["item1",...,"itemN"],6, 9]; As above except that an item will be selected a minimum of 6 and maximum of 9 times.
 	
 	by Ghostrider-DbD-
-	6/7/17
+	8/13/17
 	
 	--------------------------
 	License
@@ -41,6 +41,8 @@
 		diag_log format["blck_fnc_loadLootFromItemsArray:: -- >> now loading for %1",_x];
 		#endif
 		_q = _x select 1; // this can be a number or array.
+		_tries = [_q] call blck_fnc_getNumberFromRange;
+		/*
 		if ( (typeName _q) isEqualTo "ARRAY") then // Assume the array contains a min/max number to add
 		{
 			if ((count _q) isEqualTo 2) then {_tries = (_q select 0) + round(random(((_q select 1) - (_q select 0))));} else {_tries = 0;};
@@ -49,6 +51,7 @@
 		{
 			_tries = _q;
 		};
+		*/
 		for "_i" from 1 to _tries do
 		{
 			_item = selectRandom (_x select 0);

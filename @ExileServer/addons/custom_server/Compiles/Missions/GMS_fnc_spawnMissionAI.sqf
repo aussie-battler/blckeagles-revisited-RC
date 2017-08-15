@@ -1,7 +1,7 @@
 /*
 	blck_fnc_spawnMissionAI
 	by Ghostrider-DbD-
-	3/17/17
+	8/13/17
 	[_coords,  // center of the area within which to spawn AI
 	_minNoAI,  // minimum number of AI to spawn
 	_maxNoAI,  // Max number of AI to spawn
@@ -22,7 +22,7 @@
 
 	params["_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel","red"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear]];
 	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup","_blck_AllMissionAI","_abort"];
-	_unitsToSpawn = round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
+	_unitsToSpawn = [[_minNoAI,_maxNoAI]] call blck_fnc_getNumberFromRange;  //round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
 	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
 	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
 	_blck_AllMissionAI = [];

@@ -242,7 +242,7 @@ _loot_Misc = ["Exile_Item_InstaDoc","Exile_Item_Matches","Exile_Item_CookingPot"
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 _loot_build = ["Exile_Item_Rope","Exile_Item_DuctTape","Exile_Item_ExtensionCord","Exile_Item_FuelCanisterEmpty",
 				"Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_CamoTentKit","Exile_Item_WorkBenchKit",
-				"Exile_Item_MetalBoard","Exile_Item_MetalPole"];
+				"Exile_Item_MetalBoard","Exile_Item_MetalPole","Exile_Item_Sand","Exile_Item_Cement","Exile_Item_MetalWire","Exile_Item_MetalScrews" ];
 _loot_tools = ["Exile_Item_Handsaw","Exile_Item_Pliers","Exile_Item_Grinder","Exile_Item_Foolbox"];
 
 // Explosives
@@ -251,40 +251,50 @@ _loot_explosives = [["HandGrenade",3],["MiniGrenade",3],["SatchelCharge_Remote_M
 _loot_launchers = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_Titan_short_F"];
 
 //  Loot Configuration 1: Heavy Weapons and explosives
-_box1_Pistols = 3;
-_box1_Rifles = 5;
-_box1_LMG = 4;
-_box1_Snipers = 3;
-_box1_Mags = [2,6];
-_box1_Optics = 6;
-_box1_Silencers = 5;
-_box1_Explosives = 6;
-_box1_FoodDrink = 6;
-_box1_Misc = 3;
+_box1_Pistols = [2,4];
+_box1_Rifles = [5,8];
+_box1_LMG = [1,4];
+_box1_Snipers = 0;
+_box1_Mags = [4,8];
+_box1_Optics = [3,6];
+_box1_Silencers = [3,6];
+_box1_Explosives = [3,6];
+_box1_FoodDrink = 3;
+_box1_Misc = 0;
 _box1_Backpacks = 3;
-_box1_BuildingSupplies = 3;
+_box1_BuildingSupplies = 0;
 _box1_Tools = 0;
+
+#ifdef blck_milServer
+_box1_launchers = 4;
+#else
 _box1_launchers = 0;
+#endif
 //  Note that the bonus items are listed in a nexted array within the _box1_cbonus array. It was more difficult to ocde otherwise and would have needed indexing to make it work.
 _box1_bonus_items = [["ItemGPS",1],["Rangefinder",1],["SatchelCharge_Remote_Mag",3],["DemoCharge_Remote_Mag",3],["ClaymoreDirectionalMine_Remote_Mag",3]];
 _box1_bonus = 1;
 
 // Loot Configuration 2: Sniper Weapons and sniper scopes
-_box2_Pistols = 3;
-_box2_Rifles = 5;
-_box2_LMG = 4;
-_box2_Snipers = 3;
+_box2_Pistols = 2;
+_box2_Rifles = 2;
+_box2_LMG = [3,6];
+_box2_Snipers = [4,8];
 _box2_Mags = [2,6];  // [number of times to select a mag, min # of that mag to add, max # of that mag to add]
 _box2_Optics = 6;
 _box2_Silencers = 5;
 _box2_Explosives = 6;
-_box2_FoodDrink = 6;
-_box2_Misc = 3;
+_box2_FoodDrink = 2;
+_box2_Misc = 1;
 _box2_Backpacks = 3;
-_box2_BuildingSupplies = 3;
+_box2_BuildingSupplies = 0;
 _box2_Tools = 0;
 _box2_Misc = 0;
+#ifdef blck_milServer
+_box2_launchers = 4;
+#else
 _box2_launchers = 0;
+#endif
+
 _box2_bonus_items = [["ItemGPS",2],["Rangefinder",2],["SatchelCharge_Remote_Mag",1],["DemoCharge_Remote_Mag",10]];
 _box2_bonus = 1;
 
@@ -293,17 +303,22 @@ _box3_Pistols = 2;
 _box3_Rifles = 2;
 _box3_LMG = 1;
 _box3_Snipers = 1;
-_box3_Mags = [4,2,6];
+_box3_Mags = [4,6];
 _box3_Optics = 1;
 _box3_Silencers = 1;
 _box3_Explosives = 2;
-_box3_FoodDrink = 3;
-_box3_Misc = 3;
+_box3_FoodDrink = 12;
+_box3_Misc = 6;
 _box3_Backpacks = 1;
-_box3_BuildingSupplies = [8,15]; // [Number of items, min for item, max for item]
+_box3_BuildingSupplies = [12,20]; // [Number of items, min for item, max for item]
 _box3_Tools = 4;
 _box3_Misc = 6;
+#ifdef blck_milServer
+_box3_launchers = 4;
+#else
 _box3_launchers = 0;
+#endif
+
 _box3_bonus_items = [["Exile_Item_Matches",2],[	"Exile_Item_CookingPot",2],["Exile_Item_CanOpener",3],["Exile_Item_Handsaw",2],["Exile_Item_Pliers",2],["Exile_Item_Grinder",1],["Exile_Item_Foolbox",1]];
 _box3_bonus = 1;
 
