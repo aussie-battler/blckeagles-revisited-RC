@@ -306,7 +306,7 @@ diag_log format["_missionSpawner:: _noEmplacedToSpawn = %1",_vehToSpawn];
 if (blck_useStatic && (_noEmplacedToSpawn > 0)) then
 {
 	// params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
-	_temp = [_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
+	_temp = [_missionEmplacedWeapons,_noEmplacedToSpawn,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
 	
 	#ifdef blck_debugMode
 	if  (blck_debugLevel > 2) then 
