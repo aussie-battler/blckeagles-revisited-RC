@@ -14,6 +14,8 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
+//diag_log format["_fnc_spawnEmplacedWeaponArray:: _this = %1",_this];
+
 private["_return","_emplacedWeps","_emplacedAI","_wep","_units","_gunner","_abort","_pos","_mode"];
 _emplacedWeps = [];
 _emplacedAI = [];
