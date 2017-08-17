@@ -245,13 +245,15 @@ if (blck_debugLevel > 0) then
 };
 #endif
 
+uiSleep 3;
 _temp = [[],[],false];
 _abort = false;
 private["_patrolVehicles","_vehToSpawn"];
 _vehToSpawn = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
+diag_log format["_missionSpawner:: _vehToSpawn = %1",_vehToSpawn];
 if (blck_useVehiclePatrols && (_vehToSpawn > 0)) then
 {
-	_temp = [_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
+	_temp = [_coords,_vehToSpawn,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
 	//[_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear,_markerClass] call blck_fnc_spawnMissionVehiclePatrols;
 	#ifdef blck_debugMode
 	if  (blck_debugLevel > 1) then {
@@ -297,8 +299,10 @@ _abort = false;
 if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (234) preparing to spawn emplaced weapons for _coords %4 | _markerClass %3 | blck_useStatic = %1 | _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass,_coords];};
 #endif
 
+uiSleep 3;
 private["_noEmplacedToSpawn"];
 _noEmplacedToSpawn = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
+diag_log format["_missionSpawner:: _noEmplacedToSpawn = %1",_vehToSpawn];
 if (blck_useStatic && (_noEmplacedToSpawn > 0)) then
 {
 	// params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
@@ -349,6 +353,7 @@ if (_abort) exitWith
 	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,true,_patrolVehicles] call blck_fnc_endMission;
 };
 
+uiSleep 3;
 if (_allowReinforcements) then
 {
 	_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
@@ -360,20 +365,33 @@ if (_allowReinforcements) then
 		diag_log format["[blckeagls] missionSpawner:: (268) calling in reinforcements: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 	};
 	#endif
-	private _noChoppers = 3;
+	private _noChoppers = 0;
+	private _chancePara = 0.5;
 	switch (toLower _aiDifficultyLevel) do
 	{
-		case "blue":{_noChoppers = [blck_noPatrolHelisBlue] call blck_fnc_getNumberFromRange};
-		case "red":{_noChoppers = [blck_noPatrolHelisRed] call blck_fnc_getNumberFromRange};
-		case "green":{_noChoppers = [blck_noPatrolHelisGreen] call blck_fnc_getNumberFromRange};
-		case "orange":{_noChoppers = [blck_noPatrolHelisOrange] call blck_fnc_getNumberFromRange};
+		case "blue":{
+			_noChoppers = [blck_noPatrolHelisBlue] call blck_fnc_getNumberFromRange;
+			_chancePara = [blck_chanceParaBlue] call blck_fnc_getNumberFromRange;
+			};
+		case "red":{
+			_noChoppers = [blck_noPatrolHelisRed] call blck_fnc_getNumberFromRange;
+			_chancePara = [blck_chanceParaRed] call blck_fnc_getNumberFromRange;
+			};
+		case "green":{
+			_noChoppers = [blck_noPatrolHelisGreen] call blck_fnc_getNumberFromRange;
+			_chancePara = [blck_chanceParaGreen] call blck_fnc_getNumberFromRange;
+			};
+		case "orange":{
+			_noChoppers = [blck_noPatrolHelisOrange] call blck_fnc_getNumberFromRange;
+			_chancePara = [blck_chanceParaOrange] call blck_fnc_getNumberFromRange;
+			};
 	};
-	
+	diag_log format["_missionSpawner:: _noChoppers = %1  && _chancePara = %2",_noChoppers,_chancePara];
 	for "_i" from 1 to (_noChoppers) do
 	{
 		//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];
 		
-		_temp = [_coords,_aiDifficultyLevel,_weaponList,_uniforms,_headGear] call blck_fnc_spawnMissionReinforcements;
+		_temp = [_coords,_aiDifficultyLevel,_weaponList,_uniforms,_headGear,_chancePara] call blck_fnc_spawnMissionReinforcements;
 
 		#ifdef blck_debugMode
 		if (blck_debugLevel >= 2) then

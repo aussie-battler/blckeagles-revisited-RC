@@ -1,8 +1,8 @@
 /*
-	for DBD Clan
+
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 3-17-17
+	Last Modified 8-16-17
 	
 	--------------------------
 	License
@@ -13,12 +13,14 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-//params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear"];
+params["_coords","_aiSkillsLevel","_weapons","_uniforms","_headgear",["_chancePara",0]];
+/*
 _coords = _this select 0;
 _aiSkillsLevel = _this select 1;
 _weapons = _this select 2;
 _uniforms = _this select 3;
 _headgear = _this select 4;
+*/
 
 private["_chanceHeliPatrol","_return","_temp","_missionHelis"];
 #ifdef blck_debugMode
@@ -71,8 +73,8 @@ if ( (_chanceHeliPatrol > 0) && (random (1) < _chanceHeliPatrol) ) then // if he
 		diag_log "_fnc_spawnMissionReinforcements (64): calling _fnc_spawnMissionHeli to spawn heli and paratroops";
 	};
 	#endif
-
-	_temp = [_coords,_aiSkillsLevel,_weapons,_uniforms,_headgear,_missionHelis] call blck_fnc_spawnMissionHeli; 
+	// params["_coords","_skillAI","_weapons","_uniforms","_headGear","_helis",["_chanceParas",0]];
+	_temp = [_coords,_aiSkillsLevel,_weapons,_uniforms,_headgear,_missionHelis,_chancePara] call blck_fnc_spawnMissionHeli; 
 	if (typeName _temp isEqualTo "ARRAY") then
 	{
 		_return = [_temp select 0, _temp select 1, _temp select 2];

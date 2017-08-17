@@ -113,7 +113,7 @@
 	// The behavior of these can be linked to some degree to the spawning of patrolling helis.
 	// For example, if you always want a helicopter to spawn paratroops set the value 1.
 	// Recommended that you disable paratroops if using muliple aircraft/vehicle patrols
-	blck_chanceParaBlue = 0; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission.
+	blck_chanceParaBlue = 0; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission. This value can be a range as well [0.1,0.3]
 	blck_noParaBlue = 3; //  [1-N]
 	
 	blck_chanceParaRed = 0;
@@ -165,11 +165,11 @@
 	
 	blck_chanceHeliPatrolGreen = 0.4;
 	blck_patrolHelisGreen = _blck_littleBirds;
-	blck_noPatrolHelisGreen = [1,1];
+	blck_noPatrolHelisGreen = 1;
 	
 	blck_chanceHeliPatrolOrange = 0.5;
 	blck_patrolHelisOrange = _blck_armed_hellcats+_blck_armed_orcas;
-	blck_noPatrolHelisOrange = [1,1];
+	blck_noPatrolHelisOrange = 1;
 
 	////////////////////
 	// Enable / Disable Missions
@@ -233,8 +233,8 @@
 	// Mission Vehicle Settings
 	////////////////////	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = [2,4]; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = 2; // Number of static weapons at Green Missions
+	blck_SpawnVeh_Orange = 3; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 1;  // Number of static weapons at Red Missions
 
@@ -251,8 +251,8 @@
 	////////////////////
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
-	blck_SpawnEmplaced_Orange = [2,4]; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 2; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = 3; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 1;  // Number of static weapons at Red Missions	
 
@@ -357,7 +357,7 @@
 	blck_MaxAI_Orange = 25;
 	blck_AIGrps_Orange = 5;
 	blck_SkillsOrange = [
-		["aimingAccuracy",[0.45,0.56]],["aimingShake",[0.45,0.55]],["aimingSpeed",[0.65,0.75]],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+		["aimingAccuracy",[0.25,0.36]],["aimingShake",[0.45,0.55]],["aimingSpeed",[0.65,0.75]],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
 	];
 	
 	// Green Missions
@@ -365,7 +365,7 @@
 	blck_MaxAI_Green = 21;
 	blck_AIGrps_Green = 4;
 	blck_SkillsGreen = [
-		["aimingAccuracy",[0.35,0.45]],["aimingShake",[0.4,0.5]],["aimingSpeed",[0.55,0.7]],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+		["aimingAccuracy",[0.2,0.3]],["aimingShake",[0.4,0.5]],["aimingSpeed",[0.55,0.7]],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
 	];
 	
 	// Red Missions
@@ -373,7 +373,7 @@
 	blck_MaxAI_Red = 15;
 	blck_AIGrps_Red = 3;
 	blck_SkillsRed = [
-		["aimingAccuracy",[0.25,0.35]],["aimingShake",[0.35,0.4]],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+		["aimingAccuracy",[0.2,0.25]],["aimingShake",[0.35,0.4]],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
 	];
 	
 	// Blue Missions
