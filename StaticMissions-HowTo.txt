@@ -1,3 +1,5 @@
+
+
 This update includes an optional ability to spawn static missions.
 This can be done by laying out everything for your static mission in the editor, 
 then using a simple copy - paste - edit strategy.
@@ -32,4 +34,4 @@ My approach to doing this as follows:
 	Once you have done this, add the file to the custom_server\Missions\Static\missions directory then
 	add an entry for your static mission to GMS_StaticMissionLists.sqf
 	
-	in order to specify additional options. Use the information provided in the example static missions to guide you.
+in order to specify additional options. Use the information provided in the example static missions to guide you.
