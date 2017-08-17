@@ -23,10 +23,6 @@ _blck_loadingStartTime = diag_tickTime;
 #include "\q\addons\custom_server\init\build.sqf";
 diag_log format["[blckeagls] Loading version %1 Build %2",_blck_versionDate,_blck_version];
 
-#ifdef DBDserver
-diag_log "[blckegls] Running DBD Clan Version";
-#endif
-
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
 waitUntil{blck_variablesLoaded};
@@ -107,6 +103,10 @@ diag_log "[blckegls] dynamic simulation manager enabled";
 #else
 diag_log "[blckegls] blckegls simulation manager enabled";
 #endif
+
+// Initialize static missions
+[] execVM "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
+uiSleep 1.0;
 
 //Start the mission timers
 if (blck_enableOrangeMissions > 0) then
