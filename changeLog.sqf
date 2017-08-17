@@ -5,8 +5,14 @@ Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
 Significant Changes:
+8/16/17 Version 6.70 Build 73
+[Added] Optional Static Missions. See the How To and th eexample missions for guidance on using this.
+[Fixed] Mission completion was sometimes not triggered by a player nearby.
+[Reverte] There is one active, unresolved bug which is that the mission system glitches if you proved a range (e.g. [2,4] for numbers of vehicle patrols, air patrols, or emplaced weapons.
 
-8/13/17 Version 6.61 Build 71
+8/13/17 Version 6.61 Build 72
+Bug fixes.
+Note: do not use the ranges of values for numbers of vehicle, air or statics.
 
 [Added] Most parameters for numbers of loot, AI, and vehicle patrols can be defined as either a scalar value or range. 
 	Note that there is backwards compatability to prior versions so you need make no changes to your configs if you do not wish to.
