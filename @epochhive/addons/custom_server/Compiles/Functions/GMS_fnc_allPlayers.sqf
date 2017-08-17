@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////
 // Returns an array of all players on the server
 /*
-	for DBD Clan
+
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 8/12/17
+	Last Modified 8/16/17
 	--------------------------
 	License
 	--------------------------
@@ -17,11 +17,11 @@
 
 private ["_result"];
 
-/*
 _result = [];
 {
-	if (isPlayer _x) then { _result pushback _x };
+	if (isPlayer _x && alive _x) then { _result pushback _x };
 } forEach playableUnits;
-*/
-_result = allPlayers;
+
+//_result = allPlayers;
+
 _result

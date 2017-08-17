@@ -36,7 +36,7 @@ if (blck_debugLevel  > 1) then
 };
 #endif
 
-_groupSpawned = createGroup blck_AI_Side; 
+_groupSpawned = createGroup [blck_AI_Side, true];  // true here causes any empty group to be automatically deleted within 1 sec or so.  https://community.bistudio.com/wiki/createGroup
 
 #ifdef blck_debugMode
 if (blck_debugLevel  > 1) then

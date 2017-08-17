@@ -2,7 +2,7 @@
 	for DBD Clan
 	By Ghostrider-DBD-
 	Copyright 2016
-	Last Modified 3-17-17
+	Last Modified 8-15-17
 	
 	--------------------------
 	License
@@ -13,14 +13,17 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-//params["_coords","_skillAI","_weapons","_uniforms","_headGear","_helis"];
+params["_coords","_skillAI","_weapons","_uniforms","_headGear","_helis",["_chanceParas",0]];
+/*
 _coords = _this select 0;
 _skillAI = _this select 1;
 _weapons = _this select 2;
 _uniforms = _this select 3;
 _headGear = _this select 4;
 _helis = _this select 5;
-
+*/
+diag_log format["_fnc_spawnMissionHeli:: _this = %1",_this];
+diag_log format["_fnc_spawnMissionHeli:: _helis = %1 && _chanceParas = %2",_helis,_chanceParas];
 /*
 	Handles upper level functions of reinforcements utilizing helicoptor patrols and/or spawned from a helicopter.
 	Calls on functions that spawn paratroops  and/or loot chests at the heli's location.
@@ -28,7 +31,7 @@ _helis = _this select 5;
 	Tasks are:
 	1) spawn a heli over the mission center.
 	2) add crew and gunners
-	3) spawn paratroops
+	3) spawn paratroops if needed
 	4) configure waypointScript
 	5) return the _heli that was spawned.
 */
@@ -41,6 +44,7 @@ if (blck_debugLevel > 0) then
 
 private["_grpPilot","_chopperType","_patrolHeli","_launcherType","_unitPilot","_unitCrew","_mags","_turret","_return","_abort"];
 _abort = false;
+_grpParatroops = grpNull;
 _grpPilot  = createGroup blck_AI_Side; 
 if (isNull _grpPilot) then 
 {
@@ -48,13 +52,7 @@ if (isNull _grpPilot) then
 		_abort = true;
 };
 
-_grpParatroops = createGroup blck_AI_Side; 
-if (isNull _grpParatroops) then
-{
-		diag_log "BLCK_ERROR: _fnc_spawnMissionHeli::_->> NULL GROUP Returned for _grpParatroops";
-		_abort = true;
-};
-if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
+if !(isNull _grpPilot)  then
 {
 	_grpPilot setBehaviour "COMBAT";
 	_grpPilot setCombatMode "RED";
@@ -70,8 +68,10 @@ if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 
 	private["_supplyHeli"];
 	//create helicopter and spawn it
-	_chopperType = selectRandom _helis;
-
+	if (( typeName _helis) isEqualTo "ARRAY") then {_chopperType = selectRandom _helis}
+	else 
+	{_chopperType = _helis};
+	
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{
@@ -156,15 +156,23 @@ if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 	};
 	#endif
 
-	//  params["_missionPos","_paraGroup",["_numAI",3],"_skillAI","_weapons","_uniforms","_headGear",["_heli",objNull],_grpParatroops];
-	//params["_coords","_skillAI","_weapons","_uniforms","_headGear",["_grpParatroops",grpNull],["_heli",objNull]];
-	if !(isNull _grpParatroops) then
+	if (random(1) < _chanceParas) then
 	{
-		[_coords,_skillAI,_weapons,_uniforms,_headGear,_grpParatroops,_patrolHeli] call blck_fnc_spawnMissionParatroops;
+		_grpParatroops = createGroup blck_AI_Side; 
+		if (isNull _grpParatroops) then
+		{
+				diag_log "BLCK_ERROR: _fnc_spawnMissionHeli::_->> NULL GROUP Returned for _grpParatroops";
+				_abort = true;
+		};
+		//  params["_missionPos","_paraGroup",["_numAI",3],"_skillAI","_weapons","_uniforms","_headGear",["_heli",objNull],_grpParatroops];
+		//params["_coords","_skillAI","_weapons","_uniforms","_headGear",["_grpParatroops",grpNull],["_heli",objNull]];
+		if !(isNull _grpParatroops) then
+		{
+			[_coords,_skillAI,_weapons,_uniforms,_headGear,_grpParatroops,_patrolHeli] call blck_fnc_spawnMissionParatroops;
+		};
 	};
-	
 	//set waypoint for helicopter
-	[_coords,30,35,_grpPilot,"random","SENTRY"] spawn blck_fnc_setupWaypoints;
+	[_coords,30,35,_grpPilot,"random","SAD"] spawn blck_fnc_setupWaypoints;
 	
 	blck_monitoredMissionAIGroups pushBack _grpPilot;
 	#ifdef blck_debugMode
@@ -186,7 +194,9 @@ if (!(isNull _grpPilot) && !(isNull _grpParatroops))  then
 
 };
 private["_ai"];
-_ai = (units _grpParatroops) + (units _grpPilot);
+_ai = (units _grpPilot);
+if !(isNull _grpParatroops) then {_ai = _ai + (units _grpParatroops);};
+
 _return = [_patrolHeli,_ai,_abort];
 
 #ifdef blck_debugMode

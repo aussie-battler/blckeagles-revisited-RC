@@ -170,11 +170,11 @@
 	
 	blck_chanceHeliPatrolGreen = 0.9999;
 	blck_patrolHelisGreen = _blck_armed_heavyAttackHelis+_blck_armed_ghosthawks;
-	blck_noPatrolHelisGreen = 2;
+	blck_noPatrolHelisGreen = 2;  //[1,3];
 	
 	blck_chanceHeliPatrolOrange = 0.9999;
 	blck_patrolHelisOrange = _blck_armed_heavyAttackHelis + _blck_fighters;
-	blck_noPatrolHelisOrange = 3;
+	blck_noPatrolHelisOrange = 3;  //[2,3];
 
 	////////////////////
 	// Enable / Disable Missions
@@ -238,8 +238,8 @@
 	// Mission Vehicle Settings
 	////////////////////	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = [3,5]; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = [3,4]; // Number of static weapons at Green Missions
+	blck_SpawnVeh_Orange = 4;  //[3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Green = 3; //[3,4]; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;  // Number of static weapons at Red Missions
 
@@ -256,8 +256,8 @@
 	////////////////////
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
-	blck_SpawnEmplaced_Orange = [3,5]; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = [3,4]; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = 4;  //[3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = 3;  //[3,4]; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2;  // Number of static weapons at Red Missions	
 

@@ -19,12 +19,12 @@ params["_coords","_skillAI","_weapons","_uniforms","_headGear",["_grpParatroops"
 
 private["_grpParatroops","_chanceParatroops","_aborted","_return"];
 
-_aiSkillsLevel = toLower _aiSkillsLevel;
+_skillAI = toLower _skillAI;
 _chanceParatroops = 0;
 _noPara = 0;
 _aborted = false;
 
-if (_aiSkillsLevel isEqualTo "blue") then {
+if (_skillAI isEqualTo "blue") then {
 
 	#ifdef blck_debugMode
 	if (blck_debugON) then {diag_log "_fnc_spawnMissionParatroops: BLUE difficulty settings applied";};
@@ -33,7 +33,7 @@ if (_aiSkillsLevel isEqualTo "blue") then {
 	_chanceParatroops = blck_chanceParaBlue;
 	_noPara = blck_noParaBlue;
 };
-if (_aiSkillsLevel isEqualTo "green") then {
+if (_skillAI isEqualTo "green") then {
 	
 	#ifdef blck_debugMode
 	if (blck_debugON) then {diag_log "_fnc_spawnMissionParatroops: GREEN difficulty settings applied";};
@@ -42,7 +42,7 @@ if (_aiSkillsLevel isEqualTo "green") then {
 	_chanceParatroops = blck_chanceParaGreen;
 	_noPara = blck_noParaGreen;
 };
-if (_aiSkillsLevel isEqualTo "orange") then {
+if (_skillAI isEqualTo "orange") then {
 
 	#ifdef blck_debugMode
 	if (blck_debugON) then {diag_log "_fnc_spawnMissionParatroops: ORANGE difficulty settings applied";};
@@ -51,7 +51,7 @@ if (_aiSkillsLevel isEqualTo "orange") then {
 	_chanceParatroops = blck_chanceParaOrange;
 	_noPara = blck_noParaOrange;
 };
-if (_aiSkillsLevel isEqualTo "red") then {
+if (_skillAI isEqualTo "red") then {
 
 	#ifdef blck_debugMode
 	if (blck_debugON) then {diag_log "_fnc_spawnMissionParatroops: RED difficulty settings applied";};
