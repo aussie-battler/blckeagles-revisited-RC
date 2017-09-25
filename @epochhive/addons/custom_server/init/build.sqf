@@ -1,3 +1,3 @@
 private ["_version","_versionDate"];
-_blck_version = "6.70 Build 74";
-_blck_versionDate = "8-17-17  8:00 PM";
+_blck_version = "6.71 Build 77";
+_blck_versionDate = "9-24-17  4:00 PM";

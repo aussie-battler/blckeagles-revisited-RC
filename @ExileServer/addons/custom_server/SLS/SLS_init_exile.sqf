@@ -13,7 +13,5 @@
 */
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-// Assemble the final executable with Epoch crate configurations and SLS code
-
 #include "\q\addons\custom_server\SLS\SLS_defines_exile.sqf";
 #include "\q\addons\custom_server\SLS\SLS_functions.sqf";

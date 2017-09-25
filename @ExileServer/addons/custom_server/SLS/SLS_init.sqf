@@ -10,7 +10,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-
+diag_log "[blckeagls] SLS System: Initializing Static Loot Crate System!";
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 if not (isNull( configFile >> "CfgPatches" >> "a3_epoch_server" )) then
@@ -22,3 +22,5 @@ if not (isNull ( configFile >> "CfgPatches" >> "exile_server" ) ) then
 {
 	[] execVM "\q\addons\custom_server\SLS\SLS_init_exile.sqf";
 };
+diag_log "[blckeagls] SLS System: Static loot crates ran successfully!";
+blck_SLSComplete = true;
