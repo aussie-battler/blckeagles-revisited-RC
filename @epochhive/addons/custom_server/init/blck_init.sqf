@@ -21,7 +21,7 @@ if !(isNil "blck_Initialized") exitWith{};
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
 #include "\q\addons\custom_server\init\build.sqf";
-diag_log format["[blckeagls] Loading version %1 Build %2",_blck_versionDate,_blck_version];
+diag_log format["[blckeagls] Loading Version %2 Build Date %1",_blck_versionDate,_blck_version];
 
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
@@ -86,10 +86,19 @@ if (blck_spawnStaticLootCrates) then
 {
 	// Start the static loot crate spawner
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner Started";
-	[] execVM "\q\addons\custom_server\SLS\SLS_init.sqf";
-	waitUntil {(isNil "blck_SLSComplete") isEqualTo false;};
-	waitUntil{blck_SLSComplete};
-	blck_SLSComplete = nil;
+	[] spawn compileFinal preprocessFileLineNumbers "\q\addons\custom_server\SLS\SLS_init.sqf";
+	_wait = true;
+	while {_wait} do
+	{
+		if !(isNil "blck_SLSComplete") then {
+			if (blck_SLSComplete) then {
+				blck_SLSComplete = nil;
+				_wait = false;
+			};
+		};
+		diag_log format["Waiting for SLS to be completed at %1",diag_tickTime];
+		uiSleep 1;
+	};
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner Done";
 }else{
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";

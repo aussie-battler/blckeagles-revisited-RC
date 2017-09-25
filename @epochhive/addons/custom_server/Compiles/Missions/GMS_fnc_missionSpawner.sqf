@@ -67,7 +67,8 @@ if !(blck_preciseMapMarkers) then
 };
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
 if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (91) message players and spawn a mission marker";};
-[["start",_startMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
+[["start",_startMsg,_markerMissionName]] call blck_fnc_messageplayers;
+//[["start",_startMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
 [_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
 
 #ifdef blck_debugMode
@@ -461,6 +462,8 @@ if (blck_debugLevel > 0) then
 //diag_log format["[blckeagls] missionSpawner:: (418) calling endMission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
 private["_result"];
+// Force passing the mission name for informational purposes.
+_blck_localMissionMarker set [2, _markerMissionName];
 _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,false,_patrolVehicles] call blck_fnc_endMission;
 
 //diag_log format["[blckeagls] missionSpawner:: (420)end of mission: blck_fnc_endMission returned value of %1","pending"];

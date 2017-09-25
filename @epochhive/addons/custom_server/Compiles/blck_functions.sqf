@@ -89,12 +89,13 @@ blck_fnc_spawnMissionHeli = compileFinal preprocessFileLineNumbers "\q\addons\cu
 blck_fnc_spawnMissionParatroops = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionParatroops.sqf";  // Lumped here because these 'jump' from aircraft
 blck_fnc_spawnParaUnits = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnParaUnits.sqf";  // Lumped here because these 'jump' from aircraft
 blck_fnc_releaseVehicleToPlayers = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_releaseVehicleToPlayers.sqf"; //  GMS_fnc_releaseVehicleToPlayers
- 
+blck_EH_AIVehicle_HandleDamage = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_AIVehicle_HandleDamage.sqf"; 
+
 // functions to support Units
 blck_fnc_removeGear = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_removeGear.sqf"; // Strip an AI unit of all gear.
 blck_fnc_spawnAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_spawnUnit.sqf"; // spawn individual AI
 blck_EH_AIKilled = "\q\addons\custom_server\Compiles\Units\GMS_EH_AIKilled.sqf";  // Event handler to process AI deaths	
-blck_EH_AHHit = "\q\addons\custom_server\Compiles\Units\GMS_EH_AIHit.sqf";
+blck_EH_AIHit = "\q\addons\custom_server\Compiles\Units\GMS_EH_AIHit.sqf";
 blck_EH_AIFiredNear = "\q\addons\custom_server\Compiles\Units\GMS_EH_AIFiredNear.sqf";
 blck_EH_unitWeaponReloaded = "\q\addons\custom_server\Compiles\Units\GMS_EH_unitWeaponReloaded.sqf";
 blck_fnc_processAIKill = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_processAIKill.sqf";
