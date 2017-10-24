@@ -1,8 +1,10 @@
 ////////////////////////////////////////////
 // Start Server-side functions and Create, Display Mission Messages for blckeagls mission system for Arma 3 Epoch
-// Last Updated 8/3/17
+// Last Updated 1/11/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
+_blck_clientVersion = "6.72 Build 82";
+//if (_blck_clientVersion != blck_pvs_version) then {diag_log "[BLCKEAGLS CLIENT] WARNING!! CLIENT VERSION DOES NOT MATCH SERVER VERSION"};
 blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
 blck_fnc_deleteMarker = compileFinal preprocessfilelinenumbers "debug\deleteMarker.sqf";
 blck_fnc_missionCompleteMarker = compileFinal preprocessfilelinenumbers "debug\missionCompleteMarker.sqf";
@@ -121,7 +123,7 @@ if !(isServer) then
 	
 	fn_handleMessage = {
 		//private["_event","_msg","_mission"];
-		//diag_log format["blck_Message ====]  Paremeters = _this = %1",_this];
+		diag_log format["fn_handleMessage ====]  Paremeters = _this = %1",_this];
 		params["_event","_message",["_mission",""]];
 
 		//diag_log format["blck_Message ====]  Paremeters _event %1  _message %2 paramter #3 %3",_event,_message,_mission];
@@ -154,34 +156,41 @@ if !(isServer) then
 					};	
 			case "reinforcements":
 					{
-						if ( (player distance _mission) < 1000) then {playsound "AddItemOK"; ["Alert",_message] call fn_dynamicNotification;};
+						if ( (player distance _mission) < 1000) then {playsound "AddItemOK"; ["Alert",_message] call fn_missionNotification;};
 						//diag_log "---->>>>  Reinforcements Spotted";
 					};
 			case "IED":
 					{
+						playSound "Alarm";
+						["IED","Bandit Grenades Detonated Under Your Vehicle","Nearby Explosion"] call fn_missionNotification;						
 						[1] call BIS_fnc_Earthquake;
-						//["IED","Bandits targeted your vehicle with an IED"] call fn_dynamicNotification;
-						  ["Bandits targeted your vehicle with an IED.", 5] call Epoch_message;
 						for "_i" from 1 to 3 do {playSound "BattlefieldExplosions3_3D";uiSleep 0.3;};
 					};
 			case "showScore":
 					{
 						[_message select 0, _message select 1, _message select 2] call fn_killScoreNotification;
 					};
+			case "abort":
+					{
+						playSound "Alarm";
+						[_event,_message,"Warning"] spawn fn_missionNotification;					
+					};
 		};
 
 	};
 	
-	diag_log "blck client loaded ver 8/3/17";	
+	diag_log "blck client loaded ver 10/13/17 8 PM";	
+
 	diag_log "[blckeagls] starting client loop";
 	
 	while {true} do
 	{
 		waitUntil {!(blck_message isEqualTo "")};
-		//diag_log format["[blckClient] blck_Message = %1", blck_message];
+		diag_log format["[blckClient] blck_Message = %1", blck_message];
 		private["_message"];
 		_message = blck_message;
 		_message spawn fn_handleMessage;
 		blck_Message = "";	
 	};
+	
 };
