@@ -14,6 +14,8 @@ Version 6.72 Build 88
 [Changed] Crates can now be lifted only AFTER a mission is completed.		
 [Changed] The client is now activated using remoteExec instead of a public variable.
 	      **** Please be sure to update the files in the debug folder on your client.
+		  
+Bug fixes from Build 87		  
 [Fixed] Typos (Thank you to Brian Soanes)
 [Fixed] setting blck_useTimeAcceleration = false did not disable this function.
 
