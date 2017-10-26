@@ -52,7 +52,7 @@ while {true} do
 	if ((diag_tickTime - _timer1min) > 60) then
 	{
 		_timer1min = diag_tickTime;
-		[] call blck_fnc_timeAcceleration;
+		if (blck_useTimeAcceleration) then {[] call blck_fnc_timeAcceleration};
 		[] call blck_fnc_spawnPendingMissions;
 		if !(blck_useHC) then
 		{
