@@ -1,7 +1,7 @@
 /*
 	Handle AI Deaths
 	Last Modified 7/27/17
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	--------------------------
 	License

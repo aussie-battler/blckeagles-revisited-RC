@@ -1,5 +1,5 @@
 
-// Last modified 8/13/17 by Ghostrider-DBD-
+// Last modified 8/13/17 by Ghostrider [GRG]
 /*
 	--------------------------
 	License

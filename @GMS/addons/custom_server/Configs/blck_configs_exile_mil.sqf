@@ -1,6 +1,6 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 3-14-17
 	
@@ -59,10 +59,14 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	//"O_MRAP_03_gmg_ghex_F",
 	//"O_MRAP_03_hmg_ghex_F",	
 	"B_MBT_01_cannon_F",
+	"B_MBT_01_cannon_F",	// Duplicate to increase chance that these will spawn relative to others
 	//"B_MBT_01_mlrs_base_F",
-	"B_MBT_01_mlrs_F",
+	//"B_MBT_01_mlrs_F",
 	"B_MBT_01_TUSK_F",
+	"B_MBT_01_TUSK_F",// Duplicate to increase chance that these will spawn relative to others
 	"B_APC_Tracked_01_AA_F",
+	"B_APC_Tracked_01_AA_F",// Duplicate to increase chance that these will spawn relative to others
+	"B_APC_Tracked_01_AA_F",// Duplicate to increase chance that these will spawn relative to others	
 	"B_APC_Tracked_01_CRV_F",
 	"B_APC_Tracked_01_rcws_F"																						
 	]; // Type of vehicle spawned to defend AI bases	

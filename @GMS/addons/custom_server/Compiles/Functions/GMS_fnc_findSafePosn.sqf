@@ -2,8 +2,8 @@
 // As written this relies on BIS_fnc_findSafePos to ensure that the spawn point is not on water or an excessively steep slope. 
 // 
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 1-22-17
 	--------------------------

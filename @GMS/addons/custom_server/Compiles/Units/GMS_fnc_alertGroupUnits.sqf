@@ -14,7 +14,7 @@
 
 private["_knowsAbout","_intelligence","_group"];
 params["_unit","_target"];
-diag_log format["_fnc_alertGroupUnits called _unit = %1 and _targert = %2",_unit,_target];
+//diag_log format["_fnc_alertGroupUnits called _unit = %1 and _targert = %2",_unit,_target];
 _intelligence = _unit getVariable ["intelligence",1];
 _group = group _unit;
 {

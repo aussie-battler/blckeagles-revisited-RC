@@ -15,7 +15,7 @@
 		case 1: [["item1",...,"itemN"],6]; The script will randomly select from the array of item names 6 times and call the loot loader each time.
 		case 2: [["item1",...,"itemN"],6, 9]; As above except that an item will be selected a minimum of 6 and maximum of 9 times.
 	
-	by Ghostrider-DbD-
+	by Ghostrider [GRG]
 	11/14/16
 	
 	--------------------------

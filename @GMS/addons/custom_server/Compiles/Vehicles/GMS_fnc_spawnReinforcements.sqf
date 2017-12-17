@@ -1,6 +1,6 @@
 /*
 
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8-16-17
 	

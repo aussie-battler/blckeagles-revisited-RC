@@ -1,6 +1,6 @@
 // pull trader cities from config
 /*
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	--------------------------
 	License
 	--------------------------

@@ -6,7 +6,7 @@
 		If _item is a string then add 1 of that item to the container.
 		If _item is an array with 2 elements ["itemName",3] then assume that the first element is a string and is the name of the item, and the second is the number to add.
 		if _item is an array with 3 elements ["itemName",2,6] assume that the first element is the item name (string), the second the min # to add and the third the max # to add.
-		by Ghostrider-DbD-
+		by Ghostrider [GRG]
 		11/14/16
 	
 	--------------------------

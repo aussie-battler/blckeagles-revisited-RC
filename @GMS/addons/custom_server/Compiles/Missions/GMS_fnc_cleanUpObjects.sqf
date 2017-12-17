@@ -3,8 +3,8 @@
 	//http://forums.bistudio.com/showthread.php?165184-Delete-Fire-Effect/page1
 	// http://forums.bistudio.com/showthread.php?165184-Delete-Fire-Effect/page2
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 4-11-17
 	

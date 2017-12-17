@@ -1,7 +1,7 @@
 // Sets up waypoints for a specified group.
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last modified 3/17/17
 	

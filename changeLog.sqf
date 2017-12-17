@@ -1,11 +1,40 @@
 /*
-blck Mission system by Ghostrider-DBD-
+blck Mission system by Ghostrider [GRG]
 Loosely based on the AI mission system by blckeagls ver 2.0.2
 Contributions by Narines: bug fixes, testing, infinite ammo fix.
 Ideas or code from that by Vampire and KiloSwiss have been used for certain functions.
 
+
+
 Significant Changes:
-Version 6.72 Build 88
+=====================
+Version 6.74 Build 97
+Added Core Code for spawning dynamic underwater missions.
+Added Core Code for spawning scuba units and surface and SDV patrols.
+Added Code to spawn static underwater missions.
+Note: support for scuba AI required a significant re-write of the code for spawning AI groups and units.
+
+Changed static missions so that AI are spawned only when players are within 2000 meter.
+Added optional respawn to static AI groups, vehicles, emplaced weaps and aircraft.
+Added four functions that support spawning of static AI with setting for difficulty, patrol radius, and respawn time.
+	For examples, see the updated static eample mission 
+	and blck_custom_config.sqf and the examples below:
+	
+	position                 difficulty  radius respawn
+	[[[22920.4,16887.3,3.19144],"red",[1,2], 75,   120]] call blck_fnc_sm_AddGroup;
+	
+	weapon             position                 difficulty radius (not used) respawn time
+	[["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red",0,0]] call blck_fnc_sm_AddEmplaced;
+	
+	  vehicle                    position               difficulty radius respawn
+	[["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red",   600,    0]] call blck_fnc_sm_AddVehicle;
+	
+	aircraft                            position           difficulty radius respawn
+	[["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",    1000,   0]] call blck_fnc_sm_AddAircraft; 	
+Re-did event handlers for compatability with Arma 1.78+, and moved most code into pre-compiled functions that execute on the server.
+	
+======================	
+Version 6.72 Build 81
 [Added] Support for headless clients. This functionality works for one HC regardless of the name used for HCs.
 [Added] Added an optional variable for mission patrol vehicles:  _missionPatrolVehicles
 		One can use this variable to defin the spawn position and types of vehicles spawned at missions.
@@ -14,22 +43,18 @@ Version 6.72 Build 88
 [Changed] Crates can now be lifted only AFTER a mission is completed.		
 [Changed] The client is now activated using remoteExec instead of a public variable.
 	      **** Please be sure to update the files in the debug folder on your client.
-		  
-Bug fixes from Build 87		  
-[Fixed] Typos (Thank you to Brian Soanes)
-[Fixed] setting blck_useTimeAcceleration = false did not disable this function.
 
+=====================
 Version 6.71 Build 77
 [Added] HandleDamage Event Handler for Armed Vehicles to increase their interaction with players.
 [Fixed] Mission name was not displayed with start or end messages when the mission marker labels were disabled.
 [Fixed] the mission system would hang in some situations due to an undefined global variable in SLS.
 
+============================
 8/13/17 Version 6.61 Build 71
-
 [Added] Most parameters for numbers of loot, AI, and vehicle patrols can be defined as either a scalar value or range. 
 	Note that there is backwards compatability to prior versions so you need make no changes to your configs if you do not wish to.
 	The major reason to include this feature is so that players to do not go looking for that third static weapon at an orange mission. They have to scope out the situation.
-
 [Added] options to have multiple aircraft spawn per mission.	
 	[Note that if you spawn more than one aircraft I recommend that you disable the paratroop spawns to avoid spawning more than 124 groups].
 [Added] an optional militarized setting whereby missions use a full complement of Arma air and ground vehicles including fighter jets and tanks. This is OFF by default.

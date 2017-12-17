@@ -6,7 +6,7 @@
 		If _item is a string then add 1 of that item to the container.
 		If _item is an array with 2 elements ["itemName",3] then assume that the first element is a string and is the name of the item, and the second is the number to add.
 		if _item is an array with 3 elements ["itemName",2,6] assume that the first element is the item name (string), the second the min # to add and the third the max # to add.
-		by Ghostrider-DbD-
+		by Ghostrider [GRG]
 		11/14/16
 	
 	--------------------------
@@ -26,7 +26,10 @@
 	_isBackpack = false;
 	_quant = 0;
 	#ifdef blck_debugMode
-	diag_log format["blck_addItemToCrate:: -- >> itemInfo = %1 | _crate %2 | _addAmmo %3",_itemInfo, _crate, _addAmmo];
+	if (blck_debugLevel > 2) then
+	{
+		diag_log format["blck_addItemToCrate:: -- >> itemInfo = %1 | _crate %2 | _addAmmo %3",_itemInfo, _crate, _addAmmo];
+	};
 	#endif
 	if (typeName _itemInfo isEqualTo "STRING") then {_item = _itemInfo; _quant = 1};  // case where only the item descriptor was provided
 	if (typeName _itemInfo isEqualTo "ARRAY") then {

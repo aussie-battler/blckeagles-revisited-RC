@@ -1,7 +1,7 @@
 // Sets up waypoints for a specified group.
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last modified 6/1/17
 	
@@ -14,14 +14,19 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 #ifdef blck_debugMode
-diag_log "_fnc_setupWaypoints: blck_debugMode enabled";
+if (blck_debugLevel > 2) then
+{
+	diag_log format["_fnc_setupWaypoints: ->  -This = %1",_this];
+};
 #endif
-
 private["_dir","_arc","_noWp","_newpos","_wpradius","_wp"];
 params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAD"],["_soldierType","null"] ];
 _wp = [_group, 0];
 #ifdef blck_debugMode
-diag_log format["_fnc_setupWaypoints (4/29/17): configuring waypoints for group %1: _mode = %2 | _wpPatrolMode = %3 _soldierType = %4",_group, _mode, _wpPatrolMode,_soldierType];
+if (blck_debugLevel > 2) then
+{
+	diag_log format["_fnc_setupWaypoints (4/29/17): configuring waypoints for group %1: _mode = %2 | _wpPatrolMode = %3 _soldierType = %4",_group, _mode, _wpPatrolMode,_soldierType];
+};
 #endif
 if (_soldierType isEqualTo "emplaced") then
 {
@@ -36,10 +41,10 @@ if (_soldierType isEqualTo "emplaced") then
 	_group setVariable["soldierType",_soldierType,true];
 	#ifdef blck_debugMode
 	_wp setWaypointStatements ["true","this call blck_fnc_emplacedWeaponWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to an emplaced weapon Waypoint',group this];"];
+	if (blck_debugLevel > 2) then {diag_log format["_fnc_setupWaypoints: configuring weapoints for group %2 for emplaced weapon with _soldierType = %1",_soldierType,_group];};
 	#else
 	_wp setWaypointStatements ["true","this call blck_fnc_emplacedWeaponWaypoint;"];
 	#endif
-	if (blck_debugLevel > 1) then {diag_log format["_fnc_setupWaypoints: configuring weapoints for group %2 for emplaced weapon with _soldierType = %1",_soldierType,_group];};
 };
 if !(_soldierType isEqualTo "emplaced") then 
 {
@@ -75,7 +80,7 @@ if !(_soldierType isEqualTo "emplaced") then
 	_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;"];	
 	#endif
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 1) then
+	if (blck_debugLevel > 2) then
 	{
 		_marker = createMarker [format["GroupMarker%1",_group],_newPos];
 		_group setVariable["wpMarker",_marker,true];

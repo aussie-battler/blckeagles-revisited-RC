@@ -2,7 +2,7 @@
 
 	[_missionEmplacedWeapons,_noEmplacedWeapons,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
 	Last modified 4/27/17
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	
 	--------------------------
 	License

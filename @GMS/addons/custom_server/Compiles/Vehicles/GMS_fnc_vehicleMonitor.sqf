@@ -10,7 +10,7 @@
 	4) All AI Killed and players MAY keep vehicles -> release vehicle
 	5) vehicle ammo low AND vehicle gunner is alive - > reloaded
 
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last updated 1-22-17
 	

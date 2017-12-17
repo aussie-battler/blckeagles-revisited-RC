@@ -1,9 +1,9 @@
 /*
 	Check if an HC is connected and if so transfer some AI to it.
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	Last modified 11-8-16
 /*
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	--------------------------
 	License
 	--------------------------

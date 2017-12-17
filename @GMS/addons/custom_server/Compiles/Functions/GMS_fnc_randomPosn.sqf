@@ -1,12 +1,12 @@
 //////////////////////////////////////////////
 //  returns a position array at random position within a radius of _range relative to _pos.
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8-13-16
 /*
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	--------------------------
 	License
 	--------------------------

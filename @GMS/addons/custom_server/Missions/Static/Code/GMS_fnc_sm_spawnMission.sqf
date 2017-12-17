@@ -1,10 +1,7 @@
 /*
-	Run scripts exported from M3EDEN Editor plug in for Arma 3 or other map addons. 
-	Add addons to the arrays for Epoch or Exile as appropriate.
-	Arrays should contain ["mapname", "name of folder within mapaddons","name of file to execute"]
-	by Ghostrider-DbD-
-	for DBD Clan
-	11/12/16
+	by Ghostrider [GRG]
+	for ghostridergaming
+	12/5/17
 	--------------------------
 	License
 	--------------------------
@@ -12,7 +9,6 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-if (!isServer) exitWith{};
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 params["_mission"];
 // Spawn landscape
@@ -43,7 +39,7 @@ uiSleep 10; // Let the objects 'settle' before placing anything on or around the
 
 // Spawn static weapons
 // params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
-[_missionEmplacedWeapons,_noEmplacedWeapons,_difficulty,_missionCenter,_uniforms,_headGear] call blck_fnc_sm_spawnEmplaced;
+[_missionEmplacedWeapons,_noEmplacedWeapons,_difficulty,_missionCenter,_uniforms,_headGear] call blck_fnc_sm_spawnEmplaceds;
 
 // spawn loot chests
 [_missionLootBoxes,_missionCenter,_crateLoot,_lootCounts] call blck_fnc_sm_spawnLootContainers;

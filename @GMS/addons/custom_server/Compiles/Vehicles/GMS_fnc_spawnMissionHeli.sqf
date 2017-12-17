@@ -1,6 +1,6 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8-15-17
 	
@@ -22,8 +22,8 @@ _uniforms = _this select 3;
 _headGear = _this select 4;
 _helis = _this select 5;
 */
-diag_log format["_fnc_spawnMissionHeli:: _this = %1",_this];
-diag_log format["_fnc_spawnMissionHeli:: _helis = %1 && _chanceParas = %2",_helis,_chanceParas];
+//diag_log format["_fnc_spawnMissionHeli:: _this = %1",_this];
+//diag_log format["_fnc_spawnMissionHeli:: _helis = %1 && _chanceParas = %2",_helis,_chanceParas];
 /*
 	Handles upper level functions of reinforcements utilizing helicoptor patrols and/or spawned from a helicopter.
 	Calls on functions that spawn paratroops  and/or loot chests at the heli's location.

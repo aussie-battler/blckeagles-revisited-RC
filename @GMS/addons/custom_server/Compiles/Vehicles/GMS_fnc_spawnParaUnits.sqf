@@ -1,5 +1,5 @@
 /*
-	Author: Ghostrider-DbD-
+	Author: Ghostrider [GRG]
 	Inspiration: blckeagls / A3EAI / VEMF / IgiLoad / SDROP
 	License: Attribution-NonCommercial-ShareAlike 4.0 International
 	3/17/17

@@ -1,7 +1,7 @@
 // Changes type of waypont0 for the specified group to "MOVE" and updates  time stamps, WP postion and Timout parameters accordinglyD.
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last modified 4/23/17
 	

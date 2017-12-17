@@ -1,7 +1,7 @@
 /*
 
     Deals with instances in which a unit is damaged (not in use).
-    By Ghostrider-DbD-
+    By Ghostrider [GRG]
     Last modified 4-11-17
 
     unit: Object - Object the event handler is assigned to.

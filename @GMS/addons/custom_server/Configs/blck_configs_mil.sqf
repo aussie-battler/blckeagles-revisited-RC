@@ -1,6 +1,5 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 3-17-17
 	
@@ -16,15 +15,20 @@
 	
 	diag_log "[blckeagls] Loading blck_configs_mil.sqf for Militarized Servers";
 
-	/*
+	/***************************************************************
+		BLCKEAGLS SUPPLEMENTAL MODULES
+	****************************************************************	
 		Configuration for Addons that support the overall Mission system.
-		These are a module to spawn map  addons generated with the Eden Editor
-		And a moduel to spawn static loot crates at specific location
-		A time acceleration module.
+		These are:
+		1) a module to spawn map  addons generated with the Eden Editor
+		2) And a moduel to spawn static loot crates at specific location
+		3) A time acceleration module.
 	*/
-	
+
 	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
 	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	//blck_enableStaticUnits = true; // When true static missions are loaded and functions for spawning static AI groups on foot, in vehicles/aircraft or manning emplaced weapons are enabled.
+	//blck_enableUMS = true;  // when true, blck_numberUnderwaterMissions Underwater missions will be spawned; static UMS units and subs will be spawned.
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
 	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
@@ -47,12 +51,12 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = false; // Not Yet Working
+	blck_useHC = true; // 
 	
 	///////////////////////////////
 	//  Kill message configurations
 	// These determine whether and when messages are sent to players regarding AI Kills or illegal kills that might damage a vehicle.
-	blck_useKillMessages = false;  // when true a message will be broadcast to all players each time an AI is killed; may impact server performance.
+	blck_useKillMessages = true;  // when true a message will be broadcast to all players each time an AI is killed; may impact server performance.
 	blck_useKillScoreMessage = true; // when true a tile is displayed to the killer with the kill score information
 	blck_useIEDMessages = true;  // Displayes a message when a player vehicle detonates and IED (such as would happen if a player killed AI with a forbidden weapon).
 	
@@ -77,7 +81,7 @@
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
-	blck_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+	blck_loadCratesTiming = "atMissionCompletion"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
 	
 	///////////////////////////////
 	// PLAYER PENALTIES
@@ -136,10 +140,10 @@
 	_blck_armed_attackHelis = ["B_Heli_Attack_01_F"];
 	_blck_armed_heavyAttackHelis = ["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F"];
 	_blck_fighters = [
-		"O_Plane_CAS_02_F",  // /ti-199 Neophron (CAS)
+		//"O_Plane_CAS_02_F",  // /ti-199 Neophron (CAS)
 		"I_Plane_Fighter_03_AA_F",  //  A-143 Buzzard (AA)
-		"I_Plane_Fighter_04_F",  //   	A-149 Gryphon
-		"B_Plane_CAS_01_F",  // 	A-164 Wipeout (CAS)
+		//"I_Plane_Fighter_04_F",  //   	A-149 Gryphon
+		//"B_Plane_CAS_01_F",  // 	A-164 Wipeout (CAS)
 		"B_Plane_Fighter_01_F"  //	F/A-181 Black Wasp II
 		];
 	/*
@@ -165,24 +169,24 @@
 	blck_noPatrolHelisBlue = 1;
 	
 	blck_chanceHeliPatrolRed = 0.8; // 0.4;
-	blck_patrolHelisRed = _blck_armed_hellcats+_blck_armed_orcas + _blck_armed_ghosthawks;
+	blck_patrolHelisRed = _blck_armed_hellcats;
 	blck_noPatrolHelisRed = 1;
 	
 	blck_chanceHeliPatrolGreen = 0.9999;
-	blck_patrolHelisGreen = _blck_armed_heavyAttackHelis+_blck_armed_ghosthawks;
-	blck_noPatrolHelisGreen = 2;  //[1,3];
+	blck_patrolHelisGreen = _blck_armed_ghosthawks;
+	blck_noPatrolHelisGreen = [1,3];
 	
 	blck_chanceHeliPatrolOrange = 0.9999;
-	blck_patrolHelisOrange = _blck_armed_heavyAttackHelis + _blck_fighters;
-	blck_noPatrolHelisOrange = 3;  //[2,3];
+	blck_patrolHelisOrange = _blck_armed_ghosthawks;  // + _blck_fighters;
+	blck_noPatrolHelisOrange = [2,4];
 
 	////////////////////
 	// Enable / Disable Missions
 	////////////////////
 	
 	// Maximum number of missions shown on the map at any one time.
-	#ifdef DBDserver
-	blck_maxSpawnedMissions = 6;
+	#ifdef GRGserver
+	blck_maxSpawnedMissions = 15;
 	#else
 	// Change this value to reduce the number of spawned missions at any one time.
 	blck_maxSpawnedMissions = 4;
@@ -191,9 +195,11 @@
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
-	#ifdef DBDserver
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
+	blck_numberUnderwaterDynamicMissions = 5;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+
+	#ifdef GRGserver
 	blck_enableHunterMissions = 1;
 	blck_enableScoutsMissions = 1;
 	blck_maxcrashsites = 3;
@@ -208,11 +214,12 @@
 	blck_TMin_Green = 200;
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
-	#ifdef DBDserver
+	blck_TMin_UMS = 180;	
+	#ifdef GRGserver
 	blck_TMin_Hunter = 120;
 	blck_TMin_Scouts = 115;
 	blck_TMin_Crashes = 115;
-	//blck_TMin_UMS = 200;
+
 	#endif
 	
 	//Maximum Spawn time between missions in seconds
@@ -220,11 +227,11 @@
 	blck_TMax_Green = 300;
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
-	#ifdef DBDserver
+	blck_TMax_UMS = 200;
+	#ifdef GRGserver
 	blck_TMax_Hunter = 200;
 	blck_TMax_Scouts = 200;
 	blck_TMax_Crashes = 200;
-	//blck_TMax_UMS = 280;
 	#endif
 	
 	///////////////////////////////
@@ -238,9 +245,9 @@
 	// Mission Vehicle Settings
 	////////////////////	
 	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = 4;  //[3,5]; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = 3; //[3,4]; // Number of static weapons at Green Missions
-	blck_SpawnVeh_Blue = -1;  // Number of static weapons at Blue Missions
+	blck_SpawnVeh_Orange = [3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnVeh_Green = [3,4]; // Number of static weapons at Green Missions
+	blck_SpawnVeh_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;  // Number of static weapons at Red Missions
 
 	///////////////////////////////
@@ -249,6 +256,7 @@
 	
 	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
 	blck_killEmptyStaticWeapons = true;  // When true, static weapons will have damage set to 1 when the AI manning them is killed.
+		//   	B_Mortar_01_F, 	B_HMG_01_F, 	B_GMG_01_F
 	blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"];  // [0.50 cal, grenade launcher, AT Launcher]
 
 	////////////////////
@@ -256,8 +264,8 @@
 	////////////////////
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
-	blck_SpawnEmplaced_Orange = 4;  //[3,5]; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 3;  //[3,4]; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Orange = [3,5]; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = [3,4]; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2;  // Number of static weapons at Red Missions	
 
@@ -277,13 +285,19 @@
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
 	blck_removeNVG = false; // When true, NVG will be removed from AI when they are killed.
 	blck_useLaunchers = true;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
-	blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
+	blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F"];
 	//blck_launcherTypes = ["launch_RPG32_F"];
 	blck_launchersPerGroup = 5;  // Defines the number of AI per group spawned with a launcher
 	blck_launcherCleanup = false;// When true, launchers and launcher ammo are removed from dead AI.
 
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 1200; // time in seconds after which dead AI bodies are deleted
+	#ifdef GRGserver
+	#ifdef blck_milServer
+	blck_bodyCleanUpTimer = 900;  //  Trying to reduce lag with player counts > 20
+	#endif
+	#endif
+	
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
 	blck_AliveAICleanUpTimer = 1200;  // Time after mission completion at which any remaining live AI are deleted.
@@ -342,7 +356,7 @@
 	blck_maxMoneyRed = 30;
 	blck_maxMoneyBlue = 20;
 
-	#ifdef DBDserver
+	#ifdef GRGserver
 	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
 	//blck_AIAlertDistance = [150,225,400,500];
 	// How precisely player locations will be revealed to AI after an AI kill

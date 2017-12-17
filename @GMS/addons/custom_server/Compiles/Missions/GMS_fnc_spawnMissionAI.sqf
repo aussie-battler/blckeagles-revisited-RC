@@ -1,6 +1,6 @@
 /*
 	blck_fnc_spawnMissionAI
-	by Ghostrider-DbD-
+	by Ghostrider [GRG]
 	8/13/17
 	[_coords,  // center of the area within which to spawn AI
 	_minNoAI,  // minimum number of AI to spawn
@@ -22,20 +22,21 @@
 #ifdef blck_debugMode
 if (blck_debugLevel >=2) then
 {
+	diag_log format["_fnc_spawnMissionAI:  _this = %1",_this];
 	{
 		diag_log format["_fnc_spawnMissionAI:: _this select %1 = %2",_forEachIndex,_x];
 	}forEach _this;
 };
 #endif
-
-	params["_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel","red"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear],"_missionGroups"];
+	// [_coords, _minNoAI,_maxNoAI,_aiDifficultyLevel,blck_UMS_uniforms,blck_UMS_headgear,_scubaGroupParameters,blck_UMS_weapons,blck_UMS_vests,isScubaGroup]
+	params["_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel","red"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear],"_missionGroups",["_weapons",[]],["_vests",blck_vests],["_isScubaGroup",false]];
 	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup","_blck_AllMissionAI","_abort"];
 	_unitsToSpawn = [[_minNoAI,_maxNoAI]] call blck_fnc_getNumberFromRange;  //round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
 	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
 	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
 	_blck_AllMissionAI = [];
 	_abort = false;
-	
+	if (count _weapons == 0) then {_weapons = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
 	#ifdef blck_debugMode
 	if (blck_debugLevel >= 2) then
 	{
@@ -44,15 +45,11 @@ if (blck_debugLevel >=2) then
 	#endif
 if (count _missionGroups > 0) then
 {
-	{	
-		_x params["_position","_minAI","_maxAI","_skillLevel","_minPatrolRadius","_maxPatrolRadius"];
+	{	//  	[[1,-1,-1],"red",4, 5,10]
+		_x params["_position","_skillLevel","_numAI","_minPatrolRadius","_maxPatrolRadius"];
 		_groupSpawnPos = _coords vectorAdd _position;
-		
-		diag_log format["_fnc_spawnMissionAI:: _x= %1",_x];
-		diag_log format["_fnc_spawnMissionAI:: _coords = %1 | _groupSpawnPos = %2 | _position = %3",_coords,_groupSpawnPos,_position];
-		//  player modelToWorld [0,-1,3];
-		//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true] ];
-		_newGroup = [_groupSpawnPos,_minAI,_maxAI,_skillLevel,_coords,_minPatrolRadius,_maxPatrolRadius,_uniforms,_headGear,true] call blck_fnc_spawnGroup;
+		//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true],["_weaponList",[]],["_vests",blck_vests],["_scuba",false] ];
+		_newGroup = [_groupSpawnPos,_numAI,_numAI,_skillLevel,_coords,_minPatrolRadius,_maxPatrolRadius,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
 			
 		#ifdef blck_debugMode
 		if (blck_debugLevel >= 2) then
@@ -88,15 +85,16 @@ if (_missionGroups isEqualTo []) then
 		case 1: {  // spawn the group near the mission center
 				
 				#ifdef blck_debugMode
-				//params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
+				//params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true],["_weaponList",[]],["_vests",blck_vests],["_scuba",false] ];
 				if (blck_debugLevel >= 2) then
 				{
 					diag_log format["missionSpawner: Spawning Groups: _noAIGroups=1"];
 				};
 				#endif
+				_minDist = 20;
+				_maxDist = 35;
+				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,_minDist,_maxDist,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
 
-				_newGroup = [_coords,_unitsToSpawn,_unitsToSpawn,_aiDifficultyLevel,_coords,25,30,_uniforms,_headGear,true] call blck_fnc_spawnGroup;
-				
 				#ifdef blck_debugMode
 				if (blck_debugLevel >= 2) then
 				{
@@ -131,7 +129,8 @@ if (_missionGroups isEqualTo []) then
 					diag_log format["_fnc_spawnMissionAI(47): Spawning Groups: _noAIGroups=2"];  // spawn groups on either side of the mission area
 				};
 				#endif
-
+				_minDist = 20;
+				_maxDist = 35;
 				_groupLocations = [_coords,_noAIGroups,15,30] call blck_fnc_findPositionsAlongARadius;
 				{
 					private["_adjusttedGroupSize"];
@@ -142,7 +141,8 @@ if (_missionGroups isEqualTo []) then
 					} else {
 						_adjusttedGroupSize = _unitsPerGroup;
 					};
-					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,15,25,_uniforms,_headGear] call blck_fnc_spawnGroup;
+					_newGroup = [_x,_adjusttedGroupSize,_adjusttedGroupSize,_aiDifficultyLevel,_coords,_minDist,_maxDist,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
+
 					if (isNull _newGroup) then 
 					{
 						_abort = true;
@@ -171,9 +171,10 @@ if (_missionGroups isEqualTo []) then
 					diag_log format["_fnc_spawnMissionAI (68): Spawning Groups: _noAIGroups=3"];
 				};
 				#endif
-
-
-				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,10,15,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				_minDist = 20;
+				_maxDist = 35;
+				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,_minDist,_maxDist,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
+				
 				if (isNull _newGroup) then 
 				{
 					_abort = true;
@@ -193,7 +194,7 @@ if (_missionGroups isEqualTo []) then
 
 					_groupLocations = [_coords,2,20,35] call blck_fnc_findPositionsAlongARadius;
 					{
-						_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+						_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,_minDist,_maxDist,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;					
 						if (isNull _newGroup) then 
 						{
 							_abort = true;
@@ -223,7 +224,7 @@ if (_missionGroups isEqualTo []) then
 				};
 				#endif
 
-				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+				_newGroup = [_coords,_unitsPerGroup + _ResidualUnits,_unitsPerGroup + _ResidualUnits,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
 				if (isNull _newGroup) then 
 				{
 					_abort = true;
@@ -240,7 +241,9 @@ if (_missionGroups isEqualTo []) then
 				_blck_AllMissionAI append _newAI;
 				_groupLocations = [_coords,(_noAIGroups - 1),20,40] call blck_fnc_findPositionsAlongARadius;
 				{
-					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,1,12,_uniforms,_headGear] call blck_fnc_spawnGroup;
+					_minDist = 20;
+					_maxDist = 35;				
+					_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,_minDist,_maxDist,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
 					if (isNull _newGroup) then 
 					{
 						_abort = true;
@@ -248,10 +251,12 @@ if (_missionGroups isEqualTo []) then
 					else 
 					{
 						_newAI = units _newGroup;
+						#ifdef blck_debugMode
 						if (blck_debugLevel > 2) then
 						{
 							diag_log format["_fnc_spawnMissionAI(99): _newGroup=%1",_newGroup];
 						};
+						#endif
 						_blck_AllMissionAI append _newAI;
 					};
 				}forEach _groupLocations;

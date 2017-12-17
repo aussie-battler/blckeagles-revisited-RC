@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////
 // Test whether one object (e.g., a player) is within a certain range of any of an array of other objects
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 2/24/17
 /*
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	--------------------------
 	License
 	--------------------------

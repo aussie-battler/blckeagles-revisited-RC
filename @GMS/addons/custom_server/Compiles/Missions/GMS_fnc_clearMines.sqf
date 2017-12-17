@@ -1,7 +1,7 @@
 // removes mines in a region centered around a specific position.
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8-13-16
 	

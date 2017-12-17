@@ -2,7 +2,7 @@
 // Returns an array of all players on the server
 /*
 
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8/16/17
 	--------------------------

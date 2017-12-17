@@ -1,5 +1,5 @@
 /*
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	Last modified 8-15-17
 	--------------------------
 	License
@@ -10,10 +10,10 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-diag_log format["starting _fnc_mainThread with time = %1",diag_tickTime];
+//diag_log format["starting _fnc_mainThread with time = %1",diag_tickTime];
 
-#ifdef DBDserver
-diag_log "running DBDServer version of _fnc_mainThread";
+#ifdef GRGserver
+diag_log "running GRGserver version of _fnc_mainThread";
 #endif
 
 private["_modType","_timer1sec","_timer5sec","_timer20sec","_timer5min","_timer5min"];
@@ -30,7 +30,7 @@ while {true} do
 	if (diag_tickTime - _timer1sec > 1) then 
 	{
 		[] call blck_fnc_vehicleMonitor;
-		#ifdef DBDserver
+		#ifdef GRGserver
 		[] call blck_fnc_broadcastServerFPS;
 		#endif
 		_timer1sec = diag_tickTime;
@@ -39,6 +39,7 @@ while {true} do
 	{
 		_timer5sec = diag_tickTime;
 		[] call blck_fnc_missionGroupMonitor;
+		[] call blck_fnc_sm_monitorStaticMissionUnits;
 		//[] call blck_fnc_sm_checkForPlayerNearMission;
 	};
 	if (diag_tickTime - _timer20sec > 20) then
@@ -52,11 +53,13 @@ while {true} do
 	if ((diag_tickTime - _timer1min) > 60) then
 	{
 		_timer1min = diag_tickTime;
-		if (blck_useTimeAcceleration) then {[] call blck_fnc_timeAcceleration};
+		[] call blck_fnc_timeAcceleration;
+		//diag_log format["_fnc_mainThread:  calling blck_fnc_spawnPendingMissions at %1",diag_tickTime];
 		[] call blck_fnc_spawnPendingMissions;
-		if !(blck_useHC) then
+		//diag_log format["_fnc_mainThread:  control returned to _fnc_mainThread from _fnc_spawnPendingMissions at %1",diag_tickTime];
+		if (blck_useHC) then
 		{
-			diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
+			//diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
 			[] call blck_fnc_passToHCs;
 		};
 		//[] call blck_fnc_missionGroupMonitor;
@@ -67,6 +70,10 @@ while {true} do
 			[] call blck_fnc_cleanEmptyGroups;
 		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.		
 		*/
+		#ifdef blck_debugMode
+		//diag_log format["_fnc_mainThread: active SQFscripts include: %1",diag_activeSQFScripts];
+		diag_log format["_fnc_mainThread: active scripts include: %1",diag_activeScripts];
+		#endif
 	};	
 	if (blck_useTimeAcceleration) then
 	{
@@ -75,4 +82,5 @@ while {true} do
 			_timer5min = diag_tickTime;
 		};
 	};
+
 };

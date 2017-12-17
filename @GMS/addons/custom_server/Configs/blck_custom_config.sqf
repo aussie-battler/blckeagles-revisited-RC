@@ -1,7 +1,7 @@
 	
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 3-14-17
 	
@@ -32,10 +32,18 @@ switch (toLower (worldName)) do
 {
 	case "altis":
 	{
+		private ["_arr","_sunrise","_sunset","_time"];
+		_arr = date call BIS_fnc_sunriseSunsetTime;
+		_sunrise = _arr select 0;
+		_sunset = _arr select 1;
+		_daylight = _sunset - _sunrise;
+		_nightTime = abs(24 - _daylight);
+		_time = dayTime;
+		
 		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 0.5;  // Daytime time accelearation
+		blck_timeAccelerationDay = (_daylight)/6;  // Daytime time accelearation
 		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
+		blck_timeAccelerationNight = _nightTime / 6;  // Nighttim time acceleration	
 		blck_maxCrashSites = 3;
 	};
 	case"tanoa": 
@@ -104,33 +112,38 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	// Used primarily for debugging.
 	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 
-	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-	blck_timeAccelerationDay = 1;  // Daytime time accelearation
-	blck_timeAccelerationDusk = 18; // Dawn/dusk time accelearation
-	blck_timeAccelerationNight = 24;  // Nighttim time acceleration	
+	//blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	//blck_timeAccelerationDay = 1;  // Daytime time accelearation
+	//blck_timeAccelerationDusk = 18; // Dawn/dusk time accelearation
+	//blck_timeAccelerationNight = 24;  // Nighttim time acceleration	
 	
+	//blck_useHC = true;
+	blck_maxSpawnedMissions = 10;
 	blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
-	blck_enableHunterMissions = 1;
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
+	blck_numberUnderwaterDynamicMissions = 3;	
+	blck_enableHunterMissions = -1;
 	blck_enableScoutsMissions = 1;
 	blck_maxCrashSites = 3; 
 	
 	//blck_enabeUnderwaterMissions = 1;
 	
-	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
-	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 20;
+	blck_cleanupCompositionTimer = 10;  // Time after mission completion at which items in the composition are deleted.
+	blck_AliveAICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_bodyCleanUpTimer = 10;
 	
+	blck_noPatrolHelisOrange = [2,4];	
+
 	//blck_chanceHeliPatrolBlue = 1;
-	blck_SpawnEmplaced_Orange = 4; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Orange = [2,4]; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 2; 
-	
-	blck_SpawnVeh_Orange = 4; // Number of static weapons at Orange Missions
+
+	blck_SpawnVeh_Orange = [2,4]; // Number of static weapons at Orange Missions
 	blck_SpawnVeh_Green = 3; // Number of static weapons at Green Missions
 	blck_SpawnVeh_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnVeh_Red = 2;
@@ -142,7 +155,7 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	blck_TMin_Hunter = 20;
 	blck_TMin_Scouts = 20;
 	blck_TMin_Crashes = 5;
-	
+	blck_TMin_UMS = 20;
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Blue = 12;
 	blck_TMax_Red = 15;
@@ -151,13 +164,14 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	blck_TMax_Hunter = 22;
 	blck_TMax_Scouts = 22;
 	blck_TMax_Crashes = 15;
-	
+	blck_TMax_UMS = 25;
 	//blck_MissionTimout = 360;  // 40 min
+	/*
 	blck_MinAI_Blue = 3;	
 	blck_MaxAI_Blue = 5;
 	blck_AIGrps_Blue = 1;
-	
-	
+	*/
+	/*
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
 		["aimingShake",0.01],
@@ -170,7 +184,7 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 		["commanding",0.8],
 		["general",1.00]
 	];
-	
+	*/
 };
 
 

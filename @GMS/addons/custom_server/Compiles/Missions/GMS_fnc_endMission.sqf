@@ -1,6 +1,6 @@
 /*
 	
-	[_mines,_objects,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission] call blck_fnc_endMission;
+	[_mines,_objects,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,_isScubaMission] call blck_fnc_endMission;
 	schedules deletion of all remaining alive AI and mission objects.
 	Updates the mission que.
 	Updates mission markers.
@@ -14,29 +14,45 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-	#include "\q\addons\custom_server\Configs\blck_defines.hpp"
-
+#include "\q\addons\custom_server\Configs\blck_defines.hpp"
+private["_cleanupAliveAITimer","_cleanupCompositionTimer","_isScubaMission"];
+	
 _fn_missionCleanup = {	
-	params["_mines","_objects","_blck_AllMissionAI","_mission","_cleanupAliveAITimer","_cleanupCompositionTimer"];
+	params["_mines","_objects","_blck_AllMissionAI","_mission","_cleanupAliveAITimer","_cleanupCompositionTimer",["_isScubaMission",false]];
 	[_mines] spawn blck_fnc_clearMines;
 	//diag_log format["_fnc_endMission: (103) _objects = %1",_objects];
 	[_objects, _cleanupCompositionTimer] spawn blck_fnc_addObjToQue;
 	//diag_log format["_fnc_endMission:: (106) _blck_AllMissionAI = %1",_blck_AllMissionAI];
 	[_blck_AllMissionAI, (_cleanupAliveAITimer)] spawn blck_fnc_addLiveAItoQue;
-	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];
-	blck_recentMissionCoords pushback [_coords,diag_tickTime]; 
-	//diag_log format["_fnc_endMission:: (109) _mission = %1",_mission];
-	[_mission,"inactive",[0,0,0]] call blck_fnc_updateMissionQue;
 	blck_missionsRunning = blck_missionsRunning - 1;
+	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];	
+	if !(_isScubaMission) then
+	{
+		blck_recentMissionCoords pushback [_coords,diag_tickTime]; 
+		[_mission,"inactive",[0,0,0]] call blck_fnc_updateMissionQue;	
+		//diag_log format["_fnc_endMission:: (109) _mission = %1",_mission];
+	};
+	if (_isScubaMission) then
+	{
+		blck_priorDynamicUMS_Missions pushback [_coords,diag_tickTime]; 
+		blck_UMS_ActiveDynamicMissions = blck_UMS_ActiveDynamicMissions - [_coords];
+		blck_dynamicUMS_MissionsRuning = blck_dynamicUMS_MissionsRuning - 1;		
+	};
 };
 
-	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false],["_vehicles",[]]];
-	private["_cleanupAliveAITimer","_cleanupCompositionTimer"];
+///////////////////////////////////////////////////////////////////////
+//  MAIN FUNCTION STARTS HERE
+//////////////////////////////////////////////////////////////////////
+	diag_log format["_fnc_endMission: _this = %1",_this];
+	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_aborted",false],["_vehicles",[]],["_isScubaMission",false]];
+
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then 
 	{
 		diag_log format["_fnc_endMission:  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _aborted %4",_blck_localMissionMarker,_coords,_mission,_aborted];
 		diag_log format["_fnc_endMission:  _aborted = %1",_aborted];
+		diag_log format["_fnc_endMission: _isScubaMission = %1",_isScubaMission];
+		diag_log format["_fnc_endMission: prior to running mission end functions -> blck_missionsRunning = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_missionsRunning,blck_dynamicUMS_MissionsRuning];
 	};
 	#endif
 
@@ -54,7 +70,8 @@ _fn_missionCleanup = {
 		[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
 		_cleanupCompositionTimer = 0;
 		_cleanupAliveAITimer = 0;
-		[_mines,_objects,_blck_AllMissionAI,_mission,_cleanupAliveAITimer,_cleanupCompositionTimer] call _fn_missionCleanup;
+		//  params["_mines","_objects","_blck_AllMissionAI","_mission","_cleanupAliveAITimer","_cleanupCompositionTimer",["_isScubaMission",false]];
+		[_mines,_objects,_blck_AllMissionAI,_mission,_cleanupAliveAITimer,_cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 		{
 			deleteVehicle _x;
 		}forEach _crates;
@@ -111,6 +128,9 @@ _fn_missionCleanup = {
 				blck_monitoredVehicles pushback _x;
 			};
 		} forEach _vehicles;
-		[_mines,_objects,_blck_AllMissionAI,_mission,_cleanupAliveAITimer,_cleanupCompositionTimer] call _fn_missionCleanup;
+		[_mines,_objects,_blck_AllMissionAI,_mission,_cleanupAliveAITimer,_cleanupCompositionTimer,_isScubaMission] call _fn_missionCleanup;
 	};
+	#ifdef blck_debugMode
+	diag_log format["_fnc_endMission: after to running mission end functions -> blck_missionsRunning = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_missionsRunning,blck_dynamicUMS_MissionsRuning];
+	#endif
 	_aborted

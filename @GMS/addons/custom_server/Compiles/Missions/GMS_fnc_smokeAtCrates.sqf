@@ -1,7 +1,7 @@
 /*
 	Spawns a smoking wreck or object at a specified location and returns the objects spawn (wreck and the particle effects object)
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last updated 8-14-16
 	

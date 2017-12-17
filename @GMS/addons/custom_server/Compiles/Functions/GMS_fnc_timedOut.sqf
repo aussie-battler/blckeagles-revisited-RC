@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////
 // test if a timeout condition exists.
-// by Ghostrider-DBD- 
+// by Ghostrider [GRG] 
 // Last modified 1/22/17
 // [_startTime] call blck_fnc_timedOut
 // Returns true (timed out) or false (not timed out)

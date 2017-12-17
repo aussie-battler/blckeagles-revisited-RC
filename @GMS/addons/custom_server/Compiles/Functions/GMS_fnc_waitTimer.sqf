@@ -1,6 +1,6 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8-13-16
 	
@@ -9,7 +9,7 @@
   [_minTime, _maxTime] call blck_fnc_waitTimer
   Returns true; 
 /*
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	--------------------------
 	License
 	--------------------------

@@ -1,6 +1,6 @@
 /*
 	[_coords,_noVehiclePatrols,_aiDifficultyLevel,_uniforms,_headGear] call blck_fnc_spawnMissionVehiclePatrols
-	by Ghostrider-DbD-
+	by Ghostrider [GRG]
 	3/17/17
 	returns [] if no groups could be created
 	returns [_AI_Vehicles,_missionAI] otherwise;
@@ -14,11 +14,12 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_uniforms","_headGear","_missionPatrolVehicles"];
-
+params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_uniforms","_headGear","_missionPatrolVehicles",["_useRelativePos",true],["_weapons",[]],["_vests",blck_vests],["_isScubaGroup",false]];
+if (count _weapons == 0) then {_weapons = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then 
 {
+	diag_log format["_fnc_spawnMissionVehiclePatrols: _this = %1",_this];
 	diag_log format["_fnc_spawnMissionVehiclePatrols:: _coords = %1 | _noVehiclePatrols = %2 | _aiDifficultyLevel = %3",_coords,_noVehiclePatrols,_aiDifficultyLevel];
 };
 #endif
@@ -27,17 +28,16 @@ private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns","_missionAI","_missi
 _vehicles = [];
 _missionAI = [];
 _abort = false;
-_useRelativePos = false;
+//_useRelativePos = false;
 if (_missionPatrolVehicles isEqualTo []) then
 {
+	_useRelativePos = false;
 	_vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
 	{
 		private _v = selectRandom blck_AIPatrolVehicles;
 		//diag_log format["_fnc_spawnMissionVehiclePatrols (36):: position = %1 and vehicle = %2",_x, _v];
 		_missionPatrolVehicles pushBack [_v, _x];
 	}forEach _vehiclePatrolSpawns;
-} else {
-	_useRelativePos = true;
 };
 
 {
@@ -56,7 +56,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	};
 	_vehicle = _x select 0;
 
-	_vehGroup = [_spawnPos,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
+	_vehGroup = [_spawnPos,3,3,_aiDifficultyLevel,_coords,1,2,_uniforms,_headGear,false,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
 	if (isNull _vehGroup) exitWith 
 	{
 		_abort = true;
@@ -70,8 +70,8 @@ if (_missionPatrolVehicles isEqualTo []) then
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then 
 	{
-		diag_log format["_fnc_spawnMissionVehiclePatrols: group spawned = %1",_vehGroup];
-		//diag_log format["_fnc_spawnMissionVehiclePatrols (40):: -> _missionType = %3 _vehGroup = %1 and units _vehGroup = %2",_vehGroup, units _vehGroup,_missionType];
+		diag_log format["_fnc_spawnMissionVehiclePatrols (73): group spawned = %1",_vehGroup];
+		//diag_log format["_fnc_spawnMissionVehiclePatrols (74):: -> _missionType = %3 _vehGroup = %1 and units _vehGroup = %2",_vehGroup, units _vehGroup,_missionType];
 	};
 	#endif
 	
@@ -83,7 +83,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	#endif
 
 	//params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull]];
-	_patrolVehicle = [_coords,_spawnPos,_vehicle,35,45,_vehGroup] call blck_fnc_spawnVehiclePatrol;
+	_patrolVehicle = [_coords,_spawnPos,_vehicle,30,45,_vehGroup] call blck_fnc_spawnVehiclePatrol;
 	_vehGroup setVariable["groupVehicle",_vehicle];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then

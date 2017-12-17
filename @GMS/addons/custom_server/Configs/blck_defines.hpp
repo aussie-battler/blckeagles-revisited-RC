@@ -1,6 +1,6 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 6/7/17
 	
@@ -12,7 +12,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-//#define DBDserver
+#define GRGserver
 #define wpModeMove
 #define useAPEX 
 #define useDynamicSimulation
