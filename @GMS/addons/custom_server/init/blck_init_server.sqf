@@ -64,7 +64,7 @@ blck_worldSet = nil;
 diag_log "[blckeagls] Loading Mission Lists";
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
 
-#ifdef DBDserver
+#ifdef GRGserver
 //start the dynamic loot crate system
 [] execVM "\q\addons\custom_server\DLS\DLS_init.sqf";
 waitUntil {(isNil "blck_DLSComplete") isEqualTo false;};
@@ -108,18 +108,14 @@ if (blck_spawnStaticLootCrates) then
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
 };
 
-#ifdef DBDserver
-diag_log "[blckegls] Running DBD Clan Version";
+#ifdef GRGserver
+diag_log "[blckegls] Running GhostriderGaming Version";
 #endif
 #ifdef useDynamicSimulation
 diag_log "[blckegls] dynamic simulation manager enabled";
 #else
 diag_log "[blckegls] blckegls simulation manager enabled";
 #endif
-
-// Initialize static missions
-[] execVM "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
-uiSleep 1.0;
 
 //Start the mission timers
 if (blck_enableOrangeMissions > 0) then
@@ -142,17 +138,18 @@ if (blck_enableBlueMissions > 0) then
 	//[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
-#ifdef DBDserver
+
+#ifdef GRGserver
 if (blck_enableScoutsMissions > 0) then
 {
 	//[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts] spawn blck_fnc_missionTimer;
-	[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts,blck_enableScoutsMissions, false] call blck_fnc_addMissionToQue;
+	[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts,blck_enableScoutsMissions] call blck_fnc_addMissionToQue;
 };
 if (blck_enableHunterMissions > 0) then
 {
 	//[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter] spawn blck_fnc_missionTimer;
 	//  params["_missionList","_path","_marker","_difficulty","_tMin","_tMax","_noMissions"];
-	[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter,blck_enableHunterMissions, false] call blck_fnc_addMissionToQue;
+	[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter,blck_enableHunterMissions] call blck_fnc_addMissionToQue;
 };
 
 // Running new version of Crash sites.
@@ -165,4 +162,7 @@ if (blck_maxCrashSites > 0) then
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
 [] spawn blck_fnc_mainThread;
 
+[] execVM "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
+[] execVM "q\addons\custom_server\Missions\UMS\GMS_UMS_init.sqf";  // loads functions and spawns any static missions.
+diag_log "blck_init_server: ->> Static and UMS systems initialized.";
 diag_log "[blckeagls] Mission spawner started";

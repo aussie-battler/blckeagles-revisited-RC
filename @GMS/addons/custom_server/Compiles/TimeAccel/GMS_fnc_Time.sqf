@@ -51,7 +51,7 @@ if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {
 // Day
 if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationDay; 
-	diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];	
+	//diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];	
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{

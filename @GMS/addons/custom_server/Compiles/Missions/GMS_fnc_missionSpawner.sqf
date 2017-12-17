@@ -12,7 +12,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
+#define delayTime 1
 private ["_abort","_crates","_aiGroup","_objects","_groupPatrolRadius","_missionLandscape","_mines","_blck_AllMissionAI","_blck_localMissionMarker","_AI_Vehicles","_timeOut","_aiDifficultyLevel","_missionPatrolVehicles","_missionGroups"];
 params["_coords","_mission",["_allowReinforcements",true]];
 //diag_log format["_missionSpawner (18)::  _allowReinforcements = %1",_allowReinforcements];
@@ -185,7 +185,7 @@ if (blck_debugLevel > 0) then
 
 uiSleep _delayTime;;
 
-_temp = [_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
+_temp = [_coords,_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
 //uisleep 1;
 _crates append _temp;
 
@@ -217,8 +217,6 @@ if !(_abort) then
 {
 	_blck_AllMissionAI append (_temp select 0);
 };
-
-uiSleep _delayTime;
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
@@ -421,8 +419,6 @@ if (blck_cleanUpLootChests) then
 	_objects append _crates;
 };
 
-
-//uisleep 2;
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {

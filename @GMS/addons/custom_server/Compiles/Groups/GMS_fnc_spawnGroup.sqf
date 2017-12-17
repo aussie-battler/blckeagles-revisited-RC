@@ -1,9 +1,9 @@
 /*
   Spawn and configure a group
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
-	Last modified 4/25/17
+	Last modified 11/12/17
 	
 	--------------------------
 	License
@@ -16,14 +16,12 @@
 #ifdef blck_debugMode
 if (blck_debugLevel >=2) then
 {
-	{
-		diag_log format["_fnc_spawnGroup:: _this select %1 = %2",_forEachIndex,_x];
-	}forEach _this;
+	diag_log format["_fnc_spawnGroup:  _this = %1",_this];
 };
 #endif
 private["_numbertospawn","_groupSpawned","_safepos","_weaponList","_useLauncher","_launcherType"];	
 
-params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true] ];
+params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true],["_weaponList",[]],["_vests",blck_vests],["_scuba",false] ];
 if (blck_debugLevel >= 1) then
 {
 	diag_log format["[blckeagls] _fnc_spawnGroup called parameters: _numai1 %1, _numbai2 %2, _skillLevel %3, _center %4",_numai1,_numai2,_skillLevel,_center];
@@ -70,18 +68,11 @@ if !(isNull _groupSpawned) then
 	_groupSpawned setVariable ["blck_group",true,true];
 
 	//diag_log format["spawnGroup:: group is %1",_groupSpawned];
-	// Determines whether or not the group has launchers
 	_useLauncher = blck_useLaunchers;
-
-	// define weapons list for the group
-	switch (_skillLevel) do {
-		case "blue": {_weaponList = blck_WeaponList_Blue;};
-		case "red": {_weaponList = blck_WeaponList_Red;};
-		case "green": {_weaponList = blck_WeaponList_Green;};
-		case "orange": {_weaponList = blck_WeaponList_Orange;};
-		default {_weaponList = blck_WeaponList_Blue;};
+	if (count _weaponList == 0) then
+	{
+		_weaponList = [_skillLevel] call blck_fnc_selectAILoadout;
 	};
-
 
 	//Spawns the correct number of AI Groups, each with the correct number of units
 	//Counter variable
@@ -96,17 +87,23 @@ if !(isNull _groupSpawned) then
 		};
 		
 		//Finds a safe positon to spawn the AI in the area given
-		_safepos = [_pos,0,30,2,0,20,0] call BIS_fnc_findSafePos;
+		//_safepos = [_pos,0,30,2,0,20,0] call BIS_fnc_findSafePos;
 
 		//Spawns the AI unit
-		 //diag_log format["spawnGroup:: spawning unit #%1",_i];
+		#ifdef blck_debugMode
+		if (blck_debugLevel > 2) then
+		{
+			diag_log format["spawnGroup:: spawning unit #%1",_i];
+		};
+		#endif
 		 //  params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear]];
-		[_safepos,_weaponList,_groupSpawned,_skillLevel,_launcherType,_uniforms,_headGear] call blck_fnc_spawnAI;
+		[_pos,_weaponList,_groupSpawned,_skillLevel,_launcherType,_uniforms,_headGear,_vests,_scuba] call blck_fnc_spawnAI;
 	};
 	_groupSpawned selectLeader (units _groupSpawned select 0);
 	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
 	if (_configureWaypoints) then
 	{
+		if (_scuba) then {_infantryType = "scuba"} else {_infantryType = "infantry"};
 		[_pos,_minDist,_maxDist,_groupSpawned,"random","SAD","infantry"] spawn blck_fnc_setupWaypoints;
 	};
 	//[_pos,_minDist,_maxDist,_groupSpawned,"random","SENTRY"] spawn blck_fnc_setupWaypoints;

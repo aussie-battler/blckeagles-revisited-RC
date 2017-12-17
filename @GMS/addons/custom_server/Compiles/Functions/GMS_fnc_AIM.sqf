@@ -1,5 +1,5 @@
 //This script sends Message Information to allplayers
-// Last modified 1/4/17 by Ghostrider-DBD-
+// Last modified 1/4/17 by Ghostrider [GRG]
 /*
 	--------------------------
 	License

@@ -1,5 +1,5 @@
 /*
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last updated 3-17-17
 	
@@ -35,7 +35,7 @@ if (blck_debugLevel > 1) then
 if !(isNull _group) then 
 {  // exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnVehiclePatrol"; objNull;};
 	_veh = [_vehType,_pos] call blck_fnc_spawnVehicle;
-	_veh addMPEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
+	_veh addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_group setVariable["groupVehicle",_veh];
 	//#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then

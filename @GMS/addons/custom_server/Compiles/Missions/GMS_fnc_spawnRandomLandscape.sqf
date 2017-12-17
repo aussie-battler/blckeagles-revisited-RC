@@ -1,6 +1,6 @@
 /*
 	spawn a group of objects in random locations aligned with the radial from the center of the region to the object.
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 	Last modified 1/22/17
 	copyright 2016
 	

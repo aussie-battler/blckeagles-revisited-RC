@@ -1,8 +1,8 @@
 // removes mines in a region centered around a specific position.
 /*
 	[_missionAIGroups] call blck_fnc_missionAIareDead;  // _missionAIGroups is an array of groups.
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 3-13-17
 	--------------------------

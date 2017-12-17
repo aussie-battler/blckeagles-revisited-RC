@@ -3,7 +3,7 @@
 	Modified by Ghostrider
 	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Buttface (A3XAI).
 	Everything having to do with spawning and configuring an AI should happen here
-	Last Modified 1/22/17
+	Last Modified 11/12/17
 	--------------------------
 	License
 	--------------------------
@@ -13,19 +13,27 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-//Defines private variables so they don't interfere with other scripts
-private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills",
-		"_launcherRound","_index","_ammoChoices"];
-
-params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_underwater",false]];
-//_pos = _this select 0;  // Position at which to spawn AI
-//_weaponList = _this select 1;  // List of weapons with which to arm the AI
-//_aiGroup = _this select 2;  // Group to which AI belongs
-//_skillLevel = [_this,3,"red"] call BIS_fnc_param;   // Assign a skill level in case one was not passed."blue", "red", "green", "orange"
-//_Launcher = [_this, 4, "none"] call BIS_fnc_param; // Set launchers to "none" if no setting was passed.
-//_uniforms = [_this, 5, blck_SkinList] call BIS_fnc_param;  // skins to add to AI
-//_headGear =  [_this, 6, _shemag]  call BIS_fnc_param;// headGear to add to AI
-
+private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices"];
+params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_scuba",false]];
+#ifdef blck_debugMode
+if (blck_debugLevel > 2) then
+{
+	private _params = ["_pos","_weaponList","_aiGroup","_skillLevel","_Launcher","_uniforms","_headGear","_vests","_scuba"];
+	{
+		diag_log format["_fnc_spawnUnit::-> _this select %1 (%2) = %3",_forEachIndex, _params select _forEachIndex, _this select _forEachIndex];
+	}forEach _this;
+	//_pos = _this select 0;  // Position at which to spawn AI
+	//_weaponList = _this select 1;  // List of weapons with which to arm the AI
+	//_aiGroup = _this select 2;  // Group to which AI belongs
+	//_skillLevel = [_this,3,"red"] call BIS_fnc_param;   // Assign a skill level in case one was not passed."blue", "red", "green", "orange"
+	//_Launcher = [_this, 4, "none"] call BIS_fnc_param; // Set launchers to "none" if no setting was passed.
+	//_uniforms = [_this, 5, blck_SkinList] call BIS_fnc_param;  // skins to add to AI
+	//_headGear =  [_this, 6, _shemag]  call BIS_fnc_param;// headGear to add to AI
+	{
+		diag_log format["_fnc_spawnUnit:: _this select %1 = %2",_forEachIndex,_x];
+	}forEach _this;
+};
+#endif
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _ai1 = ObjNull;
@@ -52,7 +60,23 @@ if (_modType isEqualTo "Exile") then
 		case "orange":{_ai1 setVariable["ExileMoney",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
 };
+#ifdef blck_debugMode
+if (blck_debugLevel > 2) then
+{
+	diag_log format["_fnc_spawnUnit::-->> unit spawned = %1",_ai1];
+};
+#endif
 [_ai1] call blck_fnc_removeGear;
+if (_scuba) then
+{
+	_ai1 swiminDepth (_pos select 2);
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 2) then
+	{
+		diag_log format["_fnc_spawnUnit:: -- >> unit depth = %1 and underwater for unit = %2",_pos select 2, underwater _ai1];
+	};
+	#endif
+};
 _skin = "";
 _counter = 1;
 while {_skin isEqualTo "" && _counter < 10} do
@@ -60,7 +84,12 @@ while {_skin isEqualTo "" && _counter < 10} do
 	_skin = selectRandom _uniforms;  
 	_ai1 forceAddUniform _skin;
 	_skin = uniform _ai1;
-	//diag_log format["_fnc_spawnUnit::-->> for unit _ai1 % uniform is %2",_ai1, uniform _ai1];
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 2) then
+	{
+		diag_log format["_fnc_spawnUnit::-->> for unit _ai1 % uniform is %2",_ai1, uniform _ai1];
+	};
+	#endif	
 	_counter =+1;
 };
 //Sets AI Tactics
@@ -78,14 +107,11 @@ if (_modType isEqualTo "Epoch") then
 	// do this so the AI or corpse hangs around on Epoch servers.
 	_ai1 setVariable ["LAST_CHECK",28800,true];
 };
-
 _ai1 addHeadgear (selectRandom _headGear);
-// Add a vest to AI for storage
-_ai1 addVest selectRandom blck_vests;
+_ai1 addVest selectRandom _vests;
 
 if ( random (1) < blck_chanceBackpack) then
-{
-	//_bpck = selectRandom blck_backpack;  
+{ 
 	_ai1 addBackpack selectRandom blck_backpacks;
 };
 
@@ -106,7 +132,8 @@ if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _legalOptics);
 if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom  _pointers);};
 if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _muzzles);};
 if (random 1 < 0.4) then {_ai1 addPrimaryWeaponItem (selectRandom _underbarrel);};
-if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then {
+if ((count(getArray (configFile >> "cfgWeapons" >> _weap >> "muzzles"))) > 1) then 
+{
 	_ai1 addMagazine "1Rnd_HE_Grenade_shell";
 };
 
@@ -116,12 +143,12 @@ _ai1 addWeaponGlobal  _weap;
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 _ai1 addMagazines [selectRandom _ammoChoices, 2];
 
-//add random items to AI.  _other = ["ITEM","COUNT"]
-for "_i" from 1 to (1+floor(random(3))) do {
+for "_i" from 1 to (1+floor(random(3))) do 
+{
 	_ai1 addItem (selectRandom blck_ConsumableItems);
 };
 
-// Add an First Aid or Grenade 50% of the time
+// Add  First Aid or Grenade 50% of the time
 if (round(random 10) <= 5) then 
 {
 	//_item = selectRandom blck_specialItems;
@@ -151,11 +178,17 @@ else
 	_ai1 setVariable ["hasNVG", false,true];
 };
 
+#ifdef blck_debugMode
+if (blck_debugLevel > 2) then
+{
+	diag_log format["_fnc_spawnUnit:: --> unit loadout = %1", getUnitLoadout _ai1];
+};
+#endif
 // Infinite ammo
 //_ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
-_ai1 addMPEventHandler ["reloaded", {_this call compile preprocessfilelinenumbers blck_EH_unitWeaponReloaded;}];
-_ai1 addMPEventHandler ["mpkilled", {[(_this select 0), (_this select 1)] call compile preprocessfilelinenumbers blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
-_ai1 addMPEventHandler ["Hit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIHit;}];
+_ai1 addEventHandler ["Reloaded", {_this call compile preprocessfilelinenumbers blck_EH_unitWeaponReloaded;}];
+_ai1 addMPEventHandler ["MPKilled", {[(_this select 0), (_this select 1)] call compile preprocessfilelinenumbers blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
+_ai1 addMPEventHandler ["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIHit;}];
 //_ai1 addEventHandler ["FiredNear",{diag_log "-------->>>>>>>> Weapon fired Near Unit";}];
 //_ai1 addEventHandler ["FiredNear",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIFiredNear;};];
 

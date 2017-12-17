@@ -1,6 +1,6 @@
 // Spawns mines in a region centered around a specific position and returns an array with the spawned mines for later use, i.e. deletion
 /*
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last updated 8-14-16
 	

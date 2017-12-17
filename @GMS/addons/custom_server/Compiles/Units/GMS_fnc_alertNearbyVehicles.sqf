@@ -32,7 +32,7 @@ _fn_allertNearbyVehicleGroups = {
 		if (_target distance2D (leader _vehGroup) < 1000) then {[_vehGroup,_target] call _fn_alertGroupUnits;};
 	}forEach _vehicles;
 };
-diag_log format["_fnc_alertNearbyVehicles called: _target = %1",_target];
+//diag_log format["_fnc_alertNearbyVehicles called: _target = %1",_target];
 [blck_monitoredVehicles,_target] call _fn_allertNearbyVehicleGroups;
 
 

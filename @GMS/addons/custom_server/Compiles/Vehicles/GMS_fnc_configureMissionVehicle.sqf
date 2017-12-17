@@ -1,6 +1,6 @@
 // Configures a mission vehicle
 /*
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last updated 3-14-17
 	

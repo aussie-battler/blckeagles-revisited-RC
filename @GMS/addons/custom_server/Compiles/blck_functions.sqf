@@ -35,9 +35,9 @@ blck_fnc_loadLootItemsFromArray = compileFinal preprocessFileLineNumbers "\q\add
 blck_fnc_getNumberFromRange = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getNumberFromRange.sqf";
 blck_fnc_passToHCs = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_passToHCs.sqf";
 
-#ifdef DBDserver	
+#ifdef GRGserver	
 blck_fnc_broadcastServerFPS = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf"; 
-diag_log "blck_functions loaded using DBDServer settings ---- >>>> ";
+diag_log "blck_functions loaded using GRGserver settings ---- >>>> ";
 #endif
 
 // Player-related functions
@@ -91,6 +91,7 @@ blck_fnc_spawnMissionParatroops = compileFinal preprocessFileLineNumbers "\q\add
 blck_fnc_spawnParaUnits = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnParaUnits.sqf";  // Lumped here because these 'jump' from aircraft
 blck_fnc_releaseVehicleToPlayers = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_releaseVehicleToPlayers.sqf"; //  GMS_fnc_releaseVehicleToPlayers
 blck_EH_AIVehicle_HandleDamage = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_AIVehicle_HandleDamage.sqf"; 
+blck_fnc_HandleAIVehicleDamage = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_HandleAIVehicleDamage.sqf";
 
 // functions to support Units
 blck_fnc_removeGear = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_removeGear.sqf"; // Strip an AI unit of all gear.
@@ -110,6 +111,7 @@ blck_fnc_cleanupDeadAI = compileFinal  preprocessFileLineNumbers "\q\addons\cust
 blck_fnc_setSkill = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_setSkill.sqf";
 blck_fnc_cleanupAliveAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_cleanupAliveAI.sqf";
 blck_fnc_deleteAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_deleteAI.sqf";
+blck_fnc_processAIHit = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_processAIHit.sqf";
 
 // HC support functions
 blck_fnc_HC_XferGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_XferGroup.sqf"; 

@@ -10,6 +10,7 @@ private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_marke
 _mission = "static mission example #2";  //  Included for additional documentation. Not intended to be spawned as a mission per se.
 _missionCenter = [22907,16789,0];  // I pulled this from the position of the marker.
 _difficulty = "red";  // Skill level of AI (blue, red, green etc)
+diag_log format["[blckeagls static missions] STARTED initializing middions %1 position at %2 difficulty %3",_mission,_missionCenter,_difficulty];
 _crateLoot = blck_BoxLoot_Orange;  // You can use a customized _crateLoot configuration by defining an array here. It must follow the following format shown for a hypothetical loot array called _customLootArray
 	/*
 	_customLootArray = 
@@ -66,6 +67,7 @@ _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output her
 	//  where _customlootcountsarray1 also follows the same format as the predefined arrays like blck_lootCountsRed
 	["Box_NATO_Ammo_F",[22917.4,16763,6.30803],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1] ],
 	["Box_NATO_Ammo_F",[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
+	//  0               1                        2                  3             4           5 
 	["Box_NATO_Ammo_F",[22904.8,16742.5,6.30195],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
 ];  // If this array is empty a single loot chest will be added at the center. If you add items loot chest(s) will be spawned in specific positions.
 
@@ -84,8 +86,8 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Red; // Modified as needed; can be a num
 // or _noEmplacedWeapons = 3; // a constant number of emplaced weps per misison
 // Note that this value is ignored if you define static weapon positions and types in the array below.
 _missionEmplacedWeapons = [
-	["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red"],
-	["B_G_Mortar_01_F",[22944.3,16820.5,3.14243],"green"]
+	//["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red",0,0],
+	//["B_HMG_01_high_F",[22944.3,16820.5,3.14243],"green",0,0]
 ]; 								// example [ ["emplacedClassName",[px, py, pz] /* position to spawn weapon */, difficulty /* difficulty of AI manning weapon (blue, red etc)] ];
 								// can be used to define the precise placement of static weapons [[1,2,3] /*loc 1*/, [2,3,4] /*loc 2*/]; if blank random locations will be used
 								// If the number of possible locations exceeds the number of emplaced weapons specified above then only some of the locations in the array will have emplaced weapons spawned.
@@ -96,21 +98,21 @@ _maxNoAI = blck_MaxAI_Red;	// Modify as needed.
 _noAIGroups = blck_AIGrps_Red;  // Modify as needed; note that these values are ignored of you specify AI patrols in the array below.
 _aiGroupParameters = [
 	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 150 /*radius of patrol*/]
-	[[22920.4,16887.3,3.19144],"red",4, 75],
-	[[22993.3,16830.8,5.6292],"red",4, 75],
-	[[22947.8,16717,6.80305],"red",4, 75],
-	[[22849,16720.4,7.33123],"red",4, 75],
-	[[22832.9,16805.6,4.59315],"red",4, 75],
-	[[22909.8,16778.6,3.19144],"red",4, 75],
-	[[22819.4,16929.5,5.33892],"red",4, 75],
-	[[22819.4,16929.5,5.33892],"red",4, 75]
+	//[[22920.4,16887.3,3.19144],"red",[1,2], 75,120],
+	//[[22993.3,16830.8,5.6292],"red",4, 75,0],
+	//[[22947.8,16717,6.80305],"red",4, 75,0],
+	//[[22849,16720.4,7.33123],"red",4, 75,0],
+	//[[22832.9,16805.6,4.59315],"red",4, 75,0],
+	//[[22909.8,16778.6,3.19144],"red",4, 75,0],
+	[[22819.4,16929.5,5.33892],"red",4, 75,0],
+	[[22819.4,16929.5,5.33892],"red",4, 75,60]
 ];
 
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
-	["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red", 600],
-	["B_G_Offroad_01_repair_F",[22809.5,16699.2,8.78706],"green", 600]	
+	["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red", 600,60],
+	["B_G_Offroad_01_repair_F",[22809.5,16699.2,8.78706],"green", 600,60]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
@@ -119,8 +121,8 @@ _aircraftTypes = blck_patrolHelisRed;  //  You can use one of the pre-defined li
 _noAirPatrols =	blck_noPatrolHelisRed; // You can use one of the pre-defined values or a custom one. acceptable values are integers (1,2,3) or a range such as [2,4]; 
 										//  Note: this value is ignored if you specify air patrols in the array below.
 _airPatrols = [
-	["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red"],
-	["Exile_Chopper_Hellcat_FIA",[22830.2,16618.1,11.4549],"green"]
+	//["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,0],
+	[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"green",1000,60]
 ];
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;  // Set to false if you have vehicles patrolling nearby.
@@ -128,4 +130,6 @@ _uniforms = blck_SkinList;  // You can replace this list with a custom list of u
 _headgear = blck_headgear;  // You can replace this list with a custom list of headgear.
 _weapons = blck_WeaponList_Orange; // You can replace this list with a customized list of weapons, or another predifined list from blck_configs_epoch or blck_configs_exile as appropriate.
 
-#include "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnMission.sqf"; 
+#include "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_initializeMission.sqf"; 
+
+diag_log format["[blckeagls static missions] COMPLETED initializing middions %1 position at %2 difficulty %3",_mission,_missionCenter,_difficulty];

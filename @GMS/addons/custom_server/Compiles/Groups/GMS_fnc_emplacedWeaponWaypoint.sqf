@@ -1,7 +1,7 @@
 // Sets the WP type for WP for the specified group and updates other atributes accordingly.
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last modified 4/23/17
 	

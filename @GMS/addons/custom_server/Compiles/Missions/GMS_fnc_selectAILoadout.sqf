@@ -5,7 +5,7 @@
 	
 	returns:
 	_lootarray
-	by Ghostrider-DbD-
+	by Ghostrider [GRG]
 	1/9-17
 	
 	--------------------------

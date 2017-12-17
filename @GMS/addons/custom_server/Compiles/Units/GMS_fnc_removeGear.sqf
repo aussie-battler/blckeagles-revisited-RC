@@ -1,6 +1,6 @@
 /*
 	Remove all gear from an AI _unit
-	By Ghostrider-DbD-
+	By Ghostrider [GRG]
 
 	--------------------------
 	License

@@ -2,7 +2,7 @@
 	Handle the case that all AI assigned to a vehicle are dead.
 	Allows players to enter and use the vehicle.
 	
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last updated 3-24-17
 	--------------------------

@@ -1,7 +1,7 @@
 /*
 	Generates an array of equidistant positions along the circle of diameter _radius
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 1-22-17
 	--------------------------

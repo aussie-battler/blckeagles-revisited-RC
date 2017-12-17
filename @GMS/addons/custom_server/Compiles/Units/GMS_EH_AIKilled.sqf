@@ -15,5 +15,11 @@
 
 params["_unit","_killer"];
 
-diag_log format["EH_AIKilled:: _units = %1 and _killer = %2",_unit,_killer];
+#ifdef blck_debugMode
+if (blck_debugLevel > 2) then
+{
+	private _vars = ["unit","killer","instigator","useEffects"];
+	diag_log format["EH_AIKilled:: _this select %1 (_var select %2) = %3",_forEachIndex,_vars select _forEachIndex,_this select _forEachIndex];
+};
+#endif
 [_unit,_killer] remoteExec ["blck_fnc_processAIKill",2];
