@@ -5,7 +5,7 @@
 	Updates the mission que.
 	Updates mission markers.
 	By Ghostrider GRG
-	10/9/17
+	12/18/17
 	
 	--------------------------
 	License
@@ -121,7 +121,7 @@ _fn_missionCleanup = {
 			_posnVeh = blck_monitoredVehicles find _x;  // returns -1 if the vehicle is not in the array else returns 0-(count blck_monitoredVehicles -1)
 			if (_posnVeh >= 0) then
 			{
-				//diag_log format["_fnc_endMission: setting missionCompleted for vehicle %1 to %2",_x,diag_tickTime];
+				diag_log format["_fnc_endMission: setting missionCompleted for vehicle %1 to %2",_x,diag_tickTime];
 				(blck_monitoredVehicles select _posnVeh) setVariable ["missionCompleted", diag_tickTime];
 			} else {
 				_x setVariable ["missionCompleted", diag_tickTime];
