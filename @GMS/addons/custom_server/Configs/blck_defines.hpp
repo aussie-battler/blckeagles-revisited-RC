@@ -12,7 +12,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#define GRGserver
+//#define GRGserver
 #define wpModeMove
 #define useAPEX 
 #define useDynamicSimulation
