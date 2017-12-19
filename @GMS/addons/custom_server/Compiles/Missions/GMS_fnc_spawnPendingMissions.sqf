@@ -64,14 +64,5 @@ if (count _readyToSpawnQue > 0) then
 	[_coords,_missionToSpawn,_allowReinforcements] spawn compileFinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\%1\%2.sqf",_missionPath,_missionName];
 	blck_missionsRunning = blck_missionsRunning + 1;
 };
-//diag_log format["_fnc_spawnPendingMissions: blck_numberUnderwaterDynamicMissions = %1 | 
-if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then
-{
-	diag_log "Adding dyanamic UMS Mission";
-	private ["_spawnPos"];
-	_spawnPos = call blck_fnc_findShoreLocation;
-	[_spawnPos] spawn blck_fnc_addDyanamicUMS_Mission;
-	//_spawnPos call compileFinal preprocessFileLineNumbers format["q\addons\custom_server\Missions\UMS\dynamicMissiones\%1.sqf";
-	
-};
+
 true
