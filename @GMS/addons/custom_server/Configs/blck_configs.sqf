@@ -32,8 +32,6 @@
 
 	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
 	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
-	//blck_enableStaticUnits = true; // When true static missions are loaded and functions for spawning static AI groups on foot, in vehicles/aircraft or manning emplaced weapons are enabled.
-	//blck_enableUMS = true;  // when true, blck_numberUnderwaterMissions Underwater missions will be spawned; static UMS units and subs will be spawned.
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
 	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
