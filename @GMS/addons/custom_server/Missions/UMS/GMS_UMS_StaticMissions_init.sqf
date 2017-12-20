@@ -1,10 +1,7 @@
 /*
-	Run scripts exported from M3EDEN Editor plug in for Arma 3 or other map addons. 
-	Add addons to the arrays for Epoch or Exile as appropriate.
-	Arrays should contain ["mapname", "name of folder within mapaddons","name of file to execute"]
 	by Ghostrider [GRG]
 	for ghostridergaming
-	11/12/16
+	12/5/17
 	--------------------------
 	License
 	--------------------------
@@ -12,6 +9,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 if (!isServer) exitWith{};
 
 //diag_log "[blckeagls] GMS__UMS_StaticMissions_init.sqf <Initializing Static Mission System>";

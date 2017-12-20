@@ -1,3 +1,15 @@
+/*
+	by Ghostrider [GRG]
+	for ghostridergaming
+	12/5/17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 blck_dynamicUMS_MissionsRuning = 0;
 blck_priorDynamicUMS_Missions = [];
 blck_UMS_ActiveDynamicMissions = [];

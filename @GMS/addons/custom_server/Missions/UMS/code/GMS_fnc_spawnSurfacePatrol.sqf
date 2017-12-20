@@ -1,4 +1,15 @@
 
+/*
+	by Ghostrider [GRG]
+	for ghostridergaming
+	12/5/17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 //  	["B_SDV_01_F",[22584.9,15304.8,-6.14801],"red",4, 75,0],
 params["_SDV","_pos","_difficulty","_numAI","_patrolRadius","_respawnTime"];

@@ -1,4 +1,7 @@
 /*
+	by Ghostrider [GRG]
+	for ghostridergaming
+	12/5/17
 	--------------------------
 	License
 	--------------------------
@@ -6,7 +9,6 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_vehicle"];
