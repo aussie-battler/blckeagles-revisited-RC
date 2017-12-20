@@ -12,7 +12,7 @@
 
 	By Ghostrider [GRG]
 	Copyright 2016
-	Last updated 1-22-17
+	Last updated 12-19-17
 	
 	--------------------------
 	License
@@ -23,7 +23,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-diag_log format["_fnc_vehicleMonitor: starting function at diag_tickTime = %1",diag_tickTime];
+//diag_log format["_fnc_vehicleMonitor: starting function at diag_tickTime = %1",diag_tickTime];
 #ifdef blck_debugMode
 	//diag_log format["_fnc_vehicleMonitor:: blck_debugMode defined"];
 #endif
@@ -37,7 +37,7 @@ _fn_releaseVehicle = {
 	{
 		_veh removealleventhandlers _x;
 	} forEach ["GetIn","GetOut","fired","hit","hitpart","reloaded","dammaged","HandleDamage"];
-	diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
+	//diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 3) then
 	{
@@ -121,7 +121,7 @@ if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: function c
 		{
 			if (blck_killEmptyStaticWeapons) then
 			{
-				diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
+				//diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];
 				
 				#ifdef blck_debugMode
 				if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
@@ -146,7 +146,7 @@ if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: function c
 				_veh setDamage 0.7;
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
-				diag_log format["_fnc_vehicleMonitor:: case of RELEASE where vehicle = %1 and Vehicle is typeOf %2",_veh, typeOf _veh];
+				//diag_log format["_fnc_vehicleMonitor:: case of RELEASE where vehicle = %1 and Vehicle is typeOf %2",_veh, typeOf _veh];
 				[_veh] call _fn_releaseVehicle;
 			};
 			_evaluate = false;
@@ -158,7 +158,7 @@ if (blck_debugLevel > 3) then {diag_log format["_fnc_vehicleMonitor:: function c
 	{
 		if ( _veh getVariable["missionCompleted",0] > 0 && ({alive _x} count crew _veh > 0)) then
 		{
-			diag_log format["_fnc_vehicleMonitor:: case of mission vehicle with AI alive at mission end: schedule destruction with _veh = %1 and typeOf _veh = %2",_veh, typeOf _veh];
+			//diag_log format["_fnc_vehicleMonitor:: case of mission vehicle with AI alive at mission end: schedule destruction with _veh = %1 and typeOf _veh = %2",_veh, typeOf _veh];
 			private["_cleanupTimer"];
 			_cleanupTimer = _veh getVariable["cleanupTimer",0];  // The time delat to deleting any alive AI units
 			//  "missionCompleted" = the time at which the mission was completed or aborted

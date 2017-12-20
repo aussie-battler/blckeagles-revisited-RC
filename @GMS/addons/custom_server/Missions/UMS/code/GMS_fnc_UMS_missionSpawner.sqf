@@ -1,8 +1,17 @@
+/*
+	by Ghostrider [GRG]
+	for ghostridergaming
+	12/5/17
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
 
-params["_pos"];
-
-if (!isServer) exitWith{};
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
+params["_pos"];
+if (!isServer) exitWith{};
 params["_mission"];
 // Spawn landscape
 // params["_objects"];

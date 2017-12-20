@@ -17,7 +17,7 @@ params["_coords","_missionLootVehicles",["_loadCrateTiming","atMissionSpawn"]];
 if (count _coords == 2) then {_coords pushBack 0};
 private _vehs = [];
 {
-	diag_log format["spawnMissionCVehicles.sqf _x = %1",_x];
+	//diag_log format["spawnMissionCVehicles.sqf _x = %1",_x];
 	_x params["_vehType","_vehOffset","_lootArray","_lootCounts"];
 	diag_log format["spawnMissionCVehicles: _vehType = %1 | _vehOffset = %2 | _lootArray = %3 | _lootCounts = %4",_vehType,_vehOffset,_lootArray,_lootCounts];
 	_pos = _coords vectorAdd _vehOffset;
@@ -29,7 +29,7 @@ private _vehs = [];
 	}forEach ["getin","getout"];
 	if (_loadCrateTiming isEqualTo "atMissionSpawn") then
 	{
-		diag_log format["blck_fnc_spawnMissionLootVehicles::-> loading loot at mission spawn for veh %1",_x];
+		//diag_log format["blck_fnc_spawnMissionLootVehicles::-> loading loot at mission spawn for veh %1",_x];
 		[_veh,_lootArray,_lootCounts] call blck_fnc_fillBoxes;
 		_veh setVariable["lootLoaded",true];
 	}
