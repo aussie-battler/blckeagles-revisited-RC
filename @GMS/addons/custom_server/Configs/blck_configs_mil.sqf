@@ -25,11 +25,11 @@
 		3) A time acceleration module.
 	*/
 
-	blck_spawnMapAddons = true;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
-	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
+	blck_spawnMapAddons = false;  // When true map addons will be spawned based on parameters  define in custum_server\MapAddons\MapAddons_init.sqf
+	blck_spawnStaticLootCrates = false; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 1;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
@@ -68,7 +68,7 @@
 	
 
 	//Minimum distance between missions
-	blck_MinDistanceFromMission = 1500;
+	blck_MinDistanceFromMission = 1000;
 
 	///////////////////////////////
 	// Mission Smoke and Signals
