@@ -130,6 +130,8 @@ _sm_Vehicles = +blck_sm_Vehicles;
 			//	params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_uniforms","_headGear","_missionPatrolVehicles",["_useRelativePos",true],["weapons",[]],["_vests",blck_vests],["_isScubaGroup",false]];
 			//diag_log format["[blckeagls static vehiclePatrol spawner]  _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
 			_return = [_pos,1,_difficulty,blck_SkinList,blck_headgear,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
+			//  _return = [_vehicles, _missionAI, _abort];
+			_group = group (_return select 1 select 0);
 			[blck_sm_Vehicles,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
 			//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
 		};

@@ -22,18 +22,29 @@ if (!isServer) exitWith{};
 uiSleep 3;
 private["_mod","_map","_missionMod","_missionMap","_missionLocation","_missionDataFile"];
 //diag_log "[blckeagls] GMS__UMS_StaticMissions_init.sqf <Getting Mod Type>";
-_mod = call blck_fnc_getModType;
+_mod = toLower(call blck_fnc_getModType);
 //diag_log format["[blckeagls] GMS__UMS_StaticMissions_init.sqf <mod type = %1>",_mod];
+//diag_log format["[blckeagls] GMS__UMS_StaticMissions_init <_staticMissions> = %1",_staticMissions];
 //diag_log "[blckeagls] GMS__UMS_StaticMissions_init.sqf <Getting map name>";
 _map = toLower worldName;
 //diag_log format["[blckeagls] GMS__UMS_StaticMissions_init.sqf <map name = %1>",_map];
-blck_staticMissions = [];
-//diag_log format["[blckeagls] GMS__UMS_StaticMissions_init.sqf <_staticMissions = %1>",_staticMissions];
 {
-	diag_log format["[blckeagls] GMS__UMS_StaticMissions_init.sqf <Spawning Mission = %1>",_x];
-	//[] execVM format["%1",(_x select 2)];
-	[] call compileFinal preprocessFileLineNumbers format["%1",(_x select 2)];
-	uiSleep 15;
+	//diag_log format["[blckeagls] GMS__UMS_StaticMissions_init.sqf <Evaluating Mission = %1>",_x];
+	//diag_log format["[blckeagls] GMS__UMS_StaticMissions_init.sqf <worldName = %1 | _mod = %2>",_map,_mod];	
+	if ((_map) isEqualTo toLower(_x select 1)) then
+	{
+		if ((_mod isEqualTo "epoch") && (toLower(_x select 0) isEqualTo "epoch")) then
+		{
+			
+			call compilefinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\UMS\staticMissions\%1",(_x select 2)];
+		};
+
+		if ((_mod isEqualTo "exile") && (toLower(_x select 0) isEqualTo "exile")) then
+		{
+			call compilefinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\UMS\staticMissions\%1",(_x select 2)];
+		};
+	};
+	uiSleep 1;
 }forEach _staticMissions;
 
 diag_log "[blckeagls] GMS__UMS_StaticMissions_init.sqf <Loaded>";

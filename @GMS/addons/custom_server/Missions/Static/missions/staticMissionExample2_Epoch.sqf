@@ -99,20 +99,20 @@ _noAIGroups = blck_AIGrps_Red;  // Modify as needed; note that these values are 
 _aiGroupParameters = [
 	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 150 /*radius of patrol*/]
 	//[[22920.4,16887.3,3.19144],"red",[1,2], 75,120],
-	[[22993.3,16830.8,5.6292],"red",4, 75,9000],
-	[[22947.8,16717,6.80305],"red",4, 75,900],
-	[[22849,16720.4,7.33123],"red",4, 75,9000],
-	[[22832.9,16805.6,4.59315],"red",4, 75,900],
-	[[22909.8,16778.6,3.19144],"red",4, 75,900],
-	[[22819.4,16929.5,5.33892],"red",4, 75,900],
+	//[[22993.3,16830.8,5.6292],"red",4, 75,9000],
+	//[[22947.8,16717,6.80305],"red",4, 75,900],
+	//[[22849,16720.4,7.33123],"red",4, 75,9000],
+	//[[22832.9,16805.6,4.59315],"red",4, 75,900],
+//[[22909.8,16778.6,3.19144],"red",4, 75,900],
+	//[[22819.4,16929.5,5.33892],"red",4, 75,900],
 	[[22819.4,16929.5,5.33892],"red",4, 75,900]
 ];
 
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
-	["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red", 600,900],
-	["B_G_Offroad_01_repair_F",[22809.5,16699.2,8.78706],"green", 600,900]	
+	//["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red", 600,900],
+	["B_G_Offroad_01_repair_F",[22809.5,16699.2,8.78706],"green", 600,90]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
