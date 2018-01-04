@@ -234,6 +234,7 @@
 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten outor been killed.
+    blck_vehicleDeleteTimer = 60*60;
 	
 	////////////////////
 	// Mission Vehicle Settings
