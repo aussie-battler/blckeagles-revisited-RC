@@ -8,6 +8,19 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
+Version 6.76 Build 104
+Added: A new timer that determines the time after which Vehicles are deleted once all AI are dead if no player has entered the driver's seat.
+Added: an optional variable in the template for missions called _missionGroups by which you can define the parameters (position, skill level, number, patrol radius) for each group spawned.
+		See the default2.sqf mission under custom_server\Missions\blue for an example 
+Changed: The method by which the server handles AI damage was changed to use MPHit. 
+Added: an MPKilled event handler for vehicles.
+
+Fixed: Static Vehicles were being spawned repeatedly.
+Fixed: _missionGroups parameters were not being handled correctly.
+Fixed: sever FPS was not being logged by GMS_passToHCs
+Fixed: crate marker was not shown when in debug mode.
+Known Issues: Vehicles are not unlocked when released to players if an HC is connected.
+
 Version 6.74 Build 97
 Added Core Code for spawning dynamic underwater missions.
 Added Core Code for spawning scuba units and surface and SDV patrols.

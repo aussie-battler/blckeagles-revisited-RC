@@ -24,6 +24,10 @@ _objs = [];
 {
 	_x params["_crateType","_crateOffset","_lootArray","_lootCounts"];
 	//_pos = [(_coords select 0)+(_crateOffset select 0),(_coords select 1) + (_crateOffset select 1),(_coords select 2)+(_crateOffset select 2)]; // calculate the world coordinates
+
+	_pos = _coords vectorAdd _crateOffset;
+	_crate = [_pos,_crateType] call blck_fnc_spawnCrate;
+	_objs pushback _crate;
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{
@@ -32,10 +36,7 @@ _objs = [];
 		_marker setMarkerType "mil_triangle";
 		_marker setMarkerColor "colorGreen";		
 	};
-	#endif
-	_pos = _coords vectorAdd _crateOffset;
-	_crate = [_pos,_crateType] call blck_fnc_spawnCrate;
-	_objs pushback _crate;
+	#endif	
 	if (_loadCrateTiming isEqualTo "atMissionSpawn") then
 	{
 		//diag_log format["_fnc_spawnMissionCrates::-> loading loot at mission spawn for crate %1",_x];

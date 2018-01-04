@@ -21,6 +21,8 @@
 	_v removeAllEventHandlers "GetOut";
 	_v removeAllEventHandlers "Fired";
 	_v removeAllEventHandlers "Reloaded";	
+	_v removeAllMPEventHandlers "MPHit";
+	_v removeAllMPEventHandlers "MPKilled";
 	_v setVehicleLock "UNLOCKED" ;
 	_v setVariable["releasedToPlayers",true];
 	[_v] call blck_fnc_emptyObject;

@@ -36,7 +36,10 @@ if (blck_debugLevel >=2) then
 	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
 	_blck_AllMissionAI = [];
 	_abort = false;
-	if (count _weapons == 0) then {_weapons = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
+	if (count _weapons == 0) then 
+	{
+		_weapons = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
+	};
 	#ifdef blck_debugMode
 	if (blck_debugLevel >= 2) then
 	{
@@ -44,12 +47,12 @@ if (blck_debugLevel >=2) then
 	};
 	#endif
 if (count _missionGroups > 0) then
-{
-	{	//  	[[1,-1,-1],"red",4, 5,10]
-		_x params["_position","_skillLevel","_numAI","_minPatrolRadius","_maxPatrolRadius"];
+{ 	
+	{	//[[-98.9121,-35.9824,-1.20243],5,7,"Green",5,12],[[1,-1,-1],"red",4, 5,10]
+		_x params["_position","_minAI","_maxAI","_skillLevel","_minPatrolRadius","_maxPatrolRadius"];
 		_groupSpawnPos = _coords vectorAdd _position;
 		//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true],["_weaponList",[]],["_vests",blck_vests],["_scuba",false] ];
-		_newGroup = [_groupSpawnPos,_numAI,_numAI,_skillLevel,_coords,_minPatrolRadius,_maxPatrolRadius,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
+		_newGroup = [_groupSpawnPos,_minAI,_maxAI,_skillLevel,_coords,_minPatrolRadius,_maxPatrolRadius,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
 			
 		#ifdef blck_debugMode
 		if (blck_debugLevel >= 2) then

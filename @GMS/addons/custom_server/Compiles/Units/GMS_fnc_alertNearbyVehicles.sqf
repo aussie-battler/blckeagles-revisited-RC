@@ -1,7 +1,5 @@
 /*
 	by Ghostrider
-	4-5-17
-	Alerts the units of nearby vehicles of the location of an enemy.
 	 
 	--------------------------
 	License
