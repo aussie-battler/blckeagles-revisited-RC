@@ -87,7 +87,8 @@ if (blck_debugLevel > 1) then
 
 	// params["_vehType","_pos",["_clearInventory",true]];
 	_wep = [(_x select 0),[0,0,0],false] call blck_fnc_spawnVehicle;
-	_wep addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
+	//_wep addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
+	_wep addMPEventHandler["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_empGroup setVariable["groupVehicle",_wep];
 	_wep setVariable["vehicleGroup",_empGroup];
 	#ifdef blck_debugMode

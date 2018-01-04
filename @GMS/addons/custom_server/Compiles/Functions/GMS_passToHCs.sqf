@@ -28,7 +28,7 @@ private["_numTransfered","_clientId","_allGroups","_groupsOwned","_idHC","_id","
 {
 	if !(_x in blck_connectedHCs) then {blck_connectedHCs pushBack _x};
 }forEach entities "HeadlessClient_F";
-diag_log format["_fnc_passToHCs:: blck_connectedHCs = %1 | count _HCs = %2 | server FPS",blck_connectedHCs,count blck_connectedHCs,diag_fps];
+diag_log format["_fnc_passToHCs:: blck_connectedHCs = %1 | count _HCs = %2 | server FPS = %3",blck_connectedHCs,count blck_connectedHCs,diag_fps];
 if ((count blck_connectedHCs) > 0) then
 {
 	_idHC = [blck_connectedHCs] call blck_fnc_leastBurdened;
