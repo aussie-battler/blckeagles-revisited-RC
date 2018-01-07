@@ -18,11 +18,10 @@ params["_unit"];
 
 {
 	_unit removeAllEventHandlers  _x;
-	//_unit removeAllMPEventHandlers _x;
-}forEach ["killed","hit","reloaded","fired","handledamage","handleheal","firednear"];
+}forEach ["reloaded"];
 {
 	_unit removeAllMPEventHandlers _x;
-} forEach ["MPKilled"];
+} forEach ["MPKilled","MPHit"];
 private _group = (group _unit);
 [_unit] joinSilent grpNull;
 deleteVehicle _unit;

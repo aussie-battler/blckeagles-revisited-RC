@@ -1,6 +1,6 @@
 /*
-	Mission Template by Ghostrider-DbD-
-	Mission Compositions by Bill prepared for DBD Clan
+	Mission Template by Ghostrider [GRG]
+	Mission Compositions by Bill prepared for ghostridergaming
 	Copyright 2016
 	Last modified 3/20/17
 	
@@ -84,10 +84,10 @@ _useMines = blck_useMines;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
 
-_chanceReinforcements = 0.10; //blck_reinforcementsBlue select 0;
-_noPara = 2;  //blck_reinforcementsBlue select 1;
-_chanceHeliPatrol = 0;//blck_reinforcementsBlue select 2;
-_chanceLoot = 0.10; //blck_reinforcementsBlue select 3;
+//_chanceReinforcements = 0.10; //blck_reinforcementsBlue select 0;
+//_noPara = 2;  //blck_reinforcementsBlue select 1;
+//_chanceHeliPatrol = 0;//blck_reinforcementsBlue select 2;
+//_chanceLoot = 0.10; //blck_reinforcementsBlue select 3;
 
 private["_weap","_mags","_backpacks","_optics","_loadout"];
 _weap = 3 + floor(random(4));	

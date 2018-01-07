@@ -36,14 +36,8 @@ _wp = [_group, currentWaypoint _group];
 _wp setWaypointBehaviour "COMBAT";
 _group setCombatMode "RED";
 _wp setWaypointCombatMode "RED";
-{
-	_unit removeAllEventHandlers  _x;
-}forEach ["Killed","Fired","HandleDamage","HandleHeal","FiredNear","Hit"];
-
 _isLegal = [_unit,_killer] call blck_fnc_processIlleagalAIKills;
-
 if !(_isLegal) exitWith {};
-
 _lastkill = _killer getVariable["blck_lastkill",diag_tickTime];
 _killer setVariable["blck_lastkill",diag_tickTime];
 _kills = (_killer getVariable["blck_kills",0]) + 1;

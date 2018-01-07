@@ -1,8 +1,7 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 3-14-17
 	
 	--------------------------
 	License

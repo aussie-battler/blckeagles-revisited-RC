@@ -26,8 +26,9 @@ if (toLower(_name) isEqualTo "headlessclient") then
 			diag_log format["_fnc_onPlayerDisconnected:: reseting eventHandlers for group %1",_x];
 			// do any cleanup; at present this is simply removing locally added event handlers
 			_groupLocalEH = _x getVariable["localEH",[]];
+			private _group = _x;
 			{
-				_x removeEventHandler _x;
+				_group removeEventHandler (_x getVariable["localEH","Reloaded"]);
 			}forEach _groupLocalEH;
 			_x setVariable["localEH",nil,true];
 		};

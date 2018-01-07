@@ -1,10 +1,7 @@
 /*
 	Define loot crate configurations for Epoch.
-
-	for DBD Clan
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 3-14-17
 	
 	--------------------------
 	License
@@ -100,7 +97,7 @@ _loot_magazines = 	[  //  Ignored 5.56, SMG and pistol ammo as most players seem
 			"200Rnd_556x45_Box_Tracer_Red_F",
 			"10Rnd_9x21_Mag"
 	];
-	
+		
 //Silencers
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 _loot_silencers = ["muzzle_sr25S_epoch","muzzle_snds_H","muzzle_snds_M","muzzle_snds_L","muzzle_snds_B","muzzle_snds_H_MG","muzzle_snds_acp","muzzle_snds_93mmg","muzzle_snds_93mmg_tan",
@@ -145,6 +142,7 @@ _loot_build = blck_epochBuildingSupplies;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 _loot_explosives = [["HandGrenade",3],["MiniGrenade",3],["SatchelCharge_Remote_Mag",3],["DemoCharge_Remote_Mag",3],["ClaymoreDirectionalMine_Remote_Mag",3]];
 _loot_launchers = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_Titan_short_F"];
+
 
 //  Loot Configuration 1: Heavy Weapons and explosives
 _box1_Pistols = 3;

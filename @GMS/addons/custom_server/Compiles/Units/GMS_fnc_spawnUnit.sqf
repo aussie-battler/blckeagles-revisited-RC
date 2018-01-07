@@ -184,13 +184,10 @@ if (blck_debugLevel > 2) then
 	diag_log format["_fnc_spawnUnit:: --> unit loadout = %1", getUnitLoadout _ai1];
 };
 #endif
-// Infinite ammo
-//_ai1 addeventhandler ["fired", {(_this select 0) setvehicleammo 1;}];
+
 _ai1 addEventHandler ["Reloaded", {_this call compile preprocessfilelinenumbers blck_EH_unitWeaponReloaded;}];
 _ai1 addMPEventHandler ["MPKilled", {[(_this select 0), (_this select 1)] call compile preprocessfilelinenumbers blck_EH_AIKilled;}]; // changed to reduce number of concurrent threads, but also works as spawn blck_AIKilled; }];
 _ai1 addMPEventHandler ["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIHit;}];
-//_ai1 addEventHandler ["FiredNear",{diag_log "-------->>>>>>>> Weapon fired Near Unit";}];
-//_ai1 addEventHandler ["FiredNear",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIFiredNear;};];
 
 switch (_skillLevel) do 
 {

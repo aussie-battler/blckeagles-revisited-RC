@@ -1,6 +1,6 @@
 /*
-	for DBD Clan
-	By Ghostrider-DBD-
+	for ghostridergaming
+	By Ghostrider [GRG]
 	Copyright 2016
 	Last Modified 8-23-17
 	
@@ -13,7 +13,7 @@
 */
 
 //Based on the Random Loot Crates addon by Darth_Rogue & Chisel (tdwhite)  
-// Re-written by Ghostrider-DBD- to add features and clean up code
+// Re-written by Ghostrider [GRG] to add features and clean up code
 
 // Do not touch anything below this line.
 /// ********************************************************************************************************************************************************************************************************************************

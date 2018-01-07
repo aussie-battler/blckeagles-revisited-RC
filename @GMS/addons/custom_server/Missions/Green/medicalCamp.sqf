@@ -1,6 +1,6 @@
 /*
-	Mission Template by Ghostrider-DbD-
-	Mission Compositions by Bill prepared for DBD Clan
+	Mission Template by Ghostrider [GRG]
+	Mission Compositions by Bill prepared for ghostridergaming
 	Copyright 2016
 	Last modified 3/20/17
 	
@@ -57,11 +57,10 @@ _noVehiclePatrols = blck_SpawnVeh_Green;
 _noEmplacedWeapons = blck_SpawnEmplaced_Green;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
-
-_chanceReinforcements = 0.5; //blck_reinforcementsBlue select 0;
-_noPara = 4;  //blck_reinforcementsBlue select 1;
-_chanceHeliPatrol = 0;//blck_reinforcementsBlue select 2;
-_chanceLoot = 0.33; //blck_reinforcementsBlue select 3;
+//_chanceReinforcements = blck_chanceParaGreen;
+//_noPara = blck_noParaGreen;
+//_helipatrol = blck_chanceHeliPatrolGreen;
+//_chanceLoot = 0.33; //blck_reinforcementsBlue select 3;
 
 private["_weap","_mags","_backpacks","_optics","_loadout"];
 _weap = 3 + floor(random(4));	

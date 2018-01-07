@@ -113,7 +113,7 @@ blck_fnc_cleanupDeadAI = compileFinal  preprocessFileLineNumbers "\q\addons\cust
 blck_fnc_setSkill = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_setSkill.sqf";
 blck_fnc_cleanupAliveAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_cleanupAliveAI.sqf";
 blck_fnc_deleteAI = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_deleteAI.sqf";
-blck_fnc_processAIHit = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_processAIHit.sqf";
+blck_fnc_processAIHit = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_processAIHit.sqf";
 
 // HC support functions
 blck_fnc_HC_XferGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_XferGroup.sqf"; 

@@ -1,6 +1,6 @@
 /*
-	Mission Template by Ghostrider-DbD-
-	Mission Compositions by Bill prepared for DBD Clan
+	Mission Template by Ghostrider [GRG]
+	Mission Compositions by Bill prepared for ghostridergaming
 	Copyright 2016
 	Last modified 3/20/17
 	
@@ -47,10 +47,10 @@ _noVehiclePatrols = blck_SpawnVeh_Blue;
 _noEmplacedWeapons = blck_SpawnEmplaced_Blue;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
-_chanceReinforcements = blck_reinforcementsBlue select 0;
-_noPara = blck_reinforcementsBlue select 1;
-_chanceHeliPatrol = blck_reinforcementsBlue select 2;
-_chanceLoot = blck_reinforcementsBlue select 3;
+_chanceReinforcements = blck_chanceParaBlue; 
+_noPara = blck_noParaBlue;  
+_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
+_chanceLoot = 0;
 _endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 
