@@ -121,7 +121,7 @@ if !(isServer) then
 	
 	fn_handleMessage = {
 		//private["_event","_msg","_mission"];
-		diag_log format["fn_handleMessage ====]  Paremeters = _this = %1",_this];
+		//diag_log format["blck_Message ====]  Paremeters = _this = %1",_this];
 		params["_event","_message",["_mission",""]];
 
 		//diag_log format["blck_Message ====]  Paremeters _event %1  _message %2 paramter #3 %3",_event,_message,_mission];
@@ -173,17 +173,15 @@ if !(isServer) then
 	};
 	
 	diag_log "blck client loaded ver 1/11/17 2.0 8 PM";	
-
 	diag_log "[blckeagls] starting client loop";
 	
 	while {true} do
 	{
 		waitUntil {!(blck_message isEqualTo "")};
-		diag_log format["[blckClient] blck_Message = %1", blck_message];
+		//diag_log format["[blckClient] blck_Message = %1", blck_message];
 		private["_message"];
 		_message = blck_message;
 		_message spawn fn_handleMessage;
 		blck_Message = "";	
 	};
-	
 };
