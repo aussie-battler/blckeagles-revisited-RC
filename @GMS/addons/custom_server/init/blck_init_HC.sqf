@@ -6,8 +6,8 @@
 	And mostly importantly, 
 	To Vampire, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 and Buttface (Face) who wrote the pionering mission and roaming AI systems upon which this one is based and who's code is used with modification in some parts of this addon.
 
-	By Ghostrider-DbD
-	Last Modified 3-18-17
+	By Ghostrider-GRG-
+
 	--------------------------
 	License
 	--------------------------
@@ -46,9 +46,6 @@ blck_configsLoaded = nil;
 // Load any user-defined specifications or overrides
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
-#ifdef GRGserver
-diag_log "[blckegls] Running DBD Clan Version";
-#endif
 #ifdef useDynamicSimulation
 diag_log "[blckegls] dynamic simulation manager enabled";
 #else

@@ -20,6 +20,8 @@ switch (toLower worldName) do
 	case "namalsk": {_mapCenter = getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition");_maxDistance = 5000}; 
 	case "taviana": {_mapCenter = [12000,12000,0];_maxDistance = 12000};
 	case "napf" : {_mapCenter = getArray(configFile >> "CfgWorlds" >> worldName >> "centerPosition");_maxDistance = 12000};
+	case "lythium": {_mapCenter = [10000,10000,0]; _maxDistance = 6000;};
+	default {_mapCenter = [6000,6000,0]; _maxDistance = 6000;};	
 };
 
 _evaluate = true;

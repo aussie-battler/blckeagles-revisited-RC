@@ -1,13 +1,6 @@
 /*
-	AI Mission for Epoch and Exile Mods to Arma 3
-	Credist to blckeagls who wrote the initial mission script for A3 Epoch 
-	To Narines for debugging that original version
-	To cynwncler for many helpful comments along the way
-	And mostly importantly, 
-	To Vampire, KiloSwiss, blckeagls, theFUCHS, lazylink, Mark311 and Buttface (Face) who wrote the pionering mission and roaming AI systems upon which this one is based and who's code is used with modification in some parts of this addon.
+	By Ghostrider-GRG-
 
-	By Ghostrider-DbD
-	Last Modified 3-18-17
 	--------------------------
 	License
 	--------------------------
@@ -64,14 +57,6 @@ blck_worldSet = nil;
 diag_log "[blckeagls] Loading Mission Lists";
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
 
-#ifdef GRGserver
-//start the dynamic loot crate system
-[] execVM "\q\addons\custom_server\DLS\DLS_init.sqf";
-waitUntil {(isNil "blck_DLSComplete") isEqualTo false;};
-waitUntil{blck_DLSComplete};
-blck_DLSComplete = nil;
-#endif
-
 // Load any user-defined specifications or overrides
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
@@ -108,9 +93,6 @@ if (blck_spawnStaticLootCrates) then
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
 };
 
-#ifdef GRGserver
-diag_log "[blckegls] Running GhostriderGaming Version";
-#endif
 #ifdef useDynamicSimulation
 diag_log "[blckegls] dynamic simulation manager enabled";
 #else
@@ -138,26 +120,6 @@ if (blck_enableBlueMissions > 0) then
 	//[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
-
-#ifdef GRGserver
-if (blck_enableScoutsMissions > 0) then
-{
-	//[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts] spawn blck_fnc_missionTimer;
-	[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts,blck_enableScoutsMissions] call blck_fnc_addMissionToQue;
-};
-if (blck_enableHunterMissions > 0) then
-{
-	//[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter] spawn blck_fnc_missionTimer;
-	//  params["_missionList","_path","_marker","_difficulty","_tMin","_tMax","_noMissions"];
-	[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter,blck_enableHunterMissions] call blck_fnc_addMissionToQue;
-};
-
-// Running new version of Crash sites.
-if (blck_maxCrashSites > 0) then
-{
-	[] execVM "\q\addons\custom_server\Missions\HeliCrashs\Crashes2.sqf";
-};
-#endif
 
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
 [] spawn blck_fnc_mainThread;

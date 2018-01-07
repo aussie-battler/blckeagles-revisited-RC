@@ -8,6 +8,11 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
+Version 6.78 build 106
+Changed how event handlers are handled.
+bug fixes
+Removed lines specific to GRG servers.
+
 Version 6.76 Build 104
 Added: A new timer that determines the time after which Vehicles are deleted once all AI are dead if no player has entered the driver's seat.
 Added: an optional variable in the template for missions called _missionGroups by which you can define the parameters (position, skill level, number, patrol radius) for each group spawned.

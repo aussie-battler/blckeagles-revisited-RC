@@ -1,10 +1,8 @@
 /*
 	Define constants for SLS for Exile
 
-	for DBD Clan
-	By Ghostrider-DBD-
+	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 3-14-17
 	
 	--------------------------
 	License
@@ -13,9 +11,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-
-diag_log "[blckeagls] SLS : Loading Static Loot Container Spawning System for Exile";
-
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 _lootBoxes = 
 [
 	/*[	
@@ -41,7 +37,9 @@ _lootBoxes =
 		] // No comma after this last one
 	] //  No comma after this last one 
 	*/
+
 ];
+
 
 private["_loot_uniforms","_loot_pistols","_loot_rifles","_loot_snipers","_loot_LMG","_loot_silencers"];
 // Edit these to your liking

@@ -1,6 +1,6 @@
 /*
-	Mission Template by Ghostrider-DbD-
-	Mission Compositions by Bill prepared for DBD Clan
+	Mission Template by Ghostrider [GRG]
+	Mission Compositions by Bill prepared for ghostridergaming
 	Copyright 2016
 	Last modified 3/20/17
 	
@@ -60,7 +60,7 @@ _weap = 4 + floor(random(4));
 _mags = 12 + floor(random(6));
 _backpacks = 1 + floor(random(2));
 _optics = 5 + floor(random(6));
-_reinforcementLootCounts = [_weap,_mags,_optics,0,0,_backpacks];
+//_reinforcementLootCounts = [_weap,_mags,_optics,0,0,_backpacks];
 
 _endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
