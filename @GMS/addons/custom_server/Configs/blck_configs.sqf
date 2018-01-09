@@ -178,7 +178,7 @@
 	////////////////////
 	
 	// Maximum number of missions shown on the map at any one time.
-	blck_maxSpawnedMissions	= 4;
+	blck_maxSpawnedMissions	= 9;
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
