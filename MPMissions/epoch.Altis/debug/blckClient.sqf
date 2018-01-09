@@ -3,8 +3,6 @@
 // Last Updated 1/11/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
-_blck_clientVersion = "6.72 Build 82";
-//if (_blck_clientVersion != blck_pvs_version) then {diag_log "[BLCKEAGLS CLIENT] WARNING!! CLIENT VERSION DOES NOT MATCH SERVER VERSION"};
 blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
 blck_fnc_deleteMarker = compileFinal preprocessfilelinenumbers "debug\deleteMarker.sqf";
 blck_fnc_missionCompleteMarker = compileFinal preprocessfilelinenumbers "debug\missionCompleteMarker.sqf";
@@ -156,30 +154,25 @@ if !(isServer) then
 					};	
 			case "reinforcements":
 					{
-						if ( (player distance _mission) < 1000) then {playsound "AddItemOK"; ["Alert",_message] call fn_missionNotification;};
+						if ( (player distance _mission) < 1000) then {playsound "AddItemOK"; ["Alert",_message] call fn_dynamicNotification;};
 						//diag_log "---->>>>  Reinforcements Spotted";
 					};
 			case "IED":
 					{
-						playSound "Alarm";
-						["IED","Bandit Grenades Detonated Under Your Vehicle","Nearby Explosion"] call fn_missionNotification;						
 						[1] call BIS_fnc_Earthquake;
+						//["IED","Bandits targeted your vehicle with an IED"] call fn_dynamicNotification;
+						  ["Bandits targeted your vehicle with an IED.", 5] call Epoch_message;
 						for "_i" from 1 to 3 do {playSound "BattlefieldExplosions3_3D";uiSleep 0.3;};
 					};
 			case "showScore":
 					{
 						[_message select 0, _message select 1, _message select 2] call fn_killScoreNotification;
 					};
-			case "abort":
-					{
-						playSound "Alarm";
-						[_event,_message,"Warning"] spawn fn_missionNotification;					
-					};
 		};
 
 	};
 	
-	diag_log "blck client loaded ver 10/13/17 8 PM";	
+	diag_log "blck client loaded ver 1/11/17 2.0 8 PM";	
 
 	diag_log "[blckeagls] starting client loop";
 	
