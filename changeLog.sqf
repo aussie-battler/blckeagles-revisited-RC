@@ -8,6 +8,10 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
+Version 6.78 Build 107
+Fixed: blck_baseSkill is now used properly to set skill of units.
+Added: Units assemble in formation when spawned.
+
 Version 6.78 build 106
 Changed how event handlers are handled.
 bug fixes

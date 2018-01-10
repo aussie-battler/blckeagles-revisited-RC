@@ -1,9 +1,7 @@
 /*
 	Original Code by blckeagls
 	Modified by Ghostrider
-	Logic for adding AI Ammo, GL Shells and Attachments addapted from that by Buttface (A3XAI).
-	Everything having to do with spawning and configuring an AI should happen here
-	Last Modified 11/12/17
+
 	--------------------------
 	License
 	--------------------------
@@ -40,7 +38,9 @@ _ai1 = ObjNull;
 private _modType = call blck_fnc_getModType;
 if (_modType isEqualTo "Epoch") then
 {
-	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
+	//"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
+	//  _unit = group player createUnit ["B_RangeMaster_F", position player, [], 0, "FORM"];
+	_ai1 = _aiGroup createUnit ["I_Soldier_EPOCH", _pos, [], blck_baseSkill, "FORM"]; 
 	switch(_skillLevel) do
 	{
 		case "blue":{_ai1 setVariable["Crypto",1 + floor(random(blck_maxMoneyBlue)),true];};
@@ -51,7 +51,8 @@ if (_modType isEqualTo "Epoch") then
 };
 if (_modType isEqualTo "Exile") then
 {
-	"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
+	//"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
+	_ai1 = _aiGroup createUnit ["i_g_soldier_unarmed_f", _pos, [], blck_baseSkill, "FORM"];
 	switch(_skillLevel) do
 	{
 		case "blue":{_ai1 setVariable["ExileMoney",2 + floor(random(blck_maxMoneyBlue)),true];};
@@ -61,7 +62,7 @@ if (_modType isEqualTo "Exile") then
 	};
 };
 #ifdef blck_debugMode
-if (blck_debugLevel > 2) then
+if (blck_debugLevel >= 2) then
 {
 	diag_log format["_fnc_spawnUnit::-->> unit spawned = %1",_ai1];
 };
@@ -71,7 +72,7 @@ if (_scuba) then
 {
 	_ai1 swiminDepth (_pos select 2);
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel >= 2) then
 	{
 		diag_log format["_fnc_spawnUnit:: -- >> unit depth = %1 and underwater for unit = %2",_pos select 2, underwater _ai1];
 	};
