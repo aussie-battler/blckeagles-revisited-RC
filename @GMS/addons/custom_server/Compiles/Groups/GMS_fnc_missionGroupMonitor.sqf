@@ -5,7 +5,7 @@
 	If not it directs them to the next waypoint. 
 	It uses a timestamp attached to the group that is cleared upon waypoint completion.
 	
-	By Ghostrider [GRG]
+	By Ghostrider-DbD-
 	Last modified 3/14/17
 	
 	--------------------------
@@ -82,10 +82,10 @@ _fn_monitorGroupWaypoints = {
 		_timeStamp = _x getVariable ["timeStamp",0];
 		if (_timeStamp isEqualTo 0) then {
 			_x setVariable["timeStamp",diag_tickTime];
-			diag_log format["_fn_monitorGroupWaypoints::--> updating timestamp for group %1 at time %2",_x,diag_tickTime];
+			//diag_log format["_fn_monitorGroupWaypoints::--> updating timestamp for group %1 at time %2",_x,diag_tickTime];
 		};
 		_soldierType = _x getVariable["soldierType","null"];
-		diag_log format["_fn_monitorGroupWaypoints::--> soldierType for group %1 = %2 and timeStamp = %3",_x,_soldierType,_timeStamp];
+		//diag_log format["_fn_monitorGroupWaypoints::--> soldierType for group %1 = %2 and timeStamp = %3",_x,_soldierType,_timeStamp];
 		
 		if (_soldierType isEqualTo "infantry") then
 		{
@@ -95,8 +95,6 @@ _fn_monitorGroupWaypoints = {
 				if (count _units > 0) then
 				{
 					private _leader = leader _x;
-					if (owner _x == 2) then
-					{
 					(_leader) call blck_fnc_changeToMoveWaypoint;
 					#ifdef blck_debugMode
 					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: infantry group %1 stuck, waypoint reset",_x];};
@@ -104,13 +102,10 @@ _fn_monitorGroupWaypoints = {
 					/*
 					if ( (getPos _leader) distance2d (_group getVariable "patrolCenter") > 200) then 
 					{
-						
+
 					};
 					*/
-					} else {
-						[_x] remoteExec ["blck_fnc_changeToMoveWaypoint", owner _x];// [<params>] remoteExec ["someScriptCommand", targets, JIP];
-					};				
-
+				};
 
 			};
 		};
@@ -122,23 +117,17 @@ _fn_monitorGroupWaypoints = {
 				if (count _units > 0) then
 				{
 					private _leader = leader _x;
-					if (owner _x == 2) then
-					{
 					(_leader) call blck_fnc_changeToMoveWaypoint;
 					#ifdef blck_debugMode
-					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: helicopter group %1 stuck, waypoint reset",_x];};
+					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: vehicle group %1 stuck, waypoint reset",_x];};
 					#endif
 					/*
 					if ( (getPos _leader) distance2d (_group getVariable "patrolCenter") > 200) then 
 					{
-						
 					};
 					*/
-					} else {
-						[_x] remoteExec ["blck_fnc_changeToMoveWaypoint", owner _x];// [<params>] remoteExec ["someScriptCommand", targets, JIP];
-					};				
-
 				};
+
 			};
 		};
 		if (_soldierType isEqualTo "helicopter") then
@@ -149,8 +138,6 @@ _fn_monitorGroupWaypoints = {
 				if (count _units > 0) then
 				{
 					private _leader = leader _x;
-					if (owner _x == 2) then
-					{
 					(_leader) call blck_fnc_changeToMoveWaypoint;
 					#ifdef blck_debugMode
 					if (blck_debugLevel > 2) then {diag_log format["_fnc_missionGroupMonitor: helicopter group %1 stuck, waypoint reset",_x];};
@@ -161,9 +148,6 @@ _fn_monitorGroupWaypoints = {
 						
 					};
 					*/
-					} else {
-						[_x] remoteExec ["blck_fnc_changeToMoveWaypoint", owner _x];// [<params>] remoteExec ["someScriptCommand", targets, JIP];
-					};
 				};
 
 			};
@@ -187,7 +171,7 @@ _fn_simulationMonitor = {
 		  // Be sure simulation is on for all units in the group
 		  if !(_x getVariable["blck_simulationStatus",false]) then
 		  {
-			_x setVariable["blck_simulationStatus",true,true];
+			_x setVariable["blck_simulationStatus",true];
 			{
 				_x enableSimulationGlobal  true;
 			}forEach (units _x);
@@ -196,7 +180,7 @@ _fn_simulationMonitor = {
 			// Be sure simulation is off for all units in the group.
 			if !(_x getVariable["blck_simulationStatus",true]) then
 			{
-				_x setVariable["blck_simulationStatus",false,true];
+				_x setVariable["blck_simulationStatus",false];
 				{
 					_x enableSimulationGlobal false;
 				}forEach (units _x);		

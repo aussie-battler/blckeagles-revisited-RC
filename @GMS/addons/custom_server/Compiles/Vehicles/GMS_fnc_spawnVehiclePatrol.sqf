@@ -58,7 +58,7 @@ if !(isNull _group) then
 			_unitNumber = _unitNumber + 1;
 	}forEach (units _group);
 
-	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];
+	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAD"],["_soldierType","null"] ];
 	_group setcombatmode "RED";
 	_group setBehaviour "COMBAT";
 	[_center,_minDis,_maxDis,_group,"perimeter","SAD","vehicle"] spawn blck_fnc_setupWaypoints;

@@ -18,7 +18,7 @@ private["_group","_wp","_index","_pattern","_mode","_arc","_dis","_wpPos"];
 
 _group = group _this;
 
-_group setVariable["timeStamp",diag_tickTime,true];
+_group setVariable["timeStamp",diag_tickTime];
 _group setcombatmode "YELLOW";
 _group setBehaviour "COMBAT"
 _wp = [_group, 0];
@@ -29,7 +29,7 @@ _index = _index + 1;
 _minDis = _group getVariable["minDis",0];
 _maxDis = _group getVariable["maxDis",0];
 dir = (_group getVariable["wpDir",0]) + _group getVariable["wpArc",360/5];
-_group setVariable["wpDir",_dir,true];
+_group setVariable["wpDir",_dir];
 
 diag_log format["_fnc_setNextWaypoint: ->  _minDis = %1 | _maxDis = %2 | _arc = %3",_minDis,_maxDis,_arc];
 if (_index >= (count _pattern)) then
@@ -39,7 +39,7 @@ if (_index >= (count _pattern)) then
 	diag_log format["_fnc_setNextWaypoint: -> waypoint index for group %1 is currently %2 with _pattern = %4 and count _pattern = %3",_group,_index, count _pattern,_pattern];	
 };
 
-_group setVariable["wpIndex",_index,true];
+_group setVariable["wpIndex",_index];
 _type = _pattern select _index;
 
 #ifdef blck_debugMode
@@ -60,7 +60,7 @@ if (_type isEqualTo (toLower "move"))  then
 	} else {
 		_dir = _group getVariable["wpDir",0] + _group getVariable["wpArc",360/5];
 	};
-	_group setVariable["wpDir",_dir,true];
+	_group setVariable["wpDir",_dir];
 	_oldPos = waypointPosition _wp;
 
 	_newPos = (_group getVariable ["patrolCenter",_wpPos]) getPos[_dis,_arc];
