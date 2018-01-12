@@ -23,7 +23,7 @@ private["_dir","_arc","_noWp","_newpos","_wpradius","_wp"];
 params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAD"],["_soldierType","null"] ];
 _wp = [_group, 0];
 #ifdef blck_debugMode
-if (blck_debugLevel > 2) then
+if (blck_debugLevel >= 2) then
 {
 	diag_log format["_fnc_setupWaypoints (4/29/17): configuring waypoints for group %1: _mode = %2 | _wpPatrolMode = %3 _soldierType = %4",_group, _mode, _wpPatrolMode,_soldierType];
 };
@@ -51,16 +51,16 @@ if !(_soldierType isEqualTo "emplaced") then
 	_arc = 360/5;
 	_group setcombatmode "YELLOW";
 	_group setBehaviour "COMBAT";
-	_group setVariable["patrolCenter",_pos,true];
-	_group setVariable["minDis",_minDis,true];
-	_group setVariable["maxDis",_maxDis,true];
-	_group setVariable["timeStamp",diag_tickTime,true];
-	_group setVariable["wpRadius",30,true];
-	_group setVariable["wpMode",_mode,true];
-	_group setVariable["wpPatrolMode",_wpPatrolMode,true];
-	_group setVariable["wpDir",0,true];
-	_group setVariable["wpArc",_arc,true];
-	_group setVariable["soldierType",_soldierType,true];
+	_group setVariable["patrolCenter",_pos];
+	_group setVariable["minDis",_minDis];
+	_group setVariable["maxDis",_maxDis];
+	_group setVariable["timeStamp",diag_tickTime];
+	_group setVariable["wpRadius",30];
+	_group setVariable["wpMode",_mode];
+	_group setVariable["wpPatrolMode",_wpPatrolMode];
+	_group setVariable["wpDir",0];
+	_group setVariable["wpArc",_arc];
+	_group setVariable["soldierType",_soldierType];
 	_dir = 0;
 
 	_wpradius = 30;
@@ -80,7 +80,7 @@ if !(_soldierType isEqualTo "emplaced") then
 	_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;"];	
 	#endif
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel >= 2) then
 	{
 		_marker = createMarker [format["GroupMarker%1",_group],_newPos];
 		_group setVariable["wpMarker",_marker,true];

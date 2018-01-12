@@ -38,9 +38,9 @@ _ai1 = ObjNull;
 private _modType = call blck_fnc_getModType;
 if (_modType isEqualTo "Epoch") then
 {
-	//"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", 0.7, "COLONEL"];
+	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
 	//  _unit = group player createUnit ["B_RangeMaster_F", position player, [], 0, "FORM"];
-	_ai1 = _aiGroup createUnit ["I_Soldier_EPOCH", _pos, [], blck_baseSkill, "FORM"]; 
+	//_ai1 = _aiGroup createUnit ["I_Soldier_EPOCH", _pos, [], blck_baseSkill, "FORM"]; 
 	switch(_skillLevel) do
 	{
 		case "blue":{_ai1 setVariable["Crypto",1 + floor(random(blck_maxMoneyBlue)),true];};
@@ -51,8 +51,8 @@ if (_modType isEqualTo "Epoch") then
 };
 if (_modType isEqualTo "Exile") then
 {
-	//"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
-	_ai1 = _aiGroup createUnit ["i_g_soldier_unarmed_f", _pos, [], blck_baseSkill, "FORM"];
+	"i_g_soldier_unarmed_f" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
+	//_ai1 = _aiGroup createUnit ["i_g_soldier_unarmed_f", _pos, [], blck_baseSkill, "FORM"];
 	switch(_skillLevel) do
 	{
 		case "blue":{_ai1 setVariable["ExileMoney",2 + floor(random(blck_maxMoneyBlue)),true];};

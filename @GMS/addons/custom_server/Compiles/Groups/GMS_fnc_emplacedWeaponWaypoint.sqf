@@ -19,7 +19,7 @@ private["_group","_wp"];
 diag_log format["_fnc_changeToSADWaypoint:: -- :: _this = %1 and typName _this %2",_this, typeName _this];
 _group = group _this;
  diag_log format["_fnc_emplacedWeaponWaypoint:: -- >> group to update is %1 with typeName %2",_group, typeName _group];
-_group setVariable["timeStamp",diag_tickTime,true];
+_group setVariable["timeStamp",diag_tickTime];
 _wp = [_group, 0];
 _group setCurrentWaypoint _wp;
  diag_log format["_fnc_emplacedWeaponWaypoint:: -- >> group to update is %1 waypoints updated at %2",_group, (_group getVariable["timeStamp",diag_tickTime])];

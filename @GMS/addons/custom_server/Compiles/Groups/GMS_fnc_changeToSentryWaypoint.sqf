@@ -19,40 +19,31 @@ diag_log "_fnc_changeToSADWaypoint: blck_debugMode enabled";
 private["_group","_wp"];
 
 _group = group _this;
-if (isServer) then
-{
-	if (groupOwner _group > 2) exitWith 
-	{
-		diag_log format["blck_fnc_changeToSentryWaypoint:: Running function on headless client %1 for group %2",groupOwner _group,_group];
-		[_group] remoteExec["blck_fnc_changeToSentryWaypoint",groupOwner _group];
-	};
-} else {
-	_group setVariable["timeStamp",diag_tickTime,true];
-	_wp = [_group, 0];
-	_group setCurrentWaypoint _wp;
-	_group setcombatmode "RED";
-	_group setBehaviour "COMBAT";
-	_wp setWaypointType "SENTRY";
-	_wp setWaypointName "sentry";
-	_wp setWaypointBehaviour "COMBAT";
-	_wp setWaypointCombatMode "RED";
-	_wp setWaypointTimeout [10,15,20];
-	#ifdef blck_debugMode
-	_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a Move Waypoint',group this];"];	
-	#else
-	_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;"];	
-	#endif
+_group setVariable["timeStamp",diag_tickTime];
+_wp = [_group, 0];
+_group setCurrentWaypoint _wp;
+_group setcombatmode "RED";
+_group setBehaviour "COMBAT";
+_wp setWaypointType "SENTRY";
+_wp setWaypointName "sentry";
+_wp setWaypointBehaviour "COMBAT";
+_wp setWaypointCombatMode "RED";
+_wp setWaypointTimeout [10,15,20];
+#ifdef blck_debugMode
+_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a Move Waypoint',group this];"];	
+#else
+_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;"];	
+#endif
 
-	#ifdef blck_debugMode
-	if (blck_debugLevel >1) then
-	{
-		diag_log format["_fnc_changeToSentryWaypoint:: -- :: _this = %1 and typName _this %2",_this, typeName _this];
-		diag_log format["_fnc_changeToSentryWaypoint:: -- >> group to update is %1 with typeName %2",_group, typeName _group];
-		private ["_marker"];
-		_marker = _group getVariable["wpMarker",""];
-		_marker setMarkerColor "ColorYellow";
-		diag_log format["_fnc_changeToSentryWaypoint:: -- >> Waypoint statements for group %1 have been configured as %2",_group, waypointStatements _wp];		
-		diag_log format["_fnc_changeToSentryWaypoint:: -- >> Waypoint marker for group %1 have been configured as %2",_group, _group getVariable "wpMarker"];		
-	};
-	#endif
+#ifdef blck_debugMode
+if (blck_debugLevel >1) then
+{
+	diag_log format["_fnc_changeToSentryWaypoint:: -- :: _this = %1 and typName _this %2",_this, typeName _this];
+	diag_log format["_fnc_changeToSentryWaypoint:: -- >> group to update is %1 with typeName %2",_group, typeName _group];
+	private ["_marker"];
+	_marker = _group getVariable["wpMarker",""];
+	_marker setMarkerColor "ColorYellow";
+	diag_log format["_fnc_changeToSentryWaypoint:: -- >> Waypoint statements for group %1 have been configured as %2",_group, waypointStatements _wp];		
+	diag_log format["_fnc_changeToSentryWaypoint:: -- >> Waypoint marker for group %1 have been configured as %2",_group, _group getVariable "wpMarker"];		
 };
+#endif
