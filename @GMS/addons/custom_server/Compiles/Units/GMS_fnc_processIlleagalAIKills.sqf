@@ -1,6 +1,6 @@
 /*
 	by Ghostrider
-	6-1-17
+
 	--------------------------
 	License
 	--------------------------
@@ -12,7 +12,7 @@
 
 private["_missionType","_wasRunover","_launcher","_legal"];
 params["_unit","_killer"];
-//diag_log format["##-processIlleagalAIKills.sqf-## processing illeagal kills for unit %1",_unit];
+diag_log format["##-processIlleagalAIKills.sqf-## processing illeagal kills for unit %1",_unit];
 _launcher = _unit getVariable ["Launcher",""];
 _legal = true;
 
@@ -25,14 +25,6 @@ _fn_targetVehicle = {  // force AI to fire on the vehicle with launchers if equi
 			_x reveal [_vk, 4];
 			_x dowatch _vk; 
 			_x doTarget _vk; 
-			if (_unit getVariable ["Launcher",""] != "") then 
-			{	
-				_x selectWeapon (secondaryWeapon _unit);
-				_x fireAtTarget [_vk,_unit getVariable ["Launcher",""]];
-			} else {
-				_x doTarget _vk;
-				_x doFire _vk;		
-			};
 		};
 	} forEach (call blck_fnc_allPlayers);
 };
@@ -78,7 +70,13 @@ if (typeOf _killer != typeOf (vehicle _killer)) then  // AI was killed by a vehi
 	};
 };
 
-if ( blck_VK_GunnerDamage &&((typeOf vehicle _killer) in blck_forbidenVehicles or (currentWeapon _killer) in blck_forbidenVehicleGuns) ) then {
+if ( blck_VK_GunnerDamage ) then
+{
+	if ((typeOf vehicle _killer) in blck_forbidenVehicles) then 
+	{_legal = false;}
+	else {
+		if ((currentWeapon _killer) in blck_forbidenVehicleGuns) then {	_legal = false;};
+	};
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
 	{
@@ -86,12 +84,12 @@ if ( blck_VK_GunnerDamage &&((typeOf vehicle _killer) in blck_forbidenVehicles o
 	};
 	#endif
 	if (blck_VK_Gear) then {[_unit] call _fn_deleteAIGear;};
-	[_unit, vehicle _killer] call _fn_targetVehicle;
-	[vehicle _killer] call _fn_applyVehicleDamage;
-	
-	[_killer] call _fn_msgIED;
-	
-	_legal = false;
+	if !(_legal) then
+	{
+		[_unit, vehicle _killer] call _fn_targetVehicle;
+		[vehicle _killer] call _fn_applyVehicleDamage;
+		[_killer] call _fn_msgIED;
+	};
 };
 
 _legal
