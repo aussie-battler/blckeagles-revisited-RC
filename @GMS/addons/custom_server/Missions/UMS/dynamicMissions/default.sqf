@@ -101,7 +101,7 @@ _scubaGroupParameters = [
 // These are surface patrols. 
 _vehiclePatrolParameters = [
 	//  	["B_MRAP_01_hmg_F",[27.8945,100.275,0],0,[true,false]],
-	["B_T_Boat_Armed_01_minigun_F",[1.21094,1.01465,0],0]
+	["B_T_Boat_Armed_01_minigun_F",[2,2,0],0]
 	//["B_T_Boat_Transport_01_F",[16.7676,43.083,-0.00134277],"red",4, 75,60]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
@@ -110,7 +110,7 @@ _vehiclePatrolParameters = [
 _submarinePatrolParameters = [
 	//  
 	//["B_SDV_01_F",[22584.9,15304.8,-6.14801],"red",4, 75,0],
-	["B_SDV_01_F",[-1.0215,-1.4219,-1.5],0]
+	["B_SDV_01_F",[-2,-2,-1.5],0]
 ];
 
 _missionemplacedweapons = [

@@ -8,6 +8,13 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
+Version 1.79, Build 110
+Added: Map-specific information for Lythium.
+Added: (in process) When blck_showCountOfAliveAI = true;  The number of alive AI at a mission will be displayed by the mission marker.
+Fixed: several issues with dynamic UMS missions.
+Changed: Please replace the debug folder in your mission PBO with the updated one found on the github. 
+		[removed all scripts for markers from mission\debug. These are now located in custom_server\compiles\functions.]
+
 Version 6.78 Build 107
 Fixed: blck_baseSkill is now used properly to set skill of units.
 Added: Units assemble in formation when spawned.
