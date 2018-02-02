@@ -81,25 +81,27 @@ _missionLootVehicles = [  // Paste appropriate lines from the output of M3EDEN E
 // When blank nothing is spawned.
 // You can use the same format used for _missionLootBoxes to add vehicles with/without loot.
 							
-_minNoAI = 3;  //  Modify as needed
-_maxNoAI = 4;	// Modify as needed.
-_noAIGroups = 1;  // Modify as needed; note that these values are ignored of you specify AI patrols in the array below.
+_minNoAI = 4;  //  Modify as needed
+_maxNoAI = 6;	// Modify as needed.
+_noAIGroups = 2;  // Modify as needed; note that these values are ignored of you specify AI patrols in the array below.
 _missionGroups = 
 [
+	// Intended to be land-based units or units manning some sort of above-water structure.
 	// position relative to center, difficulty, no AI, minRadius, maxRadius
-	// [[1,-1,-1],"red",4, 5,10]
+	// [[1,-1,-1],2,3,"red", 5,10]
 ];
 _scubaGroupParameters = [
-	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 5,10 /* min/max radius of patrol*/]
-	[[-1,1,-1],"red",4, 5,10],
-	[[1,-1,-1],"red",4, 5,10]
+	// Scuba units.
+	// [[-10.9121,-10.9824,-1.20243],5,7,"Green",5,12],
+	[[-2,2,-1],2,3,"red", 5,10],
+	[[2,-2,-1],2,3,"red", 5,10]
 ];
 
 //_noVehiclePatrols = blck_SpawnVeh_Red; // Not useful for marine missions which we assume need pre-defined positions for vehicles.
 // These are surface patrols. 
 _vehiclePatrolParameters = [
 	//  	["B_MRAP_01_hmg_F",[27.8945,100.275,0],0,[true,false]],
-	["B_T_Boat_Armed_01_minigun_F",[1.21094,1.01465,0],0]
+	["B_T_Boat_Armed_01_minigun_F",[2,2,0],0]
 	//["B_T_Boat_Transport_01_F",[16.7676,43.083,-0.00134277],"red",4, 75,60]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
@@ -108,7 +110,7 @@ _vehiclePatrolParameters = [
 _submarinePatrolParameters = [
 	//  
 	//["B_SDV_01_F",[22584.9,15304.8,-6.14801],"red",4, 75,0],
-	["B_SDV_01_F",[-1.0215,-1.4219,-1.5],0]
+	["B_SDV_01_F",[-2,-2,-1.5],0]
 ];
 
 _missionemplacedweapons = [

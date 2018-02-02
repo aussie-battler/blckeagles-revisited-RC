@@ -61,7 +61,7 @@ switch (_blck_WorldName) do
 		case "tavi":{blck_mapCenter = [10370, 11510, 0];blck_mapRange = 14090;};
 		case "lingor":{blck_mapCenter = [4400, 4400, 0];blck_mapRange = 4400;};	
 		case "takistan":{blck_mapCenter = [5500, 6500, 0];blck_mapRange = 5000;};
-		case "lythium":{blck_mapCenter = [10000,10000,0];blck_mapRange = 6000;};
+		case "lythium":{blck_mapCenter = [10000,10000,0];blck_mapRange = 8500;};
 		default {_blck_WorldName = "default";blck_mapCenter = [6322,7801,0]; blck_mapRange = 6000};
 };
 
