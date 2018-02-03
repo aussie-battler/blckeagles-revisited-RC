@@ -54,7 +54,6 @@ while {true} do
 	{
 		//diag_log format["_fnc_mainThread:  60 second events run at %1",diag_tickTime];
 		_timer1min = diag_tickTime;
-		[] call blck_fnc_timeAcceleration;
 		[] call blck_fnc_spawnPendingMissions;
 		//diag_log format["_fnc_spawnPendingMissions: blck_numberUnderwaterDynamicMissions = %1 | 
 		if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then
@@ -83,13 +82,13 @@ while {true} do
 		//diag_log format["_fnc_mainThread: active SQFscripts include: %1",diag_activeSQFScripts];
 		diag_log format["_fnc_mainThread: active scripts include: %1",diag_activeScripts];
 		#endif
-	};	
-	if (blck_useTimeAcceleration) then
+	};
+	if (diag_tickTime - _timer5min > 300) then 
 	{
-		if (diag_tickTime - _timer5min > 300) then {
-
+		if (blck_useTimeAcceleration) then
+		{
 			_timer5min = diag_tickTime;
+			[] call blck_fnc_timeAcceleration;
 		};
 	};
-
 };

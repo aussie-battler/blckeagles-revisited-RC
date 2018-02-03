@@ -30,9 +30,10 @@ _time = dayTime;
 
 //  blck_debugMode3
 #ifdef blck_debugMode
-if (blck_debugLevel > 2) then
+if (blck_debugLevel >= 2) then
 {
 	diag_log "fnc_Time:: Debug settings ON";
+	diag_log format["_fnc_Time:: --> blck_useTimeAcceleration = %1", blck_useTimeAcceleration];
 	diag_log format["_fnc_Time::  -- > _sunrise = %1 | _sunset = %2 | _time = %3",_sunrise,_sunset,_time];
 };
 #endif
@@ -41,7 +42,7 @@ if (blck_debugLevel > 2) then
 if (_time > (_sunset + 0.5) || _time < (_sunrise - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationNight; 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel >= 2) then
 	{
 		diag_log format["NIGHT TIMGE ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 	};
@@ -53,7 +54,7 @@ if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
 	setTimeMultiplier blck_timeAccelerationDay; 
 	//diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];	
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 2) then
+	if (blck_debugLevel >= 2) then
 	{
 		diag_log format["DAYTIME ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 	};
@@ -63,7 +64,7 @@ if (_time > (_sunrise + 0.5) && _time < (_sunset - 0.5)) exitWith {
 // default
 setTimeMultiplier blck_timeAccelerationDusk; 
 #ifdef blck_debugMode
-if (blck_debugLevel > 2) then
+if (blck_debugLevel >= 2) then
 {
 	diag_log format["DUSK ADJUSTMENT:: time accel updated to %1; time of day = %2",timeMultiplier,dayTime];
 };
