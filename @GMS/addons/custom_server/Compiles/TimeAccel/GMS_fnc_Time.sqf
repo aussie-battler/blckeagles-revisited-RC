@@ -1,9 +1,10 @@
-// GMS_fnc_time.sqf
-// by Ghostrider-DBD_
-// Last Updated 12/21/16
-// Creds to AWOL, A3W, LouD and Creampie for insights.
+/*
+	GMS_fnc_time.sqf
+	by Ghostrider-DBD_
 
-//if (!isServer) exitWith {};
+	Credits to AWOL, A3W, LouD and Creampie for insights.
+
+*/
 
 /*
 	blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below 

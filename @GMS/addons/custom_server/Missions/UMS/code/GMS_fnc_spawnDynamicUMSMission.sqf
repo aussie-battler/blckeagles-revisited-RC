@@ -122,7 +122,7 @@ if (_missionTimedOut) exitWith
 	blck_UMS_ActiveDynamicMissions = blck_UMS_ActiveDynamicMissions - [_coords];
 	blck_dynamicUMS_MissionsRuning = blck_dynamicUMS_MissionsRuning - 1;	
 	
-	[_blck_localMissionMarker select 0] call compile preprocessfilelinenumbers "debug\deleteMarker.sqf";
+	[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
 	//_blck_localMissionMarker set [1,[0,0,0]];
 	//_blck_localMissionMarker set [2,""];
 	[_objects, 0.1] spawn blck_fnc_cleanupObjects;
@@ -469,7 +469,7 @@ if (count _missionLootBoxes > 0) then
 }
 else
 {
-	_crates = [_coords,[[selectRandom blck_crateTypes,[0,0,0],_crateLoot,_lootCounts]], _loadCratesTiming] call blck_fnc_spawnMissionCrates;
+	_crates = [_coords,[[selectRandom blck_UMS_crates,[0,0,0],_crateLoot,_lootCounts]], _loadCratesTiming] call blck_fnc_spawnMissionCrates;
 	
 };
 
