@@ -64,7 +64,7 @@ _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output her
 	//  where _customLootArray follows the same format as blck_BoxLoot_Red and the other pre-defined arrays and
 	//  where _customlootcountsarray1 also follows the same format as the predefined arrays like blck_lootCountsRed
 		//  ["Box_NATO_Ammo_F",[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
-	[selectRandom blck_UMS_crates,[22584.9,15282.2,-1],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
+	[selectRandom blck_UMS_crates,[22584,15304,-1],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
 ];  // If this array is empty a single loot chest will be added at the center. If you add items loot chest(s) will be spawned in specific positions.
 
 
