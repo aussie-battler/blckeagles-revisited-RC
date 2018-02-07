@@ -1,9 +1,12 @@
-Blckegls mission system Version-6.61-Build-72
+Blckegls mission system 
 
 Included is an updated version of blckeagls mission system. This began as an effort to fix bugs in and upgrade version 2.0.2 as updated by Narines and has now evolved to a complete reworking of almost all code. 
 
 
 * Installation: Please refer to Installation.txt for a detailed description of installation and what you need to add to BE filters.
+* Loading crates on SDV at underwater missions. For epoch, please feel free to use the modified IgiLoad on my github.
+  For exile users, modify your misionfil.pbo/config.sys as described below.
+  http://www.exilemod.com/topic/17352-bigfoots-shipwrecks/
   infiSTAR Users: you may need to whitelist _MainMarker depending on your settings.
 
 * Adjusting Settings: You can adjust many features that include numbers of AI, AI Skills, AI Loadouts with weapons and consumables, and what is added to the crate. See AdjustingSettings.txt and the configuration files for more details.
