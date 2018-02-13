@@ -40,19 +40,19 @@ switch (toLower (worldName)) do
 		_nightTime = abs(24 - _daylight);
 		_time = dayTime;
 		
-		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = (_daylight)/6;  // Daytime time accelearation
-		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = _nightTime / 6;  // Nighttim time acceleration	
+		//blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		//blck_timeAccelerationDay = (_daylight)/6;  // Daytime time accelearation
+		//blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
+		//blck_timeAccelerationNight = _nightTime / 6;  // Nighttim time acceleration	
 		blck_maxCrashSites = 3;
 	};
 	case"tanoa": 
 	{
 		blck_maxCrashSites = 2;
-		blck_timeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 1.4;  // Daytime time accelearation
-		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
+		//blck_timeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		//blck_timeAccelerationDay = 1.4;  // Daytime time accelearation
+		//blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
+		//blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
 	};
 	case"namalsk": 
 	{
@@ -64,10 +64,10 @@ switch (toLower (worldName)) do
 		blck_enableScoutsMissions = -1;
 		blck_maxCrashSites = 1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
 		
-		blck_timeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 1;  // Daytime time accelearation
-		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
+		//blck_timeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		//blck_timeAccelerationDay = 1;  // Daytime time accelearation
+		//blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
+		//blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
 	};
 	case "esseker": 
 	{
@@ -79,18 +79,18 @@ switch (toLower (worldName)) do
 		blck_enableScoutsMissions = -1;
 		blck_maxCrashSites = 1;
 		
-		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 1;  // Daytime time accelearation
-		blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = 6;  // Nighttim time acceleration		
+		//blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		//blck_timeAccelerationDay = 1;  // Daytime time accelearation
+		//blck_timeAccelerationDusk = 3; // Dawn/dusk time accelearation
+		//blck_timeAccelerationNight = 6;  // Nighttim time acceleration		
 	};
 	case "panthera3":
 	{
 		blck_maxCrashSites = 2;
-		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 1.4;  // Daytime time accelearation
-		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
+		//blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		//blck_timeAccelerationDay = 1.4;  // Daytime time accelearation
+		//blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
+		//blck_timeAccelerationNight = 8;  // Nighttim time acceleration		
 	};
 	case "malden":
 	{
@@ -100,7 +100,7 @@ switch (toLower (worldName)) do
 		_time = dayTime;
 		_daylight = _sunset - _sunrise;
 		
-		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+		//blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 		blck_timeAccelerationDay = (_daylight / 2.5);  // Daytime time accelearation
 		blck_timeAccelerationDusk = 8; // Dawn/dusk time accelearation
 		blck_timeAccelerationNight = ((24 - _daylight) / 1.5);  // Nighttim time acceleration		
