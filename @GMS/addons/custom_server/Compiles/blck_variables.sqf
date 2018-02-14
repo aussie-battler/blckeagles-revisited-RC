@@ -12,8 +12,8 @@
 */
 #include"\q\addons\custom_server\Configs\blck_defines.hpp";
 
-blck_debugON = false;
-blck_debugLevel = 0;  // Sets level of detail for debugging info - WIP.
+blck_debugON = true;
+blck_debugLevel = 1;  // Sets level of detail for debugging info - WIP.
 blck_minFPS = 8; 
 
 ////////////////////////////////////////////////
@@ -32,6 +32,7 @@ blck_missionsRunning = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
 blck_connectedHCs = [];
+blck_missionMarkers = [];
 #ifdef useDynamicSimulation
 "Group" setDynamicSimulationDistance 1800;
 enableDynamicSimulationSystem true;

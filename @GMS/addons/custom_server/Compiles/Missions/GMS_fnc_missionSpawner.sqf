@@ -69,9 +69,11 @@ if !(blck_preciseMapMarkers) then
 };
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
 [["start",_startMsg,_markerMissionName]] call blck_fnc_messageplayers;
-[_blck_localMissionMarker] call blck_fnc_spawnMarker;
+private _marker = [_blck_localMissionMarker] call blck_fnc_spawnMarker;
+
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (91) message players and spawn a mission marker";};
+if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (77) message players and spawn a mission marker";};
+if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (77) _marker = %1",_marker];};
 if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (77) waiting for player to trigger the mission";};
 #endif
 ////////
@@ -120,7 +122,7 @@ if (_missionTimedOut) exitWith
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];
 	[_mission,"inactive",[0,0,0]] call blck_fnc_updateMissionQue;
 	blck_missionsRunning = blck_missionsRunning - 1;
-	[_blck_localMissionMarker select 0] call compile preprocessfilelinenumbers "debug\deleteMarker.sqf";
+	[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
 	//_blck_localMissionMarker set [1,[0,0,0]];
 	//_blck_localMissionMarker set [2,""];
 	[_objects, 0.1] spawn blck_fnc_cleanupObjects;
@@ -434,6 +436,17 @@ private["_missionComplete","_endIfPlayerNear","_endIfAIKilled"];
 _missionComplete = -1;
 _startTime = diag_tickTime;
 
+if (blck_showCountAliveAI) then
+{
+	//diag_log format["_missionSpawner(441): Adding Number Alive AI: _marker = %1 | _markerMissionName = %2",_marker,_markerMissionName];
+	//diag_log format["_missionSpawner(442): Alive AI = %1 | Current Marker Text = %2",{alive _x} count _blck_AllMissionAI, markerText _marker];
+	if !(_marker isEqualTo "") then
+	{
+		[_marker,_markerMissionName,_blck_AllMissionAI] call blck_fnc_updateMarkerAliveCount;
+		blck_missionMarkers pushBack [_marker,_markerMissionName,_blck_AllMissionAI];
+		//diag_log format["_missionSpawner: blck_missionMarkers = %1",blck_missionMarkers];
+	};
+};
 switch (_endCondition) do
 {
 	case "playerNear": {_endIfPlayerNear = true;_endIfAIKilled = false;};
@@ -494,7 +507,16 @@ if (blck_debugLevel > 0) then
 private["_result"];
 // Force passing the mission name for informational purposes.
 _blck_localMissionMarker set [2, _markerMissionName];
+if (blck_showCountAliveAI) then
+{
+	_marker setMarkerText format["%1: All AI Dead",_markerMissionName];
+	//  blck_missionMarkers pushBack [_marker, _markerMissionName, _blck_AllMissionAI];
+	{
+		if ((_x select 1) isEqualTo _markerMissionName) exitWith{blck_missionMarkers deleteAt _forEachIndex};
+	}forEach blck_missionMarkers;
+};
 _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,0] call blck_fnc_endMission;
+
 
 diag_log format["[blckeagls] missionSpawner:: (507)end of mission: blck_fnc_endMission has returned control to _fnc_missionSpawner"];
 
