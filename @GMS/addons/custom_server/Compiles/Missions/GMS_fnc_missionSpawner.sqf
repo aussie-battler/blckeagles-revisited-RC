@@ -330,7 +330,7 @@ if (_allowReinforcements) then
 		if (typeName _temp isEqualTo "ARRAY") then
 		{
 			_abort = _temp select 2;
-			_objects pushback (_temp select 0);
+			blck_monitoredVehicles pushBack (_temp select 0);
 			_blck_AllMissionAI append (_temp select 1);
 		};
 		if (_abort) then
@@ -341,7 +341,7 @@ if (_allowReinforcements) then
 				diag_log "missionSpawner:: (349) grpNul or ERROR in blck_fnc_spawnMissionReinforcements, mission termination criteria met, calling blck_endMission";
 			};
 			#endif
-
+			_objects pushback (_temp select 0);
 			[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,1] call blck_fnc_endMission;
 		};
 	};
