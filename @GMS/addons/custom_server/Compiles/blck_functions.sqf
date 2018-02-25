@@ -33,6 +33,11 @@ blck_fnc_addItemToCrate = compileFinal preprocessFileLineNumbers "\q\addons\cust
 blck_fnc_loadLootItemsFromArray = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_loadLootItemsFromArray.sqf";
 blck_fnc_getNumberFromRange = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getNumberFromRange.sqf";
 blck_fnc_passToHCs = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_passToHCs.sqf";
+blck_fnc_spawnMarker = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_spawnMarker.sqf";
+blck_fnc_missionCompleteMarker  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_missionCompleteMarker.sqf";
+blck_fnc_deleteMarker  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_deleteMarker.sqf";
+blck_fnc_updateMarkerAliveCount = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_updateMarkerAliveCount.sqf";
+//blck_fnc_updateAllMarkerAliveCounts = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\updateAllMarkerAliveCounts.sqf";  //  GMS_fnc_updateAllMarkerAliveCounts
 
 #ifdef GRGserver	
 blck_fnc_broadcastServerFPS = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf"; 
@@ -93,7 +98,8 @@ blck_fnc_spawnParaUnits = compileFinal preprocessFileLineNumbers "\q\addons\cust
 blck_EH_AIVehicle_HandleHit = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_AIVehicle_Hit.sqf"; 
 blck_fnc_HandleAIVehicleHit = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_HandleAIVehicleHit.sqf";
 blck_EH_VehicleKilled = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_VehicleKilled.sqf"; 
-blck_fnc_processAIVehicleKill  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_processAIVehicleKill.sqf";
+blck_fnc_processAIVehicleKill = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_processAIVehicleKill.sqf";
+blck_fnc_selectPatrolVehicle = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_selectPatrolVehicle.sqf";
 
 // functions to support Units
 blck_fnc_removeGear = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_removeGear.sqf"; // Strip an AI unit of all gear.

@@ -32,6 +32,7 @@ blck_missionsRunning = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
 blck_connectedHCs = [];
+blck_missionMarkers = [];
 #ifdef useDynamicSimulation
 "Group" setDynamicSimulationDistance 1800;
 enableDynamicSimulationSystem true;

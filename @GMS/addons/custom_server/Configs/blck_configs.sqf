@@ -69,7 +69,7 @@
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
-	
+	blck_showCountAliveAI = true;	
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 1500;

@@ -15,7 +15,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_vehType","_safepos","_veh"];
-params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull]];
+params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull],["_setWaypoints",true]];
 
 
 //_center  Center of the mission area - this is usuall the position treated as the center by the mission spawner. Vehicles will patrol the perimeter of the mission area.
@@ -61,7 +61,10 @@ if !(isNull _group) then
 	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_wpPatrolMode","SAD"],["_soldierType","null"] ];
 	_group setcombatmode "RED";
 	_group setBehaviour "COMBAT";
-	[_center,_minDis,_maxDis,_group,"perimeter","SAD","vehicle"] spawn blck_fnc_setupWaypoints;
+	if (_setWaypoints) then
+	{
+		[_center,_minDis,_maxDis,_group,"perimeter","SAD","vehicle"] spawn blck_fnc_setupWaypoints;
+	};
 };
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then

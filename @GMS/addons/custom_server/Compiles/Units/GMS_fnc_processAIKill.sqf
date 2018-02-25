@@ -64,5 +64,13 @@ if (blck_useKillMessages) then
 	[["aikilled",_message,"victory"],playableUnits] call blck_fnc_messageplayers;
 };
 [_unit,_killer] call blck_fnc_rewardKiller;
-
+if (blck_showCountAliveAI) then
+{
+	//diag_log "_fnc_processAIKills: Updating Map Marker AI Counts - blck_missionMarkers items are";
+	{
+		//diag_log format["_fnc_processAIKills: blck_missionMarkers itm %1 = %2",_forEachIndex,_x];
+		[_x select 0, _x select 1, _x select 2] call blck_fnc_updateMarkerAliveCount;
+	} forEach blck_missionMarkers;
+	//call blck_fnc_updateAllMarkerAliveCounts;
+};
 

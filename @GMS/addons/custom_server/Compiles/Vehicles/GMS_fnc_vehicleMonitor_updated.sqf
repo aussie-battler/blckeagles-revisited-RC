@@ -10,7 +10,9 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-//diag_log format["_fnc_vehicleMonitor: starting function at diag_tickTime = %1",diag_tickTime];
+diag_log format["_fnc_vehicleMonitor: starting function at diag_tickTime = %1",diag_tickTime];
+
+if (true) exitWith {};
 
 #ifdef blck_debugMode
 	//diag_log format["_fnc_vehicleMonitor:: blck_debugMode defined"];
@@ -100,16 +102,15 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 		_allCrewDead
 		_deleteNow
 	*/
-	//diag_log format["_fnc_vehicleMonitor: evaluating vehicle %1",_x];
+
 	private _veh = _x; // (purely for clarity at this point, _x could be used just as well)
 	private _isEmplaced = _veh getVariable["DBD_vehType","none"] isEqualTo "emplaced";
 	private _ownerIsPlayer = if (owner _veh > 2 && !(owner _veh in blck_connectedHCs)) then {true} else {false};
-	private _allCrewDead = if (({alive _x} count (crew _veh)) == 0) then {true} else {false};
-	private _deletenow = false;
-	if ( (_veh getVariable["blck_DeleteAt",0] > 0) && (diag_tickTime > (_veh getVariable "blck_DeleteAt"))) then {_deleteNow = true};
-	private _missionCompleted = if (_veh getVariable["missionCompleted",0] != 0) then {true} else {false};
+	private _allCrewDead = {alive _x} count (crew _veh);
+	private _deletenow = if ( (_veh getVariable["blck_DeleteAt",0] > 0) && (diag_tickTime > (_veh getVariable "blck_DeleteAt"))) then {true} else {false};
+	private _missionCompleted = _veh getVariable["missionCompleted",0];
 	private _evaluate = true;
-
+	
 	if (_ownerIsPlayer) then
 	{
 		// disable further monitoring and mark to never be deleted.
@@ -154,7 +155,7 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 		if (_cleanupTimer == 0) then {_veh setVariable["blck_DeleteAt",diag_tickTime + blck_vehicleDeleteTimer]};
 		_evaluate = false;
 	};
-	
+
 	if (_evaluate) then
 	{
 		[_veh] call _fn_reloadAmmo;
@@ -165,7 +166,6 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 		[_veh] call _fn_destroyVehicleAndCrew;
 		_evaluate = false;	
 	};
-	
 }forEach _vehList;
 
 

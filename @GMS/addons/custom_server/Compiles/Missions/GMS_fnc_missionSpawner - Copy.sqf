@@ -12,7 +12,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
+#define delayTime 1
 private ["_abort","_crates","_aiGroup","_objects","_groupPatrolRadius","_missionLandscape","_mines","_blck_AllMissionAI","_blck_localMissionMarker","_AI_Vehicles","_timeOut","_aiDifficultyLevel","_missionPatrolVehicles","_missionGroups"];
 params["_coords","_mission",["_allowReinforcements",true]];
 //diag_log format["_missionSpawner (18)::  _allowReinforcements = %1",_allowReinforcements];
@@ -70,6 +70,7 @@ if !(blck_preciseMapMarkers) then
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
 [["start",_startMsg,_markerMissionName]] call blck_fnc_messageplayers;
 [_blck_localMissionMarker] call blck_fnc_spawnMarker;
+ blck_aiCountMarkers pushBack ["ai_count" + _markerClass, _blck_AllMissionAI];
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (91) message players and spawn a mission marker";};
 if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (77) waiting for player to trigger the mission";};
@@ -120,7 +121,7 @@ if (_missionTimedOut) exitWith
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];
 	[_mission,"inactive",[0,0,0]] call blck_fnc_updateMissionQue;
 	blck_missionsRunning = blck_missionsRunning - 1;
-	[_blck_localMissionMarker select 0] call compile preprocessfilelinenumbers "debug\deleteMarker.sqf";
+	[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
 	//_blck_localMissionMarker set [1,[0,0,0]];
 	//_blck_localMissionMarker set [2,""];
 	[_objects, 0.1] spawn blck_fnc_cleanupObjects;
@@ -217,8 +218,6 @@ if !(_abort) then
 {
 	_blck_AllMissionAI append (_temp select 0);
 };
-
-uiSleep _delayTime;
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
@@ -421,15 +420,26 @@ if (blck_cleanUpLootChests) then
 	_objects append _crates;
 };
 
-
-//uisleep 2;
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {
 	diag_log format["[blckeagls] missionSpawner:: (428) Crates Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
 #endif
-
+/*
+				_name = "label" + _name;
+				_textPos = [(_pos select 0) + (count toArray (_text) * 12), (_pos select 1) - (_size select 0), 0];
+				_MainMarker = createMarker [_name, _textPos];
+*/
+private _aliveAImarker;
+if (blck_showCountOfAliveAI) then
+{
+	private _text = format["% Alive",{alive _x} count _blck_AllMissionAI];
+	_aliveAImarker = createMarker["aiCount" + _markerClass, [(_coords select 0) + (count toArray (_text) * 12), (_coords select 1) + (100), 0]];
+	_aliveAImarker setMarkerText _text;;
+	blck_aiCountMarkers pushBack [_aliveAImarker, _blck_AllMissionAI];
+	diag_log format["Alive AI Marker Spawned with Marker of %1 and blck_aiCountMarkers = %2",_aliveAImarker,blck_aiCountMarkers];
+};
 // Trigger for mission end
 #ifdef blck_debugMode
 diag_log format["[blckeagls] mission Spawner(436) _endCondition = %1",_endCondition];
@@ -499,6 +509,11 @@ private["_result"];
 // Force passing the mission name for informational purposes.
 _blck_localMissionMarker set [2, _markerMissionName];
 _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_mission,0] call blck_fnc_endMission;
+if (blck_showCountOfAliveAI) then
+{
+	deleteMarker _aliveAImarker;
+	 blck_aiCountMarkers = blck_aiCountMarkers - [_aliveAImarker, _blck_AllMissionAI];
+};
 
 diag_log format["[blckeagls] missionSpawner:: (507)end of mission: blck_fnc_endMission has returned control to _fnc_missionSpawner"];
 

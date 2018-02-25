@@ -8,11 +8,18 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.79, Build 110
+Version 1.79, Build 116
 Added: Map-specific information for Lythium.
-Added: (in process) When blck_showCountOfAliveAI = true;  The number of alive AI at a mission will be displayed by the mission marker.
+Added: New configuration setting: blck_showCountAliveAI = true;  When = true, the number of alive AI at a mission will be displayed by the mission marker.
+Added: You can now define the types of patrol vehicles spawned based on AI difficulty.
+
+Fixed: Setting 	blck_useTimeAcceleration = false; now disables the time acceleration module.
 Fixed: several issues with dynamic UMS missions.
-Changed: Please replace the debug folder in your mission PBO with the updated one found on the github. 
+Fixed: AI Heli's at missions should now be released to players when all AI are dead.
+
+Changed: Code for checking the state of AI vehicles and releasing them to players was re-written.
+Changed: Eliminated useless files from the debug folder (mission.pbo).
+		Please replace the debug folder in your mission PBO with the updated one found on the github. 
 		[removed all scripts for markers from mission\debug. These are now located in custom_server\compiles\functions.]
 
 Version 6.78 Build 107
