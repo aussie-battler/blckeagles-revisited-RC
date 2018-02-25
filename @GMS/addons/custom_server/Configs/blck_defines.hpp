@@ -14,6 +14,6 @@
 
 #define wpModeMove
 #define useAPEX 
-#define useDynamicSimulation
+//#define useDynamicSimulation
 //#define blck_debugMode
 //#define blck_milServer

@@ -26,7 +26,8 @@ if (_vehiclePatrolSpawns isEqualTo []) then
 	_spawnPoints = [_coords,_noVehiclePatrols,75,100] call blck_fnc_findPositionsAlongARadius;
 	{
 	  //  ["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red", 600],
-	  _vehType = selectRandom blck_AIPatrolVehicles;
+	  //_vehType = selectRandom blck_AIPatrolVehicles;
+	  _vehType  = [_aiDifficultyLevel] call blck_fnc_selectPatrolVehicle;
 	  _vehiclePatrolSpawns pushBack [_vehType, _x, _aiDifficultyLevel, 150];
 	} forEach _spawnPoints;
 };

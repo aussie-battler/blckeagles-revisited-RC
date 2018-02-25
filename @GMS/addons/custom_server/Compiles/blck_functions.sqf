@@ -98,7 +98,8 @@ blck_fnc_spawnParaUnits = compileFinal preprocessFileLineNumbers "\q\addons\cust
 blck_EH_AIVehicle_HandleHit = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_AIVehicle_Hit.sqf"; 
 blck_fnc_HandleAIVehicleHit = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_HandleAIVehicleHit.sqf";
 blck_EH_VehicleKilled = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_VehicleKilled.sqf"; 
-blck_fnc_processAIVehicleKill  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_processAIVehicleKill.sqf";
+blck_fnc_processAIVehicleKill = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_processAIVehicleKill.sqf";
+blck_fnc_selectPatrolVehicle = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_selectPatrolVehicle.sqf";
 
 // functions to support Units
 blck_fnc_removeGear = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_removeGear.sqf"; // Strip an AI unit of all gear.

@@ -34,7 +34,8 @@ if (_missionPatrolVehicles isEqualTo []) then
 	_useRelativePos = false;
 	_vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
 	{
-		private _v = selectRandom blck_AIPatrolVehicles;
+		//private _v = selectRandom blck_AIPatrolVehicles;
+		private _v = [_aiDifficultyLevel] call blck_fnc_selectPatrolVehicle;
 		//diag_log format["_fnc_spawnMissionVehiclePatrols (36):: position = %1 and vehicle = %2",_x, _v];
 		_missionPatrolVehicles pushBack [_v, _x];
 	}forEach _vehiclePatrolSpawns;

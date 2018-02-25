@@ -40,6 +40,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 	blck_AI_Side = RESISTANCE;
 	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
+	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesRed = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesOrange = blck_AIPatrolVehicles;
 	
 	#define useAPEX 1
 	

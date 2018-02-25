@@ -45,7 +45,7 @@ uiSleep 10; // Let the objects 'settle' before placing anything on or around the
 [_missionLootBoxes,_missionCenter,_crateLoot,_lootCounts] call blck_fnc_sm_spawnLootContainers;
 
 _blck_localMissionMarker = ["",_missionCenter,"","",_markerColor,_markerType];
-[_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
+[_blck_localMissionMarker] call blck_fnc_spawnMarker;
 
 diag_log format["[blckeagls] Static Mission Spawner: Mission %1 spawned",_mission];
 
