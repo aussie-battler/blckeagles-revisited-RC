@@ -50,7 +50,11 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_listConcreteMixerZones	= true;
 	blck_AI_Side = EAST;
 	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert",/*"Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Desert",*/"B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
-
+	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesRed = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesOrange = blck_AIPatrolVehicles;
+	
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
 	
