@@ -156,13 +156,16 @@ _fn_monitorGroupWaypoints = {
 };
 
 _fn_simulationMonitor = {
+	private["_playerType","_modType","_players"];
 	_modType = call blck_fnc_getModType;
+	//diag_log format["_fn_simulationMonitor""  _modType = %1",_modType];
 	if (_modType isEqualTo "Exile") then
 	{
 		_playerType = ["Exile_Unit_Player"];
 	}else{
 		_playerType = ["Epoch_Male_F","Epoch_Female_F"];
 	};
+	//diag_log format["_fn_simulationMonitor::  _playerType = %1",_playerType];
 	{
 		//  player nearEntities [["Car", "Motorcycle", "Tank"], 50];
 		_players = (leader _x) nearEntities [_playerType, 1800];

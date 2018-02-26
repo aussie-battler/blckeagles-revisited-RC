@@ -16,6 +16,7 @@ Added: You can now define the types of patrol vehicles spawned based on AI diffi
 Fixed: Setting 	blck_useTimeAcceleration = false; now disables the time acceleration module.
 Fixed: several issues with dynamic UMS missions.
 Fixed: AI Heli's at missions should now be released to players when all AI are dead.
+fixed: script errors when dynamic simulation off.
 
 Changed: Code for checking the state of AI vehicles and releasing them to players was re-written.
 Changed: Eliminated useless files from the debug folder (mission.pbo).
