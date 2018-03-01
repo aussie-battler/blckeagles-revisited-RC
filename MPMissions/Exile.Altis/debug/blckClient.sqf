@@ -3,9 +3,9 @@
 // Last Updated 1/11/17
 // by Ghostrider-DbD-
 //////////////////////////////////////////
-blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
-blck_fnc_deleteMarker = compileFinal preprocessfilelinenumbers "debug\deleteMarker.sqf";
-blck_fnc_missionCompleteMarker = compileFinal preprocessfilelinenumbers "debug\missionCompleteMarker.sqf";
+//blck_fnc_spawnMarker = compileFinal preprocessfilelinenumbers "debug\spawnMarker.sqf";
+//blck_fnc_deleteMarker = compileFinal preprocessfilelinenumbers "debug\deleteMarker.sqf";
+//blck_fnc_missionCompleteMarker = compileFinal preprocessfilelinenumbers "debug\missionCompleteMarker.sqf";
 if !(isServer) then
 {
 	//diag_log "[blckeagls] initializing client variables";

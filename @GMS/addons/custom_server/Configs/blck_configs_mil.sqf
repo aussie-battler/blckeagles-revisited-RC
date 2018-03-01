@@ -62,7 +62,7 @@
 	// blck_labelMapMarkers: Determines if when the mission composition provides text labels, map markers with have a text label indicating the mission type
 	//When set to true,"arrow", text will be to the right of an arrow below the mission marker. 
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
-	blck_labelMapMarkers = [false,"center"];  
+	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = false;  // Map markers are/are not centered at the loot crate
 	blck_showCountAliveAI = true;	
 
