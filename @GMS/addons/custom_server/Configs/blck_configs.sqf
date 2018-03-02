@@ -33,7 +33,7 @@
 	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 0.25;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 12;  // Nighttim time acceleration	
@@ -69,7 +69,7 @@
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
-	blck_showCountAliveAI = true;	
+	blck_showCountAliveAI = false;
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 1500;
@@ -93,8 +93,8 @@
 	blck_RunGearDamage = 0.2; // Damage applied to player vehicle for each AI run over
 	blck_VK_Gear = true; // When set to true, AI that have been killed by a player in a vehicle in the list of forbidden vehicles or using a forbiden gun will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
 	blck_VK_RunoverDamage = true; // when the AI was run over blck_RunGearDamage of damage will be applied to the killer's vehicle.
-	blck_VK_GunnerDamage = true; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
-	blck_forbidenVehicles = [/*"B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","I_MRAP_03_hmg_F","B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"*/]; // Add any vehicles for which you wish to forbid vehicle kills	
+	blck_VK_GunnerDamage = false; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
+	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","I_MRAP_03_hmg_F","B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills	
 	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
 	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
 	blck_forbidenVehicleGuns = [/*"LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"*/]; // Add any vehicles for which you wish to forbid vehicle kills, o
@@ -182,9 +182,9 @@
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
-	blck_numberUnderwaterDynamicMissions = 5;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
+	blck_numberUnderwaterDynamicMissions = 0;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
 
 	////////////////////
 	// MISSION TIMERS

@@ -519,6 +519,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_specialItems = blck_throwableExplosives + blck_medicalItems;
 	
 	blck_NVG = ["NVGoggles","NVGoggles_INDEP","NVGoggles_OPFOR","Exile_Item_XM8"];
+	blck_buildingMaterials = ["Exile_Item_ExtensionCord","Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_MetalBoard",
+			"Exile_Item_MetalPole","Exile_Item_MetalScrews","Exile_Item_Cement","Exile_Item_Sand","Exile_Item_MetalWire","Exile_Item_ExtensionCord","Exile_Item_JunkMetal"];	
+	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Melee_SledgeHammmer","Exile_Item_Handsaw","Exile_Item_Pliers","Exile_Item_CanOpener","Exile_Item_Shovel"];
 
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION

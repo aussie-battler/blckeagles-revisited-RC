@@ -96,7 +96,7 @@ _fn_setupCrates = {
 		_blck_localMissionMarker = [format["SLS%1%2",_location select 0, _location select 1],(getPos _crate),"","","ColorGreen",["mil_box",[]]];
 		diag_log format["[blckeagls] SLS:: spawning diagnostic marker at %1",getPos _crate];
 		// params["_missionType","_markerPos","_markerLabel","_markerLabelType","_markerColor","_markerType"];
-		[_blck_localMissionMarker] execVM "debug\spawnMarker.sqf";
+		[_blck_localMissionMarker] call blck_fnc_spawnMarker;
 	};
 	#endif
 	_crate
