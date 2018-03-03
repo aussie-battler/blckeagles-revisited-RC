@@ -80,9 +80,9 @@ _missionGroups =
 	]; // Can be used to define spawn positions of AI patrols
 
 _missionPatrolVehicles = [
-	//[selectRandom blck_AIPatrolVehicles,[27.8945,100.275,0],0,[true,false]],
-	//[selectRandom blck_AIPatrolVehicles,[-84.7793,72.2617,9.53674e-007],0,[true,false]],
-	[selectRandom blck_AIPatrolVehicles,[-87.8457,-109.947,7.15256e-007],0,[true,false]]
+	//[selectRandom blck_AIPatrolVehiclesGreen,[27.8945,100.275,0],0,[true,false]],
+	//[selectRandom blck_AIPatrolVehiclesGreen,[-84.7793,72.2617,9.53674e-007],0,[true,false]],
+	[selectRandom blck_AIPatrolVehiclesGreen,[-87.8457,-109.947,7.15256e-007],0,[true,false]]
 ];  // can be used to define the spawn positions of vehicle patrols
 
 //  Change _useMines to true/false below to enable mission-specific settings.

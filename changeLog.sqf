@@ -8,6 +8,12 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
+Version 1.80 Build 117
+Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
+     See the medicalCamp.sqf mission for an example of how this is done.
+Added: you can now spawn simple objects as part of your mission landscape. Useful for STATIC missions only. 
+Changed: Default missions reworked to support the above.
+
 Version 1.79, Build 116
 Added: Map-specific information for Lythium.
 Added: New configuration setting: blck_showCountAliveAI = true;  When = true, the number of alive AI at a mission will be displayed by the mission marker.
@@ -16,7 +22,7 @@ Added: You can now define the types of patrol vehicles spawned based on AI diffi
 Fixed: Setting 	blck_useTimeAcceleration = false; now disables the time acceleration module.
 Fixed: several issues with dynamic UMS missions.
 Fixed: AI Heli's at missions should now be released to players when all AI are dead.
-fixed: script errors when dynamic simulation off.
+Fixed: script errors when dynamic simulation off.
 
 Changed: Code for checking the state of AI vehicles and releasing them to players was re-written.
 Changed: Eliminated useless files from the debug folder (mission.pbo).

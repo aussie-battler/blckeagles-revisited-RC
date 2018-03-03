@@ -28,25 +28,26 @@ if (blck_debugLevel >=2) then
 	}forEach _this;
 };
 #endif
-	// [_coords, _minNoAI,_maxNoAI,_aiDifficultyLevel,blck_UMS_uniforms,blck_UMS_headgear,_scubaGroupParameters,blck_UMS_weapons,blck_UMS_vests,isScubaGroup]
-	params["_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel","red"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear],"_missionGroups",["_weapons",[]],["_vests",blck_vests],["_isScubaGroup",false]];
-	private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup","_blck_AllMissionAI","_abort"];
-	_unitsToSpawn = [[_minNoAI,_maxNoAI]] call blck_fnc_getNumberFromRange;  //round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
-	_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
-	_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
-	_blck_AllMissionAI = [];
-	_abort = false;
-	if (count _weapons == 0) then 
-	{
-		_weapons = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
-	};
-	#ifdef blck_debugMode
-	if (blck_debugLevel >= 2) then
-	{
-		diag_log format["_fnc_spawnMissionAI (30):: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
-	};
-	#endif
-if (count _missionGroups > 0) then
+// [_coords, _minNoAI,_maxNoAI,_aiDifficultyLevel,blck_UMS_uniforms,blck_UMS_headgear,_scubaGroupParameters,blck_UMS_weapons,blck_UMS_vests,isScubaGroup]
+params["_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel","red"],["_uniforms",blck_SkinList],["_headGear",blck_BanditHeadgear],"_missionGroups",["_weapons",[]],["_vests",blck_vests],["_isScubaGroup",false]];
+private["_unitsToSpawn","_unitsPerGroup","_ResidualUnits","_newGroup","_blck_AllMissionAI","_abort"];
+ // Can add optional debug code here if needed.
+_unitsToSpawn = [[_minNoAI,_maxNoAI]] call blck_fnc_getNumberFromRange;  //round(_minNoAI + round(random(_maxNoAI - _minNoAI)));
+_unitsPerGroup = floor(_unitsToSpawn/_noAIGroups);
+_ResidualUnits = _unitsToSpawn - (_unitsPerGroup * _noAIGroups);
+_blck_AllMissionAI = [];
+_abort = false;
+if (count _weapons == 0) then 
+{
+	_weapons = [_aiDifficultyLevel] call blck_fnc_selectAILoadout;
+};
+#ifdef blck_debugMode
+if (blck_debugLevel >= 2) then
+{
+	diag_log format["_fnc_spawnMissionAI (30):: _unitsToSpawn %1 ; _unitsPerGroup %2  _ResidualUnits %3",_unitsToSpawn,_unitsPerGroup,_ResidualUnits];
+};
+#endif
+if ( (count _missionGroups > 0) && _noAIGroups > 0) then
 { 	
 	{	//[[-98.9121,-35.9824,-1.20243],5,7,"Green",5,12],[[1,-1,-1],"red",4, 5,10]
 		_x params["_position","_minAI","_maxAI","_skillLevel","_minPatrolRadius","_maxPatrolRadius"];
@@ -81,7 +82,7 @@ if (count _missionGroups > 0) then
 		};
 	}forEach _missionGroups;
 };
-if (_missionGroups isEqualTo []) then
+if (_missionGroups isEqualTo [] && _noAIGroups > 0) then
 {
 	switch (_noAIGroups) do
 	{

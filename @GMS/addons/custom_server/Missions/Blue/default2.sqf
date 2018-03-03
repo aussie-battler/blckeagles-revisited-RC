@@ -1,9 +1,6 @@
 /*
 	Mission Template by Ghostrider [GRG]
-	Mission Compositions by Bill prepared for ghostridergaming
-	Copyright 2016
-	Last modified 3/20/17
-	
+
 	--------------------------
 	License
 	--------------------------
@@ -46,18 +43,21 @@ _missionLandscape = [
 		["Land_BagBunker_Small_F",[-23.0186,28.6738,-0.0271301],120.012,1,0,[],"","",true,false], 
 		["Land_BagBunker_Small_F",[37.1504,34.5742,0.0146866],255,1,0,[],"","",true,false]
 		]; // list of objects to spawn as landscape; // list of objects to spawn as landscape
+	
 _missionLootBoxes = [
 		["Box_NATO_Wps_F",[3,-3,0],_crateLoot,[4,10,2,5,5,1]],  // Standard loot crate with standard loadout
 		["Land_PaperBox_C_EPOCH",[-4,-3,0],_crateLoot,[0,0,0,10,10,3]],  	// No Weapons, Magazines, or optics; 10 each construction supplies and food/drink items, 3 backpacks
 		["Land_CargoBox_V1_F",[3,4,0],_crateLoot,[0,10,2,5,5,1]]
 		];  //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
+
 		// blck_lootCountsBlue= [4,12,3,6,6,1];
 _missionLootVehicles = [
 	//["I_G_Offroad_01_armed_F",[-8,8,0],_crateLoot,[0,10,2,5,5,1]],
 	//["I_G_Offroad_01_armed_F",[8,17,0],_crateLoot,[0,10,2,5,5,1]]
 	]; //  Parameters are "vehiclel type", offset relative to mission center, loot array, items to load from each category of the loot array.
 	//  ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];
-_missionGroups = 
+
+	_missionGroups = 
 	[
 	//_x params["_position","_minAI","_maxAI","_skillLevel","_minPatrolRadius","_maxPatrolRadius"];
 	[[-10.9121,-10.9824,-1.20243],5,7,"Green",5,12],
@@ -67,14 +67,15 @@ _missionGroups =
 	]; // Can be used to define spawn positions of AI patrols
 	
 _missionEmplacedWeapons = [
-	//["B_HMG_01_high_F",[-10,-15,0]],
-	//["B_GMG_01_high_F",[10,12,0]],
-	//["O_static_AT_F",[-10,10,0]]
+	["B_HMG_01_high_F",[-10,-15,0]],
+	["B_GMG_01_high_F",[10,12,0]],
+	["O_static_AT_F",[-10,10,0]]
 	]; // can be used to define the type and precise placement of static weapons [["wep",[1,2,3]] /*loc 1*/, [2,3,4] /*loc 2*/]; if blank random locations will be used
-_missionPatrolVehicles = [
+
+	_missionPatrolVehicles = [
 	["B_MRAP_01_hmg_F",[27.8945,100.275,0],0,[true,false]],
 	["B_MRAP_01_hmg_F",[-84.7793,72.2617,9.53674e-007],0,[true,false]],
-	["B_MRAP_01_gmg_F",[-87.8457,-109.947,7.15256e-007],0,[true,false]],
+	["B_MRAP_01_gmg_F",[-87.8457,-109.947,7.15256e-007],0,[true,false]]
 ];	
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;

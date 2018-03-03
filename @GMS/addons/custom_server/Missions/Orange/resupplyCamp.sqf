@@ -27,15 +27,14 @@ _markerColor = "ColorOrange";
 _markerMissionName = "Resupply Camp";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [
-		["Flag_AAF_F",[3,3,0],0,1,0,[],"","",true,false], 
-		["Land_Cargo_Patrol_V1_F",[-29.41016,0.13477,-0.0224228],359.992,1,0,[],"","",true,false], 
-		["Land_Cargo_House_V1_F",[29.2988,-0.1,0.150505],54.9965,0,0.848867,[],"","",true,false], 
-		["CamoNet_INDP_big_F",[-20.4346,15.43164,-0.00395203],54.9965,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[-20.4346,15.43164,-0.0138168],119.996,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[-20.3604,-15.6035,-0.0130463],44.9901,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[18.4453,-15.791,0.00744629],305.003,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[18.3711,15.5703,0.0101624],254.999,1,0,[],"","",true,false],
-		["CamoNet_INDP_big_F",[18.3711,15.5703,-0.00395203],54.9965,1,0,[],"","",true,false]
+		["Land_Cargo_Patrol_V1_F",[-29.41016,0.13477,-0.0224228],359.992,[true,true]], 
+		["Land_Cargo_House_V1_F",[29.2988,-0.1,0.150505],54.9965,[true,true]], 
+		["CamoNet_INDP_big_F",[-20.4346,15.43164,-0.00395203],54.9965,[false,false]], 
+		["Land_BagBunker_Small_F",[-20.4346,15.43164,-0.0138168],119.996,[false,false]], 
+		["Land_BagBunker_Small_F",[-20.3604,-15.6035,-0.0130463],44.9901,[false,false]], 
+		["Land_BagBunker_Small_F",[18.4453,-15.791,0.00744629],305.003,[false,false]], 
+		["Land_BagBunker_Small_F",[18.3711,15.5703,0.0101624],254.999,[false,false]],
+		["CamoNet_INDP_big_F",[18.3711,15.5703,-0.00395203],54.9965,[false,false]]
 		]; // list of objects to spawn as landscape
 _missionLootBoxes = [];  //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
 _missionLootVehicles = []; //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.

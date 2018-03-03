@@ -16,22 +16,12 @@
 params["_center","_objects"];
 if (count _center == 2) then {_center pushBack 0};
 //diag_log format["_spawnBaseObjects:: -> _objects = %1",_objects];
-private ["_newObjs","_simDam"];
+private ["_newObjs"];
 
 _newObjs = [];
-//  Assume that the list of objects to spawn has each object defined using one of two methods where parameters for simulation and damage are optional with default settings.
-// 1. ["class_name",[pos x, y, z], dir, [eneable simulation, enable damage]]
 
 {
 	//diag_log format["_fnc_spawnBaseObjects::-->> _x = %1",_x];
-	if (count _x == 3) then 
-	{
-		_simDam = [false,false];
-	}
-	else
-	{
-		_simDam = _x select 3;
-	};
 	private _obj = (_x select 0) createVehicle [0,0,0];
 	//diag_log format["_fnc_spawnBaseObjects: _obj = %1",_obj];
 	_newObjs pushback _obj;
@@ -46,8 +36,8 @@ _newObjs = [];
 		//diag_log "_fnc_spawnBaseObjects: detected surface = Land";
 	};
 	_obj setDir (_x select 2);
-	_obj enableDynamicSimulation (_simDam select 0);
-	_obj allowDamage (_simDam select 1);	
+	_obj enableDynamicSimulation true;
+	_obj allowDamage true;	
 	// Lock any vehicles placed as part of the mission landscape. Note that vehicles that can be taken by players can be added via the mission template.
 	if ( (typeOf _obj) isKindOf "LandVehicle" || (typeOf _obj) isKindOf "Air" || (typeOf _obj) isKindOf "Sea") then
 	{
