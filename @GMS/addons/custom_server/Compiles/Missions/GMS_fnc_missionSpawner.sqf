@@ -163,7 +163,7 @@ if (_useMines) then
 };
 uiSleep _delayTime;
 _temp = [];
-diag_log format["_missionSpawner"" _missionLandscape = %1",_missionLandscape];
+//diag_log format["_missionSpawner"" _missionLandscape = %1",_missionLandscape];
 if (_missionLandscapeMode isEqualTo "random") then
 {
 	_temp = [_coords,_missionLandscape, 3, 15, 2] call blck_fnc_spawnRandomLandscape;

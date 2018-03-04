@@ -22,6 +22,10 @@ _objects = [];
 	//  https://community.bistudio.com/wiki/BIS_fnc_findSafePos
 	_pos = [_coords,_min,_max,_nearest,0,5,0] call BIS_fnc_findSafePos;
 	_wreck = createVehicle[_x, _pos, [], 25, "NONE"];
+	_wreck allowDamage false;
+	_wreck enableSimulation false;
+	_wreck enableSimulationGlobal false;
+	_wreck enableDynamicSimulation false;
 	_wreck setVariable ["LAST_CHECK", (diag_tickTime + 100000)];
 
 	private["_dir","_dirOffset"];

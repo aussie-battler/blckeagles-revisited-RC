@@ -43,7 +43,7 @@ _fn_destroyVehicleAndCrew = {
 	params["_veh"];
 	//private["_crew"];
 	//_crew = crew _veh;
-	diag_log format["_fn_destroyVehicleAndCrew: called for _veh = %1",_veh];
+	//diag_log format["_fn_destroyVehicleAndCrew: called for _veh = %1",_veh];
 	{[_x] call blck_fnc_deleteAI;} forEach (crew _veh);
 	[_veh] call blck_fn_deleteAIvehicle;
 };
@@ -78,7 +78,7 @@ _fn_reloadAmmo = {
 
 blck_fn_deleteAIvehicle = {
 	params["_veh"];
-	diag_log format["blck_fn_deleteAIvehicle:  _veh %1 deleted",_veh];
+	//diag_log format["blck_fn_deleteAIvehicle:  _veh %1 deleted",_veh];
 	{
 		_veh removeAllEventHandlers _x;
 	}forEach ["Hit","HitPart","GetIn","GetOut","Fired","FiredNear","HandleDamage","Reloaded"];
@@ -116,7 +116,7 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 		_evaluate = false;
 		_veh setVariable["blck_DeleteAt",0];
 		blck_monitoredVehicles = blck_monitoredVehicles - [_veh];
-		diag_log format["_fnc_vehicleMonitor: vehicle %1 now owned by player %2",_veh, owner _veh];	
+		//diag_log format["_fnc_vehicleMonitor: vehicle %1 now owned by player %2",_veh, owner _veh];	
 	};
 	
 	if (_allCrewDead && _evaluate) then
@@ -140,7 +140,7 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 				_veh setDamage 0.7;
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
 			} else {
-				diag_log format["_fnc_vehicleMonitor:: case of RELEASE where vehicle = %1 and Vehicle is typeOf %2",_veh, typeOf _veh];
+				//diag_log format["_fnc_vehicleMonitor:: case of RELEASE where vehicle = %1 and Vehicle is typeOf %2",_veh, typeOf _veh];
 				[_veh] call _fn_releaseVehicle;
 			};
 			_evaluate = false;		
@@ -149,7 +149,7 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 	
 	if (_missionCompleted && !(_allCrewDead)) then
 	{
-		diag_log format["_fnc_vehicleMonitor:: case of mission vehicle with AI alive at mission end: schedule destruction with _veh = %1 and typeOf _veh = %2",_veh, typeOf _veh];
+		//diag_log format["_fnc_vehicleMonitor:: case of mission vehicle with AI alive at mission end: schedule destruction with _veh = %1 and typeOf _veh = %2",_veh, typeOf _veh];
 		private _cleanupTimer = _veh getVariable["blck_DeleteAt",0];  // The time delete to deleting any alive AI units
 		if (_cleanupTimer == 0) then {_veh setVariable["blck_DeleteAt",diag_tickTime + blck_vehicleDeleteTimer]};
 		_evaluate = false;
