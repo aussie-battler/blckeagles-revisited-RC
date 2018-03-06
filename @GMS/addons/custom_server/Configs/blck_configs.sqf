@@ -69,7 +69,7 @@
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
-	blck_showCountAliveAI = false;
+	blck_showCountAliveAI = true;
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 1500;
@@ -181,13 +181,14 @@
 	////////////////////
 	
 	// Maximum number of missions shown on the map at any one time.
-	blck_maxSpawnedMissions	= 9;
+	blck_maxSpawnedMissions	= 9; // This determins the total number of missions spawned of all types. set this to the total of missions to be spawned to be sure all are always spawned. set this to less than that total
+								// to force spawning more limited missions like having only 2 on th emap at any one time.
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 2;
-	blck_enableBlueMissions = 2;
-	blck_numberUnderwaterDynamicMissions = 0;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+	blck_enableRedMissions = 1;
+	blck_enableBlueMissions = 1;
+	blck_numberUnderwaterDynamicMissions = 1;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
 
 	////////////////////
 	// MISSION TIMERS
@@ -256,7 +257,7 @@
 	blck_chanceBackpack = 0.3;  // Chance AI will be spawned with a backpack
 	blck_useNVG = true; // When true, AI will be spawned with NVG if is dark
 	blck_removeNVG = false; // When true, NVG will be removed from AI when they are killed.
-	blck_useLaunchers = true;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
+	blck_useLaunchers = false;  // When true, some AI will be spawned with RPGs; they do not however fire on vehicles for some reason so I recommend this be set to false for now
 	//blck_launcherTypes = ["launch_NLAW_F","launch_RPG32_F","launch_B_Titan_F","launch_I_Titan_F","launch_O_Titan_F","launch_B_Titan_short_F","launch_I_Titan_short_F","launch_O_Titan_short_F"];
 	blck_launcherTypes = ["launch_RPG32_F"];
 	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
