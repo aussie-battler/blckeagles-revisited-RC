@@ -15,10 +15,10 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_findNew","_coords","_dist","_xpos","_ypos","_newPos","_townPos","_pole"];
+private["_findNew","_tries","_coords","_dist","_xpos","_ypos","_newPos","_townPos","_pole"];
 
 _findNew = true;
-
+_tries = 0;
 while {_findNew} do {
 	_findNew = false;
 	//[_centerForSearch,_minDistFromCenter,_maxDistanceFromCenter,_minDistanceFromNearestObj,_waterMode,_maxTerainGradient,_shoreMode] call BIS_fnc_findSafePos
@@ -87,7 +87,7 @@ while {_findNew} do {
 	// check that missions spawn at least 1 kkm from towns
 	{
 		_townPos = [((locationPosition _x) select 0), ((locationPosition _x) select 1), 0];
-		if (_townPos distance2D _coords < 200) exitWith {
+		if (_townPos distance2D _coords < blck_minDistanceFromTowns) exitWith {
 			_findNew = true;
 		};
 	} forEach blck_townLocations;
@@ -99,15 +99,15 @@ while {_findNew} do {
 	if (_mod isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
 	//diag_log format["_fnc_findSafePosn:: -- >> _mod = %1 and _pole = %2",_mod,_pole];	
 	{
-		if ((_x distance2D _coords) < 600) then
+		if ((_x distance2D _coords) < blck_minDistanceToBases) then
 		{
 			_findNew = true;
 		};
-	}forEach  nearestObjects[player, [_pole], 800];	
+	}forEach  nearestObjects[blck_mapCenter, [_pole], blck_minDistanceToBases];	
 	
 	// check to be sure we do not spawn a mission on top of a player.	
 	{
-		if (isPlayer _x && (_x distance2D _coords) < 600) then 
+		if (isPlayer _x && (_x distance2D _coords) < blck_minDistanceToPlayer) then 
 		{
 				_findNew = true;
 		};
@@ -120,6 +120,7 @@ while {_findNew} do {
 		deleteVehicle _tavTest;
 		if (_tavHeight > 100) then {_FindNew = true;};
 	};
+	_tries = _tries + 1;
 };
 
 if ((count _coords) > 2) then 

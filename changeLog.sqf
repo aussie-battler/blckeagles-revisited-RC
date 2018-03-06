@@ -8,12 +8,25 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
+<<<<<<< HEAD
 Version 1.80 Build 117
 Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
      See the medicalCamp.sqf mission for an example of how this is done.
 Added: you can now spawn simple objects as part of your mission landscape. Useful for STATIC missions only. 
 Changed: Default missions reworked to support the above.
 
+=======
+Version 1.80 build 118
+Added: The server now sets simulation on/off and damage on/off for objects at dynamic missions. default missions updated. 
+Added: lists of armed vehicles from which you can choose those you wish to spawn at vehicles broken down by category (wheeled, traced APC, Tank, etc)
+Added: Three constants that define how far away missions are from certain ingame bases, players and towns when they spawn. These were previously embedded in the code but not configurable.
+	blck_minDistanceToBases = 900; Minimum distance from any freq jammer or flag
+	blck_minDistanceToPlayer = 900; Minimum distance from any player
+	blck_minDistanceFromTowns = 300; Minimum distance from cites or towns.
+Fixed: Alive AI counts were not disabled by blck_showCountAliveAI.
+Fixed: The number of dynamically spawned underwater missions was not correctly set by blck_numberUnderwaterDynamicMissions.
+	
+>>>>>>> Experimental
 Version 1.79, Build 116
 Added: Map-specific information for Lythium.
 Added: New configuration setting: blck_showCountAliveAI = true;  When = true, the number of alive AI at a mission will be displayed by the mission marker.
