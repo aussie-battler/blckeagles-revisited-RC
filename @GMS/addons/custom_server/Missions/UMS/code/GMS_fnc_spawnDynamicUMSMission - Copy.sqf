@@ -27,6 +27,11 @@ params["_coords","_mission",["_allowReinforcements",false]];
 _markerClass = _mission;
 _aiDifficultyLevel = _difficulty;  // _difficulty is defined in the mission description file. see \addons\custom_server\Missions\UMS\dynamicMissions\default.sqf for an example
 
+blck_ActiveMissionCoords pushback _coords; 
+blck_UMS_ActiveDynamicMissions pushBack _coords;
+blck_dynamicUMS_MissionsRuning = blck_dynamicUMS_MissionsRuning + 1;
+blck_missionsRunning = blck_missionsRunning + 1;
+
 diag_log format["[blckeagls] missionSpawner (34):: Initializing mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
 private["_chanceHeliPatrol","_noPara","_reinforcementLootCounts","_chanceLoot","_heliCrew","_loadCratesTiming"];
@@ -489,17 +494,7 @@ diag_log format["[blckeagls] mission Spawner(436) _endCondition = %1",_endCondit
 private["_missionComplete","_endIfPlayerNear","_endIfAIKilled"];
 _missionComplete = -1;
 _startTime = diag_tickTime;
-if (blck_showCountAliveAI) then
-{
-	//diag_log format["_missionSpawner(441): Adding Number Alive AI: _marker = %1 | _markerMissionName = %2",_marker,_markerMissionName];
-	//diag_log format["_missionSpawner(442): Alive AI = %1 | Current Marker Text = %2",{alive _x} count _blck_AllMissionAI, markerText _marker];
-	if !(_marker isEqualTo "") then
-	{
-		[_marker,_markerMissionName,_blck_AllMissionAI] call blck_fnc_updateMarkerAliveCount;
-		blck_missionMarkers pushBack [_marker,_markerMissionName,_blck_AllMissionAI];
-		//diag_log format["_missionSpawner: blck_missionMarkers = %1",blck_missionMarkers];
-	};
-};
+
 switch (_endCondition) do
 {
 	case "playerNear": {_endIfPlayerNear = true;_endIfAIKilled = false;};
