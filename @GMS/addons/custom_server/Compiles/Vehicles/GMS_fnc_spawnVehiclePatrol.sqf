@@ -14,7 +14,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_vehType","_safepos","_veh"];
+private["_vehType","_safepos","_veh","_unitNumber"];
 params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull],["_setWaypoints",true]];
 
 
@@ -38,14 +38,13 @@ if !(isNull _group) then
 //	_veh addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_veh addMPEventHandler["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleHit}];
 	_group setVariable["groupVehicle",_veh];
-	//#ifdef blck_debugMode
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{
 		diag_log format["spawnVehiclePatrol:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
 	};
-	//#endif
+	#endif
 
-	private["_unitNumber"];
 	_unitNumber = 0;
 
 	{

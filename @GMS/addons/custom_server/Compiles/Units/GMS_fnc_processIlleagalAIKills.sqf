@@ -12,7 +12,9 @@
 
 private["_missionType","_wasRunover","_launcher","_legal"];
 params["_unit","_killer"];
-diag_log format["##-processIlleagalAIKills.sqf-## processing illeagal kills for unit %1",_unit];
+#ifdef blck_debugMode
+if (blck_debugLevel > 1) then {diag_log format["##-processIlleagalAIKills.sqf-## processing illeagal kills for unit %1",_unit]};
+#endif
 _launcher = _unit getVariable ["Launcher",""];
 _legal = true;
 

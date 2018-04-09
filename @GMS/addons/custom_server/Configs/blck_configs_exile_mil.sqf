@@ -41,6 +41,110 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_blacklistSpawns = false;
 	blck_listConcreteMixerZones	= false;
 	blck_AI_Side = EAST;
+
+	blck_crateMoneyBlue = [100,250];
+	blck_crateMoneyRed = [175, 300];
+	blck_crateMoneyGreen = [300, 500];
+	blck_crateMoneyOrange = [500, 750];
+	
+	_blck_armed_vehicles_Exile = [
+		"Exile_Car_BTR40_MG_Green",
+		"Exile_Car_HMMWV_M134_Green",
+		"Exile_Car_HMMWV_M2_Green",
+		"B_LSV_01_armed_F",
+		"Exile_Car_Offroad_Armed_Guerilla01"			
+	];
+	
+	_blck_lightlyArmed_ARMA3 = [
+		"B_G_Offroad_01_armed_F", 
+		"O_G_Offroad_01_armed_F",
+		"B_MRAP_01_gmg_F", 
+		"B_MRAP_01_hmg_F",
+		"O_MRAP_02_gmg_F",  
+		"O_MRAP_02_hmg_F",
+		"I_MRAP_03_hmg_F", 
+		"I_MRAP_03_gmg_F",
+		"B_APC_Wheeled_01_cannon_F", 			
+		"I_APC_Wheeled_03_cannon_F"	
+	];
+
+	_blck_tracked_APC_ARMA3 = [
+		"B_APC_Tracked_01_rcws_F",
+		"B_APC_Tracked_01_CRV_F",
+		"B_APC_Tracked_01_AA_F",
+		"O_APC_Tracked_02_cannon_F", 
+		"O_APC_Tracked_02_AA_F",
+		"O_APC_Wheeled_02_rcws_F", 
+		"I_APC_tracked_03_cannon_F"
+	];
+
+	_blck_Tanks_ARMA3 = [
+		//"B_MBT_01_arty_F",
+		"B_MBT_01_mlrs_F",
+		"B_MBT_01_TUSK_F",
+		"O_MBT_02_cannon_F",
+		//"O_MBT_02_arty_F",
+		"I_MBT_03_cannon_F"
+	];
+	
+	_blck_APC_CUP = [
+		"CUP_B_Mastiff_GMG_GB_D",  
+		"CUP_B_Mastiff_HMG_GB_D",  
+		"CUP_B_Ridgback_HMG_GB_D",  
+		"CUP_B_Ridgback_GMG_GB_D",  
+		"CUP_B_M1128_MGS_Desert",  
+		"CUP_B_M1135_ATGMV_Desert_Slat",  
+		"CUP_B_M1133_MEV_Desert_Slat",  
+		"CUP_B_LAV25M240_desert_USMC",  
+		"CUP_B_M1129_MC_MK19_Desert_Slat",  
+		"CUP_B_LAV25_HQ_desert_USMC",  
+		"CUP_B_BRDM2_ATGM_CDF",  
+		"CUP_B_BTR60_CDF",  
+		"CUP_B_M1130_CV_M2_Desert_Slat",  
+		"CUP_B_M1126_ICV_MK19_Desert_Slat",  
+		"CUP_O_BTR90_RU",  
+		"CUP_O_GAZ_Vodnik_BPPU_RU",
+		"CUP_B_M1126_ICV_M2_Desert",  
+		"CUP_B_M1126_ICV_MK19_Desert",  
+		"CUP_B_M1130_CV_M2_Desert",  
+		"CUP_B_M1126_ICV_M2_Desert_Slat",  
+		"CUP_B_M1133_MEV_Desert",  
+		"CUP_O_GAZ_Vodnik_AGS_RU",  
+		"CUP_O_GAZ_Vodnik_PK_RU"
+	];
+
+	_blck_Tanks_CUP = [
+		"CUP_B_M2A3Bradley_USA_D",  
+		"CUP_B_M113_desert_USA",  
+		"CUP_B_M163_USA",  
+		"CUP_B_M6LineBacker_USA_D",  
+		"CUP_B_M1A1_DES_US_Army",  
+		"CUP_B_M1A2_TUSK_MG_DES_US_Army",  
+		"CUP_B_AAV_USMC",  
+		"CUP_B_M270_DPICM_USA",  
+		"CUP_B_ZSU23_CDF",  
+		"CUP_B_BMP2_CDF",  
+		"CUP_B_T72_CDF",  
+		"CUP_I_T34_NAPA",  
+		"CUP_B_Challenger2_NATO",  
+		"CUP_B_FV432_Bulldog_GB_D_RWS",  
+		"CUP_B_FV432_Bulldog_GB_D",  
+		"CUP_B_FV510_GB_D_SLAT",  
+		"CUP_B_MCV80_GB_D_SLAT",  
+		"CUP_O_2S6_RU",  
+		"CUP_O_BMP3_RU",  
+		"CUP_O_T90_RU",  
+		"CUP_O_T55_SLA",  
+		"CUP_O_BMP1P_TKA",  
+		"CUP_B_M270_DPICM_USA",
+		"CUP_B_M2Bradley_USA_W",  
+		"CUP_B_FV510_GB_D",  
+		"CUP_B_MCV80_GB_D",  
+		"CUP_B_M7Bradley_USA_D",  
+		"CUP_O_2S6_RU",  
+		"CUP_O_BMP1_TKA"
+	];
+	
 	blck_AIPatrolVehicles = 
 	[
 	//"Exile_Car_Offroad_Armed_Guerilla01",
@@ -68,10 +172,42 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	"B_APC_Tracked_01_CRV_F",
 	"B_APC_Tracked_01_rcws_F"																						
 	]; // Type of vehicle spawned to defend AI bases	
-	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
-	blck_AIPatrolVehiclesRed = blck_AIPatrolVehicles;
-	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
-	blck_AIPatrolVehiclesOrange = blck_AIPatrolVehicles;
+
+	blck_AIPatrolVehiclesBlue = [	
+		"Exile_Car_Offroad_Armed_Guerilla01",
+		"Exile_Car_Offroad_Armed_Guerilla02",
+		"Exile_Car_BTR40_MG_Green",
+		"Exile_Car_BTR40_MG_Camo",
+		"Exile_Car_HMMWV_M134_Green",
+		"Exile_Car_HMMWV_M134_Desert",
+		"Exile_Car_HMMWV_M134_Desert",
+		"Exile_Car_HMMWV_M2_Desert",
+		"B_LSV_01_armed_F"		
+	];
+
+	blck_AIPatrolVehiclesRed = _blck_lightlyArmed_ARMA3 + _blck_APC_CUP;
+	blck_AIPatrolVehiclesGreen = _blck_Tanks_ARMA3 + _blck_Tanks_CUP;
+	blck_AIPatrolVehiclesOrange =  _blck_Tanks_ARMA3 + _blck_Tanks_CUP;	
+	
+	if (toLower(worldName) isEqualTo "namalsk") then
+	{
+		_blck_lightlyArmed_ARMA3 = [
+			"B_G_Offroad_01_armed_F", 
+			"O_G_Offroad_01_armed_F",
+			//"B_MRAP_01_gmg_F", 
+			"B_MRAP_01_hmg_F",
+			//"O_MRAP_02_gmg_F",  
+			"O_MRAP_02_hmg_F",
+			"I_MRAP_03_hmg_F", 
+			//"I_MRAP_03_gmg_F",
+			"B_APC_Wheeled_01_cannon_F", 			
+			"I_APC_Wheeled_03_cannon_F"	
+		];	
+		diag_log "blck)configs_exile_mil.sqf:: - > Using special settings for namalsk";
+		blck_AIPatrolVehiclesRed = _blck_lightlyArmed_ARMA3 + blck_AIPatrolVehiclesBlue;
+		blck_AIPatrolVehiclesGreen = blck_AIPatrolVehiclesRed;
+		blck_AIPatrolVehiclesOrange = blck_AIPatrolVehiclesRed;		
+	};
 	
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
@@ -519,6 +655,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_specialItems = blck_throwableExplosives + blck_medicalItems;
 	
 	blck_NVG = ["NVGoggles","NVGoggles_INDEP","NVGoggles_OPFOR","Exile_Item_XM8"];
+	blck_buildingMaterials = ["Exile_Item_ExtensionCord","Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_MetalBoard",
+			"Exile_Item_MetalPole","Exile_Item_MetalScrews","Exile_Item_Cement","Exile_Item_Sand","Exile_Item_MetalWire","Exile_Item_ExtensionCord","Exile_Item_JunkMetal"];	
+	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Melee_SledgeHammmer","Exile_Item_Handsaw","Exile_Item_Pliers","Exile_Item_CanOpener","Exile_Item_Shovel"];
 
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION

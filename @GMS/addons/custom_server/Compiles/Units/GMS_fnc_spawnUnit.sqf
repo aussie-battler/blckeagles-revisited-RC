@@ -11,7 +11,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices"];
+private ["_i","_weap","_skin","_ai1","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_modType","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
 params["_pos","_weaponList","_aiGroup",["_skillLevel","red"],["_Launcher","none"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_scuba",false]];
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then
@@ -35,10 +35,11 @@ if (blck_debugLevel > 2) then
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _ai1 = ObjNull;
-private _modType = call blck_fnc_getModType;
+_modType = call blck_fnc_getModType;
 if (_modType isEqualTo "Epoch") then
 {
 	"I_Soldier_EPOCH" createUnit [_pos, _aiGroup, "_ai1 = this", blck_baseSkill, "COLONEL"];
+	_ai1 setVariable ["LAST_CHECK",28800,true];
 	//  _unit = group player createUnit ["B_RangeMaster_F", position player, [], 0, "FORM"];
 	//_ai1 = _aiGroup createUnit ["I_Soldier_EPOCH", _pos, [], blck_baseSkill, "FORM"]; 
 	switch(_skillLevel) do
@@ -82,8 +83,7 @@ _skin = "";
 _counter = 1;
 while {_skin isEqualTo "" && _counter < 10} do
 {
-	_skin = selectRandom _uniforms;  
-	_ai1 forceAddUniform _skin;
+	_ai1 forceAddUniform (selectRandom _uniforms);
 	_skin = uniform _ai1;
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then
@@ -94,20 +94,17 @@ while {_skin isEqualTo "" && _counter < 10} do
 	_counter =+1;
 };
 //Sets AI Tactics
+/*
 _ai1 enableAI "TARGET";
 _ai1 enableAI "AUTOTARGET";
 _ai1 enableAI "MOVE";
 _ai1 enableAI "ANIM";
-_ai1 enableAI "FSM";
+*/
+_ai1 enableAI "ALL";
 _ai1 allowDammage true;
 _ai1 setBehaviour "COMBAT";
 _ai1 setunitpos "AUTO";
 
-if (_modType isEqualTo "Epoch") then
-{
-	// do this so the AI or corpse hangs around on Epoch servers.
-	_ai1 setVariable ["LAST_CHECK",28800,true];
-};
 _ai1 addHeadgear (selectRandom _headGear);
 _ai1 addVest selectRandom _vests;
 
@@ -117,7 +114,6 @@ if ( random (1) < blck_chanceBackpack) then
 };
 
 _weap = selectRandom _weaponList;  
-private["_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
 _ai1 addWeaponGlobal  _weap; 
 _ammoChoices = getArray (configFile >> "CfgWeapons" >> _weap >> "magazines");
 _optics = getArray (configfile >> "CfgWeapons" >> _weap >> "WeaponSlotsInfo" >> "CowsSlot" >> "compatibleItems");
@@ -152,7 +148,6 @@ for "_i" from 1 to (1+floor(random(3))) do
 // Add  First Aid or Grenade 50% of the time
 if (round(random 10) <= 5) then 
 {
-	//_item = selectRandom blck_specialItems;
 	//diag_log format["spawnUnit.sqf] -- Item is %1", _item];
 	_ai1 addItem selectRandom blck_specialItems;
 };
@@ -172,7 +167,6 @@ if(sunOrMoon < 0.2 && blck_useNVG)then
 {
 	_ai1 addWeapon selectRandom blck_NVG;
 	_ai1 setVariable ["hasNVG", true,true];
-
 }
 else
 {

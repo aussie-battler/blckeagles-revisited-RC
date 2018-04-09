@@ -22,7 +22,7 @@ params["_unit"];
 {
 	_unit removeAllMPEventHandlers _x;
 } forEach ["MPKilled","MPHit"];
-private _group = (group _unit);
+_group = (group _unit);
 [_unit] joinSilent grpNull;
 deleteVehicle _unit;
 if (count units _group isEqualTo 0) then

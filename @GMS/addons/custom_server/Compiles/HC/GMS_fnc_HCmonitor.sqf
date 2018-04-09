@@ -12,5 +12,6 @@ diag_log "_fnc_HCmonitor.sqf";
 	_totalGroups = {(groupOwner _x) isEqualTo clientOwner} count allGroups;
 	_totalGroups = _blckGroups + _otherGroups;
 	diag_log format["blckHC:: headless client %1 at diag_tickTime running %3 fps",clientOwner,diag_tickTime,diag_fps];
+	diag_log format["blckHC:: headless client %1 _blckGroups = %1 and _otherGroups = %2",_blckGroups,_otherGroups];
 	uiSleep 60;
  };

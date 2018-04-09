@@ -29,7 +29,7 @@
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
 	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-	blck_timeAccelerationDay = 1;  // Daytime time accelearation
+	blck_timeAccelerationDay = 2;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 8;  // Nighttim time acceleration	
 	
@@ -48,7 +48,7 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = true; // 
+	blck_useHC = false; // 
 	
 	///////////////////////////////
 	//  Kill message configurations
@@ -62,9 +62,9 @@
 	// blck_labelMapMarkers: Determines if when the mission composition provides text labels, map markers with have a text label indicating the mission type
 	//When set to true,"arrow", text will be to the right of an arrow below the mission marker. 
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
-	blck_labelMapMarkers = [false,"center"];  
+	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = false;  // Map markers are/are not centered at the loot crate
-	blck_showCountAliveAI = true;	
+	blck_showCountAliveAI = false;	
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 1500;
@@ -81,7 +81,12 @@
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
-	blck_loadCratesTiming = "atMissionCompletion"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+							 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
+							 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
+	blck_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+							// Pertains only to crates spawned at mission spawn.
+							// This sets the default but can be overridden for specific missions by defining _loadCratesTiming
 	
 	///////////////////////////////
 	// PLAYER PENALTIES
@@ -103,7 +108,7 @@
 	///////////////////////////////
 	blck_useKilledAIName = true; // When false, the name of the killer (player), weapon and distance are displayed; otherwise the name of the player, distance and name of AI unit killed are shown.
 	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Turn this off if you have vehicle patrols.
-	blck_cleanupCompositionTimer = 20*60;  // Mission objects will be deleted after the mission is completed after a deley set by this timer.
+	blck_cleanupCompositionTimer = 30*60;  // Mission objects will be deleted after the mission is completed after a deley set by this timer.
 	blck_cleanUpLootChests = false; // when true, loot crates will be deleted together with other mission objects.
 	blck_MissionTimout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
 	blck_AliveAICleanUpTimer = 60*20;  // Time after mission completion at which any remaining live AI are deleted.
@@ -165,9 +170,9 @@
 	//  Heli Patrol Settings
 	///////////////////////////////
 
-	blck_chanceHeliPatrolBlue = 0.2;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
+	blck_chanceHeliPatrolBlue = 0.8;  //[0 - 1]  Set to 0 to deactivate and 1 to always have a heli spawn over the mission center and patrol the mission area. The chance of paratroops dropping from the heli is defined by blck_chancePara(Blue|Red|Green|Orange) above.
 	blck_patrolHelisBlue = _blck_littleBirds;
-	blck_noPatrolHelisBlue = 1;
+	blck_noPatrolHelisBlue = 0;
 	
 	blck_chanceHeliPatrolRed = 0.8; // 0.4;
 	blck_patrolHelisRed = _blck_armed_hellcats;
@@ -178,7 +183,7 @@
 	blck_noPatrolHelisGreen = [1,3];
 	
 	blck_chanceHeliPatrolOrange = 0.9999;
-	blck_patrolHelisOrange = _blck_armed_attackHelis + _blck_armed_heavyAttackHelis + _blck_fighters;
+	blck_patrolHelisOrange = _blck_armed_attackHelis + _blck_armed_heavyAttackHelis; // + _blck_fighters;
 	blck_noPatrolHelisOrange = [2,4];
 
 	////////////////////
@@ -186,16 +191,25 @@
 	////////////////////
 	
 	// Maximum number of missions shown on the map at any one time.
+	#ifdef GRGserver
+	blck_maxSpawnedMissions = 15;
+	#else
 	// Change this value to reduce the number of spawned missions at any one time.
-	blck_maxSpawnedMissions = 9;
-
+	blck_maxSpawnedMissions = 4;
+	#endif
+	
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
-	blck_numberUnderwaterDynamicMissions = 5;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
+	blck_numberUnderwaterDynamicMissions = 2;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
 
+	#ifdef GRGserver
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 2;
+	blck_maxcrashsites = 3;
+	#endif
 
 	////////////////////
 	// MISSION TIMERS
@@ -207,6 +221,12 @@
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
 	blck_TMin_UMS = 180;	
+	#ifdef GRGserver
+	blck_TMin_Hunter = 120;
+	blck_TMin_Scouts = 115;
+	blck_TMin_Crashes = 115;
+
+	#endif
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
@@ -214,6 +234,11 @@
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
 	blck_TMax_UMS = 200;
+	#ifdef GRGserver
+	blck_TMax_Hunter = 200;
+	blck_TMax_Scouts = 200;
+	blck_TMax_Crashes = 200;
+	#endif
 	
 	///////////////////////////////
 	// AI VEHICLE PATROL PARAMETERS
@@ -225,14 +250,14 @@
 	////////////////////
 	// Mission Vehicle Settings
 	////////////////////	
-	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of static weapons or vehicles. To discourage players runniing with with vehicles, spawn more B_GMG_01_high
-	blck_SpawnVeh_Orange = [3,5]; // Number of static weapons at Orange Missions
-	blck_SpawnVeh_Green = [3,4]; // Number of static weapons at Green Missions
-	blck_SpawnVeh_Blue = 1;  // Number of static weapons at Blue Missions
-	blck_SpawnVeh_Red = 2;  // Number of static weapons at Red Missions
+	//Defines how many AI Vehicles to spawn. Set this to -1 to disable spawning of vehicles. To discourage players running over AI with with vehicles, spawn more B_GMG_01_high
+	blck_SpawnVeh_Orange = [3,5]; // Number of vehicles at Orange Missions
+	blck_SpawnVeh_Green = [3,4]; // Number of vehicles at Green Missions
+	blck_SpawnVeh_Blue = 1;  // Number of vehicles at Blue Missions
+	blck_SpawnVeh_Red = 2;  // Number of vehicles at Red Missions
 
 	///////////////////////////////
-	// AI STATIC WEAPON PARAMETERS	
+	// AI STATIC WEAPON Settings	
 	///////////////////////////////
 	
 	blck_useStatic = true;  // When true, AI will man static weapons spawned 20-30 meters from the mission center. These are very effective against most vehicles
@@ -240,10 +265,6 @@
 		//   	B_Mortar_01_F, 	B_HMG_01_F, 	B_GMG_01_F
 	blck_staticWeapons = ["B_HMG_01_high_F","B_GMG_01_high_F"];  // [0.50 cal, grenade launcher, AT Launcher]
 
-	////////////////////
-	// Mission Static Weapon Settings
-	////////////////////
-	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
 	blck_SpawnEmplaced_Orange = [3,5]; // Number of static weapons at Orange Missions
 	blck_SpawnEmplaced_Green = [3,4]; // Number of static weapons at Green Missions
@@ -273,6 +294,11 @@
 
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 40*60; // time in seconds after which dead AI bodies are deleted
+	#ifdef GRGserver
+	#ifdef blck_milServer
+	blck_bodyCleanUpTimer = 40*60;  //  Trying to reduce lag with player counts > 20
+	#endif
+	#endif
 	
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
@@ -331,6 +357,60 @@
 	blck_maxMoneyGreen = 40;
 	blck_maxMoneyRed = 30;
 	blck_maxMoneyBlue = 20;
+
+	#ifdef GRGserver
+	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	//blck_AIAlertDistance = [150,225,400,500];
+	// How precisely player locations will be revealed to AI after an AI kill
+	// values are ordered as follows [blue, red, green, orange];
+	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9];  
+	
+	blck_baseSkill = 1;  // The overal skill of the AI - range 0.1 to 1.0.
+	
+	/***************************************************************
+	
+	MISSION TYPE SPECIFIC AI SETTINGS
+	
+	**************************************************************/
+	//This defines the skill, minimum/Maximum number of AI and how many AI groups are spawned for each mission type
+	// Orange Missions
+	blck_MinAI_Orange = 30;
+	blck_MaxAI_Orange = 35;
+	blck_AIGrps_Orange = 5;
+	blck_SkillsOrange = [
+		["aimingAccuracy",0.6],["aimingShake",0.9],["aimingSpeed",0.9],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+	];
+	
+	// Green Missions
+	blck_MinAI_Green = 26;
+	blck_MaxAI_Green = 31;
+	blck_AIGrps_Green = 4;
+	blck_SkillsGreen = [
+		["aimingAccuracy",0.55],["aimingShake",0.75],["aimingSpeed",0.85],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+	];
+	
+	// Red Missions
+	blck_MinAI_Red = 12;
+	blck_MaxAI_Red = 18;
+	blck_AIGrps_Red = 3;
+	blck_SkillsRed = [
+		["aimingAccuracy",0.4],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+	];
+	
+	// Blue Missions
+	blck_MinAI_Blue = 8;	
+	blck_MaxAI_Blue = 14;
+	blck_AIGrps_Blue = 2;
+	blck_SkillsBlue = [
+		["aimingAccuracy",0.12],["aimingShake",0.3],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+	];
+		
+	// Add some money to AI; only works with Exile for now.
+	blck_maxMoneyOrange = 25;
+	blck_maxMoneyGreen = 20;
+	blck_maxMoneyRed = 15;
+	blck_maxMoneyBlue = 10;	
+	#endif
 	
 	private["_modType"];
 	_modType = [] call blck_fnc_getModType;

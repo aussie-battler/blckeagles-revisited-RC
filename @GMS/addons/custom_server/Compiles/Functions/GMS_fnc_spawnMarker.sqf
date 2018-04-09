@@ -5,8 +5,6 @@
 // spawn a round marker of a size and color specified in passed parameters
 
 private["_blck_fn_configureRoundMarker"];
-
-private["_blck_fn_configureRoundMarker"];
 _blck_fn_configureRoundMarker = {
 	private["_name","_pos","_color","_size","_MainMarker","_arrowMarker","_labelMarker","_labelType"];
 	//diag_log format["_blck_fn_configureRoundMarker: -: _this = %1", _this];

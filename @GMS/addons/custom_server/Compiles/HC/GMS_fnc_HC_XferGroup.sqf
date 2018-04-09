@@ -9,3 +9,4 @@ _client = clientOwner;
 	_localEH pushBack _tempEH;
 	_x setVariable["localEH",_localEH,true];
 }forEach (units _group);
+diag_log format["blckHC:: group %1 transferred to HC %1",_group,_client];

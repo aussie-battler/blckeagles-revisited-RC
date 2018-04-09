@@ -16,7 +16,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then {
+if (blck_debugLevel > 3) then {
 	diag_log format["_fnc_spawnPendingMissions:: blck_pendingMissions = %1", blck_pendingMissions];
 };
 #endif
@@ -24,22 +24,23 @@ if (blck_debugLevel > 0) then {
 if (blck_missionsRunning >= blck_maxSpawnedMissions) exitWith {
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 0) then {
+	if (blck_debugLevel > 2) then {
 		diag_log "_fnc_spawnPendingMissions:: --- >> Maximum number of missions is running; function exited without attempting to find a new mission to spawn";
 	};
 	#endif
 };
 
-private["_coords","_missionName","_missionPath","_search","_readyToSpawnQue","_missionToSpawn","_allowReinforcements"];
+private["_coords","_compiledMission","_search","_readyToSpawnQue","_missionToSpawn","_allowReinforcements"];
 _readyToSpawnQue = [];
-{
-	if ( (diag_tickTime > (_x select 6)) && ((_x select 6) > 0) ) then 
+{                      //          0                 1                2          3     3      5         6     
+	// _mission = [_compiledMissionsList,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0]];
+	if ( (diag_tickTime > (_x select 5)) && ((_x select 5) > 0) ) then 
 	{
 		_readyToSpawnQue pushback _x;
 	};
 } forEach blck_pendingMissions;
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then 
+if (blck_debugLevel > 2) then 
 {
 	diag_log format["_fnc_spawnPendingMissions:: --- >> _readyToSpawnQue = %1",_readyToSpawnQue];
 };
@@ -47,9 +48,11 @@ if (blck_debugLevel > 0) then
 if (count _readyToSpawnQue > 0) then
 {
 	_missionToSpawn = selectRandom _readyToSpawnQue;
-
+	//{
+		//if (_foreachindex > 0) then {diag_log format["_fnc_spawnPendingMissions: _missionToSpawn %1 = %2",_foreachindex, _missionToSpawn select _foreachindex]};
+	//}forEach _missionToSpawn;
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 0) then 
+	if (blck_debugLevel > 1) then 
 	{
 		diag_log format["_fnc_spawnPendingMissions:: -- >> blck_missionsRunning = %1  and blck_maxSpawnedMissions = %2 so _canSpawn = %3",blck_missionsRunning,blck_maxSpawnedMissions, (blck_maxSpawnedMissions - blck_missionsRunning)];
 	};
@@ -57,11 +60,13 @@ if (count _readyToSpawnQue > 0) then
 
 	_coords = [] call blck_fnc_FindSafePosn;
 	_coords pushback 0;	
-	_missionName = selectRandom (_missionToSpawn select 0);
-	_missionPath = _missionToSpawn select 1;
-	_allowReinforcements = _missionToSpawn select 8;
+	_compiledMission = selectRandom (_missionToSpawn select 0);
+	// 	_mission = [_compiledMissionsList,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0]];
+	_missionMarker = _missionToSpawn select 1;
+	_missionDifficulty = _missionToSpawn select 2;
+	//diag_log format["_fnc_spawnPendingMissions: _missionParameters = %1",_missionParameters];
 	//[_coords,_missionToSpawn,_allowReinforcements] execVM format["\q\addons\custom_server\Missions\%1\%2.sqf",_missionPath,_missionName];
-	[_coords,_missionToSpawn,_allowReinforcements] spawn compileFinal preprocessFileLineNumbers format["\q\addons\custom_server\Missions\%1\%2.sqf",_missionPath,_missionName];
+	[_coords,_missionMarker,_missionDifficulty] spawn _compiledMission;
 	blck_missionsRunning = blck_missionsRunning + 1;
 };
 

@@ -33,7 +33,7 @@
 	blck_spawnStaticLootCrates = true; // When true, static loot crates will be spawned and loaded with loot as specified in custom_server\SLS\SLS_init_Epoch.sqf (or its exile equivalent).
 	
 	// Note that you can define map-specific variants in custom_server\configs\blck_custom_config.sqf
-	blck_useTimeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
+	blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
 	blck_timeAccelerationDay = 0.25;  // Daytime time accelearation
 	blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 	blck_timeAccelerationNight = 12;  // Nighttim time acceleration	
@@ -69,7 +69,7 @@
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
-	blck_showCountAliveAI = true;	
+	blck_showCountAliveAI = false;
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 1500;
@@ -86,8 +86,18 @@
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
-	blck_loadCratesTiming = "atMissionCompletion"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
-	
+	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionEndGround","atMissionEndAir". 
+							 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
+							 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
+	blck_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+							// Pertains only to crates spawned at mission spawn.
+							// This sets the default but can be overridden for specific missions by defining _loadCratesTiming
+							
+							// Examples:
+							// To spawn crates at mission start loaded with gear set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionSpawn"
+							// To spawn crates at mission start but load gear only after the mission is completed set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionCompletion"
+							// To spawn crates on the ground at mission completion set blck_spawnCratesTiming = "atMissionEndGround" // Note that a loaded crate will be spawned.
+							// To spawn crates in the air and drop them by chutes set blck_spawnCratesTiming = "atMissionEndAir" // Note that a loaded crate will be spawned.
 	///////////////////////////////
 	// PLAYER PENALTIES
 	///////////////////////////////	
@@ -96,11 +106,11 @@
 	blck_RunGearDamage = 0.2; // Damage applied to player vehicle for each AI run over
 	blck_VK_Gear = true; // When set to true, AI that have been killed by a player in a vehicle in the list of forbidden vehicles or using a forbiden gun will be stripped of gear and the vehicle will be given blck_RunGearDamage of damage
 	blck_VK_RunoverDamage = true; // when the AI was run over blck_RunGearDamage of damage will be applied to the killer's vehicle.
-	blck_VK_GunnerDamage = true; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
-	blck_forbidenVehicles = [/*"B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","I_MRAP_03_hmg_F","B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"*/]; // Add any vehicles for which you wish to forbid vehicle kills	
+	blck_VK_GunnerDamage = false; // when the AI was killed by a gunner on a vehicle that is is in the list of forbidden vehicles, blck_RunGearDamage of damage will be applied to the killer's vehicle each time an AI is killed with a vehicle's gun.
+	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","I_MRAP_03_hmg_F","B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills	
 	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
 	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
-	blck_forbidenVehicleGuns = [/*"LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"*/]; // Add any vehicles for which you wish to forbid vehicle kills, o
+	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"]; // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 
 	///////////////////////////////
@@ -181,13 +191,25 @@
 	////////////////////
 	
 	// Maximum number of missions shown on the map at any one time.
-	blck_maxSpawnedMissions	= 9;
+	#ifdef GRGserver
+	blck_maxSpawnedMissions = 15;
+	#else
+	// Change this value to reduce the number of spawned missions at any one time.
+	blck_maxSpawnedMissions = 4;
+	#endif
+	
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
-	blck_numberUnderwaterDynamicMissions = 5;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
+	blck_numberUnderwaterDynamicMissions = 3;  // Values from -1 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+
+	#ifdef GRGserver
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxcrashsites = 4;
+	#endif
 
 	////////////////////
 	// MISSION TIMERS
@@ -199,6 +221,12 @@
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
 	blck_TMin_UMS = 180;	
+	#ifdef GRGserver
+	blck_TMin_Hunter = 120;
+	blck_TMin_Scouts = 115;
+	blck_TMin_Crashes = 115;
+
+	#endif
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
@@ -206,6 +234,11 @@
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
 	blck_TMax_UMS = 200;
+	#ifdef GRGserver
+	blck_TMax_Hunter = 200;
+	blck_TMax_Scouts = 200;
+	blck_TMax_Crashes = 200;
+	#endif
 	
 	///////////////////////////////
 	// AI VEHICLE PATROL PARAMETERS
@@ -237,7 +270,7 @@
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
 	blck_SpawnEmplaced_Orange = [3,4]; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Green = [2,3]; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 1;  // Number of static weapons at Red Missions	
 
@@ -321,6 +354,60 @@
 	blck_maxMoneyGreen = 20;
 	blck_maxMoneyRed = 15;
 	blck_maxMoneyBlue = 10;
+
+	#ifdef GRGserver
+	blck_AIAlertDistance = [250,450,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
+	//blck_AIAlertDistance = [150,225,400,500];
+	// How precisely player locations will be revealed to AI after an AI kill
+	// values are ordered as follows [blue, red, green, orange];
+	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9];  
+	
+	blck_baseSkill = 0.7;  // The overal skill of the AI - range 0.1 to 1.0.
+	
+	/***************************************************************
+	
+	MISSION TYPE SPECIFIC AI SETTINGS
+	
+	**************************************************************/
+	//This defines the skill, minimum/Maximum number of AI and how many AI groups are spawned for each mission type
+	// Orange Missions
+	blck_MinAI_Orange = 20;
+	blck_MaxAI_Orange = 25;
+	blck_AIGrps_Orange = 5;
+	blck_SkillsOrange = [
+		["aimingAccuracy",[0.25,0.36]],["aimingShake",[0.45,0.55]],["aimingSpeed",[0.65,0.75]],["endurance",1.00],["spotDistance",1.0],["spotTime",0.7],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
+	];
+	
+	// Green Missions
+	blck_MinAI_Green = 16;
+	blck_MaxAI_Green = 21;
+	blck_AIGrps_Green = 4;
+	blck_SkillsGreen = [
+		["aimingAccuracy",[0.2,0.3]],["aimingShake",[0.4,0.5]],["aimingSpeed",[0.55,0.7]],["endurance",0.9],["spotDistance",0.9],["spotTime",0.65],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
+	];
+	
+	// Red Missions
+	blck_MinAI_Red = 12;
+	blck_MaxAI_Red = 15;
+	blck_AIGrps_Red = 3;
+	blck_SkillsRed = [
+		["aimingAccuracy",[0.2,0.25]],["aimingShake",[0.35,0.4]],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.6],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
+	];
+	
+	// Blue Missions
+	blck_MinAI_Blue = 8;	
+	blck_MaxAI_Blue = 12;
+	blck_AIGrps_Blue = 2;
+	blck_SkillsBlue = [
+		["aimingAccuracy",[0.08,16]],["aimingShake",[0.25,0.35]],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
+	];
+		
+	// Add some money to AI; only works with Exile for now.
+	blck_maxMoneyOrange = 25;
+	blck_maxMoneyGreen = 20;
+	blck_maxMoneyRed = 15;
+	blck_maxMoneyBlue = 10;	
+	#endif
 	
 	private["_modType"];
 	_modType = [] call blck_fnc_getModType;

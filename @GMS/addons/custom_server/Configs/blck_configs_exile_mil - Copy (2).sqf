@@ -1,8 +1,6 @@
 /*
-	for ghostridergaming
 	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 3-14-17
 	
 	--------------------------
 	License
@@ -14,12 +12,6 @@
 
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";	
 
-#ifdef blck_milServer
-execVM "\q\addons\custom_server\Configs\blck_configs_exile_mil.sqf";
-if (true) exitWith {};
-#endif
-
-diag_log "[blckeagls] Loading Exile-specific configs for Non-militarized servers: blck_configs_exile.sqf";
 ////////////
 // Exile-specific settings
 ////////////	
@@ -46,8 +38,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 **********************************************************************************/
 	
-	blck_blacklistSpawns = true;
-	blck_listConcreteMixerZones	= true;
+	blck_blacklistSpawns = false;
+	blck_listConcreteMixerZones	= false;
 	blck_AI_Side = EAST;
 
 	blck_crateMoneyBlue = [100,250];
@@ -192,12 +184,9 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"Exile_Car_HMMWV_M2_Desert",
 		"B_LSV_01_armed_F"		
 	];
-	
-	blck_AIPatrolVehicles = ["Exile_Car_Offroad_Armed_Guerilla01","Exile_Car_Offroad_Armed_Guerilla02","Exile_Car_BTR40_MG_Green","Exile_Car_BTR40_MG_Camo","Exile_Car_HMMWV_M134_Green","Exile_Car_HMMWV_M134_Desert",/*"Exile_Car_HMMWV_M134_Desert","Exile_Car_HMMWV_M2_Desert",*/"B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
-	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
-	blck_AIPatrolVehiclesRed = blck_AIPatrolVehicles;
-	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
-	blck_AIPatrolVehiclesOrange = blck_AIPatrolVehicles;
+	blck_AIPatrolVehiclesRed = _blck_lightlyArmed_ARMA3 + _blck_APC_CUP;
+	blck_AIPatrolVehiclesGreen = _blck_Tanks_ARMA3 + _blck_Tanks_CUP;
+	blck_AIPatrolVehiclesOrange =  _blck_Tanks_ARMA3 + _blck_Tanks_CUP;
 	
 	// Blacklisted itesm
 	blck_blacklistedOptics = ["optic_Nightstalker","optic_tws","optic_tws_mg"];
@@ -215,8 +204,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"optic_Nightstalker",
 		"optic_NVS",
 		"optic_SOS",
-		"optic_tws"
-		//"optic_tws_mg",
+		"optic_tws",
+		"optic_tws_mg"
 		];
 		
 	#ifdef useAPEX	
@@ -646,8 +635,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	
 	blck_NVG = ["NVGoggles","NVGoggles_INDEP","NVGoggles_OPFOR","Exile_Item_XM8"];
 	blck_buildingMaterials = ["Exile_Item_ExtensionCord","Exile_Item_JunkMetal","Exile_Item_LightBulb","Exile_Item_MetalBoard",
-			"Exile_Item_MetalPole","Exile_Item_MetalScrews","Exile_Item_Cement","Exile_Item_Sand"];	
-	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Melee_SledgeHammmer","Exile_Item_Handsaw","Exile_Item_Pliers"];
+			"Exile_Item_MetalPole","Exile_Item_MetalScrews","Exile_Item_Cement","Exile_Item_Sand","Exile_Item_MetalWire","Exile_Item_ExtensionCord","Exile_Item_JunkMetal"];	
+	blck_tools = ["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Melee_Axe","Exile_Melee_SledgeHammmer","Exile_Item_Handsaw","Exile_Item_Pliers","Exile_Item_CanOpener","Exile_Item_Shovel"];
 
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION
@@ -656,9 +645,9 @@ for examples of how you can do this see \Major\Compositions.sqf
 ***************************************************************************************/			
 
 	// values are: number of things from the weapons, magazines, optics, materials(cinder etc), items (food etc) and backpacks arrays to add, respectively.
-	blck_lootCountsOrange = [[6,8],[24,32],[5,10],[25,35],16,1];   // Orange
-	blck_lootCountsGreen = [[4,8],[20,30],[5,9],[15,18],18,1]; // Green
-	blck_lootCountsRed = [[4,6],[12,18],4,[6,12],6,1];  // Red	
+	blck_lootCountsOrange = [8,32,8,30,16,1];   // Orange
+	blck_lootCountsGreen = [7,24,6,16,18,1]; // Green
+	blck_lootCountsRed = [5,16,4,10,6,1];  // Red	
 	blck_lootCountsBlue = [4,12,3,6,6,1];   // Blue
 	
 	blck_BoxLoot_Orange = 
@@ -897,7 +886,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 			],
 			[// Materials and supplies				
 				["Exile_Item_Matches",1,2],["Exile_Item_CookingPot",1,2],["Exile_Item_Rope",1,2],["Exile_Item_DuctTape",1,3],["Exile_Item_ExtensionCord",1,2],["Exile_Item_FuelCanisterEmpty",1,2],
-				["Exile_Item_JunkMetal",1,6],["Exile_Item_LightBulb",1,6],["Exile_Item_MetalBoard",1,6],["Exile_Item_MetalPole",1,6],["Exile_Item_CamoTentKit",1,6]
+				["Exile_Item_JunkMetal",1,6],["Exile_Item_LightBulb",1,6],["Exile_Item_MetalBoard",1,6],["Exile_Item_MetalPole",1,6],["Exile_Item_CamoTentKit",1,6],["Exile_Item_MetalWire",1,4]
 			],
 			[//Items
 				["Exile_Item_InstaDoc",1,2],["NVGoggles",1,2],["Rangefinder",1,2],["Exile_Item_Bandage",1,3],["Exile_Item_Vishpirin",1,3],  

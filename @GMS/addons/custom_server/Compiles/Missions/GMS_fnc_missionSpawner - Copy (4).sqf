@@ -231,12 +231,6 @@ if !(_enemyLeaderConfig isEqualTo []) then
 	_blck_AllMissionAI pushBack _assetSpawned;
 };
 
-#ifdef blck_debugMode
-	if  (blck_debugLevel >= 1) then {
-		diag_log format["_fnc_missionSpawner: _assetSpawned = %1",_assetSpawned];
-	};
-#endif
-
 uiSleep _delayTime;
 _temp = [[],[],false];
 _abort = false;
@@ -321,7 +315,7 @@ switch (toLower _aiDifficultyLevel) do
 		};
 };
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["_missionSpawner(322):: _noChoppers = %1  && _chancePara = %2",_noChoppers,_chancePara]};
+diag_log format["_missionSpawner(322):: _noChoppers = %1  && _chancePara = %2",_noChoppers,_chancePara];
 #endif
 for "_i" from 1 to (_noChoppers) do
 {
@@ -394,7 +388,7 @@ if (_abort) exitWith
 	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
 };
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["_fnc_missionSpawner: _spawnCratesTiming = %1", _spawnCratesTiming]};
+if (blck_debugLevel > 2) then {diag_log format["_fnc_missionSpawner: _spawnCratesTiming = %1", _spawnCratesTiming]};
 #endif
 uiSleep _delayTime;
 if (_spawnCratesTiming isEqualTo "atMissionSpawnGround") then
@@ -415,7 +409,7 @@ if (_spawnCratesTiming isEqualTo "atMissionSpawnGround") then
 	};
 
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 1) then
+	if (blck_debugLevel > 0) then
 	{
 		diag_log format["[blckeagls] missionSpawner:: (428) Crates Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 	};
@@ -436,10 +430,8 @@ switch (_endCondition) do
 };
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then {
-	diag_log format["_missionSpawner (464):  _endCondition = %1",_endCondition];
-	diag_log format["missionSpawner :: (449) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
-};
+if (blck_debugLevel >2) then {diag_log format["_missionSpawner (464):  _endCondition = %1",_endCondition]};
+diag_log format["missionSpawner :: (449) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
 #endif
 
 if (blck_showCountAliveAI) then
@@ -488,12 +480,6 @@ while {_missionComplete isEqualTo -1} do
 	};
 	if (_secureAsset) then
 	{
-		#ifdef blck_debugMode
-		if (blck_debugLevel > 0) then
-		{
-			diag_log format["_fnc_missionSpawner (494): _assetSpawned = %1 with _blck_AIState = %2",_assetSpawned,_assetSpawned getVariable["blck_AIState",0]];
-		};
-		#endif
 		if !(alive _assetSpawned) then 
 		{
 			_missionComplete = 1
@@ -573,7 +559,7 @@ if (_assetSpawned getVariable["assetType",0] isEqualTo 1) then
 {
 	diag_log "Processing Mission End for Hostage Rescue";
 	_assetSpawned setCaptive false;
-	_assetSpawned setVariable["GMSAnimations",[""],true];
+	_assetSpawned setVariable["GMSAnimations",{""],true];
 	[_assetSpawned,""] remoteExec["switchMove",-2];;
 	uiSleep 0.1;
 	_assetSpawned enableAI "ALL";
@@ -583,13 +569,12 @@ if (_assetSpawned getVariable["assetType",0] isEqualTo 1) then
 	[group _assetSpawned,0] setWaypointPosition [_newPos,0];
 	[group _assetSpawned,0] setWaypointType "MOVE";
 };
-
 if (_assetSpawned getVariable["assetType",0] isEqualTo 2) then
 {
 	diag_log format["Processing Mission End for Arrest of Leader %1 with endAnimation %2",_assetSpawned,_assetSpawned getVariable["endAnimation",""]];
 	[_assetSpawned,""] remoteExec["switchMove",-2];
-	_assetSpawned setVariable["GMSAnimations",_assetSpawned getVariable["endAnimation",["AidlPercMstpSnonWnonDnon_AI"]],true];
-	[_assetSpawned,selectRandom(_assetSpawned getVariable["endAnimation",["AidlPercMstpSnonWnonDnon_AI"]])] remoteExec["switchMove",-2];
+	_assetSpawned setVariable["GMSAnimations",_assetSpawned getVariable["endAnimation","AidlPercMstpSnonWnonDnon_AI"],true];
+	[_assetSpawned,selectRandom(_assetSpawned getVariable["endAnimation","AidlPercMstpSnonWnonDnon_AI"])] remoteExec["switchMove",-2];
 };
 
 diag_log format["_fnc_missionSpawner (579) Build 123: <calling blck_fnc_endMission> _secureAsset = %1 | {alive _assetSpawned} = %2 | assetType = %3",_secureAsset,alive _assetSpawned, _assetSpawned getVariable["assetType",-1]];

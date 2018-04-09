@@ -55,13 +55,14 @@ while {true} do
 		//diag_log format["_fnc_mainThread:  60 second events run at %1",diag_tickTime];
 		_timer1min = diag_tickTime;
 		[] call blck_fnc_spawnPendingMissions;
-		//diag_log format["_fnc_spawnPendingMissions: blck_numberUnderwaterDynamicMissions = %1 | 
+		//diag_log format["_fnc_mainThrea: blck_numberUnderwaterDynamicMissions = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_numberUnderwaterDynamicMissions,blck_dynamicUMS_MissionsRuning];
 		if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then
 		{
-			//diag_log "Adding dyanamic UMS Mission";
-			private ["_spawnPos"];
-			_spawnPos = call blck_fnc_findShoreLocation;
-			[_spawnPos] spawn blck_fnc_addDyanamicUMS_Mission;
+			//diag_log "Adding dynamic UMS Mission";
+			//private ["_spawnPos"];
+			//_spawnPos = call blck_fnc_findShoreLocation;
+			//[_spawnPos] spawn blck_fnc_addDyanamicUMS_Mission;
+			[] spawn blck_fnc_addDyanamicUMS_Mission;
 			//_spawnPos call compileFinal preprocessFileLineNumbers format["q\addons\custom_server\Missions\UMS\dynamicMissiones\%1.sqf";
 		};
 		//diag_log format["_fnc_mainThread:  control returned to _fnc_mainThread from _fnc_addDynamicUMS_Mission at %1",diag_tickTime];

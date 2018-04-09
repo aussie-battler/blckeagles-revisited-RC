@@ -8,16 +8,44 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.80 build 118
-Added: The server now sets simulation on/off and damage on/off for objects at dynamic missions. default missions updated. 
+Version 1.81 Build 124.
+Added: Support for hostage rescue missions. 
+	The hostage can be spawned at any location relative to the mission center.
+	The mission aborts if the hostage is killed; all loot is deleted.
+	To complete the mission, a player must approach the hostage and execute the rescue action.
+	The hostage then runs away, and loot becomes available to the player.
+	See missions\blue\Default3.sqf for an example mission.
+Added: Support for Arrest Leader missions.
+	These are similar to the rescue hostage mission except that the leader, when arrested, will sites
+	awaiting arrival of imaginary survivor forces.
+	See missions\blue\Default4.sqf for an example mission
+Added: 	blck_spawnCratesTiming = "atMissionEndAir"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+		Crates can be spawned on the ground at mission start or at mission end either on the ground or in the air.
+Added: Crates spawn with tabs or crypto. set the values in the mod-specific configs.
+Added: support for hostages/leaders(who must be arrested) (work in progress). You can set the crate to spawn after successfully freeing the captive using the setting above.
+	Note - you need to update blck_client in your mission.pbo to use this mission mode.		
+Added: Additional documentation for those who wish to design their own missions.
+	   See \missions\blue\default.sqf and default2.sqf for details.
+Changed: Each mission is now compiled at server startup.
+         A few variables that were not used were eliminated.
+		 Some declarations of private variables were consolidated.
+		 Together these changes should be worth a small performance bump.
+Fixed: disabled some logging that is not required except when debugging.
+Fixed: AI Counts were not being shown at dynamic UMS.
+Fixed: AI were glitching through walls. 
+
+Version 1.80 Build 118
+Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
+     See the medicalCamp.sqf mission for an example of how this is done.
+Added: you can now spawn simple objects as part of your mission landscape. Useful for STATIC missions only. 
 Added: lists of armed vehicles from which you can choose those you wish to spawn at vehicles broken down by category (wheeled, traced APC, Tank, etc)
-Added: Three constants that define how far away missions are from certain ingame bases, players and towns when they spawn. These were previously embedded in the code but not configurable.
+Added: Three constants that define how far away missions are from players when they spawn.
 	blck_minDistanceToBases = 900; Minimum distance from any freq jammer or flag
 	blck_minDistanceToPlayer = 900; Minimum distance from any player
 	blck_minDistanceFromTowns = 300; Minimum distance from cites or towns.
-Fixed: Alive AI counts were not disabled by blck_showCountAliveAI.
-Fixed: The number of dynamically spawned underwater missions was not correctly set by blck_numberUnderwaterDynamicMissions.
 	
+Changed: Default missions reworked to support the above.
+
 Version 1.79, Build 116
 Added: Map-specific information for Lythium.
 Added: New configuration setting: blck_showCountAliveAI = true;  When = true, the number of alive AI at a mission will be displayed by the mission marker.
@@ -26,6 +54,7 @@ Added: You can now define the types of patrol vehicles spawned based on AI diffi
 Fixed: Setting 	blck_useTimeAcceleration = false; now disables the time acceleration module.
 Fixed: several issues with dynamic UMS missions.
 Fixed: AI Heli's at missions should now be released to players when all AI are dead.
+Fixed: script errors when dynamic simulation off.
 
 Changed: Code for checking the state of AI vehicles and releasing them to players was re-written.
 Changed: Eliminated useless files from the debug folder (mission.pbo).

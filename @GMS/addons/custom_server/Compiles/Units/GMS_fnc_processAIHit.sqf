@@ -12,46 +12,44 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-diag_log format["_fnc_processAIHit::-->> _this = %1",_this];
-if (isServer) then 
-{
-	private ["_unit","_instigator","_group","_wp"];
-	_unit = _this select 0 select 0;
-	_instigator = _this select 0 select 3;
 
+private ["_unit","_instigator","_group","_wp"];
+_unit = _this select 0 select 0;
+_instigator = _this select 0 select 3;
+
+#ifdef blck_debugMode
+if (blck_debugLevel >= 2) then
+{
+	diag_log format["_fnc_processAIHit::-->> _this = %1",_this];
+	diag_log format["EH_AIHit:: _units = %1 and _instigator = %2 units damage is %3",_unit,_instigator, damage _unit];
+};
+#endif
+
+if (!(alive _unit)) exitWith {};
+if (!(isPlayer _instigator)) exitWith {};
+[_unit,_instigator] call blck_fnc_alertGroupUnits;
+[_instigator] call blck_fnc_alertNearbyVehicles;
+_group = group _unit;
+//_group setBehavior "COMBAT";
+_wp = [_group, currentWaypoint _group];
+_wp setWaypointBehaviour "COMBAT";
+_group setCombatMode "RED";
+_wp setWaypointCombatMode "RED";
+
+if (_unit getVariable ["hasHealed",false]) exitWith {};
+if ((damage _unit) > 0.1 ) then
+{
 	#ifdef blck_debugMode
 	if (blck_debugLevel >= 2) then
 	{
-		diag_log format["_fnc_processAIHit::-->> _this = %1",_this];
-		diag_log format["EH_AIHit:: _units = %1 and _instigator = %2 units damage is %3",_unit,_instigator, damage _unit];
+		diag_log format["_EH_AIHit::-->> Healing unit %1",_unit];
 	};
-	#endif
-
-	if (!(alive _unit)) exitWith {};
-	if (!(isPlayer _instigator)) exitWith {};
-	[_unit,_instigator] call blck_fnc_alertGroupUnits;
-	[_instigator] call blck_fnc_alertNearbyVehicles;
-	_group = group _unit;
-	//_group setBehavior "COMBAT";
-	_wp = [_group, currentWaypoint _group];
-	_wp setWaypointBehaviour "COMBAT";
-	_group setCombatMode "RED";
-	_wp setWaypointCombatMode "RED";
-
-	if (_unit getVariable ["hasHealed",false]) exitWith {};
-	if ((damage _unit) > 0.1 ) then
-	{
-		#ifdef blck_debugMode
-		if (blck_debugLevel >= 2) then
-		{
-			diag_log format["_EH_AIHit::-->> Healing unit %1",_unit];
-		};
-		_unit setVariable["hasHealed",true,true];
-		_unit  addMagazine "SmokeShellOrange";
-		_unit fire "SmokeShellMuzzle";
-		_unit addItem "FAK";
-		_unit action ["HealSoldierSelf",  _unit];
-		_unit setDamage 0;
-		_unit removeItem "FAK";
-	};
+	_unit setVariable["hasHealed",true,true];
+	_unit  addMagazine "SmokeShellOrange";
+	_unit fire "SmokeShellMuzzle";
+	_unit addItem "FAK";
+	_unit action ["HealSoldierSelf",  _unit];
+	_unit setDamage 0;
+	_unit removeItem "FAK";
 };
+

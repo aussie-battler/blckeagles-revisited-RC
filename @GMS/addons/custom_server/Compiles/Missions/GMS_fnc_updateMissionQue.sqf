@@ -14,14 +14,20 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_mission","_status",["_coords",[0,0,0]] ];
-
+//  _mission is the name used to identify the marker associated with that particular mission. it is a unique identifier.
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then {diag_log format["_fnc_updateMissionQue :: _mission = %1 | _status = %2 | _coords = %3",_mission,_status,_coords];};
 #endif
-
+_index = -1;
 private["_index","_element","_waitTime"];
-
-_index = blck_pendingMissions find _mission;
+{
+	if (_mission isEqualTo (_x select 1)) exitWith 
+	{
+		_index = _forEachIndex;
+		//diag_log format["_fnc_updateMissionQue: match found at _forEachIndex %1 for _mission with _x = %2",_forEachIndex,_x select 1];
+	};
+}forEach blck_pendingMissions;
+//_index = blck_pendingMissions find _mission;
 if (_index > -1) then
 {	
 	#ifdef blck_debugMode
@@ -33,16 +39,17 @@ if (_index > -1) then
 	#ifdef blck_debugMode
 	if (blck_debuglevel > 0) then {diag_log format["_fnc_updateMissionQue::  -- >> _element before update = %1",_element];}; 
 	#endif
-
+						// 0		  1		                 2			3	4		5		6		
+	//_mission = [_missionList,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0]];
 	if (toLower(_status) isEqualTo "active") then {
-		_element set[6, -1];
-		_element set[7,_coords];
+		_element set[5, -1];
+		_element set[6,_coords];
 	};
 	if (toLower(_status) isEqualTo "inactive") then 
 	{
-		_waitTime = (_element select 4) + random((_element select 5) - (_element select 4));
-		_element set[6, diag_tickTime + _waitTime];
-		_element set [7,[0,0,0]];
+		_waitTime = (_element select 3) + random((_element select 4) - (_element select 3));
+		_element set[5, diag_tickTime + _waitTime];
+		_element set [6,[0,0,0]];
 	};
 
 	#ifdef blck_debugMode

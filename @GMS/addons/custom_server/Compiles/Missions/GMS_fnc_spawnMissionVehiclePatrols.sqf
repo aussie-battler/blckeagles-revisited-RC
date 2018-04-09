@@ -24,7 +24,7 @@ if (blck_debugLevel > 1) then
 };
 #endif
 
-private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns","_missionAI","_missiongroups","_vehicles","_return","_vehiclePatrolSpawns","_vehicle","_return","_abort"];
+private["_vehGroup","_patrolVehicle","_vehiclePatrolSpawns","_missionAI","_missiongroups","_vehicles","_return","_vehiclePatrolSpawns","_vehicle","_return","_abort","_spawnPos","_v"];
 _vehicles = [];
 _missionAI = [];
 _abort = false;
@@ -34,8 +34,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	_useRelativePos = false;
 	_vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
 	{
-		//private _v = selectRandom blck_AIPatrolVehicles;
-		private _v = [_aiDifficultyLevel] call blck_fnc_selectPatrolVehicle;
+		_v = [_aiDifficultyLevel] call blck_fnc_selectPatrolVehicle;
 		//diag_log format["_fnc_spawnMissionVehiclePatrols (36):: position = %1 and vehicle = %2",_x, _v];
 		_missionPatrolVehicles pushBack [_v, _x];
 	}forEach _vehiclePatrolSpawns;
@@ -48,7 +47,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: _x = %1 and _coords = %2",_x,_coords];
 	};
 	#endif
-	private ["_spawnPos"];
+
 	if (_useRelativePos) then
 	{
 		_spawnPos = _coords vectorAdd (_x select 1)

@@ -64,7 +64,7 @@ if (blck_debugLevel > 2) then
 if (_group getVariable["wpPatrolMode",""] isEqualTo "SAD") then
 {
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 1) then
+	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_changeToMoveWaypoint: seting waypoint script for group %1 to SAD Mode",_group];
 	};
@@ -76,7 +76,7 @@ if (_group getVariable["wpPatrolMode",""] isEqualTo "SAD") then
 if (_group getVariable["wpPatrolMode",""] isEqualTo "SENTRY") then
 {
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 1) then
+	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_changeToMoveWaypoint: seting waypoint script for group %1 to SENTRY Mode",_group];
 	};
@@ -86,7 +86,7 @@ if (_group getVariable["wpPatrolMode",""] isEqualTo "SENTRY") then
 	#endif
 };
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then
+if (blck_debugLevel > 2) then
 {
 	diag_log format["_fnc_changeToMoveWaypoint:: -- >> Waypoint statements for group %1 have been configured as %2",_group, waypointStatements _wp];
 };

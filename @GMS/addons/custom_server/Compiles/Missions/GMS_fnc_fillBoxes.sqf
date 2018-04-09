@@ -2,8 +2,6 @@
 /*
 	for ghostridergaming
 	By Ghostrider [GRG]
-	Copyright 2016
-	Last Modified 8-13-17
 	Fill a crate with items
 	
 	--------------------------
@@ -17,7 +15,12 @@
 
 	private["_a1","_item","_diff","_tries"];
 	params["_crate","_boxLoot","_itemCnts"];
-	
+	//diag_log format["_fnc_fillBoxes: _this = %1",_this];
+	#ifdef blck_debugMode
+	{
+		diag_log format["_fnc_fillBoxes: _this select %1 = %2",_foreachindex, _this select _foreachindex];
+	}foreach _this;
+	#endif
 	_itemCnts params["_wepCnt","_magCnt","_opticsCnt","_materialsCnt","_itemCnt","_bkcPckCnt"];
 	_tries = [_wepCnt] call blck_fnc_getNumberFromRange;
 	if (_tries > 0) then
@@ -97,3 +100,5 @@
 			_crate addbackpackcargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];	
 		};
 	};
+
+	//diag_log "_fnc_fillBoxes <END>";

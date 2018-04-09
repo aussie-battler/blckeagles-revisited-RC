@@ -32,7 +32,7 @@ _fn_releaseVehicle = {
 	if ((damage _veh) > 0.5) then {_veh setDamage 0.5};
 	//diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1 and blck_deleteAT = %2",_veh, _veh getVariable["blck_DeleteAt",0]];	
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 0) then
+	if (blck_debugLevel > 2) then
 	{
 		diag_log format["_fnc_vehicleMonitor:: case of patrol vehicle released to players where vehicle = %1",_veh];
 	};
@@ -86,10 +86,11 @@ blck_fn_deleteAIvehicle = {
 	deleteVehicle _veh;
 };
 
-private _vehList = +blck_monitoredVehicles;
+private ["_vehList","_veh","_isEmplaced","_ownerIsPlayer","_allCrewDead","_deleteNow","_missionCompleted","_evaluate","_cleanupTimer"];
+_vehList = +blck_monitoredVehicles;
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];};
+if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];};
 #endif
   //blck_fnc_releaseVehicleToPlayers
 {
@@ -101,14 +102,14 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 		_deleteNow
 	*/
 	//diag_log format["_fnc_vehicleMonitor: evaluating vehicle %1",_x];
-	private _veh = _x; // (purely for clarity at this point, _x could be used just as well)
-	private _isEmplaced = _veh getVariable["DBD_vehType","none"] isEqualTo "emplaced";
-	private _ownerIsPlayer = if (owner _veh > 2 && !(owner _veh in blck_connectedHCs)) then {true} else {false};
-	private _allCrewDead = if (({alive _x} count (crew _veh)) == 0) then {true} else {false};
-	private _deletenow = false;
+	_veh = _x; // (purely for clarity at this point, _x could be used just as well)
+	_isEmplaced = _veh getVariable["DBD_vehType","none"] isEqualTo "emplaced";
+	_ownerIsPlayer = if (owner _veh > 2 && !(owner _veh in blck_connectedHCs)) then {true} else {false};
+	_allCrewDead = if (({alive _x} count (crew _veh)) == 0) then {true} else {false};
+	_deletenow = false;
 	if ( (_veh getVariable["blck_DeleteAt",0] > 0) && (diag_tickTime > (_veh getVariable "blck_DeleteAt"))) then {_deleteNow = true};
-	private _missionCompleted = if (_veh getVariable["missionCompleted",0] != 0) then {true} else {false};
-	private _evaluate = true;
+	_missionCompleted = if (_veh getVariable["missionCompleted",0] != 0) then {true} else {false};
+	_evaluate = true;
 
 	if (_ownerIsPlayer) then
 	{
@@ -126,7 +127,7 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 			if (blck_killEmptyStaticWeapons) then
 			{
 				#ifdef blck_debugMode
-				if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
+				if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: case of destroyed where vehicle = %1",_veh];};
 				#endif
 				_veh setDamage 1;
 				_veh setVariable["blck_DeleteAt",diag_tickTime + 60];
@@ -150,7 +151,7 @@ if (blck_debugLevel > 0) then {diag_log format["_fnc_vehicleMonitor:: function c
 	if (_missionCompleted && !(_allCrewDead)) then
 	{
 		//diag_log format["_fnc_vehicleMonitor:: case of mission vehicle with AI alive at mission end: schedule destruction with _veh = %1 and typeOf _veh = %2",_veh, typeOf _veh];
-		private _cleanupTimer = _veh getVariable["blck_DeleteAt",0];  // The time delete to deleting any alive AI units
+		_cleanupTimer = _veh getVariable["blck_DeleteAt",0];  // The time delete to deleting any alive AI units
 		if (_cleanupTimer == 0) then {_veh setVariable["blck_DeleteAt",diag_tickTime + blck_vehicleDeleteTimer]};
 		_evaluate = false;
 	};
