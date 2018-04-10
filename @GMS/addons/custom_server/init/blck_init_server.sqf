@@ -57,14 +57,6 @@ blck_worldSet = nil;
 diag_log "[blckeagls] Loading Mission Lists";
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
 
-#ifdef GRGserver
-//start the dynamic loot crate system
-[] execVM "\q\addons\custom_server\DLS\DLS_init.sqf";
-waitUntil {(isNil "blck_DLSComplete") isEqualTo false;};
-waitUntil{blck_DLSComplete};
-blck_DLSComplete = nil;
-#endif
-
 // Load any user-defined specifications or overrides
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
@@ -101,9 +93,6 @@ if (blck_spawnStaticLootCrates) then
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
 };
 
-#ifdef GRGserver
-diag_log "[blckegls] Running GhostriderGaming Version";
-#endif
 #ifdef useDynamicSimulation
 diag_log "[blckegls] dynamic simulation manager enabled";
 #else
@@ -131,26 +120,6 @@ if (blck_enableBlueMissions > 0) then
 	//[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue] spawn blck_fnc_missionTimer;//Starts minor mission system (Blue Map Markers)
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
-
-#ifdef GRGserver
-if (blck_enableScoutsMissions > 0) then
-{
-	//[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts] spawn blck_fnc_missionTimer;
-	[_missionListScouts,_pathScouts,"ScoutsMarker","red",blck_TMin_Scouts,blck_TMax_Scouts,blck_enableScoutsMissions,false] call blck_fnc_addMissionToQue;
-};
-if (blck_enableHunterMissions > 0) then
-{
-	//[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter] spawn blck_fnc_missionTimer;
-	//  params["_missionList","_path","_marker","_difficulty","_tMin","_tMax","_noMissions"];
-	[_missionListHunters,_pathHunters,"HunterMarker","green",blck_TMin_Hunter,blck_TMax_Hunter,blck_enableHunterMissions,false] call blck_fnc_addMissionToQue;
-};
-
-// Running new version of Crash sites.
-if (blck_maxCrashSites > 0) then
-{
-	[] execVM "\q\addons\custom_server\Missions\HeliCrashs\Crashes2.sqf";
-};
-#endif
 
 blck_modType = call blck_fnc_getModType;
 publicVariable "blck_modType";
