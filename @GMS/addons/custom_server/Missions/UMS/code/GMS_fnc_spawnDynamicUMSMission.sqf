@@ -24,22 +24,22 @@ _aiDifficultyLevel = _difficulty;  // _difficulty is defined in the mission desc
 
 diag_log format["[blckeagls Dynamic UMS] dynamicUMSspawner (34):: Initializing mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
-if (isNil "_markerColor") then {_markerColor = "ColorBlack"};
-if (isNil "_markerType") then {_markerType = ["mil_box",[]]};
+if (isNil "_markerColor") 		then {_markerColor = "ColorBlack"};
+if (isNil "_markerType") 		then {_markerType = ["mil_box",[]]};
 //if (isNil "_timeOut") then {_timeOut = -1;};
-if (isNil "_missionGroups") then {_missionGroups = []};
-if (isNil "_endCondition") then {_endCondition = blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"};
+if (isNil "_missionGroups") 	then {_missionGroups = []};
+if (isNil "_endCondition") 		then {_endCondition = blck_missionEndCondition};  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"};
 if (isNil "_spawnCratesTiming") then {_spawnCratesTiming = blck_spawnCratesTiming}; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
-if (isNil "_loadCratesTiming") then {_loadCratesTiming = blck_loadCratesTiming}; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
-if (isNil "_useMines") then {_useMines = blck_useMines;};
-if (isNil "_weaponList") then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") then {_sideArms = blck_Pistols};
-if (isNil "_vests") then {_vests = blck_vests};
-if (isNil "_backpacks") then {_backpacks = blck_backpacks};
+if (isNil "_loadCratesTiming") 	then {_loadCratesTiming = blck_loadCratesTiming}; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+if (isNil "_useMines") 			then {_useMines = blck_useMines;};
+if (isNil "_weaponList") 		then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
+if (isNil "_sideArms") 			then {_sideArms = blck_Pistols};
+if (isNil "_vests") 			then {_vests = blck_vests};
+if (isNil "_backpacks") 		then {_backpacks = blck_backpacks};
 //diag_log format["_fnc_missionSpawner: -> blck_backpacks = %1", blck_backpacks];
 //diag_log format["_fnc_missionSpawner: -> _backpacks = %1",_backpacks];
-if (isNil "_uniforms") then {_uniforms = blck_SkinList};
-if (isNil "_headGear") then {_headgear = blck_headgear};
+if (isNil "_uniforms") 			then {_uniforms = blck_SkinList};
+if (isNil "_headGear") 			then {_headgear = blck_headgear};
 
 if (isNil "_chanceHeliPatrol") then
 {
