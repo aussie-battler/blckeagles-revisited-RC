@@ -12,10 +12,14 @@
 */
 
 #define GRGserver
-#define wpModeMove
 #define useAPEX 
 //#define useDynamicSimulation
 //#define blck_debugMode
 #define blck_milServer
-#define hideOnUse false
-#define showWindow true
+
+#ifdef blck_milServer
+
+#define blck_useCUP
+#define blck_useRHS
+
+#endif

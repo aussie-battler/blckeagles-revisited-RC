@@ -59,11 +59,7 @@ while {true} do
 		if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then
 		{
 			//diag_log "Adding dynamic UMS Mission";
-			//private ["_spawnPos"];
-			//_spawnPos = call blck_fnc_findShoreLocation;
-			//[_spawnPos] spawn blck_fnc_addDyanamicUMS_Mission;
 			[] spawn blck_fnc_addDyanamicUMS_Mission;
-			//_spawnPos call compileFinal preprocessFileLineNumbers format["q\addons\custom_server\Missions\UMS\dynamicMissiones\%1.sqf";
 		};
 		//diag_log format["_fnc_mainThread:  control returned to _fnc_mainThread from _fnc_addDynamicUMS_Mission at %1",diag_tickTime];
 		if (blck_useHC) then
@@ -71,14 +67,7 @@ while {true} do
 			//diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
 			[] call blck_fnc_passToHCs;
 		};
-		//[] call blck_fnc_missionGroupMonitor;
-		/*
-		// No longer needed 
-		if (_modType isEqualTo "Epoch") then 
-		{
-			[] call blck_fnc_cleanEmptyGroups;
-		};  // Exile cleans up empty groups automatically so this should not be needed with that mod.		
-		*/
+
 		#ifdef blck_debugMode
 		//diag_log format["_fnc_mainThread: active SQFscripts include: %1",diag_activeSQFScripts];
 		diag_log format["_fnc_mainThread: active scripts include: %1",diag_activeScripts];

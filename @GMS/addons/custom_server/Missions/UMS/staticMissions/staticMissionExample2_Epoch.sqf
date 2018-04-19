@@ -3,6 +3,16 @@
 	See the accompanying example mission in the exampleMission folder to get an idea how I laid this out.
 	Note that I laid out the mission in EDEN editor, exported the mission using the exportAll function of M3EDEN editor. then copied, pasted and apporpriately edidet the specific categories of items to be spawned.
 */
+/*
+	by Ghostrider [GRG]
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
 private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
 	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
 	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines","_difficulty","_mission","_missionCenter"];

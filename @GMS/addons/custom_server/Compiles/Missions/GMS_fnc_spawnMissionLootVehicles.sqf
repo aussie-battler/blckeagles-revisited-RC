@@ -1,8 +1,6 @@
 /*
-	[_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
-	returns _vehs, an array of vehicles spawned.
-	by Ghostridere-DbD-
-	3/20/17
+	by Ghostridere-GRG-
+	Copyright 2016
 	
 	--------------------------
 	License

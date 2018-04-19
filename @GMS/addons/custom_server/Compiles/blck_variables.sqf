@@ -12,7 +12,7 @@
 */
 #include"\q\addons\custom_server\Configs\blck_defines.hpp";
 
-blck_debugON = FALSE;
+blck_debugON = false;
 blck_debugLevel = 0;  // Sets level of detail for debugging info - WIP.
 blck_minFPS = 8; 
 

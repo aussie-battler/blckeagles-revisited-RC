@@ -1,7 +1,6 @@
 /*
 	by Ghostrider [GRG]
-	for ghostridergaming
-	12/5/17
+	Copyright 20167
 	--------------------------
 	License
 	--------------------------

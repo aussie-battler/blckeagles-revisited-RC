@@ -1,5 +1,4 @@
 /*
-	Spawn some crates using an array containing crate types and their offsets relative to a reference position and prevent their cleanup.
 	By Ghostrider [GRG]
 	Copyright 2018
 	
@@ -16,7 +15,7 @@ private ["_cratesSpawned","_pos","_crate"];
 params[ ["_coords", [0,0,0]], ["_cratesToSpawn",[]], ["_loadCrateTiming","atMissionSpawn"],["_spawnCrateTiming","atMissionSpawn"],["_missionState","start"], ["_difficulty","red"] ];
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 2) then
+if (blck_debugLevel >= 2) then
 {
 	{
 		diag_log format["_fnc_spawnMissionCrates: _this select %1 = %2",_foreachindex, _this select _foreachindex];
@@ -47,12 +46,13 @@ _cratesSpawned = [];
 	};
 	_cratesSpawned pushback _crate;
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 1) then
+	if (blck_debugLevel >= 2) then
 	{
 		diag_log format["_fnc_spawnMissionCrates: _crateType = %1 | _crateOffset = %2 | _lootArray = %3 | _lootCounts = %4",_crateType,_crateOffset,_lootArray,_lootCounts];
 		_marker = createMarker [format["crateMarker%1",random(1000000)], _pos];
 		_marker setMarkerType "mil_triangle";
-		_marker setMarkerColor "colorGreen";		
+		_marker setMarkerColor "colorGreen";	
+		_crate setVariable["crateMarker",_marker];
 	};
 	#endif	
 }forEach _cratesToSpawn;
@@ -73,14 +73,11 @@ _fnc_dropMissionCrates = {
 		uiSleep 1;
 		{
 			//  (((getPos _crate) select 2) < 3)
-			if ((getPos _x) select 2< 5) then 
+			if ((getPos _x) select 2 < 5) then 
 			{
-				#ifdef blck_debugMode
-				if (blck_debugLevel > 2) then {diag_log format["_fnc_spawnMissionCrates: objects attached to %1 = %2",_x, attachedObjects _x]};
-				#endif
 				_airborneCrates = _airborneCrates - [_x];
 				_chute = _x getVariable["chute",objNull];
-				detach _crate;
+				detach _x;
 				deleteVehicle _chute;
 				_location = getPos _x;
 				_blck_localMissionMarker = [format["crateMarker%1%2",_location select 0, _location select 1],_location,"","","ColorBlack",["mil_dot",[]]];
@@ -101,7 +98,7 @@ _fnc_dropMissionCrates = {
 	}forEach _markers
 };
 
-if (_spawnCrateTiming isEqualTo "atMissionEndAir") then 
+if (_spawnCrateTiming in ["atMissionEndAir","atMissionStartAir"]) then 
 {
 	[_cratesSpawned] spawn _fnc_dropMissionCrates;
 };

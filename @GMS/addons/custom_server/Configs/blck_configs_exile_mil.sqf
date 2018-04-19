@@ -115,34 +115,34 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 	_blck_Tanks_CUP = [
 		"CUP_B_M2A3Bradley_USA_D",  
-		"CUP_B_M113_desert_USA",  
-		"CUP_B_M163_USA",  
+		//"CUP_B_M113_desert_USA",  
+		//"CUP_B_M163_USA",  
 		"CUP_B_M6LineBacker_USA_D",  
 		"CUP_B_M1A1_DES_US_Army",  
 		"CUP_B_M1A2_TUSK_MG_DES_US_Army",  
-		"CUP_B_AAV_USMC",  
-		"CUP_B_M270_DPICM_USA",  
+		//"CUP_B_AAV_USMC",  
+		//"CUP_B_M270_DPICM_USA",  
 		"CUP_B_ZSU23_CDF",  
-		"CUP_B_BMP2_CDF",  
+		//"CUP_B_BMP2_CDF",  
 		"CUP_B_T72_CDF",  
-		"CUP_I_T34_NAPA",  
+		//"CUP_I_T34_NAPA",  
 		"CUP_B_Challenger2_NATO",  
-		"CUP_B_FV432_Bulldog_GB_D_RWS",  
-		"CUP_B_FV432_Bulldog_GB_D",  
+		//"CUP_B_FV432_Bulldog_GB_D_RWS",  
+		//"CUP_B_FV432_Bulldog_GB_D",  
 		"CUP_B_FV510_GB_D_SLAT",  
-		"CUP_B_MCV80_GB_D_SLAT",  
-		"CUP_O_2S6_RU",  
+		//"CUP_B_MCV80_GB_D_SLAT",  
+		//"CUP_O_2S6_RU",  
 		"CUP_O_BMP3_RU",  
 		"CUP_O_T90_RU",  
-		"CUP_O_T55_SLA",  
-		"CUP_O_BMP1P_TKA",  
-		"CUP_B_M270_DPICM_USA",
-		"CUP_B_M2Bradley_USA_W",  
-		"CUP_B_FV510_GB_D",  
-		"CUP_B_MCV80_GB_D",  
-		"CUP_B_M7Bradley_USA_D",  
-		"CUP_O_2S6_RU",  
-		"CUP_O_BMP1_TKA"
+		"CUP_O_T55_SLA"  //,  
+		//"CUP_O_BMP1P_TKA",  
+		//"CUP_B_M270_DPICM_USA",
+		//"CUP_B_M2Bradley_USA_W",  
+		//"CUP_B_FV510_GB_D",  
+		//"CUP_B_MCV80_GB_D",  
+		//"CUP_B_M7Bradley_USA_D",  
+		//"CUP_O_2S6_RU",  
+		//"CUP_O_BMP1_TKA""
 	];
 	
 	blck_AIPatrolVehicles = 
@@ -198,10 +198,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 			"B_MRAP_01_hmg_F",
 			//"O_MRAP_02_gmg_F",  
 			"O_MRAP_02_hmg_F",
-			"I_MRAP_03_hmg_F", 
+			"I_MRAP_03_hmg_F" 
 			//"I_MRAP_03_gmg_F",
-			"B_APC_Wheeled_01_cannon_F", 			
-			"I_APC_Wheeled_03_cannon_F"	
+			//"B_APC_Wheeled_01_cannon_F", 			
+			//"I_APC_Wheeled_03_cannon_F"	
 		];	
 		diag_log "blck)configs_exile_mil.sqf:: - > Using special settings for namalsk";
 		blck_AIPatrolVehiclesRed = _blck_lightlyArmed_ARMA3 + blck_AIPatrolVehiclesBlue;
@@ -311,6 +311,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_WeaponList_Orange = blck_WeaponList_Orange + blck_apexWeapons;
 	blck_WeaponList_Green = blck_WeaponList_Green + blck_apexWeapons;	
 	#endif
+	
+
 	
 	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
 		
@@ -647,6 +649,14 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"Exile_Item_Moobar",
 		"Exile_Item_InstantCoffee"
 	];
+	
+	#ifdef useCUP
+	
+	#endif
+	
+	#ifdef useRHS
+	
+	#endif
 	blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
 	blck_throwableExplosives = ["HandGrenade","MiniGrenade"];
 	blck_otherExplosives = ["1Rnd_HE_Grenade_shell","3Rnd_HE_Grenade_shell","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag"];

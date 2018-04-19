@@ -1,7 +1,6 @@
 /*
 	by Ghostrider [GRG]
-	for ghostridergaming
-	12/5/17
+	Copyright 2016
 	--------------------------
 	License
 	--------------------------
@@ -29,7 +28,7 @@ _evaluate = true;
 {
 	_waterPos = [
 		_mapCenter, // center of search area
-		1, // min distance to search 
+		2, // min distance to search 
 		20000, // max distance to search
 		0, // distance to nearest object
 		2, // water mode [2 = water only]

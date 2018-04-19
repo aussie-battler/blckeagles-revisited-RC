@@ -1,80 +1,48 @@
-	#define hideOnUse true
+	#define hideOnUse false
 	#define showWindow true
 
 	GMS_fnc_nextAnimation = {
 		_hostage = _this;
-		_hostage switchMove "";
-		//uisleep 0.1;
-		_animations = _hostage getVariable["GMSAnimations",[""]];
-		diag_log format["_fnc_nextAnimation: _hostage = %1 and _animations = %2",_hostage,_animations];
-		_hostage switchMove (selectRandom _animations);
+		_animations = _hostage getVariable["GMSAnimations",[]];
+		diag_log format["_fnc_nextAnimation: _hostage = %1 and _animationa = %2",_hostage,_animationa];
+		_hostage switchMove (selectRandom (_animations))
 	};
 	
 	GMS_EH_onAnimationDone = {
 		diag_log format["GMS_EH_onAnimationDone: _this = %1",_this];
-		private _hostage = _this select 0;
-		if (alive _hostage) then 
+		if (alive _this) then 
 		{
-			diag_log format["GMS_EH_onAnimationDone: _animations = %1",_hostage getVariable["GMSAnimations",[""]]];
-			_hostage call GMS_fnc_nextAnimation;
+			diag_log format["GMS_EH_onAnimationDone: _animations = %1",_animations];
+			_this call GMS_fnc_nextAnimation;
 		} else {
-			_hostage removeAllEventHandlers "AnimDone";
+			_this removeAllEventHandlers "AnimDone";
 		};
 	};
 	
 	GMS_fnc_freeHostage = {
 		diag_log format["fn_freeHostage: _this = %1",_this];
-		private _hostage = _this select 0;
-		_hostage setVariable["blck_AIState",1,true];
-		private _msg = "_fnc_freeHostage <Hostage Rescued>";
+		_this setVariable["blck_AIState","rescued",true];
+		_msg = "Hostage Rescued";
 		systemChat _msg;
 		hint _msg;
-		diag_log _msg;
-		//_hostage move (position _hostage) getPos [1000, random(360)];
 	};
 
 	GMS_fnc_addHostageActions = {
 		private _hostage = _this;
-		//private _handle = _hostage addAction ["Free Hostage",{_this call GMS_fnc_freeHostage}]; //,[],1,showWindow,hideOnUse,(alive _hostage)];
-		private _handle = _hostage addAction ["Free Hostage",{_this call GMS_fnc_freeHostage},[],1,showWindow,hideOnUse];  //,"",{alive _target}]; //,"", (alive _target)];		
+		private _handle = _hostage addAction ["Free Hostage",{_this call GMS_fnc_freeHostage}]; //,[],1,showWindow,hideOnUse,(alive _hostage)];
 	};
 	
-	GMS_fnc_addAssetAnimations = {
-		private _asset = _this;
-		_asset addEventHandler ["AnimDone", {_this call GMS_EH_onAnimationDone}];
-		_asset call GMS_fnc_nextAnimation;
-		diag_log format["_fnc_addAssetAnimations: Animation and event handler added for asset %1",_asset];
+	GMS_fnc_addHostageAnimations = {
+		private _hostage = _this;
+		_hostage addEventHandler ["AnimDone", {_this call GMS_EH_onAnimationDone}];
+		_hostage call GMS_fnc_nextAnimation;
 	};
 	
 	GMS_fnc_initHostage = {
 		private _hostage = _this;
-		if (blck_modType isEqualTo "Epoch") then {_hostage call GMS_fnc_addHostageActions};
-		_hostage call GMS_fnc_addAssetAnimations;
-		diag_log format["_fnc_initHostage: hostage %1 initialized",_hostage];
+		_hostage call GMS_fnc_addHostageActions;
+		_hostage call GMS_fnc_addHostageAnimations;
 	};
-	
-	GMS_fnc_arrestLeader = {
-		diag_log format["GMS_fnc_arrestLeader: _this = %1",_this];
-		private _leader = _this select 0;
-		_leader setVariable["blck_AIState",1,true];
-		private _msg = "_fnc_arrestLeader: <Leader Arrested>";
-		systemChat _msg;
-		hint _msg;
-		diag_log _msg;	
-	};
-	
-	GMS_fnc_addLeaderActions = {
-		private _leader = _this;
-		private _handle = _leader addAction ["Under Arrest",{_this call GMS_fnc_arrestLeader},[],1,showWindow,hideOnUse];  //,"",{alive _target}]; //,"", (alive _target)];			
-	};
-	
-	GMS_fnc_initLeader = {
-		private _leader = _this;
-		if (blck_modType isEqualTo "Epoch") then {_leader call GMS_fnc_addLeaderActions};
-		_leader call GMS_fnc_addAssetAnimations;
-		diag_log format["_fnc_initLeader: Leader %1 initialized",_leader];		
-	};
-	
 if !(isServer) then
 {
 	//diag_log "[blckeagls] initializing client variables";
@@ -119,52 +87,6 @@ if !(isServer) then
 		[parseText _msg2,[0.0823437 * safezoneW + safezoneX,0.379 * safezoneH + safezoneY,0.0812109 * safezoneW,0.253 * safezoneH], nil, 7, 0.3, 0] spawn BIS_fnc_textTiles;	
 	};
 	
-	fn_dynamicWarning = {
-			private["_text","_screentime","_xcoord","_ycoord"];
-			params["_mission","_message"];
-			
-			waitUntil {blck_processingMsg < 0};
-			blck_processingMsg = 1;
-			_screentime = 7;
-			_text = format[
-				"<t align='left' size='1.0' color='#B22222'>%1</t><br/><br/>
-				<t align='left' size='0.6' color='#F0F0F0'>%2</t><br/>",
-				_mission,_message
-				];
-			_ycoord = [safezoneY + safezoneH - 0.8,0.7];
-			_xcoord = [safezoneX + safezoneW - 0.5,0.35];
-			[_text,_xcoord,_ycoord,_screentime,0.5] spawn BIS_fnc_dynamicText;
-			uiSleep 3;  // 3 second delay before the next message
-			blck_processingMsg = -1;	
-	};
-	fn_missionWarning = {
-		params["_event","_message","_mission"];
-
-		if (blck_useSystemChat) then {systemChat format["%1",_message];};
-		if (blck_useHint) then {
-			hint parseText format[
-			"<t align='center' size='2.0' color='#B22222'>%1</t><br/>
-			<t size='1.5' color='#B22222'>______________</t><br/><br/>
-			<t size='1.5' color='#ffff00'>%2</t><br/>
-			<t size='1.5' color='#F0F0F0'>______________</t><br/><br/>
-			<t size='1.5' color='#F0F0F0'>Any loot you find is yours as payment for eliminating the threat!</t>",_mission,_message
-			];	
-		};
-		if (blck_useDynamic) then {
-			[_mission,_message] call fn_dynamicWarning;
-		};		
-		if (blck_useTitleText) then {
-			[_message] spawn {
-				params["_msg"];
-				titleText [_msg, "PLAIN DOWN",5];uiSleep 5; titleText ["", "PLAIN DOWN",5]
-			};
-		};
-		if (blck_useToast) then
-		{
-			["InfoTitleAndText", [_mission, _message]] call ExileClient_gui_toaster_addTemplateToast;
-		};		
-		//diag_log format["_fn_missionNotification ====]  Paremeters _event %1  _message %2 _mission %3",_event,_message,_mission];
-	};	
 	fn_dynamicNotification = {
 			private["_text","_screentime","_xcoord","_ycoord"];
 			params["_mission","_message"];
@@ -283,13 +205,9 @@ if !(isServer) then
 					{
 						[_message select 0, _message select 1, _message select 2] call fn_killScoreNotification;
 					};
-			case "warning":
-					{
-						[_event,_message,_mission] spawn fn_missionWarning;						
-					};
 		};
 
 	};
-	diag_log "blck client loaded ver 4/2/18 for Version 6.81 8 PM";	
+	diag_log "blck client loaded ver 1/11/17 2.0 8 PM";	
 	
 };

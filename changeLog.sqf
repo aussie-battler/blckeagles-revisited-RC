@@ -8,17 +8,26 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.81 Build 124.
+Version 1.81 Build 126 (EXPERIMENTAL).
 Added: Support for hostage rescue missions. 
 	The hostage can be spawned at any location relative to the mission center.
 	The mission aborts if the hostage is killed; all loot is deleted.
 	To complete the mission, a player must approach the hostage and execute the rescue action.
 	The hostage then runs away, and loot becomes available to the player.
 	See missions\blue\Default3.sqf for an example mission.
+	
+	*****  PLEASE READ - IMPORTANT ****
+	Please update the blck_client.sqf in your mission.pbo or you will not be able to interact with or see animations of the new AI characters.
+	
 Added: Support for Arrest Leader missions.
 	These are similar to the rescue hostage mission except that the leader, when arrested, will sites
 	awaiting arrival of imaginary survivor forces.
 	See missions\blue\Default4.sqf for an example mission
+
+Added: 	blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+		which provides a simple way to define the default condtions under which the mission ends. 
+		You can of course define _endCondition in the specific mission file if you wish.
+		
 Added: 	blck_spawnCratesTiming = "atMissionEndAir"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
 		Crates can be spawned on the ground at mission start or at mission end either on the ground or in the air.
 Added: Crates spawn with tabs or crypto. set the values in the mod-specific configs.
@@ -26,13 +35,53 @@ Added: support for hostages/leaders(who must be arrested) (work in progress). Yo
 	Note - you need to update blck_client in your mission.pbo to use this mission mode.		
 Added: Additional documentation for those who wish to design their own missions.
 	   See \missions\blue\default.sqf and default2.sqf for details.
+Added: greater control over AI loadouts.
+		For land-based dynamic missions you can now specify for each mission:
+		Uniforms
+		Headgear
+		Vests
+		Weapons allowed
+		Sidearms allows.
+		(See \Missions\Blue\default2.sqf for examples).
+		[Still to do: upgrade statics for the same functionality; doable but will require adding these parameters to the spawn info for the groups of infantry, vehicle, submerged and air units];
+Added: greater control of mission helis - you can now set variables in the mission file (see examples below).
+	    when these are not defined in the mission file, defaults are used.
+		_chancePara = blck_chanceParaBlue; // Setting this in the mission file overrides the defaults 
+		_noPara = blck_noParaBlue;  // Setting this in the mission file overrides the defaults 
+		_chanceHeliPatrol = blck_chanceHeliPatrolBlue;  // Setting this in the mission file overrides the defaults 
+		_noChoppers = blck_noPatrolHelisBlue;
+		_missionHelis = blck_patrolHelisBlue;
+Added: default minimun and maximum radius for groups to patrol.
+		blck_minimumPatrolRadius = 22;  // AI will patrol within a circle with radius of approximately min-max meters. note that because of the way waypoints are completed they may more more or less than this distance.
+		blck_maximumPatrolRadius = 35;
+		
+Changed: **** VERY IMPORTANT  ******
+		The definitions of private variables used in missions in now read in through an include statement (see Missions\Blue\default.sqf for an example)
+		Please update any custom mission you have generated accordingly.
+		This should save quite a bit of editing going forward.
+		Please not that if you do not update the private variables definitions list certain features of the mission spawner may not work due to issues with scope of variables.
+		
+Changed: Logic for spawning paratroops was redone so it is more clear.
+		when helis are spawned the paratroops will spawn at the heli location when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		When no helies are to be spawned, paratroops will spawn at the mission center when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
 Changed: Each mission is now compiled at server startup.
          A few variables that were not used were eliminated.
 		 Some declarations of private variables were consolidated.
 		 Together these changes should be worth a small performance bump.
+		 
+Changed: Code for Heli Patrols redone.
+		Code that spawns paratroops moved to a separate function that is called when a player is whithin a certain radius of the mission.
+		Code that spawns a supplemental loot chest added - this will be spawned along with the paratroop reinforcements, if desired.
+		This crate can have customized loot (think ammo, building supplies, tools and food, ala Exile airdrops).
+		
+Changed: Methods for detecting NULL Groups (rarely a problem with arma these days) simplified.
+		GMS_fnc_missionSpawner redone using a single test for the _abort flag to save repeated calls for debugging and endMission.
+		This could be done with try/catch as well.
+		
 Fixed: disabled some logging that is not required except when debugging.
 Fixed: AI Counts were not being shown at dynamic UMS.
 Fixed: AI were glitching through walls. 
+Fixed: Emplaced weapons are spawned at correct locations when their positions are defined in an array in the mission file.
 
 Version 1.80 Build 118
 Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.

@@ -11,9 +11,8 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
-	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
 
 //diag_log "[blckeagls] Spawning Green Mission with template = default";
 _crateLoot = blck_BoxLoot_Green;
@@ -82,7 +81,7 @@ _missionGroups =
 _missionPatrolVehicles = [
 	//[selectRandom blck_AIPatrolVehicles,[27.8945,100.275,0],0,[true,false]],
 	//[selectRandom blck_AIPatrolVehicles,[-84.7793,72.2617,9.53674e-007],0,[true,false]],
-	[selectRandom blck_AIPatrolVehicles,[-87.8457,-109.947,7.15256e-007],0,[true,false]]
+	[selectRandom blck_AIPatrolVehiclesGreen,[-87.8457,-109.947,7.15256e-007],0,[true,false]]
 ];  // can be used to define the spawn positions of vehicle patrols
 
 //  Change _useMines to true/false below to enable mission-specific settings.
@@ -92,11 +91,26 @@ _maxNoAI = blck_MaxAI_Green;
 _noAIGroups = blck_AIGrps_Green;
 _noVehiclePatrols = blck_SpawnVeh_Green;
 _noEmplacedWeapons = blck_SpawnEmplaced_Green;
-_uniforms = blck_SkinList;
-_headgear = blck_headgear;
-_chanceReinforcements = blck_chanceParaGreen;
-_noPara = blck_noParaGreen;
-_helipatrol = blck_chanceHeliPatrolGreen;
+_minNoAI = blck_MinAI_Blue;  // Setting this in the mission file overrides the defaults such as blck_MinAI_Blue
+_maxNoAI = blck_MaxAI_Blue;  // Setting this in the mission file overrides the defaults 
+_noAIGroups = blck_AIGrps_Blue;  // Setting this in the mission file overrides the defaults 
+_noVehiclePatrols = blck_SpawnVeh_Blue;  // Setting this in the mission file overrides the defaults 
+_noEmplacedWeapons = blck_SpawnEmplaced_Blue;  // Setting this in the mission file overrides the defaults 
+//  Change _useMines to true/false below to enable mission-specific settings.
+_useMines = blck_useMines;  // Setting this in the mission file overrides the defaults 
+_uniforms = blck_SkinList;  // Setting this in the mission file overrides the defaults 
+_headgear = blck_headgear;  // Setting this in the mission file overrides the defaults 
+_uniforms = ["U_OrestesBody","U_NikosAgedBody","U_NikosBody"];
+_headgear = ["H_StrawHat_dark","H_StrawHat","H_Hat_brown","H_Hat_grey"];
+_weaponList = ["blue"] call blck_fnc_selectAILoadout;
+_sideArms = blck_Pistols;
+_vests = blck_vests;
+_backpacks = blck_backpacks;
+_chancePara = blck_chanceParaBlue; // Setting this in the mission file overrides the defaults 
+_noPara = blck_noParaBlue;  // Setting this in the mission file overrides the defaults 
+_chanceHeliPatrol = blck_chanceHeliPatrolBlue;  // Setting this in the mission file overrides the defaults 
+_noChoppers = blck_noPatrolHelisBlue;
+_missionHelis = blck_patrolHelisBlue;
 _endCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf";

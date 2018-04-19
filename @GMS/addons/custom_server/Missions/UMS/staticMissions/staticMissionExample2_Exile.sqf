@@ -3,9 +3,19 @@
 	See the accompanying example mission in the exampleMission folder to get an idea how I laid this out.
 	Note that I laid out the mission in EDEN editor, exported the mission using the exportAll function of M3EDEN editor. then copied, pasted and apporpriately edidet the specific categories of items to be spawned.
 */
+/*
+	by Ghostrider [GRG]
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
 private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
 	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines","_difficulty","_mission","_missionCenter"];
+	"_uniforms","_headgear","_weaponList","_sideArms","_vests","_backpacks","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines","_difficulty","_mission","_missionCenter"];
 
 _mission = "UMS mission example #2";  //  Included for additional documentation. Not intended to be spawned as a mission per se.
 _missionCenter = [22584.9,15304.8,0];  // I pulled this from the position of the marker.
@@ -82,6 +92,7 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Red; // Modified as needed; can be a num
 // or _noEmplacedWeapons = 3; // a constant number of emplaced weps per misison
 // Note that this value is ignored if you define static weapon positions and types in the array below.
 _missionEmplacedWeapons = [
+	// ["Weapon class name", position[xy,z], AI Difficulty [blue, red, green, orange], patrol radius [0 for static weapons], seconds to wait before respawning (set to 0 to disable respawns)]
 	//["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red",0,0],
 	//["B_HMG_01_high_F",[22944.3,16820.5,3.14243],"green",0,0]
 ];
@@ -98,7 +109,7 @@ _aiGroupParameters = [
 
 ];
 _aiScubaGroupParameters = [
-	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 150 /*radius of patrol*/]
+	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 150 /*radius of patrol*/, seconds to wait after all units killed before respawning the group (set to 0 to disable respawns)]
 	//[[22584.9,15304.8,-4.27578],"red",4, 75,0],
 	[[22613.5,15269.1,-4.28332],"red",3, 75,900],
 	[[22549,15288.9,0],"red",3, 75,900]
@@ -106,22 +117,23 @@ _aiScubaGroupParameters = [
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
-	//["B_T_Boat_Transport_01_F",[22570.1,15235.3,-4.49949],"red",4, 75,60],
-	//["B_T_Boat_Armed_01_minigun_F",[22578.6,15273.3,-0.0354593],"red",3, 75,0]	
+	//["Vehicle Class Name",Position [22570.1,15235.3,-4.49949],AI Difficulty "red",4 (Units to spawn into vehicle), 75 (radius of patrol area),60 (seconds to wait after all units dead before respawning)],
+	["B_T_Boat_Armed_01_minigun_F",[22578.6,15273.3,-0.0354593],"red",3, 75,0]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
 
 _submarinePatrolParameters = [
-	//["B_SDV_01_F",[22584.9,15304.8,-1],"red",4, 75,0],
-	//["B_SDV_01_F",[22609.9,15299.8,-1],"red",3, 75,0]
+	////["Vehicle Class Name",Position [22570.1,15235.3,-4.49949],AI Difficulty "red",4 (Units to spawn into vehicle), 75 (radius of patrol area),60 (seconds to wait after all units dead before respawning)],
+	["B_SDV_01_F",[22609.9,15299.8,-1],"red",3, 75,0]
 ];
 
 _aircraftTypes = blck_patrolHelisRed;  //  You can use one of the pre-defined lists in blck_configs or your own custom array.
 _noAirPatrols =	blck_noPatrolHelisRed; // You can use one of the pre-defined values or a custom one. acceptable values are integers (1,2,3) or a range such as [2,4]; 
 										//  Note: this value is ignored if you specify air patrols in the array below.
 _airPatrols = [
-	//["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,0],
+	//["Vehicle Class Name",Position [22570.1,15235.3,-4.49949],AI Difficulty "red", 75 (radius of patrol area),60 (seconds to wait after all units dead before respawning)],
+	["Exile_Chopper_Huey_Armed_Green",[22578.4,15273,50],"red",1000,0]  //,
 	//[selectRandom _aircraftTypes,_missionCenter,"green",1000,0]
 ];
 

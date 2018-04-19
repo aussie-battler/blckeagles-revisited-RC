@@ -11,9 +11,8 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
-	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
 	
 //diag_log "[blckeagls] Spawning Orange Mission with template = resupplyCamp";
 
@@ -27,15 +26,14 @@ _markerColor = "ColorOrange";
 _markerMissionName = "Resupply Camp";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [
-		["Flag_AAF_F",[3,3,0],0,1,0,[],"","",true,false], 
-		["Land_Cargo_Patrol_V1_F",[-29.41016,0.13477,-0.0224228],359.992,1,0,[],"","",true,false], 
-		["Land_Cargo_House_V1_F",[29.2988,-0.1,0.150505],54.9965,0,0.848867,[],"","",true,false], 
-		["CamoNet_INDP_big_F",[-20.4346,15.43164,-0.00395203],54.9965,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[-20.4346,15.43164,-0.0138168],119.996,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[-20.3604,-15.6035,-0.0130463],44.9901,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[18.4453,-15.791,0.00744629],305.003,1,0,[],"","",true,false], 
-		["Land_BagBunker_Small_F",[18.3711,15.5703,0.0101624],254.999,1,0,[],"","",true,false],
-		["CamoNet_INDP_big_F",[18.3711,15.5703,-0.00395203],54.9965,1,0,[],"","",true,false]
+		["Land_Cargo_Patrol_V1_F",[-29.41016,0.13477,-0.0224228],359.992,[true,true]], 
+		["Land_Cargo_House_V1_F",[29.2988,-0.1,0.150505],54.9965,[true,true]], 
+		["CamoNet_INDP_big_F",[-20.4346,15.43164,-0.00395203],54.9965,[false,false]], 
+		["Land_BagBunker_Small_F",[-20.4346,15.43164,-0.0138168],119.996,[false,false]], 
+		["Land_BagBunker_Small_F",[-20.3604,-15.6035,-0.0130463],44.9901,[false,false]], 
+		["Land_BagBunker_Small_F",[18.4453,-15.791,0.00744629],305.003,[false,false]], 
+		["Land_BagBunker_Small_F",[18.3711,15.5703,0.0101624],254.999,[false,false]],
+		["CamoNet_INDP_big_F",[18.3711,15.5703,-0.00395203],54.9965,[false,false]]
 		]; // list of objects to spawn as landscape
 _missionLootBoxes = [];  //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
 _missionLootVehicles = []; //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
@@ -50,17 +48,14 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Orange;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
 
-_chanceReinforcements = 0; 
-_noPara = 5;  
-_chanceHeliPatrol = 0;
-_chanceLoot = 0.33; 
+_chancePara = 0.5; // Setting this in the mission file overrides the defaults 
+_noPara = 5;  // Setting this in the mission file overrides the defaults 
+_paraTriggerDistance = 400; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
+_paraSkill = "orangered";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
 
-private["_weap","_mags","_backpacks","_optics","_loadout"];
-_weap = 4 + floor(random(4));	
-_mags = 12 + floor(random(6));
-_backpacks = 1 + floor(random(2));
-_optics = 5 + floor(random(6));
-//_reinforcementLootCounts = [_weap,_mags,_optics,0,0,_backpacks];
+_chanceLoot = 0.5; 
+_paraLoot = blck_BoxLoot_Orange;
+_paraLootCounts = blck_lootCountsOrange;  // Throw in something more exotic than found at a normal blue mission.
 
 _endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;

@@ -1,7 +1,6 @@
 /*
 	by Ghostrider [GRG]
-	for ghostridergaming
-	12/5/17
+	Copyright 2016
 	--------------------------
 	License
 	--------------------------
@@ -18,7 +17,7 @@ private ["_staticMissions"];
 _staticMissions = [
 	// [mod (Epoch, Exile), map (Altis, Tanoa etc), mission center, eg [10445,2014,0], filename.sqf (name of static mission template for that mission)];
 	//["Epoch","Altis","staticMissionExample2_Epoch.sqf"],
-	//["Exile","Altis","staticMissionExample2_Exile.sqf"]
+	["Exile","Altis","staticMissionExample2_Exile.sqf"]
 ];
 
 diag_log "[blckeagls] GMS_UMS_StaticMissions_Lists.sqf <Loaded>";

@@ -28,8 +28,8 @@ for "_i" from 1 to _noMissions do
 	}forEach _missionList;
 	_mission = [_compiledMissionsList,format["%1%2",_marker,_i],_difficulty,_tMin,_tMax,_waitTime,[0,0,0]];
 	#ifdef blck_debugMode
-	if (blck_debugLevel > 0) then {
-		//diag_log format["-fnc_addMissionToQue::-->> _mission = %1",[_mission select 0, _mission select 1, _mission select 2, _mission select 3, _mission select 4, _mission select 5, _mission select 6]];
+	if (blck_debugLevel >= 2) then {
+		diag_log format["-fnc_addMissionToQue::-->> _mission = %1",[/*_mission select 0, */_mission select 1, _mission select 2, _mission select 3, _mission select 4, _mission select 5, _mission select 6]];
 	};
 	#endif
 	//diag_log format["-fnc_addMissionToQue::-->> _mission = %1",[ _mission select 1, _mission select 2, _mission select 3, _mission select 4, _mission select 5, _mission select 6]];
@@ -37,5 +37,5 @@ for "_i" from 1 to _noMissions do
 };
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then {diag_log format["_fnc_addMissionToQue::  -- >> Result - blck_pendingMissions = %1",blck_pendingMissions];};
+if (blck_debugLevel >= 4) then {diag_log format["_fnc_addMissionToQue::  -- >> Result - blck_pendingMissions = %1",blck_pendingMissions];};
 #endif
