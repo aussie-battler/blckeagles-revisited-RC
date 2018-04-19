@@ -11,11 +11,11 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#define GRGserver
+//#define GRGserver
 #define useAPEX 
 //#define useDynamicSimulation
 //#define blck_debugMode
-#define blck_milServer
+//#define blck_milServer
 
 #ifdef blck_milServer
 

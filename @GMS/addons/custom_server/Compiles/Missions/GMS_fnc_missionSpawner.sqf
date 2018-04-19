@@ -59,8 +59,8 @@ if (isNil "_chanceHeliPatrol") then
 	switch (toLower(_aiDifficultyLevel)) do
 	{
 		case "blue": 	{_chanceHeliPatrol = blck_chanceHeliPatrolBlue};
-		case "red": 	{_chanceHeliPatrol = blck_noPatblck_chanceHeliPatrolRed};
-		case "green": 	{_chanceHeliPatrol = blck_noPatblck_chanceHeliPatrolGreen};
+		case "red": 	{_chanceHeliPatrol = blck_chanceHeliPatrolRed};
+		case "green": 	{_chanceHeliPatrol = blck_chanceHeliPatrolGreen};
 		case "orange": 	{_chanceHeliPatrol = blck_chanceHeliPatrolOrange};
 		default 		{_chanceHeliPatrol = 0};
 	};
@@ -81,7 +81,7 @@ if (isNil "_chancePara") then
 	switch (toLower (_aiDifficultyLevel)) do
 	{
 		case "blue": 	{_chancePara = blck_chanceParaBlue};
-		case "red": 	{_chancePara = blck_chanceParaRed}};
+		case "red": 	{_chancePara = blck_chanceParaRed};
 		case "green": 	{_chancePara = blck_chanceParaGreen};
 		case "orange": 	{_chancePara = blck_chanceParaOrange;
 		default 		{_chancePara = 0};
