@@ -58,8 +58,8 @@ if (isNil "_chanceHeliPatrol") then
 	switch (toLower(_aiDifficultyLevel)) do
 	{
 		case "blue": 	{_chanceHeliPatrol = blck_chanceHeliPatrolBlue};
-		case "red": 	{_chanceHeliPatrol = blck_noPatblck_chanceHeliPatrolRed};
-		case "green": 	{_chanceHeliPatrol = blck_noPatblck_chanceHeliPatrolGreen};
+		case "red": 	{_chanceHeliPatrol = blck_chanceHeliPatrolRed};
+		case "green": 	{_chanceHeliPatrol = blck_chanceHeliPatrolGreen};
 		case "orange": 	{_chanceHeliPatrol = blck_chanceHeliPatrolOrange};
 		default 		{_chanceHeliPatrol = 0};
 	};
@@ -108,9 +108,9 @@ if (isNil "_noPara") then
 		default 		{_noPara = 0};
 	};
 };
-if (isNil "_chanceLoot") then {_chanceLoot = 0}; 
+if (isNil "_chanceLoot") then {_chanceLoot = 0.5}; 
 if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
-if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Blue};
+if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Red};
 if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed};
 
 _objects = [];
