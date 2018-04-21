@@ -57,14 +57,6 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Green;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
 
-private["_weap","_mags","_backpacks","_optics","_loadout"];
-_weap = 3 + floor(random(4));	
-_mags = 8 + floor(random(6));
-//_backpacks = 1 + floor(random(2));
-_optics = 3 + floor(random(6));
-
-_reinforcementLootCounts = [_weap,_mags,_optics,0,0,_backpacks];
-
 //_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

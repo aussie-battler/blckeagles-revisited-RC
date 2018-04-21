@@ -8,7 +8,7 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.81 Build 126 (EXPERIMENTAL).
+Version 1.81 Build 127 (EXPERIMENTAL).
 Added: Support for hostage rescue missions. 
 	The hostage can be spawned at any location relative to the mission center.
 	The mission aborts if the hostage is killed; all loot is deleted.
