@@ -33,34 +33,33 @@ params["_coords","_markerClass","_aiDifficultyLevel"];
 blck_ActiveMissionCoords pushback _coords; 
 diag_log format["[blckeagls] missionSpawner (17):: Initializing mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
-if (isNil "_assetKilledMsg")			 then {_assetKilledMsg = ""};
-if (isNil "_markerColor") 				then {_markerColor = "ColorBlack"};
-if (isNil "_markerType") 				then {_markerType = ["mil_box",[]]};
+if (isNil "_assetKilledMsg") then {_assetKilledMsg = ""};
+if (isNil "_markerColor") then {_markerColor = "ColorBlack"};
+if (isNil "_markerType") then {_markerType = ["mil_box",[]]};
 //if (isNil "_timeOut") then {_timeOut = -1;};
-if (isNil "_endCondition") 				then {_endCondition = blck_missionEndCondition};  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"};
-if (isNil "_spawnCratesTiming")	 		then {_spawnCratesTiming = blck_spawnCratesTiming}; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
-if (isNil "_loadCratesTiming") 			then {_loadCratesTiming = blck_loadCratesTiming}; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
-if (isNil "_missionPatrolVehicles") 	then {_missionPatrolVehicles = []};
-if (isNil "_missionGroups") 			then {_missionGroups = []};
-if (isNil "_hostageConfig") 			then {_hostageConfig = []};
-if (isNil "_enemyLeaderConfig") 		then {_enemyLeaderConfig = []};
-if (isNil "_useMines") 					then {_useMines = blck_useMines;};
-if (isNil "_weaponList") 				then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") 					then {_sideArms = blck_Pistols};
-if (isNil "_vests") 					then {_vests = blck_vests};
-if (isNil "_backpacks") 				then {_backpacks = blck_backpacks};
-//diag_log format["_fnc_missionSpawner: -> blck_backpacks = %1", blck_backpacks];
-//diag_log format["_fnc_missionSpawner: -> _backpacks = %1",_backpacks];
-if (isNil "_uniforms") 					then {_uniforms = blck_SkinList};
-if (isNil "_headGear") 					then {_headgear = blck_headgear};
+if (isNil "_spawnCratesTiming") then {_spawnCratesTiming = blck_spawnCratesTiming}; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+if (isNil "_loadCratesTiming") then {_loadCratesTiming = blck_loadCratesTiming}; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+if (isNil "_missionPatrolVehicles") then {_missionPatrolVehicles = []};
+if (isNil "_missionGroups") then {_missionGroups = []};
+if (isNil "_hostageConfig") then {_hostageConfig = []};
+if (isNil "_enemyLeaderConfig") then {_enemyLeaderConfig = []};
+if (isNil "_useMines") then {_useMines = blck_useMines;};
+if (isNil "_weaponList") then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
+if (isNil "_sideArms") then {_sideArms = blck_Pistols};
+if (isNil "_vests") then {_vests = blck_vests};
+if (isNil "_backpacks") then {_backpacks = blck_backpacks};
+diag_log format["_fnc_missionSpawner: -> blck_backpacks = %1", blck_backpacks];
+diag_log format["_fnc_missionSpawner: -> _backpacks = %1",_backpacks];
+if (isNil "_uniforms") then {_uniforms = blck_SkinList};
+if (isNil "_headGear") then {_headgear = blck_headgear};
 
 if (isNil "_chanceHeliPatrol") then
 {
 	switch (toLower(_aiDifficultyLevel)) do
 	{
 		case "blue": 	{_chanceHeliPatrol = blck_chanceHeliPatrolBlue};
-		case "red": 	{_chanceHeliPatrol = blck_chanceHeliPatrolRed};
-		case "green": 	{_chanceHeliPatrol = blck_chanceHeliPatrolGreen};
+		case "red": 	{_chanceHeliPatrol = blck_noPatblck_chanceHeliPatrolRed};
+		case "green": 	{_chanceHeliPatrol = blck_noPatblck_chanceHeliPatrolGreen};
 		case "orange": 	{_chanceHeliPatrol = blck_chanceHeliPatrolOrange};
 		default 		{_chanceHeliPatrol = 0};
 	};
@@ -81,9 +80,9 @@ if (isNil "_chancePara") then
 	switch (toLower (_aiDifficultyLevel)) do
 	{
 		case "blue": 	{_chancePara = blck_chanceParaBlue};
-		case "red": 	{_chancePara = blck_chanceParaRed};
+		case "red": 	{_chancePara = blck_chanceParaRed}};
 		case "green": 	{_chancePara = blck_chanceParaGreen};
-		case "orange": 	{_chancePara = blck_chanceParaOrange};
+		case "orange": 	{_chancePara = blck_chanceParaOrange;
 		default 		{_chancePara = 0};
 	};
 };
@@ -109,9 +108,9 @@ if (isNil "_noPara") then
 		default 		{_noPara = 0};
 	};
 };
-if (isNil "_chanceLoot") then {_chanceLoot = 1.0}; //0.5}; 
+if (isNil "_chanceLoot") then {_chanceLoot = 0}; 
 if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
-if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Red};
+if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Blue};
 if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed};
 
 _objects = [];
@@ -122,12 +121,10 @@ _missionAIVehicles = [];
 _blck_AllMissionAI = [];
 _AI_Vehicles = [];
 _blck_localMissionMarker = [_markerClass,_coords,"","",_markerColor,_markerType];
-#define delayTime 1
-//_groupPatrolRadius = 50;
+_delayTime = 1;
+_groupPatrolRadius = 50;
 
-#ifdef blck_debugMode
 diag_log "_missionSpawner:  All variables initialized";
-#endif
 
 if (blck_labelMapMarkers select 0) then
 {
@@ -144,9 +141,9 @@ _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow
 _marker = [_blck_localMissionMarker] call blck_fnc_spawnMarker;
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (145) message players and spawn a mission marker";};
-if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (146) _marker = %1",_marker];};
-if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (147) waiting for player to trigger the mission";};
+if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (77) message players and spawn a mission marker";};
+if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (77) _marker = %1",_marker];};
+if (blck_debugLevel > 0) then {diag_log "missionSpawner:: (77) waiting for player to trigger the mission";};
 #endif
 ////////
 //  All parameters are defined, lets wait until a player is nearby or the mission has timed out
@@ -199,7 +196,7 @@ if (_missionTimedOut) exitWith
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {		
-	diag_log format["[blckeagls] missionSpawner:: (200) --  >>  Mission tripped: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] missionSpawner:: (142) --  >>  Mission tripped: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
 #endif
 
@@ -212,13 +209,13 @@ if (blck_SmokeAtMissions select 0) then  // spawn a fire and smoke near the crat
 	};
 };
 
-uiSleep  delayTime;
+uiSleep _delayTime;
 if (_useMines) then
 {
 	_mines = [_coords] call blck_fnc_spawnMines;
 
 };
-uiSleep  delayTime;
+uiSleep _delayTime;
 _temp = [];
 
 if (_missionLandscapeMode isEqualTo "random") then
@@ -236,17 +233,17 @@ if (typeName _temp isEqualTo "ARRAY") then
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {
-	diag_log format["[blckeagls] missionSpawner:: (237) Landscape spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] missionSpawner:: (190) Landscape spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
 #endif
 
-uiSleep  delayTime;;
+uiSleep _delayTime;;
 
 _temp = [_coords,_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
 //uisleep 1;
 _crates append _temp;
 
-uiSleep  delayTime;
+uiSleep _delayTime;
 
 _abort = false;
 _temp = [[],[],false];
@@ -263,19 +260,19 @@ _temp = [_coords, _minNoAI,_maxNoAI,_missionGroups,_aiDifficultyLevel,_uniforms,
 
 #ifdef blck_debugMode
 if  (blck_debugLevel > 2) then {
-	diag_log format["missionSpawner :: (264) blck_fnc_spawnMissionAI returned a value of _temp = %1",_temp]; uiSleep 1;
+	diag_log format["missionSpawner :: (209) blck_fnc_spawnMissionAI returned a value of _temp = %1",_temp]; uiSleep 1;
 };
 
 _abort = _temp select 1;
 if  (blck_debugLevel > 2) then {
-	diag_log format["missionSpawner :: (269) blck_fnc_spawnMissionAI returned a value of _abort = %1",_abort]; uiSleep 1;
+	diag_log format["missionSpawner :: (214) blck_fnc_spawnMissionAI returned a value of _abort = %1",_abort]; uiSleep 1;
 };
 #endif
 
 if (_abort) exitWith
 {
 	if (blck_debugLevel > 1) then {
-		diag_log "missionSpawner:: (277) grpNull returned, mission termination criteria met, calling blck_fnc_endMission"
+		diag_log "missionSpawner:: (220) grpNull returned, mission termination criteria met, calling blck_fnc_endMission"
 	};
 	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
 };
@@ -287,7 +284,7 @@ if !(_abort) then
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {
-	diag_log format["[blckeagls] missionSpawner:: (288) AI Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] missionSpawner:: (235) AI Patrols Spawned: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
 #endif
 
@@ -312,7 +309,7 @@ if !(_enemyLeaderConfig isEqualTo []) then
 	};
 #endif
 
-uiSleep  delayTime;
+uiSleep _delayTime;
 _temp = [[],[],false];
 _abort = false;
 
@@ -340,7 +337,7 @@ if (_abort) exitWith
 	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
 };
 
-uiSleep  delayTime;
+uiSleep _delayTime;
 _temp = [[],[],false];
 _abort = false;
 
@@ -350,7 +347,7 @@ _temp = [];
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then
 {
-	diag_log format["[blckeagls] missionSpawner:: (351) calling in heli patrol: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] missionSpawner:: (298) calling in heli patrol: Current mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
 #endif
 
@@ -388,7 +385,7 @@ if (_noChoppers > 0) then
 //////////////////////////
 // Spawn Crates and Emplaced Weapons Last to try to force them to correct positions relative to spawned buildinga or other objects.
 #ifdef blck_debugMode
-if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (389) preparing to spawn emplaced weapons for _coords %4 | _markerClass %3 | blck_useStatic = %1 | _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass,_coords];};
+if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (361) preparing to spawn emplaced weapons for _coords %4 | _markerClass %3 | blck_useStatic = %1 | _noEmplacedWeapons = %2",blck_useStatic,_noEmplacedWeapons,_markerClass,_coords];};
 #endif
 uiSleep 15;
 private["_noEmplacedToSpawn"];
@@ -415,7 +412,7 @@ if (_abort) exitWith
 {
 	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
 };
-uiSleep  delayTime;
+uiSleep _delayTime;
 if (_spawnCratesTiming isEqualTo "atMissionSpawnGround") then
 {
 	if (count _missionLootBoxes > 0) then
@@ -435,7 +432,7 @@ if (_spawnCratesTiming isEqualTo "atMissionSpawnGround") then
 };
 if (_noPara > 0 && (random(1) < _chancePara) && _paraTriggerDistance == 0) then
 {
-	diag_log format["_fnc_missionSpawner (436):  spawning %1 paraunits at mission spawn",_noPara];
+	diag_log format["_fnc_missionSpawner (435):  spawning %1 paraunits at mission spawn",_noPara];
 	private _paratroops = [_coords,_noPara,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnParaUnits;
 	if !(isNull _paratroops) then 
 	{
@@ -443,7 +440,6 @@ if (_noPara > 0 && (random(1) < _chancePara) && _paraTriggerDistance == 0) then
 	};
 	if (random(1) < _chanceLoot) then
 	{
-		diag_log format["_fnc_missionSpawner (446): spawning supplemental loot with _chanceLoot = %1",_chanceLoot];
 		private _extraCrates = [_coords,[[selectRandom blck_crateTypes,[0,0,0],_paraLoot,_paraLootCounts]], "atMissionSpawn","atMissionStartAir", "start", _aiDifficultyLevel] call blck_fnc_spawnMissionCrates;
 		if (blck_cleanUpLootChests) then
 		{
@@ -477,7 +473,7 @@ if (blck_showCountAliveAI) then
 _crateStolen = false;
 _locations = [_coords];
 private _spawnPara = if (random(1) < _chancePara) then {true} else {false};
-diag_log format["_fnc_missionSpawner (477): _spawnPara = %1 | _chancePara = %2",_spawnPara,_chancePara];
+diag_log format["_fnc_missionSpawner (476): _spawnPara = %1 | _chancePara = %2",_spawnPara,_chancePara];
 {
 	_locations pushback (getPos _x);
 	_x setVariable["crateSpawnPos", (getPos _x)];
@@ -542,7 +538,7 @@ while {_missionComplete isEqualTo -1} do
 
 if (_crateStolen) exitWith
 {
-	diag_log format["missionSpawner:: (542) Crate Stolen Callening _fnc_endMission - > players near = %1 and ai alive = %2 and crates stolen = %3",[_locations,10,true] call blck_fnc_playerInRangeArray, {alive _x} count _blck_AllMissionAI, _crateStolen];
+	diag_log format["missionSpawner:: (491) Crate Stolen Callening _fnc_endMission - > players near = %1 and ai alive = %2 and crates stolen = %3",[_locations,10,true] call blck_fnc_playerInRangeArray, {alive _x} count _blck_AllMissionAI, _crateStolen];
 	[_mines,_objects,_crates, _blck_AllMissionAI,"Crate Removed from Mission Site Before Mission Completion: Mission Aborted",_blck_localMissionMarker,_coords,_markerClass,  2] call blck_fnc_endMission;
 };
 
@@ -586,9 +582,9 @@ if (_spawnCratesTiming isEqualTo "atMissionSpawnGround" && _loadCratesTiming isE
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {
-	diag_log format["[blckeagls] missionSpawner:: (586) Mission completion criteria fulfilled: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
-	diag_log format["missionSpawner :: (587) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
-	diag_log format["[blckeagls] missionSpawner:: (588) calling endMission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["[blckeagls] missionSpawner:: (496) Mission completion criteria fulfilled: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+	diag_log format["missionSpawner :: (497) _endIfPlayerNear = %1 _endIfAIKilled= %2",_endIfPlayerNear,_endIfAIKilled];
+	diag_log format["[blckeagls] missionSpawner:: (498) calling endMission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 };
 #endif
 
@@ -635,4 +631,3 @@ _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMission
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["[blckeagls] missionSpawner:: (507)end of mission: blck_fnc_endMission has returned control to _fnc_missionSpawner"]};
 #endif
-diag_log format["_fnc_missionSpawner (637) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];

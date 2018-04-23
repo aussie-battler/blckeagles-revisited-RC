@@ -109,7 +109,7 @@ if (isNil "_noPara") then
 		default 		{_noPara = 0};
 	};
 };
-if (isNil "_chanceLoot") then {_chanceLoot = 1.0}; //0.5}; 
+if (isNil "_chanceLoot") then {_chanceLoot = 0.5}; 
 if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
 if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Red};
 if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed};
@@ -443,7 +443,6 @@ if (_noPara > 0 && (random(1) < _chancePara) && _paraTriggerDistance == 0) then
 	};
 	if (random(1) < _chanceLoot) then
 	{
-		diag_log format["_fnc_missionSpawner (446): spawning supplemental loot with _chanceLoot = %1",_chanceLoot];
 		private _extraCrates = [_coords,[[selectRandom blck_crateTypes,[0,0,0],_paraLoot,_paraLootCounts]], "atMissionSpawn","atMissionStartAir", "start", _aiDifficultyLevel] call blck_fnc_spawnMissionCrates;
 		if (blck_cleanUpLootChests) then
 		{

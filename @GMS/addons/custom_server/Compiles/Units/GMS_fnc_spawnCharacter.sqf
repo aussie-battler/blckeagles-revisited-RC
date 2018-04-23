@@ -12,11 +12,15 @@
 params["_coords","_charConfigs"];
 private["_char","_charGroup"];
 _charConfigs params["_classname","_posn","_dir","_simDamg","_animations","_headgear","_uniforms"];
+
+#ifdef blck_debugMode
 {
 	diag_log format["_fnc_spawnchar: _forEachIndex = %1 | _x = %2",_forEachIndex,_x];
 }forEach _charConfigs;
 diag_log format["_fnc_spawnchar: _this = %1",_this];
 diag_log format["_fnc_spawnchar _classname = %1 | _posn = %2 | _dir = %3 | _animations = %4",_classname,_posn,_dir,_animations];
+#endif
+
 _charGroup = createGroup [blck_AI_Side, true];
 _char = _charGroup createUnit [_classname,[0,0,0], [], 0, "NONE"]; 
 _char setCaptive true;
@@ -30,7 +34,11 @@ if (count _uniforms > 0) then
 };
 _posn = (_coords vectorAdd _posn);
 _char setPos [_posn select 0, _posn select 1, 0];
+
+#ifdef blck_debugMode
 diag_log format["_fnc_spawnchar  _char = %1 at Position = %2 | _coords = %3",_char, getPos _char,_coords];
+#endif
+
 if (blck_modType isEqualTo "Epoch") then {_char setVariable ["LAST_CHECK",28800,true]};
 _char setPos (_posn);
 _char setDir (_dir);

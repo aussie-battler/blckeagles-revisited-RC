@@ -8,7 +8,7 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.81 Build 127 (EXPERIMENTAL).
+Version 1.81 Build 126 (EXPERIMENTAL).
 Added: Support for hostage rescue missions. 
 	The hostage can be spawned at any location relative to the mission center.
 	The mission aborts if the hostage is killed; all loot is deleted.
@@ -77,6 +77,9 @@ Changed: Code for Heli Patrols redone.
 Changed: Methods for detecting NULL Groups (rarely a problem with arma these days) simplified.
 		GMS_fnc_missionSpawner redone using a single test for the _abort flag to save repeated calls for debugging and endMission.
 		This could be done with try/catch as well.
+
+Changed: Methods for defining mission crate loot were relaxed.
+		You can define each item either with the old method ["Item Name", minimun number, maximum number] or just "Item name".
 		
 Fixed: disabled some logging that is not required except when debugging.
 Fixed: AI Counts were not being shown at dynamic UMS.

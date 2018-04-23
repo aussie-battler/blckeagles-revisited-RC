@@ -41,7 +41,7 @@ _headgear = blck_headgear;
 _chancePara = 0.5; // Setting this in the mission file overrides the defaults 
 _noPara = 5;  // Setting this in the mission file overrides the defaults 
 _paraTriggerDistance = 400; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
-_paraSkill = "orangered";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
+_paraSkill = "orange";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
 
 _chanceLoot = 0.5; 
 _paraLoot = blck_BoxLoot_Orange;

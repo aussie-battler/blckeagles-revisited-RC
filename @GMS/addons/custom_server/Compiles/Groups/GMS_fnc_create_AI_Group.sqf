@@ -26,5 +26,8 @@ _groupSpawned setspeedmode "FULL";
 _groupSpawned setFormation blck_groupFormation; 
 _groupSpawned setVariable ["blck_group",true,true];
 
+#ifdef blck_debugMode
 diag_log format["_fnc_create_AI_Group: _groupSpawned = %1",_groupSpawned];
+#endif
+
 _groupSpawned

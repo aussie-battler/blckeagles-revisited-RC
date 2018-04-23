@@ -52,7 +52,7 @@ if (blck_debugLevel  >= 1) then
 if !(isNull _groupSpawned) then
 {
 
-	diag_log format["spawnGroup:: group is %1",_groupSpawned];
+	//diag_log format["spawnGroup:: group is %1",_groupSpawned];
 	_useLauncher = blck_useLaunchers;
 	if (_weaponList isEqualTo []) then
 	{
