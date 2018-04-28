@@ -29,10 +29,12 @@ blck_monitoredMissionAIGroups = [];  //  Used to track groups in active missions
 blck_oldMissionObjects = [];
 blck_pendingMissions = [];
 blck_missionsRunning = 0;
+blck_missionsRun = 0;
 blck_activeMissions = [];
 blck_deadAI = [];
 blck_connectedHCs = [];
 blck_missionMarkers = [];
+blck_HC_monitoredVehicles = [];
 #ifdef useDynamicSimulation
 "Group" setDynamicSimulationDistance 1800;
 enableDynamicSimulationSystem true;

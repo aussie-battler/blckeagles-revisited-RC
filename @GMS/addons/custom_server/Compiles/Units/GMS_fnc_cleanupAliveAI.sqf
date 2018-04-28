@@ -51,7 +51,7 @@ for "_i" from 1 to (count blck_liveMissionAI) do
 				if ((alive _x) && !(isNull objectParent _x)) then // mark the vehicle for deletion
 				{
 					//diag_log format["_fnc_cleanupAliveAI: deleteing objectParent %1 [%3] for unit %2",objectParent _x, _x, typeName (objectParent _x), typeOf (objectParent _x)];
-					[objectParent _x] call blck_fn_deleteAIvehicle;
+					[objectParent _x] call blck_fnc_deleteAIvehicle;
 				};
 				[_x] call blck_fnc_deleteAI;
 			}forEach (_units select 0);

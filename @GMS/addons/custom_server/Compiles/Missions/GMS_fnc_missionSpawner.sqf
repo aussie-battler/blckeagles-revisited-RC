@@ -31,6 +31,7 @@ params["_coords","_markerClass","_aiDifficultyLevel"];
 
 [_markerClass,  "active",_coords] call blck_fnc_updateMissionQue;
 blck_ActiveMissionCoords pushback _coords; 
+	blck_missionsRunning = blck_missionsRunning + 1;
 diag_log format["[blckeagls] missionSpawner (17):: Initializing mission: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 
 if (isNil "_assetKilledMsg")			 then {_assetKilledMsg = ""};
@@ -165,11 +166,11 @@ while {_wait} do
 {
 	#ifdef blck_debugMode
 	//diag_log "missionSpawner:: top of mission trigger loop";
-	if (blck_debugLevel > 2) exitWith {_playerInRange = true;};
+	if (blck_debugLevel > 2) exitWith {_playerInRange = true;diag_log "_fnc_missionSpawner (168): player trigger loop triggered by scripting";};
 	#endif
 
 	if ([_coords, blck_TriggerDistance, false] call blck_fnc_playerInRange) exitWith {_playerInRange = true;};
-	if ([_missionStartTime] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
+	if ([_missionStartTime,blck_MissionTimout] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
 	uiSleep 5;
 
 	#ifdef blck_debugMode
@@ -177,13 +178,16 @@ while {_wait} do
 	{
 		diag_log format["missionSpawner:: Trigger Loop - blck_debugLevel = %1 and _coords = %2",blck_debugLevel, _coords];
 		diag_log format["missionSpawner:: Trigger Loop - players in range = %1",{isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers];
-		diag_log format["missionSpawner:: Trigger Loop - timeout = %1", [_missionStartTime] call blck_fnc_timedOut];
+		diag_log format["missionSpawner:: Trigger Loop - timeout = %1", [_missionStartTime,blck_MissionTimout] call blck_fnc_timedOut];
 	};
 	#endif
 };
 
 if (_missionTimedOut) exitWith
 {
+	diag_log format["_fnc_missionSpawner (187): mission timed out"];
+	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
+	/*
 	//  Deal with the case in which the mission timed out.
 	blck_recentMissionCoords pushback [_coords,diag_tickTime]; 
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];
@@ -191,6 +195,7 @@ if (_missionTimedOut) exitWith
 	blck_missionsRunning = blck_missionsRunning - 1;
 	[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
 	[_objects, 0.1] spawn blck_fnc_cleanupObjects;
+	*/
 };
 
 ////////
@@ -393,7 +398,7 @@ if (blck_debugLevel > 0) then {diag_log format["missionSpawner:: (389) preparing
 uiSleep 15;
 private["_noEmplacedToSpawn"];
 _noEmplacedToSpawn = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
-diag_log format["_fnc_missionSpawner: -> _noEmplacedToSpawn = %1 | blck_useStatic = %2",_noEmplacedToSpawn,blck_useStatic];
+//diag_log format["_fnc_missionSpawner: -> _noEmplacedToSpawn = %1 | blck_useStatic = %2",_noEmplacedToSpawn,blck_useStatic];
 if (blck_useStatic && (_noEmplacedToSpawn > 0)) then
 {
 	// _params = ["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel","_uniforms","_headGear","_vests","_backpacks","_weaponList","_sideArms"];
@@ -477,7 +482,7 @@ if (blck_showCountAliveAI) then
 _crateStolen = false;
 _locations = [_coords];
 private _spawnPara = if (random(1) < _chancePara) then {true} else {false};
-diag_log format["_fnc_missionSpawner (477): _spawnPara = %1 | _chancePara = %2",_spawnPara,_chancePara];
+//diag_log format["_fnc_missionSpawner (477): _spawnPara = %1 | _chancePara = %2",_spawnPara,_chancePara];
 {
 	_locations pushback (getPos _x);
 	_x setVariable["crateSpawnPos", (getPos _x)];
@@ -485,7 +490,9 @@ diag_log format["_fnc_missionSpawner (477): _spawnPara = %1 | _chancePara = %2",
 
 while {_missionComplete isEqualTo -1} do
 {
-	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 180};
+	#ifdef blck_debugMode
+	if (blck_debugLevel > 2) exitWith {uiSleep blck_triggerLoopCompleteTime;diag_log "_missionSpawner (492) scripted Mission End blck_debugLevel = 3";};
+	#endif
 	if (_endIfPlayerNear) then
 	{
 		if ([_locations,10,true] call blck_fnc_playerInRangeArray) then {_missionComplete = 1};
@@ -635,4 +642,6 @@ _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMission
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["[blckeagls] missionSpawner:: (507)end of mission: blck_fnc_endMission has returned control to _fnc_missionSpawner"]};
 #endif
-diag_log format["_fnc_missionSpawner (637) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+diag_log format["_fnc_missionSpawner (643) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+blck_missionsRun = blck_missionsRun + 1;
+diag_log format["_fnc_missionSpawner (644): Total Dyanamic Land and UMS Run = %1", blck_missionsRun];

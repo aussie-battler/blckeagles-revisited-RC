@@ -45,10 +45,10 @@ _readyToSpawnQue = [];
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then 
 {
-	diag_log format["_fnc_spawnPendingMissions: count _readyToSpawnQue = %1", count _readyToSpawnQue];
 	diag_log format["_fnc_spawnPendingMissions:: --- >> _readyToSpawnQue diag_tickTime %6 _marker %1 _difficulty %2 _tMin %3 _tMax %4 _waitTime %5",_readyToSpawnQue select 1, _readyToSpawnQue select 2, _readyToSpawnQue select 3, _readyToSpawnQue select 4, _readyToSpawnQue select 5, diag_tickTime];
 };
 #endif
+diag_log format["_fnc_spawnPendingMissions: count _readyToSpawnQue = %1", count _readyToSpawnQue];
 if (count _readyToSpawnQue > 0) then
 {
 	_missionToSpawn = selectRandom _readyToSpawnQue;
@@ -72,7 +72,7 @@ if (count _readyToSpawnQue > 0) then
 	//diag_log format["_fnc_spawnPendingMissions: _missionDifficulty %1",_missionDifficulty];
 	//diag_log format["_fnc_spawnPendingMissions: _compiledMission %1",_compiledMission];
 	[_coords,_missionMarker,_missionDifficulty] spawn _compiledMission;
-	blck_missionsRunning = blck_missionsRunning + 1;
+	diag_log format["_fnc_spawnPendingMissions: blck_missionsRunning = %1", blck_missionsRunning];
 };
 
 true

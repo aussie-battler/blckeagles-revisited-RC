@@ -24,12 +24,16 @@ if (_clearInventory) then
 _veh setVehicleLock "LOCKEDPLAYER";
 _veh addEventHandler ["GetIn",{  // Note: only fires when vehicle is local to player
 	private["_unit","_veh"];
-	_unit = _this select 2;
-	_veh = _this select 0;
-	if (isPlayer _unit) then
+	if (_veh getVariable["blck_releasedAt",0] > 0) then {{ _veh removeAllEventHandlers _x} forEach["getin","getout"]};
+	if !(_veh getVariable["blck_releasedAt",0] > 0) then
 	{
-		_unit action ["eject",_veh];
-		titleText ["You are not allowed to enter that vehicle at this time","PLAIN DOWN"];
+		_unit = _this select 2;
+		_veh = _this select 0;
+		if (isPlayer _unit) then
+		{
+			_unit action ["eject",_veh];
+			titleText ["You are not allowed to enter that vehicle at this time","PLAIN DOWN"];
+		};
 	};
 }];	
 

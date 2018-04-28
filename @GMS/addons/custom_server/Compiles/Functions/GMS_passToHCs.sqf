@@ -38,6 +38,11 @@ if ((count blck_connectedHCs) > 0) then
 		_numTransfered = 0;
 		if (_x getVariable["blck_group",false]) then 
 		{
+			if ((leader _x) != vehicle (leader _x)) then
+			{
+				private _v = vehicle (leader _x);
+				blck_monitoredVehicles = blck_monitoredVehicles - [_v];
+			];
 			//diag_log format["group belongs to blckeagls mission system so time to transfer it"];
 			if ((typeName _x) isEqualTo "GROUP") then
 			{
@@ -48,16 +53,16 @@ if ((count blck_connectedHCs) > 0) then
 					//diag_log format["group %1 is already assigned to an HC with _id of %2",_x,_id];
 					_swap = false;
 				} else {
-					//diag_log format["group %1 should be moved to HC %2 with _idHC %3",_x,_idHC];
+					diag_log format["group %1 should be moved to HC %2 with _idHC %3",_x,_idHC];
 					_x setVariable["owner",owner _idHC];				
 					_rc = _x setGroupOwner (owner _idHC);
 					[_x] remoteExec["blck_fnc_HC_XferGroup",_idHC];
 					if ( _rc ) then 
 					{
 						_numTransfered = _numTransfered + 1;
-						//diag_log format["group %1 transferred to %2",_x, groupOwner _x];
+						diag_log format["group %1 transferred to %2",_x, groupOwner _x];
 					} else {
-						//diag_log format["something went wrong with the transfer of group %1",_x];
+						diag_log format["something went wrong with the transfer of group %1",_x];
 					};
 				};
 			};
@@ -68,31 +73,8 @@ if ((count blck_connectedHCs) > 0) then
 	} forEach (allGroups);
 	diag_log format["_passToHCs:: %1 groups transferred to HC %2",_numTransfered,_idHC];
 	_numTransfered = 0;
-	/*
-	{
-		if (typeName _x isEqualTo "GROUP") then {_idHC = groupOwner _x};
-		if (typeName _x isEqualTo "OBJECT") then {_idHC = owner _x};
-		if (_idHC > 2) then
-		{
-				//diag_log format["vehicle %1 is already assigned to an HC with _id of %2",_x,_id];
-				_swap = false;		
-		} else {
-			//diag_log format["vehicle %1 should be moved to an HC",_x];
-			_x setVariable["owner",_idHC];	
-			if (typeOf _x isEqualTo "GROUP") then {_rc = _x setGroupOwner _idHC};
-			if (typeOf _x isEqualTo "OBJECT") then {_rc = _x setOwner _idHC};			
-				[_x] remoteExec["blck_fnc_HC_XferVehicle",_idHC];
-			if ( _rc ) then 
-			{
-				_numTransfered = _numTransfered + 1;
-				//diag_log format["group %1 transferred to %2",_x, groupOwner _x];
-			} else {
-				//diag_log format["something went wrong with the transfer of group %1",_x];
-			};		
-		};
-	}forEach blck_monitoredVehicles;
-	*/
-	//diag_log format["_passToHCs:: %1 vehicles transferred",_numTransfered];
+	// Note : the owner of a vehicle is the owner of the driver so vehicles are automatically transferred to the HC when the group to which the driver is assigned is transferred.
+
 } else {
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 2) then {diag_log "_fnc_passToHCs:: No headless clients connected"};

@@ -54,8 +54,9 @@ while {true} do
 	{
 		//diag_log format["_fnc_mainThread:  60 second events run at %1",diag_tickTime];
 		_timer1min = diag_tickTime;
+		//diag_log format["_fnc_mainThread: blck_missionsRunning = %1 | blck_maxSpawnedMissions = %2", blck_missionsRunning,blck_maxSpawnedMissions];
 		[] call blck_fnc_spawnPendingMissions;
-		//diag_log format["_fnc_mainThrea: blck_numberUnderwaterDynamicMissions = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_numberUnderwaterDynamicMissions,blck_dynamicUMS_MissionsRuning];
+		diag_log format["_fnc_mainThread: blck_numberUnderwaterDynamicMissions = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_numberUnderwaterDynamicMissions,blck_dynamicUMS_MissionsRuning];
 		if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then
 		{
 			//diag_log "Adding dynamic UMS Mission";
@@ -75,6 +76,7 @@ while {true} do
 	};
 	if (diag_tickTime - _timer5min > 300) then 
 	{
+		diag_log format["[blckeagls] Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7",blck_missionsRunning,blck_dynamicUMS_MissionsRuning,count blck_monitoredVehicles,count blck_monitoredMissionAIGroups,diag_FPS,floor(diag_tickTime/60),blck_missionsRun];
 		if (blck_useTimeAcceleration) then
 		{
 			_timer5min = diag_tickTime;

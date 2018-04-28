@@ -14,26 +14,9 @@
 
 private["_group","_isLegal","_weapon","_lastkill","_kills","_message","_killstreakMsg"];
 params["_unit","_killer","_isLegal"];
-
-// if blck_cleanupAt > 0 then the death was already processed.
-if (_unit getVariable["blck_cleanupAt",-1] > 0) exitWith {};
-
 //diag_log format["_fnc_processAIKills:: function called with _this = %1",_this];
 _unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, true];
-diag_log format["_fnc_processAIKills: _unit = %1 | vehicle unit = %2",_unit, vehicle _unit];
-/*
-if (_unit != (vehicle _unit) then 
-{
-	diag_log format["_fnc_processAIKills: evaluating status of crew of vehicle %1",vehicle _unit]
-	if ( {alive _x} count (crew (vehicle _unit)) < 1) then
-	{
-		diag_log format["_fnc_processAIKills: all crew dead, releasing vehicle"];
-		[vehicle _unit] call blck_fnc_releaseVehicleToPlayers;
-	} else {
-		diag_log format["_fnc_processAIKills: vehicle %1 still has %2 crew alive",vehicle _unit, {alive _x} crew (vehicle _unit)];
-	};
-};
-*/
+
 blck_deadAI pushback _unit;
 _group = group _unit;
 [_unit] joinSilent grpNull;

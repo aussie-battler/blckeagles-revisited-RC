@@ -15,8 +15,8 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 /////////////////////////////////////////////////////
 
-params["_startTime"];
+params["_startTime",["_timeoutTime",blck_MissionTimout]];
 private["_return"];
-if ((diag_tickTime - _startTime) > blck_MissionTimout ) then {_return = true} else {_return = false};
+if ((diag_tickTime - _startTime) > _timeoutTime) then {_return = true} else {_return = false};
 //diag_log format["fnc_timedOut:: blck_MissionTimout = %2 || _return = %1",_return,blck_MissionTimout];
 _return;

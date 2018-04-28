@@ -135,7 +135,7 @@
 		_a1 = _boxLoot select 5;
 		for "_i" from 1 to _tries do {
 			_item = selectRandom _a1;
-			diag_log format["_fnc_fillBoxes: _item = %1",_item];			
+			//diag_log format["_fnc_fillBoxes: _item = %1",_item];			
 			if (typeName _item isEqualTo "ARRAY") then
 			{
 				_diff = (_item select 2) - (_item select 1); 

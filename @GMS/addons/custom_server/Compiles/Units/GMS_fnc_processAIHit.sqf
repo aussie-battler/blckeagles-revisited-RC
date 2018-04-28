@@ -25,7 +25,9 @@ if (blck_debugLevel >= 2) then
 };
 #endif
 
-if (!(alive _unit)) exitWith {};
+if (!(alive _unit)) exitWith {[_unit, _instigator] call blck_fnc_processAIKill};
+if (damage _unit > 0.95) exitWith {_unit setDamage 1.2; [_unit, _instigator] call blck_fnc_processAIKill};
+
 if (!(isPlayer _instigator)) exitWith {};
 [_unit,_instigator] call blck_fnc_alertGroupUnits;
 [_instigator] call blck_fnc_alertNearbyVehicles;
