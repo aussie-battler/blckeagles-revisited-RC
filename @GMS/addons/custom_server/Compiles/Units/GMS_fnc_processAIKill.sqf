@@ -20,7 +20,7 @@ if (_unit getVariable["blck_cleanupAt",-1] > 0) exitWith {};
 
 //diag_log format["_fnc_processAIKills:: function called with _this = %1",_this];
 _unit setVariable ["blck_cleanupAt", (diag_tickTime) + blck_bodyCleanUpTimer, true];
-diag_log format["_fnc_processAIKills: _unit = %1 | vehicle unit = %2",_unit, vehicle _unit];
+//diag_log format["_fnc_processAIKills: _unit = %1 | vehicle unit = %2",_unit, vehicle _unit];
 /*
 if (_unit != (vehicle _unit) then 
 {

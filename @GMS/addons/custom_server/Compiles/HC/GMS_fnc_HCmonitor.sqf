@@ -31,7 +31,7 @@ diag_log "_fnc_HC_monitor.sqf";
 	};
 	if (diag_tickTime > _timer3min) then
 	{
-		_timer3min = diag_tickTime _ 300;
+		_timer3min = diag_tickTime + 300;
 		diag_log format["blckHC:: headless client %1 | time stamp %2 | %3 fps | _blckGroups = %4 _otherGroups = %5 | vehicles %6",clientOwner,diag_tickTime,diag_fps, count blck_HC_monitoredGroups,{ ((groupOwner _x) isEqualTo clientOwner) && !(_x getVariable["blck_group",true])} count allGroups, count blck_HC_monitoredVehicles  ];	
 	};
 	uiSleep 1;

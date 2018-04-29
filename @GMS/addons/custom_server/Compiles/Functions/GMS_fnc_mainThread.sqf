@@ -27,36 +27,38 @@ while {true} do
 {
 	uiSleep 1;
 	//diag_log format["mainThread:: -- > time = %1",diag_tickTime];
-	if (diag_tickTime - _timer1sec > 1) then 
+	if (diag_tickTime > _timer1sec) then 
 	{
 		[] call blck_fnc_vehicleMonitor;
 		#ifdef GRGserver
 		[] call blck_fnc_broadcastServerFPS;
 		#endif
-		_timer1sec = diag_tickTime;
+		_timer1sec = diag_tickTime + 1;
+		//diag_log format["[blckeagls] _fnc_mainThread 1 Second Timer Handled | Timstamp %1",diag_tickTime];
 	};
-	if (diag_tickTime - _timer5sec > 5) then
+	if (diag_tickTime > _timer5sec) then
 	{
-		_timer5sec = diag_tickTime;
+		_timer5sec = diag_tickTime + 5;
 		[] call blck_fnc_missionGroupMonitor;
 		[] call blck_fnc_sm_monitorStaticMissionUnits;
 		//[] call blck_fnc_sm_checkForPlayerNearMission;
+		//diag_log format["[blckeagls] _fnc_mainThread 5 Second Timer Handled | Timstamp %1",diag_tickTime];
 	};
-	if (diag_tickTime - _timer20sec > 20) then
+	if (diag_tickTime > _timer20sec) then
 	{
 		[] call blck_fnc_cleanupAliveAI;
 		[] call blck_fnc_cleanupObjects;
 		[] call blck_fnc_cleanupDeadAI;
-		_timer20sec = diag_tickTime;
-		//diag_log format["_mainThread::-->> 20 second events run: diag_tickTime = %1",diag_tickTime];
+		_timer20sec = diag_tickTime + 20;
+		//diag_log format["[blckeagls] _fnc_mainThread 20 Second Timer Handled | Timstamp %1",diag_tickTime];
 	};
-	if ((diag_tickTime - _timer1min) > 60) then
+	if ((diag_tickTime > _timer1min)) then
 	{
 		//diag_log format["_fnc_mainThread:  60 second events run at %1",diag_tickTime];
-		_timer1min = diag_tickTime;
+		_timer1min = diag_tickTime + 60;
 		//diag_log format["_fnc_mainThread: blck_missionsRunning = %1 | blck_maxSpawnedMissions = %2", blck_missionsRunning,blck_maxSpawnedMissions];
 		[] call blck_fnc_spawnPendingMissions;
-		diag_log format["_fnc_mainThread: blck_numberUnderwaterDynamicMissions = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_numberUnderwaterDynamicMissions,blck_dynamicUMS_MissionsRuning];
+		//diag_log format["_fnc_mainThread: blck_numberUnderwaterDynamicMissions = %1 | blck_dynamicUMS_MissionsRuning = %2",blck_numberUnderwaterDynamicMissions,blck_dynamicUMS_MissionsRuning];
 		if (blck_dynamicUMS_MissionsRuning < blck_numberUnderwaterDynamicMissions) then
 		{
 			//diag_log "Adding dynamic UMS Mission";
@@ -65,22 +67,22 @@ while {true} do
 		//diag_log format["_fnc_mainThread:  control returned to _fnc_mainThread from _fnc_addDynamicUMS_Mission at %1",diag_tickTime];
 		if (blck_useHC) then
 		{
-			diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
+			//diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
 			[] call blck_fnc_HC_passToHCs;
 		};
-
+		if (blck_useTimeAcceleration) then
+		{
+			[] call blck_fnc_timeAcceleration;
+		};
 		#ifdef blck_debugMode
 		//diag_log format["_fnc_mainThread: active SQFscripts include: %1",diag_activeSQFScripts];
 		diag_log format["_fnc_mainThread: active scripts include: %1",diag_activeScripts];
 		#endif
+		//diag_log format["[blckeagls] _fnc_mainThread 60 Second Timer Handled | Timstamp %1",diag_tickTime];
 	};
-	if (diag_tickTime - _timer5min > 300) then 
+	if (diag_tickTime > _timer5min) then 
 	{
-		diag_log format["[blckeagls] Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7",blck_missionsRunning,blck_dynamicUMS_MissionsRuning,count blck_monitoredVehicles,count blck_monitoredMissionAIGroups,diag_FPS,floor(diag_tickTime/60),blck_missionsRun];
-		if (blck_useTimeAcceleration) then
-		{
-			_timer5min = diag_tickTime;
-			[] call blck_fnc_timeAcceleration;
-		};
+		diag_log format["[blckeagls] Timstamp %8 |Dynamic Missions Running %1 | UMS Running %2 | Vehicles %3 | Groups %4 | Server FPS %5 | Server Uptime %6 Min | Missions Run %7",blck_missionsRunning,blck_dynamicUMS_MissionsRuning,count blck_monitoredVehicles,count blck_monitoredMissionAIGroups,diag_FPS,floor(diag_tickTime/60),blck_missionsRun, diag_tickTime];
+		_timer5min = diag_tickTime + 300;
 	};
 };

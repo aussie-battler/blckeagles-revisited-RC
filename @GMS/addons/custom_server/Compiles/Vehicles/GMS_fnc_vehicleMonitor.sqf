@@ -23,7 +23,18 @@ _vehList = +blck_monitoredVehicles;
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];};
 #endif
-diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];
+//diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_monitoredVehicles %3",diag_tickTime,_vehList,blck_monitoredVehicles];
+
+// Check for any vehicles no longer on an HC
+{
+	if ( (owner _x) == 2) then
+	{
+		// vehicle no longer on headless client
+		blck_HC_monitoredVehicles - blck_HC_monitoredVehicles - [_x];
+		blck_monitoredVehicles pushBack _x;
+	};
+} forEach blck_HC_monitoredVehicles;
+
 {
 	/*
 		Determine state of vehicle
