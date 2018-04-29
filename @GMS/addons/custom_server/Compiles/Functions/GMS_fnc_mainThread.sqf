@@ -65,8 +65,8 @@ while {true} do
 		//diag_log format["_fnc_mainThread:  control returned to _fnc_mainThread from _fnc_addDynamicUMS_Mission at %1",diag_tickTime];
 		if (blck_useHC) then
 		{
-			//diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
-			[] call blck_fnc_passToHCs;
+			diag_log format["_mainThread:: calling blck_fnc_passToHCs at diag_tickTime = %1",diag_tickTime];
+			[] call blck_fnc_HC_passToHCs;
 		};
 
 		#ifdef blck_debugMode

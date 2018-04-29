@@ -161,7 +161,7 @@ _wait = true;
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then {
 	diag_log "missionSpawner:: (90) starting mission trigger loop"};
-	diag_log format["missionSpawner (163) blck_MissionTimeout = %1", blck_MissionTimeout];
+	diag_log format["missionSpawner (163) blck_missionTimout = %1", blck_MissionTimout];
 #endif
 
 while {_wait} do
@@ -172,7 +172,7 @@ while {_wait} do
 	#endif
 
 	if ([_coords, blck_TriggerDistance, false] call blck_fnc_playerInRange) exitWith {_playerInRange = true;};
-	if ([_missionStartTime,blck_MissionTimeout] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
+	if ([_missionStartTime,blck_MissionTimout] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
 	uiSleep 5;
 
 	#ifdef blck_debugMode
@@ -180,7 +180,7 @@ while {_wait} do
 	{
 		diag_log format["missionSpawner:: Trigger Loop - blck_debugLevel = %1 and _coords = %2",blck_debugLevel, _coords];
 		diag_log format["missionSpawner:: Trigger Loop - players in range = %1",{isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers];
-		diag_log format["missionSpawner:: Trigger Loop - timeout = %1", [_missionStartTime,blck_MissionTimeout] call blck_fnc_timedOut];
+		diag_log format["missionSpawner:: Trigger Loop - timeout = %1", [_missionStartTime,blck_MissionTimout] call blck_fnc_timedOut];
 	};
 	#endif
 };

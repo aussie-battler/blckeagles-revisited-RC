@@ -20,7 +20,6 @@ blck_fnc_FindSafePosn = compileFinal  preprocessFileLineNumbers "\q\addons\custo
 blck_fnc_randomPosition = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_randomPosn.sqf";// find a randomPosn. see script for details.
 blck_fnc_findPositionsAlongARadius  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_findPositionsAlongARadius.sqf";
 blck_fnc_giveTakeCrypto = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_giveTakeCrypto.sqf";
-blck_fnc_monitorHC = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_monitorHC.sqf";
 blck_fnc_timeAcceleration = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\TimeAccel\GMS_fnc_Time.sqf";
 blck_fnc_getModType = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getModType.sqf";  // Test if Epoch or Exile is loaded
 blck_fnc_groupsOnAISide = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_GroupsOnAISide.sqf";  // Returns the number of groups on the side used by AI
@@ -32,7 +31,6 @@ blck_fnc_allPlayers = compileFinal  preprocessFileLineNumbers "\q\addons\custom_
 blck_fnc_addItemToCrate = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_addItemToCrate.sqf";
 blck_fnc_loadLootItemsFromArray = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_loadLootItemsFromArray.sqf";
 blck_fnc_getNumberFromRange = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getNumberFromRange.sqf";
-blck_fnc_passToHCs = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_passToHCs.sqf";
 blck_fnc_spawnMarker = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_spawnMarker.sqf";
 blck_fnc_missionCompleteMarker  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_missionCompleteMarker.sqf";
 blck_fnc_deleteMarker  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_deleteMarker.sqf";
@@ -142,8 +140,13 @@ blck_fnc_HC_XferGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custo
 //blck_fnc_HC_XferVehicle = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_XferVehicle.sqf";
 blck_fnc_onPlayerDisconnected = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_onPlayerDisconnected.sqf";
 //blck_fnc_HC_groupsAssigned = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_groupsAssigned.sqf";
-blck_fnc_HCmonitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HCmonitor.sqf";
+blck_fnc_HC_monitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HCmonitor.sqf";
 blck_fnc_HC_vehicleMonitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_vehicleMonitor.sqf";
+//blck_fnc_HC_monitorHC = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_monitorHC.sqf";
+blck_fnc_HC_passToHCs = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_passToHCs.sqf";
+blck_fnc_HC_getListConnected = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_getListConnected.sqf";
+blck_fnc_HC_leastBurdened = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_leastBurdened.sqf";
+blck_fnc_HC_countGroupsAssigned = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_countGroupsAssigned.sqf";
 
 onPlayerDisconnected {[_name,_owner] call blck_fnc_onPlayerDisconnected;};
 diag_log "[blckeagls] Functions Loaded";

@@ -22,6 +22,7 @@ _vehList = +blck_HC_monitoredVehicles;
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_HC_monitoredVehicles %3",diag_tickTime,_vehList,blck_HC_monitoredVehicles];};
 #endif
+//diag_log format["_fnc_vehicleMonitor:: function called at %1 with _vehList %2 and blck_HC_monitoredVehicles %3",diag_tickTime,_vehList,blck_HC_monitoredVehicles];
   //blck_fnc_releaseVehicleToPlayers
 {
 	/*
@@ -31,15 +32,15 @@ if (blck_debugLevel > 2) then {diag_log format["_fnc_vehicleMonitor:: function c
 		_allCrewDead
 		_deleteNow
 	*/
-	diag_log format["_fnc_vehicleMonitor: evaluating vehicle %1",_x];
+	//diag_log format["_fnc_vehicleMonitor: evaluating vehicle %1",_x];
 	_veh = _x; // (purely for clarity at this point, _x could be used just as well)
-	_isEmplaced = _veh getVariable["DBD_vehType","none"] isEqualTo "emplaced";
+	_isEmplaced = _veh getVariable["GRG_vehType","none"] isEqualTo "emplaced";
 	_ownerIsPlayer = if (owner _veh > 2 && !(owner _veh in blck_connectedHCs)) then {true} else {false};
 	{
-		diag_log format["_fnc_vehicleMonitor: vehicle %1 crew %2 alive = %3",_veh,_x, alive _x];
+		//diag_log format["_fnc_vehicleMonitor: vehicle %1 crew %2 alive = %3",_veh,_x, alive _x];
 	}forEach (crew _veh);
 	_allCrewDead = if (({alive _x} count (crew _veh)) == 0) then {true} else {false};
-	diag_log format["_fnc_vehicleMonitor: _allCrewDead = %1",_allCrewDead];
+	//diag_log format["_fnc_vehicleMonitor: _allCrewDead = %1",_allCrewDead];
 	_deletenow = false;
 	if ( (_veh getVariable["blck_DeleteAt",0] > 0) && (diag_tickTime > (_veh getVariable "blck_DeleteAt"))) then {_deleteNow = true};
 	_missionCompleted = if (_veh getVariable["missionCompleted",0] != 0) then {true} else {false};
