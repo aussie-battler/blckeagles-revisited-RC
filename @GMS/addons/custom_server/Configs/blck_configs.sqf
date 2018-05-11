@@ -86,7 +86,7 @@
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
-	blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+	blck_missionEndCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionEndGround","atMissionEndAir". 
 							 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
 							 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
@@ -121,7 +121,7 @@
 	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Turn this off if you have vehicle patrols.
 	blck_cleanupCompositionTimer = 60*30;  // Mission objects will be deleted after the mission is completed after a deley set by this timer.
 	blck_cleanUpLootChests = false; // when true, loot crates will be deleted together with other mission objects.
-	blck_MissionTimout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
+	blck_MissionTimeout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
 
 	///////////////////////////////
 	// Paratroop Settings
@@ -247,7 +247,7 @@
 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten outor been killed.
-    blck_vehicleDeleteTimer = 60*60;
+    blck_vehicleDeleteTimer = 120*60;
 	////////////////////
 	// Mission Vehicle Settings
 	////////////////////	

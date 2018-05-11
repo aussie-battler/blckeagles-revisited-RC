@@ -14,14 +14,14 @@
 
 //diag_log "[blckeagls] Spawning Blue Mission with template = default2";
 
-_crateLoot = blck_BoxLoot_Blue;
-_lootCounts = blck_lootCountsBlue;
+_crateLoot = blck_BoxLoot_Red;
+_lootCounts = blck_lootCountsRed;
 _startMsg = "A local town official is being held hostage! Free him and earn a reward!";
 _endMsg = "The official was freed! A reward has been sent by the local townsfolk";
 _assetKilledMsg = "The Hostage Was Killed and Bandits Fled with All Loot: Mission Aborted";
 _markerLabel = "";
 _markerType = ["ELIPSE",[175,175],"GRID"];
-_markerColor = "ColorBlue";
+_markerColor = "ColorRed";
 _markerMissionName = "Rescue Hostage";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [

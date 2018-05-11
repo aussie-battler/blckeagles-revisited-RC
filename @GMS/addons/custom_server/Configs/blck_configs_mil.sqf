@@ -48,7 +48,7 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = false; // 
+	blck_useHC = true; // 
 	
 	///////////////////////////////
 	//  Kill message configurations
@@ -111,7 +111,7 @@
 	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Turn this off if you have vehicle patrols.
 	blck_cleanupCompositionTimer = 30*60;  // Mission objects will be deleted after the mission is completed after a deley set by this timer.
 	blck_cleanUpLootChests = false; // when true, loot crates will be deleted together with other mission objects.
-	blck_MissionTimout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
+	blck_MissionTimeout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
 	blck_AliveAICleanUpTimer = 60*20;  // Time after mission completion at which any remaining live AI are deleted.
 
 	///////////////////////////////
@@ -254,8 +254,8 @@
 	///////////////////////////////	
 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
-	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten outor been killed.
-    blck_vehicleDeleteTimer = 60*60;	
+	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten out or been killed.
+    blck_vehicleDeleteTimer = 90*60; //60*60;	
 	////////////////////
 	// Mission Vehicle Settings
 	////////////////////	

@@ -488,7 +488,7 @@ while {_missionComplete isEqualTo -1} do
 	#endif
 	if (_endIfPlayerNear) then
 	{
-		if ([_locations,10,true] call blck_fnc_playerInRangeArray) then {_missionComplete = 1};
+		if ([_locations,20,true] call blck_fnc_playerInRangeArray) then {_missionComplete = 1};
 	};
 	if (_endIfAIKilled) then
 	{
@@ -537,7 +537,7 @@ while {_missionComplete isEqualTo -1} do
 			};
 		};
 	};
-	uiSleep 2;
+	uiSleep 1;
 };
 
 if (_crateStolen) exitWith

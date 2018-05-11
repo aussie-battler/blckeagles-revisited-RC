@@ -958,8 +958,9 @@ for examples of how you can do this see \Major\Compositions.sqf
 			]
 		];
 
-
-	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
+	blck_contructionLoot = blck_BoxLoot_Orange;
+	blck_highPoweredLoot = blck_BoxLoot_Orange;
+	blck_supportLoot = blck_BoxLoot_Orange;
 
 	blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.
 	

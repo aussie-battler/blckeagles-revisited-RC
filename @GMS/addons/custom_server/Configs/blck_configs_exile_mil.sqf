@@ -80,7 +80,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 
 	_blck_Tanks_ARMA3 = [
 		//"B_MBT_01_arty_F",
-		"B_MBT_01_mlrs_F",
+		//"B_MBT_01_mlrs_F",
 		"B_MBT_01_TUSK_F",
 		"O_MBT_02_cannon_F",
 		//"O_MBT_02_arty_F",
@@ -733,12 +733,14 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["3rnd_HE_Grenade_Shell",1,3],
 				["HandGrenade",1,5],
 				// Marksman Pack Ammo
-				["10Rnd_338_Mag",1,5],
-				["10Rnd_338_Mag",1,5],				
-				["10Rnd_127x54_Mag" ,1,5],
-				["10Rnd_127x54_Mag",1,5],
-				["10Rnd_93x64_DMR_05_Mag" ,1,5],
-				["10Rnd_93x64_DMR_05_Mag" ,1,5]				
+				["10Rnd_338_Mag",3,5],
+				["10Rnd_338_Mag",3,5],				
+				["10Rnd_127x54_Mag" ,3,5],
+				["10Rnd_127x54_Mag",3,5],
+				["10Rnd_93x64_DMR_05_Mag" ,3,5],
+				["10Rnd_93x64_DMR_05_Mag" ,3,5],
+				["150Rnd_93x64_Mag",3,5],
+				["130Rnd_338_Mag",3,5]				
 			],			
 			[  // Optics
 				["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],
@@ -825,7 +827,8 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["10Rnd_127x54_Mag" ,1,4],
 				["10Rnd_127x54_Mag",1,4],
 				["10Rnd_93x64_DMR_05_Mag" ,1,4],
-				["10Rnd_93x64_DMR_05_Mag" ,1,4]					
+				["10Rnd_93x64_DMR_05_Mag" ,1,4],
+				["130Rnd_338_Mag",3,5]
 			],			
 			[  // Optics
 				["optic_SOS",1,2],["optic_LRPS",1,2],["optic_DMS",1,2],["optic_Aco",1,3],["optic_ACO_grn",1,3],["optic_Holosight",1,3],["acc_flashlight",1,3],["acc_pointer_IR",1,3],
@@ -1011,6 +1014,124 @@ for examples of how you can do this see \Major\Compositions.sqf
 			]
 		];
 
+		
+
+blck_contructionLootExile = [  
+		[// Weapons	
+							
+		],
+		[//Magazines
+						
+		],			
+		[  // Optics
+			
+		],
+		[// Materials and supplies				
+			
+			//
+			["Exile_Item_Matches",1,2],["Exile_Item_CookingPot",1,2],["Exile_Item_Rope",1,2],["Exile_Item_DuctTape",1,8],["Exile_Item_ExtensionCord",1,8],["Exile_Item_FuelCanisterEmpty",1,2],
+			["Exile_Item_JunkMetal",1,10],["Exile_Item_LightBulb",1,10],["Exile_Item_MetalBoard",1,10],["Exile_Item_MetalPole",1,10],["Exile_Item_CamoTentKit",1,10],["Exile_Item_MetalScrews",3,10]
+		],
+		[//Items
+			["Exile_Item_Matches","Exile_Item_CookingPot","Exile_Item_CanOpener","Exile_Item_Handsaw","Exile_Item_Pliers","Exile_Item_Grinder","Exile_Item_Foolbox","Exile_Item_Hammer",
+			"Exile_Item_CordlessScrewdriver","Exile_Item_FireExtinguisher","Exile_Item_OilCanister","Exile_Item_Screwdriver","Exile_Item_Shovel","Exile_Item_Wrench","Exile_Item_CordlessScrewdriver",
+			"Exile_Item_FireExtinguisher","Exile_Item_OilCanister","Exile_Item_Screwdriver","Exile_Item_DuctTape","Binocular","Rangefinder","ItemGPS","ItemMap","ItemCompass","ItemRadio","ItemWatch",
+			"Exile_Item_XM8"]			
+		],
+		[ // Backpacks
+			
+		]
+];
+blck_contructionLoot = blck_contructionLootExile;
+blck_supportLootExile = [
+		[// Weapons	
+
+		],
+		[//Magazines
+						
+		],			
+		[  // Optics
+			
+		],
+		[// Materials and supplies				
+			
+		],
+		[//Items
+			["Exile_Item_Matches",2,4],["Exile_Item_CookingPot",2,4],["Exile_Item_CanOpener",2,4],
+			["Exile_Item_InstaDoc",1,2],["NVGoggles",1,2],["Rangefinder",1,2],["Exile_Item_Bandage",1,3],["Exile_Item_Vishpirin",1,3],  
+			["Exile_Item_Catfood",1,3],["Exile_Item_Surstromming",1,3],["Exile_Item_BBQSandwich",1,3],["Exile_Item_ChristmasTinner",1,3],["Exile_Item_SausageGravy",1,3],["Exile_Item_GloriousKnakworst",1,3],
+			["Exile_Item_BeefParts",1,3],["Exile_Item_Cheathas",1,3],["Exile_Item_Noodles",1,3],["Exile_Item_SeedAstics",1,3],["Exile_Item_Raisins",1,3],["Exile_Item_Moobar",1,3],["Exile_Item_InstantCoffee",1,3],["Exile_Item_EMRE",1,3],
+			["Exile_Item_PlasticBottleCoffee",1,3],["Exile_Item_PowerDrink",1,3],["Exile_Item_PlasticBottleFreshWater",1,3],["Exile_Item_Beer",1,3],["Exile_Item_EnergyDrink",1,3],["Exile_Item_MountainDupe",1,3]						
+		],
+		[ // Backpacks
+			
+		]
+];
+
+blck_supportLoot = blck_supportLootExile;
+
+blck_highPoweredLoot = [ 
+		[// Weapons	
+			["MMG_01_hex_F","150Rnd_93x64_Mag"],
+			["MMG_01_tan_F","150Rnd_93x64_Mag"],
+			["MMG_02_black_F","150Rnd_93x64_Mag"],
+			["MMG_02_camo_F","150Rnd_93x64_Mag"],
+			["MMG_02_sand_F","150Rnd_93x64_Mag"],
+			["srifle_DMR_02_camo_F","10Rnd_338_Mag"],
+			["srifle_DMR_02_F","10Rnd_338_Mag"],
+			["srifle_DMR_02_sniper_F","10Rnd_338_Mag"],
+			["srifle_DMR_03_F","10Rnd_338_Mag"],
+			["srifle_DMR_03_tan_F","10Rnd_338_Mag"],
+			["srifle_DMR_04_Tan_F","10Rnd_338_Mag"],
+			["srifle_DMR_05_hex_F","10Rnd_338_Mag"],
+			["srifle_DMR_05_tan_F","10Rnd_338_Mag"],
+			["srifle_DMR_06_camo_F","10Rnd_338_Mag"],				
+			["srifle_DMR_04_F","10Rnd_127x54_Mag"],
+			["srifle_DMR_05_blk_F","10Rnd_93x64_DMR_05_Mag"],
+			["srifle_DMR_06_olive_F","20Rnd_762x51_Mag"],
+			["launch_NLAW_F","NLAW_F"],
+			["launch_RPG32_F","RPG7_F"],
+			["launch_B_Titan_F","Titan_AT"],
+			["launch_I_Titan_F","Titan_AT"],
+			["launch_O_Titan_F","Titan_AP"],
+			["launch_B_Titan_short_F","Titan_AA"],
+			["launch_I_Titan_short_F","Titan_AA"],
+			["launch_O_Titan_short_F","Titan_AA"],
+			["launch_RPG7_F","RPG32_F"],
+			["launch_O_Vorona_brown_F","vorona_HEAT"],
+			["launch_O_Vorona_green_F","Vorona_HE"]									
+		],
+		[//Magazines
+			["NLAW_F",1,3],
+			["RPG32_F",1,3],
+			["RPG32_HE_F",1,3],
+			["Titan_AA",1,3],
+			["Titan_AT",1,3],
+			["Titan_AP",1,3],
+			["RPG7_F",1,3],
+			["vorona_HEAT",1,3],
+			["Vorona_HE",1,3],
+			//["10Rnd_338_Mag",1,5],
+			["10Rnd_338_Mag",3,5],				
+			//["10Rnd_127x54_Mag" ,1,5],
+			["10Rnd_127x54_Mag",3,5],
+			["10Rnd_93x64_DMR_05_Mag" ,3,5],
+			//["10Rnd_93x64_DMR_05_Mag" ,1,5],
+			["150Rnd_93x64_Mag",2,5],
+			["130Rnd_338_Mag",3,5]
+		],			
+		[  // Optics
+			
+		],
+		[// Materials and supplies				
+			
+		],
+		[//Items
+		],
+		[ // Backpacks
+			
+		]
+];
 	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
 
 	blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.

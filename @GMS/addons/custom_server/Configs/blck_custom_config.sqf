@@ -139,40 +139,44 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	//blck_timeAccelerationDusk = 18; // Dawn/dusk time accelearation
 	//blck_timeAccelerationNight = 24;  // Nighttim time acceleration	
 	
-	//blck_useHC = true;
+	blck_useHC = true;
+
 	blck_maxSpawnedMissions = 15;
 	blck_mainThreadUpdateInterval = 10;
 	blck_enableOrangeMissions = -1;  
 	blck_enableGreenMissions = -1;
 	blck_enableRedMissions = -1;
-	blck_enableBlueMissions = -1;
-	blck_numberUnderwaterDynamicMissions = 3;	
+	blck_enableBlueMissions = 1;
+	blck_numberUnderwaterDynamicMissions = -3;	
 	blck_enableHunterMissions = -1;
 	blck_enableScoutsMissions = -1;
 	blck_maxCrashSites = -3; 
 	
-	blck_cleanupCompositionTimer = 120;  // Time after mission completion at which items in the composition are deleted.
-	//blck_AliveAICleanUpTimer = 10;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 120;
-	blck_vehicleDeleteTimer = 120; 
+	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
+	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
+	blck_bodyCleanUpTimer = 20;
+	blck_vehicleDeleteTimer = 20; 
+	//blck_MissionTimeout = 30;
 	
-	blck_noPatrolHelisOrange = 0;
-	 blck_chanceHeliPatrolBlue = 1;
-	blck_noPatrolHelisBlue = 1;
-	blck_chanceParaBlue = 1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission. This value can be a range as well [0.1,0.3]
+	blck_noPatrolHelisOrange = 1;
+	blck_chanceHeliPatrolOrange = 1;
+	blck_chanceParaOrange = 1;
+	blck_chanceHeliPatrolBlue = -1;
+	blck_noPatrolHelisBlue = -1;
+	blck_chanceParaBlue = -1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission. This value can be a range as well [0.1,0.3]
 	blck_noParaBlue = 3; //  [1-N]	
 	blck_paraTriggerDistanceBlue = 400;
 	
 	//blck_chanceHeliPatrolBlue = 1;
-	blck_SpawnEmplaced_Orange = -1; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = -2; // Number of static weapons at Green Missions
-	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
-	blck_SpawnEmplaced_Red = -2; 
+	blck_SpawnEmplaced_Orange = 1; // Number of static weapons at Orange Missions
+	blck_SpawnEmplaced_Green = 1; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Blue = -1;  // Number of static weapons at Blue Missions
+	blck_SpawnEmplaced_Red = 1; 
 
-	blck_SpawnVeh_Orange = -1; // Number of vehicles at Orange Missions
-	blck_SpawnVeh_Green = -2; // Number of vehicles at Green Missions
-	blck_SpawnVeh_Blue = 1;  // Number of vehicles at Blue Missions
-	blck_SpawnVeh_Red = -2;
+	blck_SpawnVeh_Orange = 1; // Number of vehicles at Orange Missions
+	blck_SpawnVeh_Green = 1; // Number of vehicles at Green Missions
+	blck_SpawnVeh_Blue = 4;  // Number of vehicles at Blue Missions
+	blck_SpawnVeh_Red = 1;
 	
 	blck_TMin_Blue = 7;
 	blck_TMin_Red = 10;
@@ -191,16 +195,16 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	blck_TMax_Scouts = 22;
 	blck_TMax_Crashes = 15;
 	blck_TMax_UMS = 25;
-	//blck_MissionTimout = 360;  // 40 min
 
-	blck_MinAI_Orange = 1;
-	blck_MaxAI_Orange = 1;
-	blck_AIGrps_Orange = 1;
+	//blck_MinAI_Orange = 1;
+	//blck_MaxAI_Orange = 2;
+	//blck_AIGrps_Orange = 1;
 	
 	blck_MinAI_Blue = 1;	
 	blck_MaxAI_Blue = 2;
-	blck_AIGrps_Blue = 1;
+	blck_AIGrps_Blue = 0;
 	
+	blck_AIPatrolVehicles = ["Exile_Car_MB4WDOpen"];
 	/*
 	blck_SkillsBlue = [
 		["aimingAccuracy",0.01],
@@ -762,21 +766,586 @@ blck_RHS_Weapons = [
 	"rhs_weap_m27iar"
 ];
 
-blck_RHS_Uniforms = [
-
+blck_RHS_UniformsUSAF = [
+	"rhs_uniform_FROG01_m81",
+	"rhs_uniform_FROG01_d",
+	"rhs_uniform_FROG01_wd",
+	"rhs_uniform_cu_ocp",
+	"rhs_uniform_cu_ucp",
+	"rhs_uniform_cu_ocp_101st",
+	"rhs_uniform_cu_ocp_10th",
+	"rhs_uniform_cu_ocp_1stcav",
+	"rhs_uniform_cu_ocp_82nd",
+	"rhs_uniform_cu_ucp_101st",
+	"rhs_uniform_cu_ucp_10th",
+	"rhs_uniform_cu_ucp_1stcav",
+	"rhs_uniform_cu_ucp_82nd",
+	"rhs_uniform_cu_ocp_patchless",
+	"rhs_uniform_cu_ucp_patchless",
+	// Added by ElShotte - 5 Items
+	"rhs_uniform_g3_m81",
+	"rhs_uniform_g3_blk",
+	"rhs_uniform_g3_mc",
+	"rhs_uniform_g3_rgr",
+	"rhs_uniform_g3_tan"
 
 ];
 
-blck_RHS_Vests = [
-
+blck_RHS_VestsUSAF = [
+	"rhsusf_iotv_ucp",
+	"rhsusf_iotv_ucp_grenadier",
+	"rhsusf_iotv_ucp_medic",
+	"rhsusf_iotv_ucp_repair",
+	"rhsusf_iotv_ucp_rifleman",
+	"rhsusf_iotv_ucp_SAW",
+	"rhsusf_iotv_ucp_squadleader",
+	"rhsusf_iotv_ucp_teamleader",
+	"rhsusf_iotv_ocp",
+	"rhsusf_iotv_ocp_grenadier",
+	"rhsusf_iotv_ocp_medic",
+	"rhsusf_iotv_ocp_repair",
+	"rhsusf_iotv_ocp_rifleman",
+	"rhsusf_iotv_ocp_SAW",
+	"rhsusf_iotv_ocp_squadleader",
+	"rhsusf_iotv_ocp_teamleader",
+	//added by chainsaw - 2
+	"rhsusf_spc",
+	"rhsusf_spc_mg",
+	// Added by ElShotte - 12 Items
+	"rhsusf_spc_marksman",
+	"rhsusf_spc_corpsman",
+	"rhsusf_spc_patchless",
+	"rhsusf_spc_squadleader",
+	"rhsusf_spc_teamleader",
+	"rhsusf_spc_light",
+	"rhsusf_spc_rifleman",
+	"rhsusf_spc_iar",
+	"rhsusf_spcs_ocp_rifleman",
+	"rhsusf_spcs_ocp",
+	"rhsusf_spcs_ucp_rifleman",
+	"rhsusf_spcs_ucp"
 
 ];
 
-blck_RHS_Backpacks = [
-
+blck_RHS_BackpacksUSAF = [
+	"rhsusf_assault_eagleaiii_coy",
+	"rhsusf_assault_eagleaiii_ocp",
+	"rhsusf_assault_eagleaiii_ucp",
+	"rhsusf_falconii_coy",
+	"rhsusf_falconii_mc",
+	"rhsusf_falconii",
+	"RHS_M2_Gun_Bag"
 
 ];
 
+blck_RHS_HeadgearUSAF = [
+	"rhs_Booniehat_m81",
+	"rhs_Booniehat_marpatd",
+	"rhs_Booniehat_marpatwd",
+	"rhs_Booniehat_ocp",
+	"rhs_Booniehat_ucp",
+	"rhsusf_Bowman",
+	"rhsusf_ach_bare",
+	"rhsusf_ach_bare_des",
+	"rhsusf_ach_bare_des_ess",
+	"rhsusf_ach_bare_des_headset",
+	"rhsusf_ach_bare_des_headset_ess",
+	"rhsusf_ach_bare_ess",
+	"rhsusf_ach_bare_headset",
+	"rhsusf_ach_bare_headset_ess",
+	"rhsusf_ach_bare_semi",
+	"rhsusf_ach_bare_semi_ess",
+	"rhsusf_ach_bare_semi_headset",
+	"rhsusf_ach_bare_semi_headset_ess",
+	"rhsusf_ach_bare_tan",
+	"rhsusf_ach_bare_tan_ess",
+	"rhsusf_ach_bare_tan_headset",
+	"rhsusf_ach_bare_tan_headset_ess",
+	"rhsusf_ach_bare_wood",
+	"rhsusf_ach_bare_wood_ess",
+	"rhsusf_ach_bare_wood_headset",
+	"rhsusf_ach_bare_wood_headset_ess",
+	"rhsusf_ach_helmet_ESS_ocp",
+	"rhsusf_ach_helmet_ESS_ucp",
+	"rhsusf_ach_helmet_M81",
+	"rhsusf_ach_helmet_camo_ocp",
+	"rhsusf_ach_helmet_headset_ess_ocp",
+	"rhsusf_ach_helmet_headset_ess_ucp",
+	"rhsusf_ach_helmet_headset_ocp",
+	"rhsusf_ach_helmet_headset_ucp",
+	"rhsusf_ach_helmet_ocp",
+	"rhsusf_ach_helmet_ocp_norotos",
+	"rhsusf_ach_helmet_ucp",
+	"rhsusf_ach_helmet_ucp_norotos",
+	"rhsusf_bowman_cap",
+	"rhsusf_lwh_helmet_M1942",
+	"rhsusf_lwh_helmet_marpatd",
+	"rhsusf_lwh_helmet_marpatd_ess",
+	"rhsusf_lwh_helmet_marpatd_headset",
+	"rhsusf_lwh_helmet_marpatwd",
+	"rhsusf_lwh_helmet_marpatwd_ess",
+	"rhsusf_lwh_helmet_marpatwd_headset",
+	"rhsusf_mich_bare",
+	"rhsusf_mich_bare_alt",
+	"rhsusf_mich_bare_alt_semi",
+	"rhsusf_mich_bare_alt_tan",
+	"rhsusf_mich_bare_headset",
+	"rhsusf_mich_bare_norotos",
+	"rhsusf_mich_bare_norotos_alt",
+	"rhsusf_mich_bare_norotos_alt_headset",
+	"rhsusf_mich_bare_norotos_alt_semi",
+	"rhsusf_mich_bare_norotos_alt_semi_headset",
+	"rhsusf_mich_bare_norotos_alt_tan",
+	"rhsusf_mich_bare_norotos_alt_tan_headset",
+	"rhsusf_mich_bare_norotos_arc",
+	"rhsusf_mich_bare_norotos_arc_alt",
+	"rhsusf_mich_bare_norotos_arc_alt_headset",
+	"rhsusf_mich_bare_norotos_arc_alt_semi",
+	"rhsusf_mich_bare_norotos_arc_alt_semi_headset",
+	"rhsusf_mich_bare_norotos_arc_alt_tan",
+	"rhsusf_mich_bare_norotos_arc_alt_tan_headset",
+	"rhsusf_mich_bare_norotos_arc_headset",
+	"rhsusf_mich_bare_norotos_arc_semi",
+	"rhsusf_mich_bare_norotos_arc_semi_headset",
+	"rhsusf_mich_bare_norotos_arc_tan",
+	"rhsusf_mich_bare_norotos_headset",
+	"rhsusf_mich_bare_norotos_semi",
+	"rhsusf_mich_bare_norotos_semi_headset",
+	"rhsusf_mich_bare_norotos_tan",
+	"rhsusf_mich_bare_norotos_tan_headset",
+	"rhsusf_mich_bare_semi",
+	"rhsusf_mich_bare_semi_headset",
+	"rhsusf_mich_bare_tan",
+	"rhsusf_mich_bare_tan_headset",
+	"rhsusf_mich_helmet_marpatd_alt_headset",
+	"rhsusf_mich_helmet_marpatd_headset",
+	"rhsusf_mich_helmet_marpatd_norotos",
+	"rhsusf_mich_helmet_marpatd_norotos_arc",
+	"rhsusf_mich_helmet_marpatd_norotos_arc_headset",
+	"rhsusf_mich_helmet_marpatd_norotos_headset",
+	"rhsusf_mich_helmet_marpatwd",
+	"rhsusf_mich_helmet_marpatwd_alt",
+	"rhsusf_mich_helmet_marpatwd_alt_headset",
+	"rhsusf_mich_helmet_marpatwd_headset",
+	"rhsusf_mich_helmet_marpatwd_norotos",
+	"rhsusf_mich_helmet_marpatwd_norotos_arc",
+	"rhsusf_mich_helmet_marpatwd_norotos_arc_headset",
+	"rhsusf_mich_helmet_marpatwd_norotos_headset",
+	// added by chainsaw - 13
+	"rhsusf_patrolcap_ocp",
+	"rhsusf_patrolcap_ucp",
+	"rhsusf_opscore_01",
+	"rhsusf_opscore_01_tan",
+	"rhsusf_opscore_02_tan",
+	"rhsusf_opscore_03_ocp",
+	"rhsusf_opscore_04_ocp",
+	"rhsusf_cvc_helmet",
+	"rhsusf_cvc_ess",
+	"rhsusf_hgu56p",
+	"rhsusf_hgu56p_mask",
+	"rhsusf_cvc_green_helmet",
+	"rhsusf_cvc_green_ess",
+	// Added by ElShotte - 41 Items
+	"rhsusf_opscore_bk_pelt",
+	"rhsusf_opscore_bk",
+	"rhsusf_opscore_coy_cover",
+	"rhsusf_opscore_coy_cover_pelt",
+	"rhsusf_opscore_fg",
+	"rhsusf_opscore_fg_pelt",
+	"rhsusf_opscore_fg_pelt_cam",
+	"rhsusf_opscore_fg_pelt_nsw",
+	"rhsusf_opscore_mc",
+	"rhsusf_opscore_mc_pelt",
+	"rhsusf_opscore_mc_pelt_nsw",
+	"rhsusf_opscore_mc_cover",
+	"rhsusf_opscore_mc_cover_pelt",
+	"rhsusf_opscore_mc_cover_pelt_nsw",
+	"rhsusf_opscore_mc_cover_pelt_cam",
+	"rhsusf_opscore_paint",
+	"rhsusf_opscore_paint_pelt",
+	"rhsusf_opscore_paint_pelt_nsw",
+	"rhsusf_opscore_paint_pelt_nsw_cam",
+	"rhsusf_opscore_rg_cover",
+	"rhsusf_opscore_rg_cover_pelt",
+	"rhsusf_opscore_ut",
+	"rhsusf_opscore_ut_pelt",
+	"rhsusf_opscore_ut_pelt_cam",
+	"rhsusf_opscore_ut_pelt_nsw",
+	"rhsusf_opscore_ut_pelt_nsw_cam",
+	"rhsusf_opscore_mar_ut_pelt",
+	"rhsusf_opscore_mar_ut",
+	"rhsusf_opscore_mar_fg_pelt",
+	"rhsusf_opscore_mar_fg",
+	"rhsusf_protech_helmet",
+	"rhsusf_protech_helmet_ess",
+	"rhsusf_protech_helmet_rhino",
+	"rhsusf_protech_helmet_rhino_ess"
+];
 
+blck_RHS_UniformsGREF = [
+	"rhsgref_uniform_alpenflage",
+	"rhsgref_uniform_flecktarn",
+	"rhsgref_uniform_para_ttsko_mountain",
+	"rhsgref_uniform_para_ttsko_oxblood",
+	"rhsgref_uniform_para_ttsko_urban",
+	"rhsgref_uniform_reed",
+	"rhsgref_uniform_specter",
+	"rhsgref_uniform_tigerstripe",
+	"rhsgref_uniform_ttsko_forest",
+	"rhsgref_uniform_ttsko_mountain",
+	"rhsgref_uniform_ttsko_urban",
+	"rhsgref_uniform_vsr",
+	"rhsgref_uniform_woodland",
+	"rhsgref_uniform_woodland_olive"
+];
 
+blck_RHS_VestsGREF = [
+	"rhsgref_6b23",
+	"rhsgref_6b23_khaki",
+	"rhsgref_6b23_khaki_medic",
+	"rhsgref_6b23_khaki_nco",
+	"rhsgref_6b23_khaki_officer",
+	"rhsgref_6b23_khaki_rifleman",
+	"rhsgref_6b23_khaki_sniper",
+	"rhsgref_6b23_ttsko_digi",
+	"rhsgref_6b23_ttsko_digi_medic",
+	"rhsgref_6b23_ttsko_digi_nco",
+	"rhsgref_6b23_ttsko_digi_officer",
+	"rhsgref_6b23_ttsko_digi_rifleman",
+	"rhsgref_6b23_ttsko_digi_sniper",
+	"rhsgref_6b23_ttsko_forest",
+	"rhsgref_6b23_ttsko_forest_rifleman",
+	"rhsgref_6b23_ttsko_mountain",
+	"rhsgref_6b23_ttsko_mountain_medic",
+	"rhsgref_6b23_ttsko_mountain_nco",
+	"rhsgref_6b23_ttsko_mountain_officer",
+	"rhsgref_6b23_ttsko_mountain_rifleman",
+	"rhsgref_6b23_ttsko_mountain_sniper",
+	"rhsgref_otv_digi",
+	"rhsgref_otv_khaki"
+];
 
+blck_RHS_HeadgearGREF = [
+	"rhsgref_6b27m",
+	"rhsgref_6b27m_ttsko_digi",
+	"rhsgref_6b27m_ttsko_forest",
+	"rhsgref_6b27m_ttsko_mountain",
+	"rhsgref_6b27m_ttsko_urban",
+	"rhsgref_Booniehat_alpen",
+	"rhsgref_fieldcap",
+	"rhsgref_fieldcap_ttsko_digi",
+	"rhsgref_fieldcap_ttsko_forest",
+	"rhsgref_fieldcap_ttsko_mountain",
+	"rhsgref_fieldcap_ttsko_urban",
+	"rhsgref_patrolcap_specter",
+	"rhsgref_ssh68",
+	"rhsgref_ssh68_emr",
+	"rhsgref_ssh68_ttsko_digi",
+	"rhsgref_ssh68_ttsko_forest",
+	"rhsgref_ssh68_ttsko_mountain",
+	"rhsgref_ssh68_un"
+];
+blck_RHS_WeaponsGREF = [
+	"rhs_weap_kar98k",
+	"rhs_weap_m21a",
+	"rhs_weap_m21a_fold",
+	"rhs_weap_m21a_pr",
+	"rhs_weap_m21s",
+	"rhs_weap_m21s_fold",
+	"rhs_weap_m21s_pr",
+	"rhs_weap_m38",
+	"rhs_weap_m70ab2",
+	"rhs_weap_m70ab2_fold",
+	"rhs_weap_m70b1",
+	"rhs_weap_m76",
+	"rhs_weap_m92",
+	"rhs_weap_m92_fold"
+];
+
+blck_RHS_HeadgearSAF = [
+	"rhssaf_helmet_m59_85_nocamo",
+	"rhssaf_helmet_m59_85_oakleaf",
+	"rhssaf_helmet_m97_olive_nocamo",
+	"rhssaf_helmet_m97_olive_nocamo_black_ess",
+	"rhssaf_helmet_m97_olive_nocamo_black_ess_bare",
+	"rhssaf_helmet_m97_black_nocamo",
+	"rhssaf_helmet_m97_black_nocamo_black_ess",
+	"rhssaf_helmet_m97_black_nocamo_black_ess_bare",
+	"rhssaf_Helmet_m97_woodland",
+	"rhssaf_Helmet_m97_digital",
+	"rhssaf_Helmet_m97_md2camo",
+	"rhssaf_Helmet_m97_oakleaf",
+	"rhssaf_helmet_m97_nostrap_blue",
+	"rhssaf_helmet_m97_nostrap_blue_tan_ess",
+	"rhssaf_helmet_m97_nostrap_blue_tan_ess_bare",
+	"rhssaf_helmet_m97_woodland_black_ess",
+	"rhssaf_helmet_m97_woodland_black_ess_bare",
+	"rhssaf_helmet_m97_digital_black_ess",
+	"rhssaf_helmet_m97_digital_black_ess_bare",
+	"rhssaf_helmet_m97_md2camo_black_ess",
+	"rhssaf_helmet_m97_md2camo_black_ess_bare",
+	"rhssaf_helmet_m97_oakleaf_black_ess",
+	"rhssaf_helmet_m97_oakleaf_black_ess_bare",
+	"rhssaf_helmet_hgu56p",
+	"rhssaf_beret_green",
+	"rhssaf_beret_red",
+	"rhssaf_beret_black",
+	"rhssaf_beret_blue_un",
+	"rhssaf_booniehat_digital",
+	"rhssaf_booniehat_md2camo",
+	"rhssaf_booniehat_woodland"
+];
+
+blck_RHS_UniformsSAF = [
+	"rhssaf_uniform_m10_digital",
+	"rhssaf_uniform_m10_digital_summer",
+	"rhssaf_uniform_m10_digital_desert",
+	"rhssaf_uniform_m10_digital_tan_boots",
+	"rhssaf_uniform_m93_oakleaf",
+	"rhssaf_uniform_m93_oakleaf_summer",
+	"rhssaf_uniform_heli_pilot"
+];
+
+blck_RHS_VestsSAF = [
+	"rhssaf_vest_md98_woodland",
+	"rhssaf_vest_md98_md2camo",
+	"rhssaf_vest_md98_digital",
+	"rhssaf_vest_md98_officer",
+	"rhssaf_vest_md98_rifleman",
+	"rhssaf_vest_otv_md2camo",
+	"rhssaf_vest_md99_md2camo_rifleman",
+	"rhssaf_vest_md99_digital_rifleman",
+	"rhssaf_vest_md99_woodland_rifleman",
+	"rhssaf_vest_md99_md2camo",
+	"rhssaf_vest_md99_digital",
+	"rhssaf_vest_md99_woodland"
+];
+
+blck_RHS_BackpacksSAF = [
+	"rhssaf_30rnd_556x45_EPR_G36",
+	"rhssaf_30rnd_556x45_SOST_G36",
+	"rhssaf_100rnd_556x45_EPR_G36",
+	"rhssaf_30rnd_556x45_SPR_G36",
+	"rhssaf_30rnd_556x45_Tracers_G36",
+	"rhssaf_30rnd_556x45_MDIM_G36",
+	"rhssaf_30rnd_556x45_TDIM_G36",
+	"150Rnd_556x45_Drum_Mag_F",
+	"150Rnd_556x45_Drum_Mag_Tracer_F",
+	"rhs_30Rnd_762x39mm",
+	"rhs_30Rnd_762x39mm_tracer",
+	"rhs_30Rnd_762x39mm_89",
+	"rhs_30Rnd_762x39mm_U",
+	"rhsgref_30rnd_556x45_m21",
+	"rhsgref_30rnd_556x45_m21_t",
+	"rhs_100Rnd_762x54mmR",
+	"rhs_100Rnd_762x54mmR_green",
+	"rhssaf_250Rnd_762x54R"
+];
+
+blck_RHS_WeaponsSAF = [
+	"rhs_weap_m70ab2_fold",
+	"rhs_weap_m70b1",
+	"rhs_weap_m70b1n",
+	"rhs_weap_m70b3n",
+	"rhs_weap_m70b3n_pbg40",
+	"rhs_weap_m92",
+	"rhs_weap_m92_fold",
+	"rhs_weap_m76",
+	"rhs_weap_m21a",
+	"rhs_weap_m21a_pr",
+	"rhs_weap_m21a_pr_pbg40",
+	"rhs_weap_m21a_fold",
+	"rhs_weap_m21a_pbg40",
+	"rhs_weap_m21s",
+	"rhs_weap_m21s_pr",
+	"rhs_weap_m21s_fold",
+	"rhs_weap_m82a1",
+	"rhs_weap_minimi_para_railed",
+	"rhs_weap_g36c",
+	"rhs_weap_g36kv",
+	"rhs_weap_g36kv_ag36",
+	"rhs_weap_m84"
+];	
+
+blck_NIA_WeaponsLMG = [
+	"hlc_lmg_M249E2",
+	"hlc_lmg_M249E2",
+	"hlc_lmg_M60E4",
+	"hlc_lmg_MG3KWS_b",
+	"hlc_lmg_MG3KWS_g",
+	"hlc_lmg_MG42",
+	"hlc_lmg_MG42KWS_t",
+	"hlc_lmg_m249para",
+	"hlc_lmg_m249para",
+	"hlc_lmg_m60",
+	"hlc_lmg_mg42kws_b",
+	"hlc_lmg_mg42kws_g",
+	"hlc_lmg_minimi",
+	"hlc_lmg_minimi_railed",
+	"hlc_lmg_minimipara",
+	"hlc_lmg_mk48",
+	"hlc_m249_pip1",
+	"hlc_m249_pip2",
+	"hlc_m249_pip3",
+	"hlc_m249_pip4",
+	"hlc_rifle_rpk",
+	"hlc_rifle_rpk12",
+	"hlc_rifle_rpk74n"
+];
+
+blck_NIA_WeaponsSMG = [
+	"hlc_smg_9mmar",
+	"hlc_smg_MP5N",
+	"hlc_smg_mp510",
+	"hlc_smg_mp5a2",
+	"hlc_smg_mp5a3",
+	"hlc_smg_mp5a4",
+	"hlc_smg_mp5k",
+	"hlc_smg_mp5k_PDW",
+	"hlc_smg_mp5sd5",
+	"hlc_smg_mp5sd6"
+];
+
+blck_NIA_WeaponsAR = [
+	"HLC_Rifle_g3ka4_GL",
+	"hlc_barrel_carbine",
+	"hlc_barrel_hbar",
+	"hlc_barrel_standard",
+	"hlc_rifle_Bushmaster300",
+	"hlc_rifle_Colt727",
+	"hlc_rifle_Colt727_GL",
+	"hlc_rifle_FAL5000",
+	"hlc_rifle_FAL5000Rail",
+	"hlc_rifle_FAL5000_RH",
+	"hlc_rifle_FAL5061",
+	"hlc_rifle_FAL5061Rail",
+	"hlc_rifle_G36A1",
+	"hlc_rifle_G36A1AG36",
+	"hlc_rifle_G36C",
+	"hlc_rifle_G36CMLIC",
+	"hlc_rifle_G36CTAC",
+	"hlc_rifle_G36CV",
+	"hlc_rifle_G36E1",
+	"hlc_rifle_G36E1AG36",
+	"hlc_rifle_G36KA1",
+	"hlc_rifle_G36KE1",
+	"hlc_rifle_G36KMLIC",
+	"hlc_rifle_G36KTAC",
+	"hlc_rifle_G36KV",
+	"hlc_rifle_G36MLIAG36",
+	"hlc_rifle_G36MLIC",
+	"hlc_rifle_G36TAC",
+	"hlc_rifle_G36V",
+	"hlc_rifle_G36VAG36",
+	"hlc_rifle_LAR",
+	"hlc_rifle_M14",
+	"hlc_rifle_M14DMR",
+	"hlc_rifle_M21",
+	"hlc_rifle_MG36",
+	"hlc_rifle_RK62",
+	"hlc_rifle_RU556",
+	"hlc_rifle_RU5562",
+	"hlc_rifle_SAMR",
+	"hlc_rifle_SLR",
+	"hlc_rifle_SLRchopmod",
+	"hlc_rifle_STG58F",
+	"hlc_rifle_STGW57",
+	"hlc_rifle_aek971",
+	"hlc_rifle_aek971_mtk",
+	"hlc_rifle_ak12",
+	"hlc_rifle_ak12gl",
+	"hlc_rifle_ak47",
+	"hlc_rifle_ak74",
+	"hlc_rifle_ak74_MTK",
+	"hlc_rifle_ak74_dirty",
+	"hlc_rifle_ak74_dirty2",
+	"hlc_rifle_ak74m",
+	"hlc_rifle_ak74m_MTK",
+	"hlc_rifle_ak74m_gl",
+	"hlc_rifle_akm",
+	"hlc_rifle_akm_MTK",
+	"hlc_rifle_akmgl",
+	"hlc_rifle_aks74",
+	"hlc_rifle_aks74_GL",
+	"hlc_rifle_aks74_MTK",
+	"hlc_rifle_aks74u",
+	"hlc_rifle_aks74u_MTK",
+	"hlc_rifle_aku12",
+	"hlc_rifle_amt",
+	"hlc_rifle_aug",
+	"hlc_rifle_auga1_B",
+	"hlc_rifle_auga1_t",
+	"hlc_rifle_auga1carb",
+	"hlc_rifle_auga1carb_b",
+	"hlc_rifle_auga1carb_t",
+	"hlc_rifle_auga2",
+	"hlc_rifle_auga2_b",
+	"hlc_rifle_auga2_t",
+	"hlc_rifle_auga2carb",
+	"hlc_rifle_auga2carb_b",
+	"hlc_rifle_auga2carb_t",
+	"hlc_rifle_auga2lsw",
+	"hlc_rifle_auga2lsw_b",
+	"hlc_rifle_auga2lsw_t",
+	"hlc_rifle_auga3",
+	"hlc_rifle_auga3_GL",
+	"hlc_rifle_auga3_GL_B",
+	"hlc_rifle_auga3_GL_BL",
+	"hlc_rifle_auga3_b",
+	"hlc_rifle_auga3_bl",
+	"hlc_rifle_aughbar",
+	"hlc_rifle_aughbar_b",
+	"hlc_rifle_aughbar_t",
+	"hlc_rifle_augsr",
+	"hlc_rifle_augsr_b",
+	"hlc_rifle_augsr_t",
+	"hlc_rifle_augsrcarb",
+	"hlc_rifle_augsrcarb_b",
+	"hlc_rifle_augsrcarb_t",
+	"hlc_rifle_augsrhbar",
+	"hlc_rifle_augsrhbar_b",
+	"hlc_rifle_augsrhbar_t",
+	"hlc_rifle_bcmblackjack",
+	"hlc_rifle_bcmjack",
+	"hlc_rifle_c1A1",
+	"hlc_rifle_falosw",
+	"hlc_rifle_g3a3",
+	"hlc_rifle_g3a3ris",
+	"hlc_rifle_g3a3v",
+	"hlc_rifle_g3ka4",
+	"hlc_rifle_g3sg1",
+	"hlc_rifle_hk33a2",
+	"hlc_rifle_hk33a2RIS",
+	"hlc_rifle_hk51",
+	"hlc_rifle_hk53",
+	"hlc_rifle_hk53RAS",
+	"hlc_rifle_honeybadger",
+	"hlc_rifle_l1a1slr",
+	"hlc_rifle_m14sopmod",
+	"hlc_rifle_osw_GL",
+	"hlc_rifle_rpk74n",
+	"hlc_rifle_sig5104",
+	"hlc_rifle_slr107u",
+	"hlc_rifle_slr107u_MTK",
+	"hlc_rifle_stgw57_RIS",
+	"hlc_rifle_stgw57_commando",
+	"hlc_rifle_vendimus"
+];
+
+blck_NIA_WeaponsSniper = [
+	"hlc_rifle_M1903A1",
+	"hlc_rifle_M1903A1OMR",
+	"hlc_rifle_M1903A1_unertl",
+	"hlc_rifle_PSG1A1_RIS",
+	"hlc_rifle_awMagnum_BL_ghillie",
+	"hlc_rifle_awMagnum_FDE_ghillie",
+	"hlc_rifle_awMagnum_OD_ghillie",
+	"hlc_rifle_awcovert",
+	"hlc_rifle_awcovert_BL",
+	"hlc_rifle_awcovert_FDE",
+	"hlc_rifle_awmagnum",
+	"hlc_rifle_awmagnum_BL",
+	"hlc_rifle_awmagnum_FDE",
+	"hlc_rifle_psg1",
+	"hlc_rifle_psg1A1"
+];

@@ -26,7 +26,7 @@ _markerColor = "ColorRed";
 _markerMissionName = "Bandit Camp";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [
-		["Flag_AAF_F",[-1,-1,0],0,[false,false]],
+		["Flag_AAF_F",[0,0,0],0,[false,false]],
 		["Land_CampingChair_V1_F",[1.32227,2.07813,8.2016e-005],108.293,[false,false]], 
 		["Land_CampingChair_V1_F",[-2.01465,2.91992,3.05176e-005],236.049,[false,false]], 
 		["FirePlace_burning_F",[0.0302734,4.26563,2.47955e-005],359.997,[false,false]], 
@@ -80,12 +80,16 @@ _noVehiclePatrols = blck_SpawnVeh_Red;
 _noEmplacedWeapons = blck_SpawnEmplaced_Red;
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;
-_uniforms = blck_SkinList;  // Setting this in the mission file overrides the defaults 
-_headgear = blck_headgear;  // Setting this in the mission file overrides the defaults 
-_vests = blck_vests;
-_backpacks = blck_backpacks;
-_weaponList = ["blue"] call blck_fnc_selectAILoadout;
+
+#ifdef blck_milServer
+_uniforms = blck_RHS_UniformsGREF;  // Setting this in the mission file overrides the defaults 
+_headgear = blck_RHS_HeadgearGREF;  // Setting this in the mission file overrides the defaults 
+_vests = blck_RHS_VestsGREF;
+_backpacks = blck_RHS_BackpacksUSAF + blck_CUPBackpacks;
+_weaponList = blck_NIA_WeaponsSniper + blck_NIA_WeaponsAR + blck_NIA_WeaponsSMG;
 _sideArms = blck_Pistols;
+#endif
+
 _chanceHeliPatrol = blck_chanceHeliPatrolRed;  // Setting this in the mission file overrides the defaults 
 _noChoppers = blck_noPatrolHelisRed;
 _missionHelis = blck_patrolHelisRed;
