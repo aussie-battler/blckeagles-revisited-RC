@@ -79,7 +79,7 @@ switch (toLower (worldName)) do
 		blck_maxCrashSites = 1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
 		
 		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = (5/_daylight);  // Daytime time accelearation
+		blck_timeAccelerationDay = ((_serverUpTime + 2)/_daylight);  // Daytime time accelearation
 		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
 		blck_timeAccelerationNight = (3/_nightTime);  // Nighttim time acceleration		
 	};

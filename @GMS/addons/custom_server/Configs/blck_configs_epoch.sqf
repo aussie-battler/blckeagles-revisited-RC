@@ -45,6 +45,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_crateMoneyGreen = [300, 500];
 	blck_crateMoneyOrange = [500, 750];
 	
+	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
+	
 	_blck_lightlyArmed_ARMA3 = [
 		"B_G_Offroad_01_armed_F", 
 		"O_G_Offroad_01_armed_F",
@@ -135,7 +137,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"CUP_O_BMP1_TKA"
 	];	
 	
-	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
+	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F","I_C_Offroad_02_LMG_F","B_T_LSV_01_armed_black_F","B_T_LSV_01_armed_olive_F","B_T_LSV_01_armed_sand_F"]; // Type of vehicle spawned to defend AI bases	
 	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
 	blck_AIPatrolVehiclesRed = blck_AIPatrolVehicles;
 	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
