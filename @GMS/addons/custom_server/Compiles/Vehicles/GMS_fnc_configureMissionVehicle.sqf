@@ -22,7 +22,10 @@ if (_clearInventory) then
 	[_veh] call blck_fnc_emptyObject;
 };
 _veh setVehicleLock "LOCKEDPLAYER";
-if (blck_allowSalesAtBlackMktTraders) then {_veh setVariable["HSHALFPRICE",1,true]};
+if (blck_modType isEqualTo "Epoch") then
+{
+	if (blck_allowSalesAtBlackMktTraders) then {_veh setVariable["HSHALFPRICE",1,true]};
+};
 _veh addEventHandler ["GetIn",{  // Note: only fires when vehicle is local to player
 	private["_unit","_veh"];
 	if (_veh getVariable["blck_releasedAt",0] > 0) then {{ _veh removeAllEventHandlers _x} forEach["getin","getout"]};

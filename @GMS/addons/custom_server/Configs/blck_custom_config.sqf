@@ -17,6 +17,10 @@
 
 diag_log "[blckeagls] Loading Configuration Overides";
 
+/*
+	See the examples below as a guide for adding configs that are unique for each of several servers.
+*/
+/*
 private["_startTime"];
 _startTime = diag_tickTime;
 _world = toLower format ["%1", worldName];
@@ -128,7 +132,13 @@ switch (toLower (worldName)) do
 		blck_maxCrashSites = 3; 		
 	};		
 };
+*/
 
+/*
+	Debug settings - 
+*/
+
+/*
 if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in \custom_server\compiles\blck_variables.sqf
 {
 	// Used primarily for debugging.
@@ -148,9 +158,9 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	blck_enableRedMissions = -1;
 	blck_enableBlueMissions = 1;
 	blck_numberUnderwaterDynamicMissions = -3;	
-	blck_enableHunterMissions = -1;
-	blck_enableScoutsMissions = -1;
-	blck_maxCrashSites = -3; 
+	blck_enableHunterMissions = 1;
+	blck_enableScoutsMissions = 1;
+	blck_maxCrashSites = 3; 
 	
 	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
@@ -220,7 +230,11 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	];
 	*/
 };
+*/
 
+/*
+	You can define configs for additional mods or loadouts here
+*/
 blck_CUPWeapons = [
 	"CUP_lmg_L7A2",
 	"CUP_lmg_L110A1",

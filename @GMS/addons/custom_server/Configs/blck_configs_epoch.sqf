@@ -388,7 +388,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	];
 	blck_headgearList = blck_headgear + blck_helmets;
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
-	blck_SkinList = [
+	blck_SkinList_Male = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Equipment
 				"U_AntigonaBody",
 				"U_AttisBody",
@@ -478,7 +478,14 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 				"U_B_CTRG_Soldier_urb_2_F",
 				"U_B_CTRG_Soldier_urb_3_F"
 			];
-
+		blck_femaleUniformsEpoch = [
+				"U_CamoBlue_uniform", "U_CamoBrn_uniform", "U_CamoPinkPolka_uniform","U_CamoPink_uniform","U_CamoOutback_uniform",
+				"U_CamoBubblegum_uniform","U_CamoBiker_uniform","U_CamoAloha_uniform","U_CamoRed_uniform"
+		];
+		blck_femaleWetsuitsEpoch = [
+			"U_Wetsuit_uniform","U_Wetsuit_White","U_Wetsuit_Blue","U_Wetsuit_Purp","U_Wetsuit_Camo"
+		];
+		blck_SkinList = blck_femaleUniformsEpoch + blck_femaleWetsuitsEpoch + blck_SkinList_Male;
 		blck_vests = [
 				"V_1_EPOCH","V_2_EPOCH","V_3_EPOCH","V_4_EPOCH","V_5_EPOCH","V_6_EPOCH","V_7_EPOCH","V_8_EPOCH","V_9_EPOCH","V_10_EPOCH","V_11_EPOCH","V_12_EPOCH","V_13_EPOCH","V_14_EPOCH","V_15_EPOCH","V_16_EPOCH","V_17_EPOCH","V_18_EPOCH","V_19_EPOCH","V_20_EPOCH",
 				"V_21_EPOCH","V_22_EPOCH","V_23_EPOCH","V_24_EPOCH","V_25_EPOCH","V_26_EPOCH","V_27_EPOCH","V_28_EPOCH","V_29_EPOCH","V_30_EPOCH","V_31_EPOCH","V_32_EPOCH","V_33_EPOCH","V_34_EPOCH","V_35_EPOCH","V_36_EPOCH","V_37_EPOCH","V_38_EPOCH","V_39_EPOCH","V_40_EPOCH",
@@ -609,7 +616,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 			[// Materials and supplies				
 				["CinderBlocks",5,15],
 				["jerrycan_epoch",1,2],
-				//["lighter_epoch",0,1],
+				["lighter_epoch",1,2],
 				["CircuitParts",2,3],
 				["WoodLog_EPOCH",5,10],
 				["ItemCorrugatedLg",1,6],
@@ -622,7 +629,26 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["ItemCables",1,2],
 				["ItemBattery",1,2],
 				["Pelt_EPOCH",1,2],
-				["EnergyPackLg",1,3]
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]
 			],
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,4],["FAK",1,4],["VehicleRepair",1,3],["Rangefinder",1,3],["ItemJade",1,2],["ItemQuartz",1,2],["ItemRuby",1,2],["ItemSapphire",1,2],
@@ -711,22 +737,41 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["optic_AMS_khk",1,3],["optic_AMS_snd",1,3],["optic_KHS_blk",1,3],["optic_KHS_hex",1,3],["optic_KHS_old",1,3],["optic_KHS_tan",1,3]
 			],
 			[	
-				["CinderBlocks",4,12],
+				["CinderBlocks",5,15],
 				["jerrycan_epoch",1,2],
-				["lighter_epoch",1,1],
-				["CircuitParts",2,5],
-				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",1,3],
-				["ItemCorrugated",2,9],
+				["lighter_epoch",1,2],
+				["CircuitParts",2,3],
+				["WoodLog_EPOCH",5,10],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
-				["MortarBucket",3,6],
-				["PartPlankPack",10,12],
-				["ItemLockbox",1,3],
+				["MortarBucket",5,10],
+				["PartPlankPack",10,19],
+				["ItemLockbox",1,2],
 				["ItemSolar",1,2],
 				["ItemCables",1,2],
 				["ItemBattery",1,2],
 				["Pelt_EPOCH",1,2],
-				["EnergyPackLg",1,3]
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]
 			],
 			[//Items
 				// Format is ["Item name, Minimum number to add, Maximum number to add],
@@ -815,18 +860,41 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["optic_AMS_khk",1,3],["optic_AMS_snd",1,3],["optic_KHS_blk",1,3],["optic_KHS_hex",1,3],["optic_KHS_old",1,3],["optic_KHS_tan",1,3]
 			],
 			[
-				["CinderBlocks",2,6],
-				["jerrycan_epoch",1,3],
-				["lighter_epoch",1,1],
+				["CinderBlocks",5,15],
+				["jerrycan_epoch",1,2],
+				["lighter_epoch",1,2],
 				["CircuitParts",2,3],
-				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",0,4],
-				["ItemCorrugated",3,6],
+				["WoodLog_EPOCH",5,10],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
-				["MortarBucket",1,8],
-				["PartPlankPack",10,12],
+				["MortarBucket",5,10],
+				["PartPlankPack",10,19],
 				["ItemLockbox",1,2],
-				["EnergyPackLg",0,1]			
+				["ItemSolar",1,2],
+				["ItemCables",1,2],
+				["ItemBattery",1,2],
+				["Pelt_EPOCH",1,2],
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]			
 			],
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,5],["VehicleRepair",1,5],
@@ -909,23 +977,48 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["optic_AMS_khk",1,3],["optic_KHS_blk",1,3],["optic_KHS_hex",1,3],["optic_KHS_old",1,3],["optic_KHS_tan",1,3]
 			],			
 			[	
-				["CinderBlocks",2,7], 
-				["jerrycan_epoch",1,3],
-				["lighter_epoch",1,1],
-				["CircuitParts",2,6],
-				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",0,5],
-				["ItemCorrugated",3,7],
+				["CinderBlocks",5,15],
+				["jerrycan_epoch",1,2],
+				["lighter_epoch",1,2],
+				["CircuitParts",2,3],
+				["WoodLog_EPOCH",5,10],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
-				["MortarBucket",2,5],
-				["PartPlankPack",10,12],
+				["MortarBucket",5,10],
+				["PartPlankPack",10,19],
 				["ItemLockbox",1,2],
-				["EnergyPackLg",0,1]
+				["ItemSolar",1,2],
+				["ItemCables",1,2],
+				["ItemBattery",1,2],
+				["Pelt_EPOCH",1,2],
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]
 			],
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
-				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
-				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],["ItemSodaAlpineDude",1,3],
+				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],
+				["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3],["ItemPowderMilk",1,3],["ItemRicebox",1,3],
+				["ItemCereals",1,3],["krypto_candy_epoch",1,3],["ItemBakedBeans",1,3],["HotAxeSauce_epoch",1,3]
 			],
 			[ // Backpacks
 				["B_AssaultPack_dgtl",0,2],["B_AssaultPack_khk",0,2],["B_AssaultPack_mcamo",0,2],["B_AssaultPack_ocamo",0,2],["B_AssaultPack_rgr",0,2],["B_AssaultPack_sgg",0,2],
