@@ -8,7 +8,14 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.81 Build 126 (EXPERIMENTAL).
+Version 1.81 Build 130 (EXPERIMENTAL).
+Added: Male and Female uniforms are separated and can be used alone or together for specific missiosn (Epoch Only).
+
+Added: Loot tables updated to include food and supplies as of Epoch 1.1.0.
+
+Added: Setting that configures vehicles to be sold at Black Market Traders.
+	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
+	
 Added: Support for hostage rescue missions. 
 	The hostage can be spawned at any location relative to the mission center.
 	The mission aborts if the hostage is killed; all loot is deleted.
@@ -25,16 +32,25 @@ Added: Support for Arrest Leader missions.
 	See missions\blue\Default4.sqf for an example mission
 
 Added: 	blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
-		which provides a simple way to define the default condtions under which the mission ends. 
+		which provides a simple way to define the default conditions under which the mission ends for all missions. 
 		You can of course define _endCondition in the specific mission file if you wish.
 		
-Added: 	blck_spawnCratesTiming = "atMissionEndAir"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
-		Crates can be spawned on the ground at mission start or at mission end either on the ground or in the air.
+Added:  A new mission completion condition for hostage and captive missions.
+		_endCondition = "assetSecured";
+		
+Added: 	Mission crates can now be spawned on the ground or in the air at mission completion.
+		blck_spawnCratesTiming sets the default for all missions.
+		blck_spawnCratesTiming = "atMissionEndAir"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+		Define _spawnCratesTiming to set this parameter for a particular mission.
+		_spawnCratesTiming = "atMissionEndAir";
+		See the hostage1.sqf mission as an example.
+		
 Added: Crates spawn with tabs or crypto. set the values in the mod-specific configs.
-Added: support for hostages/leaders(who must be arrested) (work in progress). You can set the crate to spawn after successfully freeing the captive using the setting above.
-	Note - you need to update blck_client in your mission.pbo to use this mission mode.		
+		For Epoch, the crypto can be access by pressing space bar.
+			
 Added: Additional documentation for those who wish to design their own missions.
 	   See \missions\blue\default.sqf and default2.sqf for details.
+	   
 Added: greater control over AI loadouts.
 		For land-based dynamic missions you can now specify for each mission:
 		Uniforms
@@ -44,6 +60,7 @@ Added: greater control over AI loadouts.
 		Sidearms allows.
 		(See \Missions\Blue\default2.sqf for examples).
 		[Still to do: upgrade statics for the same functionality; doable but will require adding these parameters to the spawn info for the groups of infantry, vehicle, submerged and air units];
+		
 Added: greater control of mission helis - you can now set variables in the mission file (see examples below).
 	    when these are not defined in the mission file, defaults are used.
 		_chancePara = blck_chanceParaBlue; // Setting this in the mission file overrides the defaults 
@@ -51,6 +68,7 @@ Added: greater control of mission helis - you can now set variables in the missi
 		_chanceHeliPatrol = blck_chanceHeliPatrolBlue;  // Setting this in the mission file overrides the defaults 
 		_noChoppers = blck_noPatrolHelisBlue;
 		_missionHelis = blck_patrolHelisBlue;
+		
 Added: default minimun and maximum radius for groups to patrol.
 		blck_minimumPatrolRadius = 22;  // AI will patrol within a circle with radius of approximately min-max meters. note that because of the way waypoints are completed they may more more or less than this distance.
 		blck_maximumPatrolRadius = 35;
@@ -59,11 +77,12 @@ Changed: **** VERY IMPORTANT  ******
 		The definitions of private variables used in missions in now read in through an include statement (see Missions\Blue\default.sqf for an example)
 		Please update any custom mission you have generated accordingly.
 		This should save quite a bit of editing going forward.
-		Please not that if you do not update the private variables definitions list certain features of the mission spawner may not work due to issues with scope of variables.
+		Please note that if you do not update the private variables definitions list certain features of the mission spawner may not work due to issues with scope of variables.
 		
 Changed: Logic for spawning paratroops was redone so it is more clear.
-		when helis are spawned the paratroops will spawn at the heli location when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		When helis are spawned the paratroops will spawn at the heli location when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
 		When no helies are to be spawned, paratroops will spawn at the mission center when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		
 Changed: Each mission is now compiled at server startup.
          A few variables that were not used were eliminated.
 		 Some declarations of private variables were consolidated.
@@ -72,11 +91,10 @@ Changed: Each mission is now compiled at server startup.
 Changed: Code for Heli Patrols redone.
 		Code that spawns paratroops moved to a separate function that is called when a player is whithin a certain radius of the mission.
 		Code that spawns a supplemental loot chest added - this will be spawned along with the paratroop reinforcements, if desired.
-		This crate can have customized loot (think ammo, building supplies, tools and food, ala Exile airdrops).
+		This crate can have customized loot (think ammo, building supplies, tools and food, ala Exile/Epoch airdrops).
 		
 Changed: Methods for detecting NULL Groups (rarely a problem with arma these days) simplified.
-		GMS_fnc_missionSpawner redone using a single test for the _abort flag to save repeated calls for debugging and endMission.
-		This could be done with try/catch as well.
+		Still more work to be done here.
 
 Changed: Methods for defining mission crate loot were relaxed.
 		You can define each item either with the old method ["Item Name", minimun number, maximum number] or just "Item name".
@@ -84,7 +102,11 @@ Changed: Methods for defining mission crate loot were relaxed.
 Fixed: disabled some logging that is not required except when debugging.
 Fixed: AI Counts were not being shown at dynamic UMS.
 Fixed: AI were glitching through walls. 
-Fixed: Emplaced weapons are spawned at correct locations when their positions are defined in an array in the mission file.
+Fixed: Emplaced weapons are now spawned at correct locations when their positions are defined in an array in the mission file.
+Fixed: an issue with the experimental build whereby the number of dynamically tracked missions was not correctly spawned.
+Fixed: Dead Ai in vehicles were sometimes detected as alive. Dead AI are now ejected.
+Fixed: Vehicles are now properly released to players when all AI inside are killed when an HC is connected.
+
 
 Version 1.80 Build 118
 Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
