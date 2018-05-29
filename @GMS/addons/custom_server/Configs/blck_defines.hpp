@@ -16,7 +16,7 @@
 //#define useDynamicSimulation
 //#define blck_debugMode
 #define blck_triggerLoopCompleteTime 40*60
-//#define blck_milServer
+#define blck_milServer
 //#define GRG_TestServer
 
 #ifdef blck_milServer
