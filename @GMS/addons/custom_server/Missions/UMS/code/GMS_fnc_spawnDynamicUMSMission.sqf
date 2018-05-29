@@ -11,6 +11,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 #define isScubaMission true
 #define delayTime 1
 private ["_abort","_crates","_aiGroup","_objects","_mines","_blck_AllMissionAI","_blck_localMissionMarker",
@@ -149,7 +150,7 @@ while {_wait} do
 	#endif
 
 	if ([_coords, blck_TriggerDistance, false] call blck_fnc_playerInRange) exitWith {_playerInRange = true;};
-	if ([_missionStartTime] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
+	if ([_missionStartTime,blck_MissionTimeout] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
 	uiSleep 5;
 
 	#ifdef blck_debugMode
@@ -157,7 +158,7 @@ while {_wait} do
 	{
 		diag_log format["dynamicUMSspawner:: Trigger Loop - blck_debugLevel = %1 and _coords = %2",blck_debugLevel, _coords];
 		diag_log format["dynamicUMSspawner:: Trigger Loop - players in range = %1",{isPlayer _x && _x distance2D _coords < blck_TriggerDistance} count allPlayers];
-		diag_log format["dynamicUMSspawner:: Trigger Loop - timeout = %1", [_missionStartTime] call blck_fnc_timedOut];
+		diag_log format["dynamicUMSspawner:: Trigger Loop - timeout = %1", [_missionStartTime,blck_MissionTimeout] call blck_fnc_timedOut];
 	};
 	#endif
 };
@@ -166,19 +167,10 @@ if (_missionTimedOut) exitWith
 {
 	//  Deal with the case in which the mission timed out.
 	blck_priorDynamicUMS_Missions pushback [_coords,diag_tickTime]; 
-	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];
-	blck_missionsRunning = blck_missionsRunning - 1;
 	blck_UMS_ActiveDynamicMissions = blck_UMS_ActiveDynamicMissions - [_coords];
 	blck_dynamicUMS_MissionsRuning = blck_dynamicUMS_MissionsRuning - 1;		
-	[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
-	[_objects, 0.1] spawn blck_fnc_cleanupObjects;
-
-	#ifdef blck_debugMode
-	if (blck_debugLevel > 0) then
-	{
-		diag_log format["[blckeagls] dynamicUMSspawner:: (133) Mission Timed Out: _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
-	};
-	#endif
+	diag_log format["_fnc_dynamicUMSSpawner (187): mission timed out"];
+	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
 };
 
 ////////
@@ -346,7 +338,7 @@ if (blck_useVehiclePatrols &&  count _vehiclePatrolParameters > 0) then
 if (blck_useVehiclePatrols &&  count _submarinePatrolParameters > 0) then
 {
 	// params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_isScubaGroup",false]];
-	_temp = [_coords,_vehToSpawn,_aiDifficultyLevel,_submarinePatrolParameters,true,_uniforms,_headGear,blck_UMS_vests,[],blck_UMS_weapons,[],isScubaMission] call blck_fnc_spawnMissionVehiclePatrols;
+	_temp = [_coords,_vehToSpawn,_aiDifficultyLevel,_submarinePatrolParameters,true,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,[],blck_UMS_weapons,[],isScubaMission] call blck_fnc_spawnMissionVehiclePatrols;
 	#ifdef blck_debugMode
 	if  (blck_debugLevel > 1) then {
 			diag_log format["dynamicUMSspawner :: (251) blck_fnc_spawnMissionVehiclePatrols returned _temp = %1",_temp]; 
@@ -360,6 +352,7 @@ if (blck_useVehiclePatrols &&  count _submarinePatrolParameters > 0) then
 	if !(_abort) then
 	{
 		_patrolVehicles = _temp select 0;
+		//diag_log format["[blckeagls] dynamicUMSspawner:: Patrol vehicles = %1",_patrolVehicles];
 		_blck_AllMissionAI append (_temp select 1);
 
 		#ifdef blck_debugMode
@@ -580,7 +573,9 @@ private _spawnPara = if (random(1) < _chancePara) then {true} else {false};
 _missionComplete = -1;
 while {_missionComplete isEqualTo -1} do
 {
-	//if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 180};
+	#ifdef blck_debugMode
+	if (blck_debugLevel isEqualTo 3) exitWith {uiSleep 10; diag_log "_fnc_dynamicUMSSpawner (574): scripted mission end";};
+	#endif
 	if ((_endIfPlayerNear) && [_locations,10,true] call blck_fnc_playerInRangeArray) exitWith {};
 	if ((_endIfAIKilled) &&  ({alive _x} count _blck_AllMissionAI) < 1) exitWith {};
 
@@ -683,3 +678,5 @@ _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMission
 #ifdef blck_debugMode
 diag_log format["[blckeagls] dynamicUMSspawner:: (559) end of mission: blck_fnc_endMission has returned control to _fnc_dynamicUMSspawner"];
 #endif
+blck_missionsRun = blck_missionsRun + 1;
+diag_log format["[blckeagls] dynamicUMSspawner:: Total Dyanamic Land and UMS Run = %1", blck_missionsRun];

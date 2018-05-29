@@ -94,12 +94,12 @@ _unit setunitpos "AUTO";
 if !(_headGear isEqualTo []) then 
 {
 	_unit addHeadgear (selectRandom _headGear);
-	diag_log format["Headgear for unit %1 = %2",_unit, headgear _unit];
+	//diag_log format["Headgear for unit %1 = %2",_unit, headgear _unit];
 };
 if !(_vests  isEqualTo []) then 
 {
 	_unit addVest (selectRandom _vests);
-	diag_log format["Vest for unit %1 = %2",_unit, vest _unit];
+	//diag_log format["Vest for unit %1 = %2",_unit, vest _unit];
 };
 
 if (_weaponList isEqualTo []) then {_weaponList = call blck_fnc_selectAILoadout};
