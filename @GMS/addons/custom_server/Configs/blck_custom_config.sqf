@@ -17,10 +17,6 @@
 
 diag_log "[blckeagls] Loading Configuration Overides";
 
-/*
-	See the examples below as a guide for adding configs that are unique for each of several servers.
-*/
-/*
 private["_startTime"];
 _startTime = diag_tickTime;
 _world = toLower format ["%1", worldName];
@@ -30,6 +26,7 @@ switch (_world) do {
 	case "napf":{_nightAccel = 12; _dayAccel = 2;_duskAccel = 6;};
 	case "namalsk":{_nightAccel = 12; _dayAccel = 2;_duskAccel = 6;};
 	case "tanoa":{_nightAccel = 12; _dayAccel = 3.2;_duskAccel = 6;};
+	case "namalsk":{_nightAccel = 12; _dayAccel = 2; _duskAccel = 6;};
 };
 
 switch (toLower (worldName)) do
@@ -83,9 +80,9 @@ switch (toLower (worldName)) do
 		blck_maxCrashSites = 1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
 		
 		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = ((_serverUpTime + 2)/_daylight);  // Daytime time accelearation
-		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = (3/_nightTime);  // Nighttim time acceleration		
+		blck_timeAccelerationDay = 2;  // Daytime time accelearation
+		blck_timeAccelerationDusk = 6; // Dawn/dusk time accelearation
+		blck_timeAccelerationNight = (12);  // Nighttim time acceleration		
 	};
 	case "esseker": 
 	{
@@ -132,13 +129,7 @@ switch (toLower (worldName)) do
 		blck_maxCrashSites = 3; 		
 	};		
 };
-*/
 
-/*
-	Debug settings - 
-*/
-
-/*
 if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in \custom_server\compiles\blck_variables.sqf
 {
 	// Used primarily for debugging.
@@ -153,14 +144,14 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 
 	blck_maxSpawnedMissions = 15;
 	blck_mainThreadUpdateInterval = 10;
-	blck_enableOrangeMissions = -1;  
-	blck_enableGreenMissions = -1;
-	blck_enableRedMissions = -1;
+	blck_enableOrangeMissions = 1;  
+	blck_enableGreenMissions = 1;
+	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
-	blck_numberUnderwaterDynamicMissions = -3;	
+	blck_numberUnderwaterDynamicMissions = 1;	
 	blck_enableHunterMissions = 1;
 	blck_enableScoutsMissions = 1;
-	blck_maxCrashSites = 3; 
+	blck_maxCrashSites = 1; 
 	
 	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
 	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
@@ -185,7 +176,7 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 
 	blck_SpawnVeh_Orange = 1; // Number of vehicles at Orange Missions
 	blck_SpawnVeh_Green = 1; // Number of vehicles at Green Missions
-	blck_SpawnVeh_Blue = 4;  // Number of vehicles at Blue Missions
+	blck_SpawnVeh_Blue = -4;  // Number of vehicles at Blue Missions
 	blck_SpawnVeh_Red = 1;
 	
 	blck_TMin_Blue = 7;
@@ -212,7 +203,7 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	
 	blck_MinAI_Blue = 1;	
 	blck_MaxAI_Blue = 2;
-	blck_AIGrps_Blue = 0;
+	blck_AIGrps_Blue = 3;
 	
 	blck_AIPatrolVehicles = ["Exile_Car_MB4WDOpen"];
 	/*
@@ -230,11 +221,7 @@ if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in 
 	];
 	*/
 };
-*/
 
-/*
-	You can define configs for additional mods or loadouts here
-*/
 blck_CUPWeapons = [
 	"CUP_lmg_L7A2",
 	"CUP_lmg_L110A1",
