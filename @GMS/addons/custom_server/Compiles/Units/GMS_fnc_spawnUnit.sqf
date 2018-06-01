@@ -12,7 +12,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private ["_i","_weap","_skin","_unit","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_modType","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
+private ["_i","_weap","_skin","_unit","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
 params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false]];
 
 #ifdef blck_debugMode
@@ -27,8 +27,8 @@ if (blck_debugLevel >= 2) then
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _unit = ObjNull;
-_modType = call blck_fnc_getModType;
-if (_modType isEqualTo "Epoch") then
+
+if (blck_modType isEqualTo "Epoch") then
 {
 	"I_Soldier_EPOCH" createUnit [[0,0,0], _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
 	_unit setVariable ["LAST_CHECK",28800,true];
@@ -40,7 +40,7 @@ if (_modType isEqualTo "Epoch") then
 		case "orange":{_unit setVariable["Crypto",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
 };
-if (_modType isEqualTo "Exile") then
+if (blck_modType isEqualTo "Exile") then
 {
 	"i_g_soldier_unarmed_f" createUnit [[0,0,0], _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
 	switch(_skillLevel) do
@@ -52,7 +52,17 @@ if (_modType isEqualTo "Exile") then
 	};
 };
 //  findEmptyPosition [minDistance, maxDistance, vehicleType] 
+
 _unit setPos ( _pos findEmptyPosition [0.1,3,(typeOf _unit)]);
+_posUnit = getPosATL _unit;
+_start = +_posUnit;
+_start set [2, 100];
+while { (lineIntersects [ATLToASL _start, ATLToASL _posUnit]) } do {
+	_pos set [2, ((_pos select 2) + 0.25)];
+	_posUnit set[1,((_posUnit select 1) + 0.25)];
+};
+_unit setPosATL _pos;
+
 #ifdef blck_debugMode
 if (blck_debugLevel >= 2) then
 {

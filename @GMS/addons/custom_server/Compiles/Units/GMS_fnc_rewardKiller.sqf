@@ -16,13 +16,12 @@
 params["_unit","_killer"];
 //diag_log format["rewardKiller::  _unit = %1 and _killer %2",_unit,_killer];
 
-private["_modType","_reward","_maxReward","_dist","_killstreakReward","_distanceBonus","_newKillerScore","_newKillerFrags","_money"];
-_modType = call blck_fnc_getModType;
+private["_reward","_maxReward","_dist","_killstreakReward","_distanceBonus","_newKillerScore","_newKillerFrags","_money"];
 
 //diag_log format["[blckeagles] rewardKiller:: - _modType = %1",_modType];
 //if (_modType isEqualTo "Epoch") exitWith {};  // Have players pull crypto from AI bodies now that this feature is available.
 
-if (_modType isEqualTo "Epoch") then
+if (blck_modType isEqualTo "Epoch") then
 {
 	//diag_log "calculating reward for Epoch";
 	
@@ -63,7 +62,7 @@ _player setVariable ["ExileTemperature", _data select 44];
 _player setVariable ["ExileWetness", _data select 45]; 
 */
 
-if (_modType isEqualTo "Exile") then
+if (blck_modType isEqualTo "Exile") then
 {
 	private["_distanceBonus","_overallRespectChange","_newKillerScore","_newKillerFrags","_maxReward","_money","_message"];
 	/*

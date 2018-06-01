@@ -12,9 +12,7 @@
 
 params["_Vehicle"];
 
-private["_modType"];
-_modType = call blck_fnc_getModType;
-switch (_ModType) do {
+switch (blck_modType) do {
 	case "Epoch":
 				{
 					#ifdef blck_debugMode

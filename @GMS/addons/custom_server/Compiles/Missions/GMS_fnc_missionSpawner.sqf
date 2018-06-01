@@ -481,6 +481,8 @@ private _spawnPara = if (random(1) < _chancePara) then {true} else {false};
 	_x setVariable["crateSpawnPos", (getPos _x)];
 } forEach _crates;
 
+private["_thresholdPercentageKilled","_result","_minPercentageKilled"];
+_thresholdPercentageKilled = (1-blck_killPercentage);
 while {_missionComplete isEqualTo -1} do
 {
 	#ifdef blck_debugMode
@@ -490,9 +492,15 @@ while {_missionComplete isEqualTo -1} do
 	{
 		if ([_locations,20,true] call blck_fnc_playerInRangeArray) then {_missionComplete = 1};
 	};
+
 	if (_endIfAIKilled) then
 	{
-		if (({alive _x} count _blck_AllMissionAI) < 1) then {_missionComplete = 1};
+		_result = [_blck_AllMissionAI,1] call blck_fnc_countAliveAI;
+		// _result is an array of [no alive, total spawned];
+		//private _noneAlive = if (_result select 0 isEqualTo 0) then {true} else {false};
+		//private _aiCountBelowThreshold = if ( (_result select 0)/(_result select 1) < _thresholdPercentageKilled) then {true} else {false};
+		//diag_log format["_fnc_missionSpawner:  _noneAlive = %1 | _result = %2 | PercentageKilled = %3",_noneAlive,_result,(_result select 0)/(_result select 1)];
+		if ((_result select 0) < 1 || ((_result select 0)/(_result select 1)) < _thresholdPercentageKilled ) then {_missionComplete = 1};
 	};
 	if (_spawnCratesTiming isEqualTo "atMissionSpawn") then
 	{
@@ -510,7 +518,8 @@ while {_missionComplete isEqualTo -1} do
 		{
 			_missionComplete = 1
 		} else {
-			if (_assetSpawned getVariable["blck_AIState",0] > 0 && (({alive _x} count _blck_AllMissionAI) isEqualTo 1)) then {_missionComplete = 1};
+			//if (_assetSpawned getVariable["blck_AIState",0] > 0 && (({alive _x} count _blck_AllMissionAI) isEqualTo 1)) then {_missionComplete = 1};
+			if ( ([_blck_AllMissionAI] call blck_fnc_countAliveAI < 0.15) && (_assetSpawned getVariable["blck_AIState",0] > 0) ) then {_missionComplete = 1};
 		};
 	};
 	if (_spawnPara) then
