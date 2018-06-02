@@ -623,18 +623,18 @@ if (blck_showCountAliveAI) then
 	}forEach blck_missionMarkers;
 };
 
-//diag_log format["_fnc_missionSpawner (557) Build 123: _secureAsset = %1 | {alive _assetSpawned} = %2 | assetType = %3",_secureAsset,alive _assetSpawned, _assetSpawned getVariable["assetType",-1]];
+diag_log format["_fnc_missionSpawner (557) Build 123: _secureAsset = %1 | {alive _assetSpawned} = %2 | assetType = %3",_secureAsset,alive _assetSpawned, _assetSpawned getVariable["assetType",-1]];
 
 if (_assetSpawned getVariable["assetType",0] isEqualTo 1) then
 {
-	//diag_log "Processing Mission End for Hostage Rescue";
+	diag_log "Processing Mission End for Hostage Rescue";
 	_assetSpawned setCaptive false;
 	_assetSpawned setVariable["GMSAnimations",[""],true];
 	[_assetSpawned,""] remoteExec["switchMove",-2];;
 	uiSleep 0.1;
 	_assetSpawned enableAI "ALL";
 	private _newPos = (getPos _assetSpawned) getPos [1000, random(360)];
-	//diag_log format["processing domove for hostage with current pos = %1 and new pos = %2",getPos _assetSpawned, _newPos];
+	diag_log format["processing domove for hostage with current pos = %1 and new pos = %2",getPos _assetSpawned, _newPos];
 	(group _assetSpawned) setCurrentWaypoint [group _assetSpawned, 0];
 	[group _assetSpawned,0] setWaypointPosition [_newPos,0];
 	[group _assetSpawned,0] setWaypointType "MOVE";
@@ -642,19 +642,19 @@ if (_assetSpawned getVariable["assetType",0] isEqualTo 1) then
 
 if (_assetSpawned getVariable["assetType",0] isEqualTo 2) then
 {
-	//diag_log format["Processing Mission End for Arrest of Leader %1 with endAnimation %2",_assetSpawned,_assetSpawned getVariable["endAnimation",""]];
+	diag_log format["Processing Mission End for Arrest of Leader %1 with endAnimation %2",_assetSpawned,_assetSpawned getVariable["endAnimation",""]];
 	[_assetSpawned,""] remoteExec["switchMove",-2];
 	_assetSpawned setVariable["GMSAnimations",_assetSpawned getVariable["endAnimation",["AidlPercMstpSnonWnonDnon_AI"]],true];
 	[_assetSpawned,selectRandom(_assetSpawned getVariable["endAnimation",["AidlPercMstpSnonWnonDnon_AI"]])] remoteExec["switchMove",-2];
 };
 
-//diag_log format["_fnc_missionSpawner (579) Build 123: <calling blck_fnc_endMission> _secureAsset = %1 | {alive _assetSpawned} = %2 | assetType = %3",_secureAsset,alive _assetSpawned, _assetSpawned getVariable["assetType",-1]];
+diag_log format["_fnc_missionSpawner (579) Build 123: <calling blck_fnc_endMission> _secureAsset = %1 | {alive _assetSpawned} = %2 | assetType = %3",_secureAsset,alive _assetSpawned, _assetSpawned getVariable["assetType",-1]];
 
 _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  0] call blck_fnc_endMission;
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["[blckeagls] missionSpawner:: (507)end of mission: blck_fnc_endMission has returned control to _fnc_missionSpawner"]};
 #endif
-//diag_log format["_fnc_missionSpawner (643) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+diag_log format["_fnc_missionSpawner (643) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 blck_missionsRun = blck_missionsRun + 1;
 diag_log format["_fnc_missionSpawner (644): Total Dyanamic Land and UMS Run = %1", blck_missionsRun];

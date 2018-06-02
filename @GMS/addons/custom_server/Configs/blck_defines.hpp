@@ -14,11 +14,7 @@
 #define useAPEX 
 //#define useDynamicSimulation
 //#define blck_debugMode
-<<<<<<< HEAD
-//#define blck_milServer
-=======
 //#define blck_triggerLoopCompleteTime 40*60
 //#define blck_milServer
 
 
->>>>>>> Experimental

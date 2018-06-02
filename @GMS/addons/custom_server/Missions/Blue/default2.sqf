@@ -91,11 +91,7 @@ _missionLootVehicles = [
 	]; //  Parameters are "vehiclel type", offset relative to mission center, loot array, items to load from each category of the loot array.
 	//  ["B_HMG_01_high_F"/*,"B_GMG_01_high_F","O_static_AT_F"*/];
 
-<<<<<<< HEAD
-	_missionGroups = 
-=======
 _missionGroups = 
->>>>>>> Experimental
 	[
 	//_x params["_position","_minAI","_maxAI","_skillLevel","_minPatrolRadius","_maxPatrolRadius"];
 	[[-10.9121,-10.9824,-1.20243],5,7,"Green",5,12],
@@ -110,11 +106,7 @@ _missionEmplacedWeapons = [
 	["O_static_AT_F",[-10,10,0]]
 	]; // can be used to define the type and precise placement of static weapons [["wep",[1,2,3]] /*loc 1*/, [2,3,4] /*loc 2*/]; if blank random locations will be used
 
-<<<<<<< HEAD
-	_missionPatrolVehicles = [
-=======
 _missionPatrolVehicles = [
->>>>>>> Experimental
 	["B_MRAP_01_hmg_F",[27.8945,100.275,0],0,[true,false]],
 	["B_MRAP_01_hmg_F",[-84.7793,72.2617,9.53674e-007],0,[true,false]],
 	["B_MRAP_01_gmg_F",[-87.8457,-109.947,7.15256e-007],0,[true,false]]

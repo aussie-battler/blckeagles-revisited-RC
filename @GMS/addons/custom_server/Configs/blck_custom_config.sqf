@@ -3,7 +3,6 @@
 	for ghostridergaming
 	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 3-14-17
 	
 	--------------------------
 	License
@@ -17,6 +16,10 @@
 
 diag_log "[blckeagls] Loading Configuration Overides";
 
+/*
+	See the examples below as a guide for adding configs that are unique for each of several servers.
+*/
+/*
 private["_startTime"];
 _startTime = diag_tickTime;
 _world = toLower format ["%1", worldName];
@@ -26,7 +29,6 @@ switch (_world) do {
 	case "napf":{_nightAccel = 12; _dayAccel = 2;_duskAccel = 6;};
 	case "namalsk":{_nightAccel = 12; _dayAccel = 2;_duskAccel = 6;};
 	case "tanoa":{_nightAccel = 12; _dayAccel = 3.2;_duskAccel = 6;};
-	case "namalsk":{_nightAccel = 12; _dayAccel = 2; _duskAccel = 6;};
 };
 
 switch (toLower (worldName)) do
@@ -80,9 +82,9 @@ switch (toLower (worldName)) do
 		blck_maxCrashSites = 1;  // recommended settings: 3 for Altis, 2 for Tanoa, 1 for smaller maps. Set to -1 to disable
 		
 		blck_timeAcceleration = true; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-		blck_timeAccelerationDay = 2;  // Daytime time accelearation
-		blck_timeAccelerationDusk = 6; // Dawn/dusk time accelearation
-		blck_timeAccelerationNight = (12);  // Nighttim time acceleration		
+		blck_timeAccelerationDay = ((_serverUpTime + 2)/_daylight);  // Daytime time accelearation
+		blck_timeAccelerationDusk = 4; // Dawn/dusk time accelearation
+		blck_timeAccelerationNight = (3/_nightTime);  // Nighttim time acceleration		
 	};
 	case "esseker": 
 	{
@@ -129,108 +131,13 @@ switch (toLower (worldName)) do
 		blck_maxCrashSites = 3; 		
 	};		
 };
+*/
 
-if (blck_debugON || (blck_debugLevel > 0)) then // These variables are found in \custom_server\compiles\blck_variables.sqf
-{
-	// Used primarily for debugging.
-	diag_log "[blckeagls] Debug seting is ON, Custom configurations used";
 
-	//blck_useTimeAcceleration = false; // When true, time acceleration will be periodically updated based on amount of daylight at that time according to the values below.
-	//blck_timeAccelerationDay = 1;  // Daytime time accelearation
-	//blck_timeAccelerationDusk = 18; // Dawn/dusk time accelearation
-	//blck_timeAccelerationNight = 24;  // Nighttim time acceleration	
-	
-	blck_useHC = true;
-
-	blck_maxSpawnedMissions = 15;
-	blck_mainThreadUpdateInterval = 10;
-	blck_enableOrangeMissions = 1;  
-	blck_enableGreenMissions = 1;
-<<<<<<< HEAD
-	blck_enableRedMissions = -2;
-	blck_enableBlueMissions = -2;
-	blck_numberUnderwaterDynamicMissions = 3;	
-	blck_enableHunterMissions = -1;
-	blck_enableScoutsMissions = -1;
-	blck_maxCrashSites = 0; 
-=======
-	blck_enableRedMissions = 1;
-	blck_enableBlueMissions = 1;
-	blck_numberUnderwaterDynamicMissions = -1;	
-	blck_enableHunterMissions = 1;
-	blck_enableScoutsMissions = 1;
-	blck_maxCrashSites = 1; 
->>>>>>> Experimental
-	
-	blck_cleanupCompositionTimer = 20;  // Time after mission completion at which items in the composition are deleted.
-	blck_AliveAICleanUpTimer = 20;  // Time after mission completion at which any remaining live AI are deleted.
-	blck_bodyCleanUpTimer = 20;
-	blck_vehicleDeleteTimer = 20; 
-	//blck_MissionTimeout = 30;
-	
-	blck_noPatrolHelisOrange = 1;
-	blck_chanceHeliPatrolOrange = 1;
-	blck_chanceParaOrange = 1;
-	blck_chanceHeliPatrolBlue = -1;
-	blck_noPatrolHelisBlue = -1;
-	blck_chanceParaBlue = -1; // [0 - 1] set to 0 to deactivate and 1 to always have paratroops spawn over the center of the mission. This value can be a range as well [0.1,0.3]
-	blck_noParaBlue = 3; //  [1-N]	
-	blck_paraTriggerDistanceBlue = 400;
-	
-	//blck_chanceHeliPatrolBlue = 1;
-	blck_SpawnEmplaced_Orange = 1; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 1; // Number of static weapons at Green Missions
-	blck_SpawnEmplaced_Blue = -1;  // Number of static weapons at Blue Missions
-	blck_SpawnEmplaced_Red = 1; 
-
-	blck_SpawnVeh_Orange = 1; // Number of vehicles at Orange Missions
-	blck_SpawnVeh_Green = 1; // Number of vehicles at Green Missions
-	blck_SpawnVeh_Blue = -4;  // Number of vehicles at Blue Missions
-	blck_SpawnVeh_Red = 1;
-	
-	blck_TMin_Blue = 7;
-	blck_TMin_Red = 10;
-	blck_TMin_Green = 13;	
-	blck_TMin_Orange = 16;	
-	blck_TMin_Hunter = 20;
-	blck_TMin_Scouts = 20;
-	blck_TMin_Crashes = 5;
-	blck_TMin_UMS = 20;
-	//Maximum Spawn time between missions in seconds
-	blck_TMax_Blue = 12;
-	blck_TMax_Red = 15;
-	blck_TMax_Green = 17;
-	blck_TMax_Orange = 21;
-	blck_TMax_Hunter = 22;
-	blck_TMax_Scouts = 22;
-	blck_TMax_Crashes = 15;
-	blck_TMax_UMS = 25;
-
-	//blck_MinAI_Orange = 1;
-	//blck_MaxAI_Orange = 2;
-	//blck_AIGrps_Orange = 1;
-	
-	blck_MinAI_Blue = 1;	
-	blck_MaxAI_Blue = 2;
-	blck_AIGrps_Blue = 1;
-	
-	blck_AIPatrolVehicles = ["Exile_Car_MB4WDOpen"];
-	/*
-	blck_SkillsBlue = [
-		["aimingAccuracy",0.01],
-		["aimingShake",0.01],
-		["aimingSpeed",0.01],
-		["endurance",0.01],
-		["spotDistance",0.01],
-		["spotTime",0.01],
-		["courage",0.01],
-		["reloadSpeed",0.80],
-		["commanding",0.8],
-		["general",1.00]
-	];
-	*/
-};
-
+/*
+	You can define configs for additional mods or loadouts here
+*/
+/*
 blck_CUPWeapons = [
 	"CUP_lmg_L7A2",
 	"CUP_lmg_L110A1",
@@ -1359,3 +1266,4 @@ blck_NIA_WeaponsSniper = [
 	"hlc_rifle_psg1",
 	"hlc_rifle_psg1A1"
 ];
+*/
