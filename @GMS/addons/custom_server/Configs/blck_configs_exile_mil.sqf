@@ -650,13 +650,6 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"Exile_Item_InstantCoffee"
 	];
 	
-	#ifdef useCUP
-	
-	#endif
-	
-	#ifdef useRHS
-	
-	#endif
 	blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
 	blck_throwableExplosives = ["HandGrenade","MiniGrenade"];
 	blck_otherExplosives = ["1Rnd_HE_Grenade_shell","3Rnd_HE_Grenade_shell","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag"];

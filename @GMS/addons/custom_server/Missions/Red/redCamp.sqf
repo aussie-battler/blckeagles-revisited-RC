@@ -81,15 +81,6 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Red;
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;
 
-#ifdef blck_milServer
-_uniforms = blck_RHS_UniformsGREF;  // Setting this in the mission file overrides the defaults 
-_headgear = blck_RHS_HeadgearGREF;  // Setting this in the mission file overrides the defaults 
-_vests = blck_RHS_VestsGREF;
-_backpacks = blck_RHS_BackpacksUSAF + blck_CUPBackpacks;
-_weaponList = blck_NIA_WeaponsSniper + blck_NIA_WeaponsAR + blck_NIA_WeaponsSMG;
-_sideArms = blck_Pistols;
-#endif
-
 _chanceHeliPatrol = blck_chanceHeliPatrolRed;  // Setting this in the mission file overrides the defaults 
 _noChoppers = blck_noPatrolHelisRed;
 _missionHelis = blck_patrolHelisRed;
@@ -117,10 +108,6 @@ _loadCratesTiming = blck_loadCratesTiming; // valid choices are "atMissionComple
 						// To spawn crates in the air and drop them by chutes set blck_spawnCratesTiming = "atMissionEndAir" // Note that a loaded crate will be spawned.
 _endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 									// Setting this in the mission file overrides the defaults 
-#ifdef blck_milServer
-_weapons = blck_RHS_Weapons;
-#endif 
-
 _endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

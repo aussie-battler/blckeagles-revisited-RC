@@ -202,12 +202,8 @@
 	////////////////////
 	
 	// Maximum number of missions shown on the map at any one time.
-	#ifdef GRGserver
-	blck_maxSpawnedMissions = 15;
-	#else
 	// Change this value to reduce the number of spawned missions at any one time.
 	blck_maxSpawnedMissions = 4;
-	#endif
 	
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
@@ -215,12 +211,6 @@
 	blck_enableRedMissions = 2;
 	blck_enableBlueMissions = 2;
 	blck_numberUnderwaterDynamicMissions = 2;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
-
-	#ifdef GRGserver
-	blck_enableHunterMissions = 1;
-	blck_enableScoutsMissions = 2;
-	blck_maxcrashsites = 3;
-	#endif
 
 	////////////////////
 	// MISSION TIMERS
@@ -232,12 +222,6 @@
 	blck_TMin_Blue = 120;
 	blck_TMin_Red = 150;
 	blck_TMin_UMS = 180;	
-	#ifdef GRGserver
-	blck_TMin_Hunter = 120;
-	blck_TMin_Scouts = 115;
-	blck_TMin_Crashes = 115;
-
-	#endif
 	
 	//Maximum Spawn time between missions in seconds
 	blck_TMax_Orange = 360;
@@ -245,11 +229,6 @@
 	blck_TMax_Blue = 200;
 	blck_TMax_Red = 250;
 	blck_TMax_UMS = 200;
-	#ifdef GRGserver
-	blck_TMax_Hunter = 200;
-	blck_TMax_Scouts = 200;
-	blck_TMax_Crashes = 200;
-	#endif
 	
 	///////////////////////////////
 	// AI VEHICLE PATROL PARAMETERS
@@ -307,11 +286,6 @@
 	
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 40*60; // time in seconds after which dead AI bodies are deleted
-	#ifdef GRGserver
-	#ifdef blck_milServer
-	blck_bodyCleanUpTimer = 40*60;  //  Trying to reduce lag with player counts > 20
-	#endif
-	#endif
 	
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
 	// values are ordered as follows [blue, red, green, orange];
@@ -371,60 +345,6 @@
 	blck_maxMoneyRed = 30;
 	blck_maxMoneyBlue = 20;
 
-	#ifdef GRGserver
-	blck_AIAlertDistance = [250,425,650,800];  //  Radius within which AI will be notified of enemy activity. Depricated as a group-sed system is used now. The group is informed of the enemy location when a group member is hit or killed.
-	//blck_AIAlertDistance = [150,225,400,500];
-	// How precisely player locations will be revealed to AI after an AI kill
-	// values are ordered as follows [blue, red, green, orange];
-	blck_AIIntelligence = [0.3, 0.5, 0.7, 0.9];  
-	
-	blck_baseSkill = 1;  // The overal skill of the AI - range 0.1 to 1.0.
-	
-	/***************************************************************
-	
-	MISSION TYPE SPECIFIC AI SETTINGS
-	
-	**************************************************************/
-	//This defines the skill, minimum/Maximum number of AI and how many AI groups are spawned for each mission type
-	// Orange Missions
-	blck_MinAI_Orange = 30;
-	blck_MaxAI_Orange = 35;
-	blck_AIGrps_Orange = 5;
-	blck_SkillsOrange = [
-		["aimingAccuracy",0.6],["aimingShake",0.9],["aimingSpeed",0.9],["endurance",1.00],["spotDistance",1.0],["spotTime",1.0],["courage",1.00],["reloadSpeed",1.00],["commanding",1.00],["general",1.00]
-	];
-	
-	// Green Missions
-	blck_MinAI_Green = 26;
-	blck_MaxAI_Green = 31;
-	blck_AIGrps_Green = 4;
-	blck_SkillsGreen = [
-		["aimingAccuracy",0.55],["aimingShake",0.75],["aimingSpeed",0.85],["endurance",0.9],["spotDistance",0.9],["spotTime",0.9],["courage",0.9],["reloadSpeed",0.9],["commanding",0.9],["general",0.75]
-	];
-	
-	// Red Missions
-	blck_MinAI_Red = 12;
-	blck_MaxAI_Red = 18;
-	blck_AIGrps_Red = 3;
-	blck_SkillsRed = [
-		["aimingAccuracy",0.4],["aimingShake",0.6],["aimingSpeed",0.6],["endurance",0.80],["spotDistance",0.7],["spotTime",0.8],["courage",0.80],["reloadSpeed",0.70],["commanding",0.8],["general",0.70]
-	];
-	
-	// Blue Missions
-	blck_MinAI_Blue = 8;	
-	blck_MaxAI_Blue = 14;
-	blck_AIGrps_Blue = 2;
-	blck_SkillsBlue = [
-		["aimingAccuracy",0.12],["aimingShake",0.3],["aimingSpeed",0.5],["endurance",0.50],["spotDistance",0.6],["spotTime",0.6],["courage",0.60],["reloadSpeed",0.60],["commanding",0.7],["general",0.60]
-	];
-		
-	// Add some money to AI; only works with Exile for now.
-	blck_maxMoneyOrange = 25;
-	blck_maxMoneyGreen = 20;
-	blck_maxMoneyRed = 15;
-	blck_maxMoneyBlue = 10;	
-	#endif
-	
 	private["_modType"];
 	_modType = [] call blck_fnc_getModType;
 	if (_modType isEqualTo "Epoch") then

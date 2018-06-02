@@ -16,13 +16,13 @@
 diag_log "running GRGserver version of _fnc_mainThread";
 #endif
 
-private["_modType","_timer1sec","_timer5sec","_timer20sec","_timer5min","_timer5min"];
+private["_timer1sec","_timer5sec","_timer20sec","_timer5min","_timer5min"];
 _timer1sec = diag_tickTime;
 _timer5sec = diag_tickTime;
 _timer20sec = diag_tickTime;
 _timer1min = diag_tickTime;
 _timer5min = diag_tickTime;
-_modType = [] call blck_fnc_getModType;
+
 while {true} do
 {
 	uiSleep 1;

@@ -72,7 +72,7 @@ if (count _readyToSpawnQue > 0) then
 	//diag_log format["_fnc_spawnPendingMissions: _missionDifficulty %1",_missionDifficulty];
 	//diag_log format["_fnc_spawnPendingMissions: _compiledMission %1",_compiledMission];
 	[_coords,_missionMarker,_missionDifficulty] spawn _compiledMission;
-	diag_log format["_fnc_spawnPendingMissions: blck_missionsRunning = %1", blck_missionsRunning];
+	//diag_log format["_fnc_spawnPendingMissions: blck_missionsRunning = %1", blck_missionsRunning];
 };
 
 true

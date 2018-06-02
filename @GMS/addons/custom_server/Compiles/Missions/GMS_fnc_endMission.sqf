@@ -16,12 +16,12 @@ private["_cleanupAliveAITimer","_cleanupCompositionTimer","_isScubaMission"];
 	
 _fn_missionCleanup = {	
 	params["_mines","_objects","_blck_AllMissionAI","_mission","_cleanupAliveAITimer","_cleanupCompositionTimer",["_isScubaMission",false]];
-		diag_log format["_fn_missionCleanup: blck_missionsRunning Started at %1", blck_missionsRunning];
+	//diag_log format["_fn_missionCleanup: blck_missionsRunning Started at %1", blck_missionsRunning];
 	[_mines] call blck_fnc_clearMines;
 	[_objects, _cleanupCompositionTimer] call blck_fnc_addObjToQue;
 	[_blck_AllMissionAI, (_cleanupAliveAITimer)] call blck_fnc_addLiveAItoQue;
 	blck_missionsRunning = blck_missionsRunning - 1;
-	diag_log format["_fn_missionCleanup: blck_missionsRunning reset to %1", blck_missionsRunning];
+	//diag_log format["_fn_missionCleanup: blck_missionsRunning reset to %1", blck_missionsRunning];
 	blck_ActiveMissionCoords = blck_ActiveMissionCoords - [ _coords];	
 	if !(_isScubaMission) then
 	{
@@ -82,7 +82,7 @@ _fn_missionCleanup = {
 	};
 	if (_endCondition == 0) then // Normal Mission End State
 	{
-		diag_log format["_fnc_endMission: mission end condition == 0 | setting all timers to 0"];
+		//diag_log format["_fnc_endMission: mission end condition == 0 | setting all timers to 0"];
 		private["_cleanupAliveAITimer","_cleanupCompositionTimer"];
 		if (blck_useSignalEnd) then
 		{

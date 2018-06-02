@@ -8,20 +8,23 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.81 Build 130 (EXPERIMENTAL).
+Version 1.82 Build 132
+Added: 	blck_killPercentage = 0.9;  // The mission will complete if this fraction of the total AI spawned has been killed.
+								// This facilitates mission completion when one or two AI are spawned into objects.	
+
 Added: Male and Female uniforms are separated and can be used alone or together for specific missiosn (Epoch Only).
 
 Added: Loot tables updated to include food and supplies as of Epoch 1.1.0.
 
 Added: Setting that configures vehicles to be sold at Black Market Traders.
-	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
+	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halve's black market traders.
 	
 Added: Support for hostage rescue missions. 
 	The hostage can be spawned at any location relative to the mission center.
 	The mission aborts if the hostage is killed; all loot is deleted.
 	To complete the mission, a player must approach the hostage and execute the rescue action.
 	The hostage then runs away, and loot becomes available to the player.
-	See missions\blue\Default3.sqf for an example mission.
+	See missions\blue\hostage.sqf for an example mission.
 	
 	*****  PLEASE READ - IMPORTANT ****
 	Please update the blck_client.sqf in your mission.pbo or you will not be able to interact with or see animations of the new AI characters.
@@ -29,7 +32,7 @@ Added: Support for hostage rescue missions.
 Added: Support for Arrest Leader missions.
 	These are similar to the rescue hostage mission except that the leader, when arrested, will sites
 	awaiting arrival of imaginary survivor forces.
-	See missions\blue\Default4.sqf for an example mission
+	See missions\blue\capture.sqf for an example mission
 
 Added: 	blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 		which provides a simple way to define the default conditions under which the mission ends for all missions. 
@@ -45,8 +48,8 @@ Added: 	Mission crates can now be spawned on the ground or in the air at mission
 		_spawnCratesTiming = "atMissionEndAir";
 		See the hostage1.sqf mission as an example.
 		
-Added: Crates spawn with tabs or crypto. set the values in the mod-specific configs.
-		For Epoch, the crypto can be access by pressing space bar.
+Added: Crates spawn with tabs or crypto. Set the values in the mod-specific configs.
+		For Epoch, the crypto can be accessed by pressing space bar.
 			
 Added: Additional documentation for those who wish to design their own missions.
 	   See \missions\blue\default.sqf and default2.sqf for details.
@@ -79,19 +82,20 @@ Changed: **** VERY IMPORTANT  ******
 		This should save quite a bit of editing going forward.
 		Please note that if you do not update the private variables definitions list certain features of the mission spawner may not work due to issues with scope of variables.
 		
-Changed: Logic for spawning paratroops was redone so it is more clear.
-		When helis are spawned the paratroops will spawn at the heli location when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
-		When no helies are to be spawned, paratroops will spawn at the mission center when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
-		
-Changed: Each mission is now compiled at server startup.
+Changed: Each mission is now compiled at server startup which I hope will save a little server resource between restarts.
          A few variables that were not used were eliminated.
 		 Some declarations of private variables were consolidated.
 		 Together these changes should be worth a small performance bump.
 		 
 Changed: Code for Heli Patrols redone.
-		Code that spawns paratroops moved to a separate function that is called when a player is whithin a certain radius of the mission.
+		Code that spawns paratroops moved to a separate function that is called when a player is within a certain radius of the mission.
 		Code that spawns a supplemental loot chest added - this will be spawned along with the paratroop reinforcements, if desired.
 		This crate can have customized loot (think ammo, building supplies, tools and food, ala Exile/Epoch airdrops).
+
+Changed: Logic for spawning paratroops was redone so it is more clear.
+		When helis are spawned the paratroops will spawn at the heli location at the location at which the heli spawn based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		When no helies are to be spawned, paratroops will spawn at the mission center when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		A delay was added so that paratroops spawn when players are nearby for more drama !!
 		
 Changed: Methods for detecting NULL Groups (rarely a problem with arma these days) simplified.
 		Still more work to be done here.
@@ -106,7 +110,6 @@ Fixed: Emplaced weapons are now spawned at correct locations when their position
 Fixed: an issue with the experimental build whereby the number of dynamically tracked missions was not correctly spawned.
 Fixed: Dead Ai in vehicles were sometimes detected as alive. Dead AI are now ejected.
 Fixed: Vehicles are now properly released to players when all AI inside are killed when an HC is connected.
-
 
 Version 1.80 Build 118
 Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
@@ -487,7 +490,7 @@ Inactivated a call to an exile function that had no value
 10) Added settings to enable / disable specific mission classes, e.g., blck_enableOrangeMissions. Set to 1 to enable, -1 to disable.
 
 8-14-16
-Added mission timout feature, set blck_missionTimout = -1 to disble;
+Added mission timout feature, set blck_MissionTimeout = -1 to disble;
 Changed to use of params for all .sqf which also eliminated calls to BIS_fnc_params
 changed to selectRandom for all .sqf
 

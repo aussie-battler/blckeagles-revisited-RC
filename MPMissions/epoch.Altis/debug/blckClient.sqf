@@ -25,12 +25,32 @@
 	GMS_fnc_freeHostage = {
 		diag_log format["fn_freeHostage: _this = %1",_this];
 		private _hostage = _this select 0;
-		_hostage setVariable["blck_AIState",1,true];
-		private _msg = "_fnc_freeHostage <Hostage Rescued>";
-		systemChat _msg;
-		//hint _msg;
-		diag_log _msg;
-		//_hostage move (position _hostage) getPos [1000, random(360)];
+		if (_hostage getVariable["blck_unguarded",0] isEqualTo 1) then
+		{
+			_hostage setVariable["blck_AIState",1,true];
+			private _msg = "Thank you For freeing me. I must return home.";
+			systemChat _msg;
+			if (blck_modType isEqualTo "Epoch") then
+			{
+				[_msg,5] call Epoch_message;
+			};
+			if (blck_modType isEqualTo "Exile") then
+			{
+				["InfoTitleAndText", ["The Hostage Says", _msg]] call ExileClient_gui_toaster_addTemplateToast;
+			};			
+		} else {
+			private _msg = "I am afraid, please kill more of the enemy!";
+			systemChat _msg;
+			if (blck_modType isEqualTo "Epoch") then
+			{
+				[_msg,5] call Epoch_message;
+			};
+			if (blck_modType isEqualTo "Exile") then
+			{
+				["InfoTitleAndText", ["The Hostage Says", _msg]] call ExileClient_gui_toaster_addTemplateToast;
+			};
+		};
+		//diag_log _msg;
 	};
 
 	GMS_fnc_addHostageActions = {
@@ -56,11 +76,36 @@
 	GMS_fnc_arrestLeader = {
 		diag_log format["GMS_fnc_arrestLeader: _this = %1",_this];
 		private _leader = _this select 0;
-		_leader setVariable["blck_AIState",1,true];
-		private _msg = "_fnc_arrestLeader: <Leader Arrested>";
-		systemChat _msg;
+		if (_leader getVariable["blck_unguarded",0] isEqualTo 1) then
+		{
+			_leader setVariable["blck_AIState",1,true];
+			private _msg = "I surrender.";
+			systemChat _msg;
+			if (blck_modType isEqualTo "Epoch") then
+			{
+				[_msg,5] call Epoch_message;
+			};
+			if (blck_modType isEqualTo "Exile") then
+			{
+				["InfoTitleAndText", ["The Leader Says", _msg]] call ExileClient_gui_toaster_addTemplateToast;
+			};			
+		} else {
+			private _msg = "I will resist arrest until all of my men are down!";
+			systemChat _msg;
+			if (blck_modType isEqualTo "Epoch") then
+			{
+				[_msg,5] call Epoch_message;
+			};
+			if (blck_modType isEqualTo "Exile") then
+			{
+				["InfoTitleAndText", ["The Leader Says", _msg]] call ExileClient_gui_toaster_addTemplateToast;
+			};
+		};
+		//_leader setVariable["blck_AIState",1,true];
+		//private _msg = "_fnc_arrestLeader: <Leader Arrested>";
+		//systemChat _msg;
 		//hint _msg;
-		diag_log _msg;	
+		//diag_log _msg;	
 	};
 	
 	GMS_fnc_addLeaderActions = {

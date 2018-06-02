@@ -11,17 +11,10 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#define GRGserver
 #define useAPEX 
 //#define useDynamicSimulation
 //#define blck_debugMode
-#define blck_triggerLoopCompleteTime 40*60
-#define blck_milServer
-//#define GRG_TestServer
+//#define blck_triggerLoopCompleteTime 40*60
+//#define blck_milServer
 
-#ifdef blck_milServer
 
-#define blck_useCUP
-#define blck_useRHS
-
-#endif
