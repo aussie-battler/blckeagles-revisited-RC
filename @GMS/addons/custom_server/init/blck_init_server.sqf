@@ -121,6 +121,9 @@ if (blck_enableBlueMissions > 0) then
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
 
+
+blck_modType = call blck_fnc_getModType;
+publicVariable "blck_modType";
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
 [] spawn blck_fnc_mainThread;
 

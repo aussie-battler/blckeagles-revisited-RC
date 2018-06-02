@@ -156,10 +156,9 @@ _fn_monitorGroupWaypoints = {
 };
 
 _fn_simulationMonitor = {
-	private["_playerType","_modType","_players"];
-	_modType = call blck_fnc_getModType;
-	//diag_log format["_fn_simulationMonitor""  _modType = %1",_modType];
-	if (_modType isEqualTo "Exile") then
+	private["_playerType","_players"];
+
+	if (blck_modType isEqualTo "Exile") then
 	{
 		_playerType = ["Exile_Unit_Player"];
 	}else{

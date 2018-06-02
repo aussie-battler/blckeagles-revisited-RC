@@ -15,7 +15,7 @@
 params["_coords","_noVehiclePatrols","_vehiclePatrolSpawns","_aiDifficultyLevel","_uniforms","_headGear",["_missionType","unspecified"]];
 diag_log format["_sm_spawnVehiclePatrols:: _vehiclePatrolSpawns = %1",_vehiclePatrolSpawns];
 private["_vehGroup","_patrolVehicle","_missionAI","_missiongroups","_vehicles","_return","_vehiclePatrolSpawns","_randomVehicle","_return","_abort"];
-
+//if (count _weapons isEqualTo 0) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
 if (_vehiclePatrolSpawns isEqualTo []) then
 {
 	private["_spawnPoints","_vehType"];
@@ -33,7 +33,8 @@ if (_vehiclePatrolSpawns isEqualTo []) then
 	_spawnPos = _x select 1;
 	_difficulty = _x select 2;
 	_patrolRadius = _x select 3;
-	_vehGroup = [_spawnPos,3,3,_difficulty,_spawnPos,1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
+	//_newGroup = [_x,_unitsPerGroup,_unitsPerGroup,_aiDifficultyLevel,_coords,_minDist,_maxDist,_uniforms,_headGear,true,_weapons,_vests,_isScubaGroup] call blck_fnc_spawnGroup;
+	_vehGroup = [_spawnPos,_spawnPos,3,3,_difficulty,1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
 
 	//params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull]];
 	_patrolVehicle = [_spawnPos,_spawnPos,_vehicle,_patrolRadius,_patrolRadius,_vehGroup] call blck_fnc_spawnVehiclePatrol;

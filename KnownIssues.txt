@@ -2,4 +2,4 @@
 
 Known issues
 
-1. AI Vehicles are not unlocked when an HC is connected.
+1. AI Vehicles MAY not be unlocked when an HC is connected.

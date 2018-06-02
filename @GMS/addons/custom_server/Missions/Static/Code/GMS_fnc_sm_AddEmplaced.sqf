@@ -1,7 +1,6 @@
 /*
 	by Ghostrider [GRG]
-	for ghostridergaming
-	12/5/17
+
 	--------------------------
 	License
 	--------------------------
@@ -13,5 +12,5 @@
 
 params["_emplacedWeapon"];
 blck_sm_Emplaced pushBack [_emplacedWeapon,grpNull,0];
-diag_log format["_sm_AddEmplaced::-> _emplacedWeapon = %1, blck_sm_Emplaced = %2",_emplacedWeapon,blck_sm_Emplaced];
+//diag_log format["_sm_AddEmplaced::-> _emplacedWeapon = %1, blck_sm_Emplaced = %2",_emplacedWeapon,blck_sm_Emplaced];
 true

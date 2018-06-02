@@ -11,9 +11,8 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
-	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
 	
 //diag_log "[blckeagls] Spawning Red Mission with template = redCamp";
 
@@ -27,6 +26,10 @@ _markerColor = "ColorRed";
 _markerMissionName = "Bandit Camp";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [
+<<<<<<< HEAD
+=======
+		["Flag_AAF_F",[0,0,0],0,[false,false]],
+>>>>>>> Experimental
 		["Land_CampingChair_V1_F",[1.32227,2.07813,8.2016e-005],108.293,[false,false]], 
 		["Land_CampingChair_V1_F",[-2.01465,2.91992,3.05176e-005],236.049,[false,false]], 
 		["FirePlace_burning_F",[0.0302734,4.26563,2.47955e-005],359.997,[false,false]], 
@@ -80,21 +83,34 @@ _noVehiclePatrols = blck_SpawnVeh_Red;
 _noEmplacedWeapons = blck_SpawnEmplaced_Red;
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;
-_uniforms = blck_SkinList;
-_headgear = blck_headgear;
 
-//_chanceReinforcements = 0.10; //blck_reinforcementsBlue select 0;
-//_noPara = 2;  //blck_reinforcementsBlue select 1;
-//_chanceHeliPatrol = 0;//blck_reinforcementsBlue select 2;
-//_chanceLoot = 0.10; //blck_reinforcementsBlue select 3;
+_chanceHeliPatrol = blck_chanceHeliPatrolRed;  // Setting this in the mission file overrides the defaults 
+_noChoppers = blck_noPatrolHelisRed;
+_missionHelis = blck_patrolHelisRed;
 
-private["_weap","_mags","_backpacks","_optics","_loadout"];
-_weap = 3 + floor(random(4));	
-_mags = 8 + floor(random(6));
-_backpacks = 1 + floor(random(2));
-_optics = 1 + floor(random(6));
-_reinforcementLootCounts = [_weap,_mags,_optics,0,0,_backpacks];
+//_chancePara = 0.0; // Setting this in the mission file overrides the defaults 
+_noPara = 3;  // Setting this in the mission file overrides the defaults 
+_paraTriggerDistance = 400; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
+_paraSkill = "red";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
 
+//_chanceLoot = 0.999999990; 
+_paraLoot = blck_BoxLoot_Red;
+_paraLootCounts = blck_lootCountsRed;  // Throw in something more exotic than found at a normal blue mission.
+
+_spawnCratesTiming = blck_spawnCratesTiming; // Choices: "atMissionSpawnGround","atMissionEndGround","atMissionEndAir". 
+						 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
+						 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
+_loadCratesTiming = blck_loadCratesTiming; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+						// Pertains only to crates spawned at mission spawn.
+						// This sets the default but can be overridden for specific missions by defining _loadCratesTiming
+						
+						// Examples:
+						// To spawn crates at mission start loaded with gear set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionSpawn"
+						// To spawn crates at mission start but load gear only after the mission is completed set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionCompletion"
+						// To spawn crates on the ground at mission completion set blck_spawnCratesTiming = "atMissionEndGround" // Note that a loaded crate will be spawned.
+						// To spawn crates in the air and drop them by chutes set blck_spawnCratesTiming = "atMissionEndAir" // Note that a loaded crate will be spawned.
+_endCondition = blck_missionEndCondition;  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+									// Setting this in the mission file overrides the defaults 
 _endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

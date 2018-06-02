@@ -46,5 +46,5 @@ _map = toLower worldName;
 	uiSleep 1;
 }forEach _staticMissions;
 
-diag_log "[blckeagls] GMS_StaticMissions_init.sqf <Loaded>";
+diag_log "[blckeagls] GMS_StaticMissions Initialized.sqf <Loaded>";
 

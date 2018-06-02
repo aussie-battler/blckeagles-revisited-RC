@@ -1,8 +1,8 @@
 This addon includes several modules which will be discussed in the following order: 
 1. The core, dynamic mission system
-2. A static mission system (WIP)
+2. A static mission system
 3. A custom time acceleration module
-4. A module to execute scripts for custom bases and so forths.
+4. A module to execute scripts for custom bases (map addons) and so forths.
 5. A module to spawn loot crates in specific locations at server startup.
 
 1. Core Mission System.
@@ -11,7 +11,7 @@ The core mission system is configured to run 4 different classes of mission (Blu
 Reducing value for 	...\custom_serer\configs\blck_configs.sqf\blck_maxSpawnedMissions will reduce the number of missions running on the server.
 
 General settings include:
-	 the ability set whether and how messages to players regarding missions spawned or completed are displayed,
+	the ability set whether and how messages to players regarding missions spawned or completed are displayed,
 	whether and how messages to players regarding killed AI are displayed
 	Number of AI groups;
 	Number of AI per group;
@@ -19,19 +19,21 @@ General settings include:
 	Number and type of static weapons;
 	Number and type of armed vehicle patrols.
 	Presence of AI helicopter patrols.
-	Whether such patrols drop AI reinforcements.
-	Whether vehicles are destroyed when AI are killed
+	Whether such patrols drop AI reinforcements with additional loot crates.
+	Whether vehicles are available to players when AI are killed or destroyed
 	Whether static weapons are destroyed when AI are killed.
 	Whether AI spawn with NVG or launchers and what types they spawn with.
-	Whether NVG or launchers are deleted.
-	Whether players are penalized for running over AI.
+	Whether NVG or launchers are deleted at the time the AI is killed.
+	Whether players are penalized for running over AI or shootting them with OP weapons.
 	
-	Loot can also be configured for each mission class. You can modify the number of weapons, magazines, items, construction materials, etc. 
+	Loot can also be configured for each mission class or mission. You can modify the number of weapons, magazines, items, construction materials, etc. 
 	You can also adjust the choices for each of these types of items.
-	The equipment selected for each class of mission can also be specified.
+	The equipment selected for each class of mission can also be specified(uniforms, vests, headgear, backpcks, weapons, pistols).
 	Whether kills by guns mounted on vehicles are to be penalized (gunes that are prohobited are listed in blck_config.sys).
 	Whether to spawn a smoking wreck near the mission to be used as a visual landmark.
 	Whether to spawn mines (recommended only when no vehcle patrols are spawned).
+	When and how the loot crate(s) are spawned: at the time of mission spawn or upon mission completion; in the air or in the ground.
+	When loot is added to chests (at the time crates are spawned or upon mission completion)
 
 Where possible, I have tried group weapons based on desirability from low rank (5.56 ammo) to high rank (7.6 caliber or larger, large bore sniper, heavy LMG) then combine these groups to define parameters as needed.
 
@@ -39,15 +41,15 @@ The missions themselves are spawned from templates which can be used to define m
  the messages sent to players; 
  text used to label the mark
  type of marker used to label the map
- number of AI groups and number of AI
+ number of AI groups and number of AI and, if desired their spawn locations.
  (optional) loot chest positions and loot to be loaded
  type and location of any objects, buildings, or other entities that give the mission character
  number and (optional) locations of static weapons
- number of vehicle patrols
+ number, type, and spawn location(s) of vehicle patrols
  
  To create and run new missions simply: 
 	layout an AI base in the Arma 3 editor, 
-	export the base as an .sqf
+	export the base as an .sqf using Maca's EDEN PLuging uing relative positions.
 	Define the above parameters (nu. AI groups, No AI, etc)
 	add this information to the mission template and modify any messages accordingly
 	Add the name of the file (e.g., "newAImission" to the list of missions to be spawned of that class in ...\custom)server\missions\GMS_missionLists.sqf
@@ -59,9 +61,15 @@ Hence, performance penalties should be modest to none until players engage a mis
 There is some performance penalty to having a lot of dead AI on the server, or a lot of spawned objects used for scenery at AI missions. Hence, these are deleted after a certain time.
 You can shorten the time after which bodies or scenery are deleted if you believe performance is an issue.
 
-2. Static Mission System (WIP).
+2. Static Mission System.
 
 Additional Modules Available:
+
+Suport is provided for groups of AI, vehicles, aircraft, static weapons, subs, surface vessels.
+The positions of these is defined by templates (see custom_server\Missions\Static\Missions folder for examples) or by calls to functions to add these elements.
+The recommended way to place static units of various types is to add their spawn information to a new template then add the name/mod to custom_server\Missions\Static\GMS_StaticMissions_Lists.sqf.
+Alternatively you can set up calls to the functions that initialize spawns for these units in blck_custom_configs.sqf or an include that is incorporated into it.
+See the directions for creating static missions for more information.
 
 3. Time Acceleration
 
@@ -96,7 +104,7 @@ One enhancement is that I have written the code so that you do not need to sort 
 In any event, it is a great tool for placing loot chests at AI strongholds or static missions.
 
 Some basic features are:
-Crates can be spawned at precise locations with / without a nearby smoking wreck to mark their location (which crates an apololyptic feel).
+Crates can be spawned at precise locations with / without a nearby smoking wreck to mark their location (which crates an apocalyptic feel).
 Crates can be loaded with one of 3 different loadouts (add more if you like) which can be specified or randomly determined.
 If the number of possible spawn locations is greater than the number of crates to spawned, spawn locations will be randomly chosen giving some variation to your mission from one server restart to the next.
 

@@ -9,6 +9,7 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 Significant Changes:
 =====================
 <<<<<<< HEAD
+<<<<<<< HEAD
 Version 1.80 Build 117
 Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
      See the medicalCamp.sqf mission for an example of how this is done.
@@ -18,14 +19,126 @@ Changed: Default missions reworked to support the above.
 =======
 Version 1.80 build 118
 Added: The server now sets simulation on/off and damage on/off for objects at dynamic missions. default missions updated. 
+=======
+Version 1.82 Build 132
+Added: 	blck_killPercentage = 0.9;  // The mission will complete if this fraction of the total AI spawned has been killed.
+								// This facilitates mission completion when one or two AI are spawned into objects.	
+
+Added: Male and Female uniforms are separated and can be used alone or together for specific missiosn (Epoch Only).
+
+Added: Loot tables updated to include food and supplies as of Epoch 1.1.0.
+
+Added: Setting that configures vehicles to be sold at Black Market Traders.
+	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halve's black market traders.
+	
+Added: Support for hostage rescue missions. 
+	The hostage can be spawned at any location relative to the mission center.
+	The mission aborts if the hostage is killed; all loot is deleted.
+	To complete the mission, a player must approach the hostage and execute the rescue action.
+	The hostage then runs away, and loot becomes available to the player.
+	See missions\blue\hostage.sqf for an example mission.
+	
+	*****  PLEASE READ - IMPORTANT ****
+	Please update the blck_client.sqf in your mission.pbo or you will not be able to interact with or see animations of the new AI characters.
+	
+Added: Support for Arrest Leader missions.
+	These are similar to the rescue hostage mission except that the leader, when arrested, will sites
+	awaiting arrival of imaginary survivor forces.
+	See missions\blue\capture.sqf for an example mission
+
+Added: 	blck_missionEndCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+		which provides a simple way to define the default conditions under which the mission ends for all missions. 
+		You can of course define _endCondition in the specific mission file if you wish.
+		
+Added:  A new mission completion condition for hostage and captive missions.
+		_endCondition = "assetSecured";
+		
+Added: 	Mission crates can now be spawned on the ground or in the air at mission completion.
+		blck_spawnCratesTiming sets the default for all missions.
+		blck_spawnCratesTiming = "atMissionEndAir"; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
+		Define _spawnCratesTiming to set this parameter for a particular mission.
+		_spawnCratesTiming = "atMissionEndAir";
+		See the hostage1.sqf mission as an example.
+		
+Added: Crates spawn with tabs or crypto. Set the values in the mod-specific configs.
+		For Epoch, the crypto can be accessed by pressing space bar.
+			
+Added: Additional documentation for those who wish to design their own missions.
+	   See \missions\blue\default.sqf and default2.sqf for details.
+	   
+Added: greater control over AI loadouts.
+		For land-based dynamic missions you can now specify for each mission:
+		Uniforms
+		Headgear
+		Vests
+		Weapons allowed
+		Sidearms allows.
+		(See \Missions\Blue\default2.sqf for examples).
+		[Still to do: upgrade statics for the same functionality; doable but will require adding these parameters to the spawn info for the groups of infantry, vehicle, submerged and air units];
+		
+Added: greater control of mission helis - you can now set variables in the mission file (see examples below).
+	    when these are not defined in the mission file, defaults are used.
+		_chancePara = blck_chanceParaBlue; // Setting this in the mission file overrides the defaults 
+		_noPara = blck_noParaBlue;  // Setting this in the mission file overrides the defaults 
+		_chanceHeliPatrol = blck_chanceHeliPatrolBlue;  // Setting this in the mission file overrides the defaults 
+		_noChoppers = blck_noPatrolHelisBlue;
+		_missionHelis = blck_patrolHelisBlue;
+		
+Added: default minimun and maximum radius for groups to patrol.
+		blck_minimumPatrolRadius = 22;  // AI will patrol within a circle with radius of approximately min-max meters. note that because of the way waypoints are completed they may more more or less than this distance.
+		blck_maximumPatrolRadius = 35;
+		
+Changed: **** VERY IMPORTANT  ******
+		The definitions of private variables used in missions in now read in through an include statement (see Missions\Blue\default.sqf for an example)
+		Please update any custom mission you have generated accordingly.
+		This should save quite a bit of editing going forward.
+		Please note that if you do not update the private variables definitions list certain features of the mission spawner may not work due to issues with scope of variables.
+		
+Changed: Each mission is now compiled at server startup which I hope will save a little server resource between restarts.
+         A few variables that were not used were eliminated.
+		 Some declarations of private variables were consolidated.
+		 Together these changes should be worth a small performance bump.
+		 
+Changed: Code for Heli Patrols redone.
+		Code that spawns paratroops moved to a separate function that is called when a player is within a certain radius of the mission.
+		Code that spawns a supplemental loot chest added - this will be spawned along with the paratroop reinforcements, if desired.
+		This crate can have customized loot (think ammo, building supplies, tools and food, ala Exile/Epoch airdrops).
+
+Changed: Logic for spawning paratroops was redone so it is more clear.
+		When helis are spawned the paratroops will spawn at the heli location at the location at which the heli spawn based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		When no helies are to be spawned, paratroops will spawn at the mission center when it spawns based on probability set in _chancePara in the mission file or the default for that mission difficulty.
+		A delay was added so that paratroops spawn when players are nearby for more drama !!
+		
+Changed: Methods for detecting NULL Groups (rarely a problem with arma these days) simplified.
+		Still more work to be done here.
+
+Changed: Methods for defining mission crate loot were relaxed.
+		You can define each item either with the old method ["Item Name", minimun number, maximum number] or just "Item name".
+		
+Fixed: disabled some logging that is not required except when debugging.
+Fixed: AI Counts were not being shown at dynamic UMS.
+Fixed: AI were glitching through walls. 
+Fixed: Emplaced weapons are now spawned at correct locations when their positions are defined in an array in the mission file.
+Fixed: an issue with the experimental build whereby the number of dynamically tracked missions was not correctly spawned.
+Fixed: Dead Ai in vehicles were sometimes detected as alive. Dead AI are now ejected.
+Fixed: Vehicles are now properly released to players when all AI inside are killed when an HC is connected.
+
+Version 1.80 Build 118
+Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
+     See the medicalCamp.sqf mission for an example of how this is done.
+Added: you can now spawn simple objects as part of your mission landscape. Useful for STATIC missions only. 
+>>>>>>> Experimental
 Added: lists of armed vehicles from which you can choose those you wish to spawn at vehicles broken down by category (wheeled, traced APC, Tank, etc)
-Added: Three constants that define how far away missions are from certain ingame bases, players and towns when they spawn. These were previously embedded in the code but not configurable.
+Added: Three constants that define how far away missions are from players when they spawn.
 	blck_minDistanceToBases = 900; Minimum distance from any freq jammer or flag
 	blck_minDistanceToPlayer = 900; Minimum distance from any player
 	blck_minDistanceFromTowns = 300; Minimum distance from cites or towns.
-Fixed: Alive AI counts were not disabled by blck_showCountAliveAI.
-Fixed: The number of dynamically spawned underwater missions was not correctly set by blck_numberUnderwaterDynamicMissions.
 	
+<<<<<<< HEAD
+>>>>>>> Experimental
+=======
+Changed: Default missions reworked to support the above.
+
 >>>>>>> Experimental
 Version 1.79, Build 116
 Added: Map-specific information for Lythium.
@@ -394,7 +507,7 @@ Inactivated a call to an exile function that had no value
 10) Added settings to enable / disable specific mission classes, e.g., blck_enableOrangeMissions. Set to 1 to enable, -1 to disable.
 
 8-14-16
-Added mission timout feature, set blck_missionTimout = -1 to disble;
+Added mission timout feature, set blck_MissionTimeout = -1 to disble;
 Changed to use of params for all .sqf which also eliminated calls to BIS_fnc_params
 changed to selectRandom for all .sqf
 

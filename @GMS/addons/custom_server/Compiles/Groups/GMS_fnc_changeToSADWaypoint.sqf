@@ -33,13 +33,13 @@ _wp setWaypointCombatMode "RED";
 _wp setWaypointTimeout [10,15,20];
 
 #ifdef blck_debugMode
-_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a Move Waypoint',group this];"];	
+if (blck_debugLevel > 2) then {_wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint; diag_log format['====Updating timestamp for group %1 and changing its WP to a Move Waypoint',group this];"]};	
 #else
 _wp setWaypointStatements ["true","this call blck_fnc_changeToMoveWaypoint;"];
 #endif
 
 #ifdef blck_debugMode
-if (blck_debugLevel > 1) then
+if (blck_debugLevel > 2) then
 {
 	private ["_marker"];
 	_marker = _group getVariable["wpMarker",""];

@@ -12,13 +12,13 @@
 
 params["_supplyHeli","_lootCounts"];
 
-private ["_chute","_crate"];
+private ["_chute","_crate","_crateSelected","_dir","_offset"];
 _crate = "";
 _chute = "";
 
 diag_log "_fnc_spawnParaCrate:: spawning crate";
 
-private["_dir","_offset"];
+
 _dir = getDir _supplyHeli;
 _dir = if (_dir < 180) then {_dir + 210} else {_dir - 210};
 _offset =  _supplyHeli getPos [10, _dir];
@@ -31,7 +31,6 @@ _chute setPos [_offset select 0, _offset select 1, 100  ];  //(_offset select 2)
 diag_log format["_fnc_spawnParaCrate:: chute spawned yielding object %1 at postion %2", _chute, getPos _chute];
 	
 //create the parachute and crate
-private["_crateSelected"];
 _crateSelected = selectRandom["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_IND_AmmoVeh_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F"];
 _crate = [getPos _chute, _crateSelected] call blck_fnc_spawnCrate;
 //_crate = createVehicle [_crateSelected, position _chute, [], 0, "CAN_COLLIDE"];

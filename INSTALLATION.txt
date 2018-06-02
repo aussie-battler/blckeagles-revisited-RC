@@ -5,50 +5,24 @@ Installation:
 1) Unpack the Zip file you downloaded from the Github to a folder in a convenient location.
 2) Unpack your mission pbo (epoch.Altis.pbo or Exile.Altis.pbo). 
 3) Open the folder containing the unpacked mission.
-4) Copy the debug folder from MPMissions\epoch.Altis
+4) Copy the debug folder from your download (MPMissions\epoch.Altis or MPMissions\exile.Altis)
 5) Merge the line in MPMissions\epoch.Altis\init.sqf with your init.sqf, or use the one provided if you do not have one.
 6) Adjust settings for messages shown by the client by changing values in \debug\blckclient.sqf to suit your needs.
   (see blckClient.sqf for details)
 7) Repack your mission.pbo.
 ///////////////////////////
-// For epoch only
-7) To permit you to loot crypto from dead AI on Epoch, Open Epoch.<MAP Name>\epoch_config\CfgObjectInteractions.hpp
-
-	Change
-
-	class Epoch_Female_F : Default
-    {
-        interactMode = 2;
-    };
-    class Epoch_Male_F : Default
-    {
-        interactMode = 2;
-    };
-	
-	To
-	
-	class Epoch_Female_F : Default
-    {
-        interactMode = 2;
-    };
-    class Epoch_Male_F : Default
-    {
-        interactMode = 2;
-    };
-    class I_Soldier_EPOCH : Default
-    {
-        interactMode = 2;
-    };	
-
-	
-	Save your changes, repack your mission file.
-	You should now get an option to take crypto when you press spacebar after hovering over a dead AI body.
-
 
 ///////////////////////////
 //  Server
 // ////////////////////////
 
+Method 1.
+Adjust settings in @GMS\addons\custom_server\Configs to suit your needs.
+Pack custom_server.
+Add the @GMS folder to the root directory of your server (the same location as your mods such as @Epoch or @Exile
+Add "@GMS;" to -servermods in the startup parameters for your server.
+
+Method 2.
 // Epoch
 1) Add the custom_server folder from @epochhive\addons to @epochhive\addons on your server.
 
@@ -68,6 +42,7 @@ http://www.exilemod.com/topic/9779-releasetool-bem-battleye-filter-manager-by-th
 http://www.exilemod.com/topic/9256-battleye-filter-tool/
 http://www.exilemod.com/topic/9708-battleye-filter-editor/
 
+If you would let me know what exceptions you need to add I will start a list in this document.
 	
 11) Start your server and join. By default missions will start spawning in around 5-10 min. 
 
@@ -97,7 +72,7 @@ Be careful about what you change in this file.
 
 Just about anything about the missions can be modified. The mission template (see Missions\Orange\supply_camp.sqf and Missions\Blue\default.sqf for examples) allows you to define mission specific parameters.
 To create a new mission, make a copy of a mission template (e.g., custom_server\Blue\default.sqf). Edit the parameters to your liking and rename to file appropriately.
-To add a new mission, create a new mission template, then add the file name (e.g., "newmissions.sqf") tothe mission list found in custom_server\Missions. 
+To add a new mission, create a new mission template, then add the file name (e.g., "newmissions.sqf") to the mission list found in custom_server\Missions. 
 That mission will now be spawned whenever it is selected from teh list.
 
 Please see the FAQ for more information

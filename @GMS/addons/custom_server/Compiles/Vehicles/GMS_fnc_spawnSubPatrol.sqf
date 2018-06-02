@@ -12,7 +12,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_veh","_modType"];
+private["_veh"];
 params["_vehType","_pos",["_clearInventory",true]];
 
 #ifdef blck_debugMode

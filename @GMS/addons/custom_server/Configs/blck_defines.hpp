@@ -2,7 +2,6 @@
 	for ghostridergaming
 	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 6/7/17
 	
 	--------------------------
 	License
@@ -12,8 +11,14 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 
-#define wpModeMove
 #define useAPEX 
 //#define useDynamicSimulation
 //#define blck_debugMode
+<<<<<<< HEAD
 //#define blck_milServer
+=======
+//#define blck_triggerLoopCompleteTime 40*60
+//#define blck_milServer
+
+
+>>>>>>> Experimental

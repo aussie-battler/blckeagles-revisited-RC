@@ -16,7 +16,7 @@
 params["_center","_objects"];
 if (count _center == 2) then {_center pushBack 0};
 //diag_log format["_spawnBaseObjects:: -> _objects = %1",_objects];
-private ["_newObjs","_simDam"];
+private ["_newObjs","_simDam","_obj","_spawnPos"];
 
 _newObjs = [];
 //  Assume that the list of objects to spawn has each object defined using one of two methods where parameters for simulation and damage are optional with default settings.
@@ -32,11 +32,11 @@ _newObjs = [];
 	{
 		_simDam = _x select 3;
 	};
-	private _obj = (_x select 0) createVehicle [0,0,0];
+	_obj = (_x select 0) createVehicle [0,0,0];
 	//diag_log format["_fnc_spawnBaseObjects: _obj = %1",_obj];
 	_newObjs pushback _obj;
 	//diag_log format["_fnc_spawnBaseObjects: _center = %1 and _x select 1 = %2",_center,_x select 1];
-	private _spawnPos = (_center vectorAdd (_x select 1));
+	_spawnPos = (_center vectorAdd (_x select 1));
 	if (surfaceIsWater _spawnPos) then 
 	{
 		_obj setPosASL _spawnPos;

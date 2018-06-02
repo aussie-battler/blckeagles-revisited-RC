@@ -1,8 +1,6 @@
 /*
-	Mission Template by Ghostrider [GRG]
-	Mission Compositions by Bill prepared for ghostridergaming
+	Ghostrider [GRG]
 	Copyright 2016
-	Last modified 3/20/17
 	
 	--------------------------
 	License
@@ -12,3 +10,4 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 blck_dynamicUMS_MissionList = ["default.sqf"];
+diag_log "[blckeagls] Dynamic UMS Mission List <Loaded>";

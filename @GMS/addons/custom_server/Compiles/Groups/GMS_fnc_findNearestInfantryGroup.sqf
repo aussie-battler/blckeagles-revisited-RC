@@ -11,11 +11,10 @@
 */
 
 params["_pos"];
-private["_nearestGroup","_modType"];
+private["_nearestGroup"];
 
-_modType = call blck_fnc_getModType;
-if (_modType == "Epoch") then {_units = (_pos) nearEntities ["I_Soldier_EPOCH", 100]};
-if (_modType == "Exile") then {_units = (_pos) nearEntities ["i_g_soldier_unarmed_f", 100]};
+if (blck_modType == "Epoch") then {_units = (_pos) nearEntities ["I_Soldier_EPOCH", 100]};
+if (blck_modType == "Exile") then {_units = (_pos) nearEntities ["i_g_soldier_unarmed_f", 100]};
 _nearestGroup = group (_units select 0);
 {
 	

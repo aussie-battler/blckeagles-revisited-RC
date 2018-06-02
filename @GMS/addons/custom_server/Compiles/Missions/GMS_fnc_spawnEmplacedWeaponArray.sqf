@@ -13,8 +13,16 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-params["_missionEmplacedWeapons","_noEmplacedWeapons","_aiDifficultyLevel","_coords","_uniforms","_headGear"];
-//diag_log format["_fnc_spawnEmplacedWeaponArray:: _this = %1",_this];
+params["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel",["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols]];
+#ifdef blck_debugMode
+if (blck_debugLevel >=2) then
+{
+	private _params = ["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel","_uniforms","_headGear","_vests","_backpacks","_weaponList","_sideArms"];
+	{
+		diag_log format["blck_fnc_spawnEmplacedWeaponArray:: param %1 | isEqualTo %2 | _forEachIndex %3",_params select _forEachIndex,_this select _forEachIndex, _forEachIndex];
+	}forEach _this;
+};
+#endif
 
 private["_return","_emplacedWeps","_emplacedAI","_wep","_units","_gunner","_abort","_pos","_mode","_useRelativePos","_useRelativePos"];
 _emplacedWeps = [];
@@ -30,7 +38,6 @@ _pos = [];
 // Define _missionEmplacedWeapons if not already configured.
 if (_missionEmplacedWeapons isEqualTo []) then
 {
-	_useRelativePos = false;
 	_missionEmplacedWeaponPositions = [_coords,_noEmplacedWeapons,35,50] call blck_fnc_findPositionsAlongARadius;
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
@@ -44,9 +51,8 @@ if (_missionEmplacedWeapons isEqualTo []) then
 		_missionEmplacedWeapons pushback [_static,_x];
 		//diag_log format["_fnc_spawnEmplacedWeaponArray: _mi updated to %1",_missionEmplacedWeapons];
 	} forEach _missionEmplacedWeaponPositions;
-} else {
-	_useRelativePos = true;
-};;
+	_useRelativePos = false;
+};
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then
@@ -69,9 +75,14 @@ if (blck_debugLevel > 1) then
 		diag_log format["_fnc_spawnEmplacedWeaponArray(67)::  _coords = %1 | offset = %2 | final _pos = %3",_coords,_x select 1, _pos];
 	};
 	#endif
+	#define configureWaypoints false
+	#define minAI 1
+	#define maxAI 1
+	#define minDist 1
+	#define maxDist 2
 	
-	//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-	_empGroup = [_pos,1,1,_aiDifficultyLevel,(_x select 1),1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
+	/// // params["_pos",  "_center", _numai1,  _numai2,  _skillLevel, _minDist, _maxDist, _configureWaypoints, _uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms, _scuba ];
+	_empGroup = [(_x select 1),_pos,minAI,maxAI,_aiDifficultyLevel,minDist,maxDist,configureWaypoints,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnGroup;
 	
 	_empGroup setcombatmode "RED";
 	_empGroup setBehaviour "COMBAT";
@@ -86,7 +97,7 @@ if (blck_debugLevel > 1) then
 	#endif
 
 	// params["_vehType","_pos",["_clearInventory",true]];
-	_wep = [(_x select 0),[0,0,0],false] call blck_fnc_spawnVehicle;
+	_wep = [(_x select 0),[0,0,0],false,true] call blck_fnc_spawnVehicle;
 	//_wep addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_wep addMPEventHandler["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_empGroup setVariable["groupVehicle",_wep];
@@ -98,7 +109,7 @@ if (blck_debugLevel > 1) then
 	};
 	#endif
 	
-	_wep setVariable["DBD_vehType","emplaced"];	
+	_wep setVariable["GRG_vehType","emplaced"];	
 	_wep setPos _pos;
 	[_wep,false] call blck_fnc_configureMissionVehicle;	
 	_emplacedWeps pushback _wep;

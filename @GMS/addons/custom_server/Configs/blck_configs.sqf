@@ -69,7 +69,11 @@
 	// When set to true,"dot", ext will be to the right of a black dot at the center the mission marker. 
 	blck_labelMapMarkers = [true,"center"];  
 	blck_preciseMapMarkers = true;  // Map markers are/are not centered at the loot crate
+<<<<<<< HEAD
 	blck_showCountAliveAI = true;
+=======
+	blck_showCountAliveAI = false;
+>>>>>>> Experimental
 
 	//Minimum distance between missions
 	blck_MinDistanceFromMission = 1500;
@@ -86,8 +90,21 @@
 	// It's position can be either "center" or "random".  smoking wreck will be spawned at a random location between 15 and 50 m from the mission.
 	blck_SmokeAtMissions = [false,"random"];  // set to [false,"anything here"] to disable this function altogether. 
 	blck_useSignalEnd = true; // When true a smoke grenade/chemlight will appear at the loot crate for 2 min after mission completion.
-	blck_loadCratesTiming = "atMissionCompletion"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
-	
+	blck_missionEndCondition = "allKilledOrPlayerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+	blck_killPercentage = 0.9;  // The mission will complete if this fraction of the total AI spawned has been killed.
+								// This facilitates mission completion when one or two AI are spawned into objects.	
+	blck_spawnCratesTiming = "atMissionSpawnGround"; // Choices: "atMissionSpawnGround","atMissionEndGround","atMissionEndAir". 
+							 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
+							 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
+	blck_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+							// Pertains only to crates spawned at mission spawn.
+							// This sets the default but can be overridden for specific missions by defining _loadCratesTiming
+							
+							// Examples:
+							// To spawn crates at mission start loaded with gear set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionSpawn"
+							// To spawn crates at mission start but load gear only after the mission is completed set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionCompletion"
+							// To spawn crates on the ground at mission completion set blck_spawnCratesTiming = "atMissionEndGround" // Note that a loaded crate will be spawned.
+							// To spawn crates in the air and drop them by chutes set blck_spawnCratesTiming = "atMissionEndAir" // Note that a loaded crate will be spawned.
 	///////////////////////////////
 	// PLAYER PENALTIES
 	///////////////////////////////	
@@ -100,7 +117,7 @@
 	blck_forbidenVehicles = ["B_MRAP_01_hmg_F","O_MRAP_02_hmg_F","I_MRAP_03_hmg_F","B_MRAP_01_hmg_F","O_MRAP_02_hmg_F"]; // Add any vehicles for which you wish to forbid vehicle kills	
 	// For a listing of the guns mounted on various land vehicles see the following link: https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Vehicle_Weapons
 	// HMG_M2 is mounted on the armed offroad that is spawned by Epoch	
-	blck_forbidenVehicleGuns = [/*"LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"*/]; // Add any vehicles for which you wish to forbid vehicle kills, o
+	blck_forbidenVehicleGuns = ["LMG_RCWS","LMG_M200","HMG_127","HMG_127_APC","HMG_M2","HMG_NSVT","GMG_40mm","GMG_UGV_40mm","autocannon_40mm_CTWS","autocannon_30mm_CTWS","autocannon_35mm","LMG_coax","autocannon_30mm","HMG_127_LSV_01"]; // Add any vehicles for which you wish to forbid vehicle kills, o
 	
 
 	///////////////////////////////
@@ -110,7 +127,7 @@
 	blck_useMines = false;   // when true mines are spawned around the mission area. these are cleaned up when a player reaches the crate. Turn this off if you have vehicle patrols.
 	blck_cleanupCompositionTimer = 60*30;  // Mission objects will be deleted after the mission is completed after a deley set by this timer.
 	blck_cleanUpLootChests = false; // when true, loot crates will be deleted together with other mission objects.
-	blck_MissionTimout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
+	blck_MissionTimeout = 60*60;  // 60 min - missions will timeout and respawn in another location. This prevents missions in impossible locations from persisting.
 
 	///////////////////////////////
 	// Paratroop Settings
@@ -180,6 +197,7 @@
 	// Enable / Disable Missions
 	////////////////////
 	
+<<<<<<< HEAD
 	// Maximum number of missions shown on the map at any one time.
 	blck_maxSpawnedMissions	= 9; // This determins the total number of missions spawned of all types. set this to the total of missions to be spawned to be sure all are always spawned. set this to less than that total
 								// to force spawning more limited missions like having only 2 on th emap at any one time.
@@ -189,6 +207,17 @@
 	blck_enableRedMissions = 1;
 	blck_enableBlueMissions = 1;
 	blck_numberUnderwaterDynamicMissions = 1;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+=======
+	// Change this value to reduce the number of spawned missions at any one time.
+	blck_maxSpawnedMissions = 4;
+	
+	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
+	blck_enableOrangeMissions = 1;  
+	blck_enableGreenMissions = 1;
+	blck_enableRedMissions = 2;
+	blck_enableBlueMissions = 2;
+	blck_numberUnderwaterDynamicMissions = 3;  // Values from -1 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
+>>>>>>> Experimental
 
 	////////////////////
 	// MISSION TIMERS
@@ -214,7 +243,7 @@
 
 	blck_useVehiclePatrols = true; // When true vehicles will be spawned at missions and will patrol the mission area.
 	blck_killEmptyAIVehicles = false; // when true, the AI vehicle will be extensively damaged once all AI have gotten outor been killed.
-    blck_vehicleDeleteTimer = 60*60;
+    blck_vehicleDeleteTimer = 120*60;
 	////////////////////
 	// Mission Vehicle Settings
 	////////////////////	
@@ -238,7 +267,7 @@
 	
 	// Defines how many static weapons to spawn. Set this to -1 to disable spawning 
 	blck_SpawnEmplaced_Orange = [3,4]; // Number of static weapons at Orange Missions
-	blck_SpawnEmplaced_Green = 3; // Number of static weapons at Green Missions
+	blck_SpawnEmplaced_Green = [2,3]; // Number of static weapons at Green Missions
 	blck_SpawnEmplaced_Blue = 1;  // Number of static weapons at Blue Missions
 	blck_SpawnEmplaced_Red = 1;  // Number of static weapons at Red Missions	
 
@@ -262,7 +291,9 @@
 	blck_launcherTypes = ["launch_RPG32_F"];
 	blck_launchersPerGroup = 1;  // Defines the number of AI per group spawned with a launcher
 	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.
-
+	blck_minimumPatrolRadius = 22;  // AI will patrol within a circle with radius of approximately min-max meters. note that because of the way waypoints are completed they may more more or less than this distance.
+	blck_maximumPatrolRadius = 35;
+	
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 60*40; // time in seconds after which dead AI bodies are deleted
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
@@ -322,7 +353,7 @@
 	blck_maxMoneyGreen = 20;
 	blck_maxMoneyRed = 15;
 	blck_maxMoneyBlue = 10;
-	
+
 	private["_modType"];
 	_modType = [] call blck_fnc_getModType;
 	if (_modType isEqualTo "Epoch") then

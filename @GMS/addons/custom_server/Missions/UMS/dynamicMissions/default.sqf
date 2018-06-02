@@ -11,7 +11,7 @@ params["_missionCenter","_mission"];
 //_mission = "UMS mission example #2";  //  Included for additional documentation. Not intended to be spawned as a mission per se.
 //_missionCenter = [22584.9,15304.8,0];  // I pulled this from the position of the marker.
 _difficulty = "red";  // Skill level of AI (blue, red, green etc)
-diag_log format["[blckeagls UMS missions] STARTED initializing dynamic mission %1 position at %2 difficulty %3",_mission,_missionCenter,_difficulty];
+//diag_log format["[blckeagls UMS missions] STARTED initializing dynamic mission %1 position at %2 difficulty %3",_mission,_missionCenter,_difficulty];
 _crateLoot = blck_BoxLoot_Orange;  // You can use a customized _crateLoot configuration by defining an array here. It must follow the following format shown for a hypothetical loot array called _customLootArray
 	/*
 	_customLootArray = 
@@ -68,7 +68,7 @@ _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output her
 	//  where _customlootcountsarray1 also follows the same format as the predefined arrays like blck_lootCountsRed
 		//  ["Box_NATO_Ammo_F",[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
 		//["Exile_Container_SupplyBox",[1.91016,-3.85352,-3.54709],0,[true,false], _crateLoot, _lootCounts]
-		[selectRandom blck_UMS_crates,[0,0,0],_crateLoot, _lootCounts]
+		//[selectRandom blck_UMS_crates,[0,0,0],_crateLoot, _lootCounts]
 ];  // If this array is empty a single loot chest will be added at the center. If you add items loot chest(s) will be spawned in specific positions.
 
 
@@ -101,7 +101,7 @@ _scubaGroupParameters = [
 // These are surface patrols. 
 _vehiclePatrolParameters = [
 	//  	["B_MRAP_01_hmg_F",[27.8945,100.275,0],0,[true,false]],
-	["B_T_Boat_Armed_01_minigun_F",[2,2,0],0]
+	["B_Boat_Armed_01_minigun_F",[2,2,0],0]
 	//["B_T_Boat_Transport_01_F",[16.7676,43.083,-0.00134277],"red",4, 75,60]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
@@ -140,8 +140,32 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Blue;
 // These are defined here because they are needed for any calls used to spawn non-scuba AI
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
-_endCondition = "playerNear";
-diag_log "[blckeagls] initialized variables for dynamic UMS mission default.sqf";
-diag_log format["[blckeagls static missions] COMPLETED initializing mission %1 position at %2 difficulty %3",_mission,_missionCenter,_difficulty];
+_spawnCratesTiming = "atMissionEndAir"; // Choices: "atMissionSpawnGround","atMissionEndGround","atMissionEndAir". 
+						 // Crates spawned in the air will be spawned at mission center or the position(s) defined in the mission file and dropped under a parachute.
+						 //  This sets the default value but can be overridden by defining  _spawnCrateTiming in the file defining a particular mission.
+_loadCratesTiming = "atMissionSpawn"; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
+						// Pertains only to crates spawned at mission spawn.
+						// This sets the default but can be overridden for specific missions by defining _loadCratesTiming
+						
+						// Examples:
+						// To spawn crates at mission start loaded with gear set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionSpawn"
+						// To spawn crates at mission start but load gear only after the mission is completed set blck_spawnCratesTiming = "atMissionSpawnGround" && blck_loadCratesTiming = "atMissionCompletion"
+						// To spawn crates on the ground at mission completion set blck_spawnCratesTiming = "atMissionEndGround" // Note that a loaded crate will be spawned.
+						// To spawn crates in the air and drop them by chutes set blck_spawnCratesTiming = "atMissionEndAir" // Note that a loaded crate will be spawned.
+_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+
+_chanceHeliPatrol = blck_chanceHeliPatrolBlue;  // Setting this in the mission file overrides the defaults 
+_noChoppers = blck_noPatrolHelisBlue;
+_missionHelis = blck_patrolHelisBlue;
+
+_chancePara = 0.9999990; // Setting this in the mission file overrides the defaults 
+_noPara = 3;  // Setting this in the mission file overrides the defaults 
+_paraTriggerDistance = 400; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
+_paraSkill = "red";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
+
+_chanceLoot = 0.999999990; 
+_paraLoot = blck_BoxLoot_Blue;
+_paraLootCounts = blck_lootCountsRed;  // Throw in something more exotic than found at a normal blue mission.
+
 #include "\q\addons\custom_server\Missions\UMS\code\GMS_fnc_spawnDynamicUMSMission.sqf"; 
 

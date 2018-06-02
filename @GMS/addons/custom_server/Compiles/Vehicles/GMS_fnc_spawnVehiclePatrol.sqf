@@ -14,9 +14,17 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_vehType","_safepos","_veh"];
+private["_vehType","_safepos","_veh","_unitNumber"];
 params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull],["_setWaypoints",true]];
-
+#ifdef blck_debugMode
+if (blck_debugLevel > 1) then
+{
+	private _params = ["_center","_pos","_vehType","_minDis","_maxDis","_group","_setWaypoints"];
+	{
+		diag_log format["_fnc_spawnMissionVehiclePatrol:: param %1 | isEqualTo %2 | _forEachIndex %3",_params select _forEachIndex,_this select _forEachIndex, _forEachIndex];
+	}forEach _this;
+};
+#endif
 
 //_center  Center of the mission area - this is usuall the position treated as the center by the mission spawner. Vehicles will patrol the perimeter of the mission area.
 // _pos the approximate spawn point for the vehicle
@@ -25,12 +33,7 @@ params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_
 //_maxDis = maximum distance from the center of the mission for vehicle waypoints
 //_groupForVehiclePatrol = The group with which to man the vehicle
 
-#ifdef blck_debugMode
-if (blck_debugLevel > 1) then
-{
-	diag_log format["_fnc_spawnVehiclePatrol:: _center = %1 | _pos = %2 | _vehType = %3 | _group = %4",_center,_pos,_vehType,_group];
-};
-#endif
+
 
 if !(isNull _group) then 
 {  // exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnVehiclePatrol"; objNull;};
@@ -38,14 +41,13 @@ if !(isNull _group) then
 //	_veh addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_veh addMPEventHandler["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleHit}];
 	_group setVariable["groupVehicle",_veh];
-	//#ifdef blck_debugMode
+	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{
 		diag_log format["spawnVehiclePatrol:: vehicle spawned is %1 of typeof %2",_veh, typeOf _veh];
 	};
-	//#endif
+	#endif
 
-	private["_unitNumber"];
 	_unitNumber = 0;
 
 	{

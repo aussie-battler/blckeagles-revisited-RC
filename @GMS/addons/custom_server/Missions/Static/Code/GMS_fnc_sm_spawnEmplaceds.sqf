@@ -37,8 +37,8 @@ if (_missionEmplacedWeapons isEqualTo []) then
 	_pos = _x select 1;
 	_difficulty = _x select 2;
 	
-	//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear] ];
-	_empGroup = [_pos,1,1,_difficulty,_pos,1,2,_uniforms,_headGear,false] call blck_fnc_spawnGroup;
+	/// params["_pos",  "_center", _numai1,  _numai2,  _skillLevel, _minDist, _maxDist, _configureWaypoints, _uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms, _scuba ];
+	__empGroup = [_pos,_pos,1,1,_difficulty,1,2,false,_uniforms,_headGear] call blck_fnc_spawnGroup;
 	_empGroup setcombatmode "RED";
 	_empGroup setBehaviour "COMBAT";
 	[_pos,0.01,0.02,_empGroup,"random","SAD","emplaced"] spawn blck_fnc_setupWaypoints;

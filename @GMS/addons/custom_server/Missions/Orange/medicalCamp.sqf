@@ -11,9 +11,8 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
-	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+#include "\q\addons\custom_server\Missions\privateVars.sqf";
 	
 ////diag_log "[blckeagls] Spawning Orange Mission with template = medicalCamp";
 _crateLoot = blck_BoxLoot_Orange;
@@ -57,10 +56,20 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Orange;
 _useMines = blck_useMines;
 _uniforms = blck_SkinList;
 _headgear = blck_headgear;
-//_chanceReinforcements = blck_reinforcementsOrange select 0;
-//_noPara = blck_reinforcementsOrange select 1;
-//_helipatrol = blck_reinforcementsOrange select 2;
-_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+
+_chancePara = 0.75; // Setting this in the mission file overrides the defaults 
+_noPara = 5;  // Setting this in the mission file overrides the defaults 
+_paraTriggerDistance = 400; // Distance from mission at which a player triggers these reinforcements and any supplemental loot. 						// To have paras spawn at the time the mission spawns with/without accompanying loot set this to 0.
+_paraSkill = "orange";  // Choose any skill you like; bump up skill or add AI to justify more valuable loot.
+
+_chanceLoot = 0.7; 
+private _lootIndex = selectRandom[1,2,3,4];
+private _paralootChoices = [blck_contructionLoot,blck_contructionLoot,blck_highPoweredLoot,blck_supportLoot];
+private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0],[0,0,0,0,15,0]];
+_paraLoot = _paralootChoices select _lootIndex;
+_paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
+
+//_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 ////_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 
 

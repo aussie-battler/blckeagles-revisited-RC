@@ -17,7 +17,7 @@
 diag_log "Vehicle Decommisioning handler activated";
 params["_veh"];
 
-if (_veh getVariable["DBD_vehType","none"] isEqualTo "emplaced") then  // Deal with a static weapon
+if (_veh getVariable["GRG_vehType","none"] isEqualTo "emplaced") then  // Deal with a static weapon
 {
 	if (blck_killEmptyStaticWeapons) then
 	{

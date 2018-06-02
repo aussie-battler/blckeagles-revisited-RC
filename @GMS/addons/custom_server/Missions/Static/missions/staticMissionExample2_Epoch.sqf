@@ -5,7 +5,7 @@
 */
 private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
 	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
+	"_uniforms","_headgear","_weaponList","_sideArms","_vests","_backpacks","_weapons","_sideArms","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
 
 _mission = "static mission example #2";  //  Included for additional documentation. Not intended to be spawned as a mission per se.
 _missionCenter = [22907,16789,0];  // I pulled this from the position of the marker.
@@ -125,10 +125,13 @@ _airPatrols = [
 	//[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"green",1000,0]
 ];
 //  Change _useMines to true/false below to enable mission-specific settings.
-_useMines = blck_useMines;  // Set to false if you have vehicles patrolling nearby.
-_uniforms = blck_SkinList;  // You can replace this list with a custom list of uniforms if you like.
-_headgear = blck_headgear;  // You can replace this list with a custom list of headgear.
-_weapons = blck_WeaponList_Orange; // You can replace this list with a customized list of weapons, or another predifined list from blck_configs_epoch or blck_configs_exile as appropriate.
+_useMines  = blck_useMines;  // Set to false if you have vehicles patrolling nearby.
+_uniforms  = blck_SkinList;  // You can replace this list with a custom list of uniforms if you like.
+_headgear  = blck_headgear;  // You can replace this list with a custom list of headgear.
+_vests     = blck_vests;     // You can replace this list with a custom list of vests.
+_backpacks = blck_backpacks; // You can replace this list with a custom list of backpacks.
+_weapons   = blck_WeaponList_Orange; // You can replace this list with a customized list of weapons, or another predifined list from blck_configs_epoch or blck_configs_exile as appropriate.
+_sideArms  = blck_pistols;    // You can replace this list with a custom list of sidearms.
 
 #include "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_initializeMission.sqf"; 
 

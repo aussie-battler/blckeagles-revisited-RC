@@ -39,7 +39,105 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 **********************************************************************************/
 
 	blck_AI_Side = RESISTANCE;
-	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F"]; // Type of vehicle spawned to defend AI bases	
+	
+	blck_crateMoneyBlue = [100,250];
+	blck_crateMoneyRed = [175, 300];
+	blck_crateMoneyGreen = [300, 500];
+	blck_crateMoneyOrange = [500, 750];
+	
+	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
+	
+	_blck_lightlyArmed_ARMA3 = [
+		"B_G_Offroad_01_armed_F", 
+		"O_G_Offroad_01_armed_F",
+		"B_MRAP_01_gmg_F", 
+		"B_MRAP_01_hmg_F",
+		"O_MRAP_02_gmg_F",  
+		"O_MRAP_02_hmg_F",
+		"I_MRAP_03_hmg_F", 
+		"I_MRAP_03_gmg_F",
+		"B_APC_Wheeled_01_cannon_F", 			
+		"I_APC_Wheeled_03_cannon_F"	
+	];
+
+	_blck_tracked_APC_ARMA3 = [
+		"B_APC_Tracked_01_rcws_F",
+		"B_APC_Tracked_01_CRV_F",
+		"B_APC_Tracked_01_AA_F",
+		"O_APC_Tracked_02_cannon_F", 
+		"O_APC_Tracked_02_AA_F",
+		"O_APC_Wheeled_02_rcws_F", 
+		"I_APC_tracked_03_cannon_F"
+	];
+
+	_blck_Tanks_ARMA3 = [
+		//"B_MBT_01_arty_F",
+		"B_MBT_01_mlrs_F",
+		"B_MBT_01_TUSK_F",
+		"O_MBT_02_cannon_F",
+		//"O_MBT_02_arty_F",
+		"I_MBT_03_cannon_F"
+	];
+	
+	_blck_APC_CUP = [
+		"CUP_B_Mastiff_GMG_GB_D",  
+		"CUP_B_Mastiff_HMG_GB_D",  
+		"CUP_B_Ridgback_HMG_GB_D",  
+		"CUP_B_Ridgback_GMG_GB_D",  
+		"CUP_B_M1128_MGS_Desert",  
+		"CUP_B_M1135_ATGMV_Desert_Slat",  
+		"CUP_B_M1133_MEV_Desert_Slat",  
+		"CUP_B_LAV25M240_desert_USMC",  
+		"CUP_B_M1129_MC_MK19_Desert_Slat",  
+		"CUP_B_LAV25_HQ_desert_USMC",  
+		"CUP_B_BRDM2_ATGM_CDF",  
+		"CUP_B_BTR60_CDF",  
+		"CUP_B_M1130_CV_M2_Desert_Slat",  
+		"CUP_B_M1126_ICV_MK19_Desert_Slat",  
+		"CUP_O_BTR90_RU",  
+		"CUP_O_GAZ_Vodnik_BPPU_RU",
+		"CUP_B_M1126_ICV_M2_Desert",  
+		"CUP_B_M1126_ICV_MK19_Desert",  
+		"CUP_B_M1130_CV_M2_Desert",  
+		"CUP_B_M1126_ICV_M2_Desert_Slat",  
+		"CUP_B_M1133_MEV_Desert",  
+		"CUP_O_GAZ_Vodnik_AGS_RU",  
+		"CUP_O_GAZ_Vodnik_PK_RU"
+	];
+
+	_blck_Tanks_CUP = [
+		"CUP_B_M2A3Bradley_USA_D",  
+		"CUP_B_M113_desert_USA",  
+		"CUP_B_M163_USA",  
+		"CUP_B_M6LineBacker_USA_D",  
+		"CUP_B_M1A1_DES_US_Army",  
+		"CUP_B_M1A2_TUSK_MG_DES_US_Army",  
+		"CUP_B_AAV_USMC",  
+		"CUP_B_M270_DPICM_USA",  
+		"CUP_B_ZSU23_CDF",  
+		"CUP_B_BMP2_CDF",  
+		"CUP_B_T72_CDF",  
+		"CUP_I_T34_NAPA",  
+		"CUP_B_Challenger2_NATO",  
+		"CUP_B_FV432_Bulldog_GB_D_RWS",  
+		"CUP_B_FV432_Bulldog_GB_D",  
+		"CUP_B_FV510_GB_D_SLAT",  
+		"CUP_B_MCV80_GB_D_SLAT",  
+		"CUP_O_2S6_RU",  
+		"CUP_O_BMP3_RU",  
+		"CUP_O_T90_RU",  
+		"CUP_O_T55_SLA",  
+		"CUP_O_BMP1P_TKA",  
+		"CUP_B_M270_DPICM_USA",
+		"CUP_B_M2Bradley_USA_W",  
+		"CUP_B_FV510_GB_D",  
+		"CUP_B_MCV80_GB_D",  
+		"CUP_B_M7Bradley_USA_D",  
+		"CUP_O_2S6_RU",  
+		"CUP_O_BMP1_TKA"
+	];	
+	
+	blck_AIPatrolVehicles = ["B_G_Offroad_01_armed_EPOCH","B_LSV_01_armed_F","I_C_Offroad_02_LMG_F","B_T_LSV_01_armed_black_F","B_T_LSV_01_armed_olive_F","B_T_LSV_01_armed_sand_F"]; // Type of vehicle spawned to defend AI bases	
 	blck_AIPatrolVehiclesBlue = blck_AIPatrolVehicles;
 	blck_AIPatrolVehiclesRed = blck_AIPatrolVehicles;
 	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
@@ -290,7 +388,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	];
 	blck_headgearList = blck_headgear + blck_helmets;
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
-	blck_SkinList = [
+	blck_SkinList_Male = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Equipment
 				"U_AntigonaBody",
 				"U_AttisBody",
@@ -380,7 +478,14 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 				"U_B_CTRG_Soldier_urb_2_F",
 				"U_B_CTRG_Soldier_urb_3_F"
 			];
-
+		blck_femaleUniformsEpoch = [
+				"U_CamoBlue_uniform", "U_CamoBrn_uniform", "U_CamoPinkPolka_uniform","U_CamoPink_uniform","U_CamoOutback_uniform",
+				"U_CamoBubblegum_uniform","U_CamoBiker_uniform","U_CamoAloha_uniform","U_CamoRed_uniform"
+		];
+		blck_femaleWetsuitsEpoch = [
+			"U_Wetsuit_uniform","U_Wetsuit_White","U_Wetsuit_Blue","U_Wetsuit_Purp","U_Wetsuit_Camo"
+		];
+		blck_SkinList = blck_femaleUniformsEpoch + blck_femaleWetsuitsEpoch + blck_SkinList_Male;
 		blck_vests = [
 				"V_1_EPOCH","V_2_EPOCH","V_3_EPOCH","V_4_EPOCH","V_5_EPOCH","V_6_EPOCH","V_7_EPOCH","V_8_EPOCH","V_9_EPOCH","V_10_EPOCH","V_11_EPOCH","V_12_EPOCH","V_13_EPOCH","V_14_EPOCH","V_15_EPOCH","V_16_EPOCH","V_17_EPOCH","V_18_EPOCH","V_19_EPOCH","V_20_EPOCH",
 				"V_21_EPOCH","V_22_EPOCH","V_23_EPOCH","V_24_EPOCH","V_25_EPOCH","V_26_EPOCH","V_27_EPOCH","V_28_EPOCH","V_29_EPOCH","V_30_EPOCH","V_31_EPOCH","V_32_EPOCH","V_33_EPOCH","V_34_EPOCH","V_35_EPOCH","V_36_EPOCH","V_37_EPOCH","V_38_EPOCH","V_39_EPOCH","V_40_EPOCH",
@@ -511,7 +616,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 			[// Materials and supplies				
 				["CinderBlocks",5,15],
 				["jerrycan_epoch",1,2],
-				//["lighter_epoch",0,1],
+				["lighter_epoch",1,2],
 				["CircuitParts",2,3],
 				["WoodLog_EPOCH",5,10],
 				["ItemCorrugatedLg",1,6],
@@ -524,7 +629,26 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["ItemCables",1,2],
 				["ItemBattery",1,2],
 				["Pelt_EPOCH",1,2],
-				["EnergyPackLg",1,3]
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]
 			],
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,4],["FAK",1,4],["VehicleRepair",1,3],["Rangefinder",1,3],["ItemJade",1,2],["ItemQuartz",1,2],["ItemRuby",1,2],["ItemSapphire",1,2],
@@ -613,22 +737,41 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["optic_AMS_khk",1,3],["optic_AMS_snd",1,3],["optic_KHS_blk",1,3],["optic_KHS_hex",1,3],["optic_KHS_old",1,3],["optic_KHS_tan",1,3]
 			],
 			[	
-				["CinderBlocks",4,12],
+				["CinderBlocks",5,15],
 				["jerrycan_epoch",1,2],
-				["lighter_epoch",1,1],
-				["CircuitParts",2,5],
-				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",1,3],
-				["ItemCorrugated",2,9],
+				["lighter_epoch",1,2],
+				["CircuitParts",2,3],
+				["WoodLog_EPOCH",5,10],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
-				["MortarBucket",3,6],
-				["PartPlankPack",10,12],
-				["ItemLockbox",1,3],
+				["MortarBucket",5,10],
+				["PartPlankPack",10,19],
+				["ItemLockbox",1,2],
 				["ItemSolar",1,2],
 				["ItemCables",1,2],
 				["ItemBattery",1,2],
 				["Pelt_EPOCH",1,2],
-				["EnergyPackLg",1,3]
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]
 			],
 			[//Items
 				// Format is ["Item name, Minimum number to add, Maximum number to add],
@@ -717,18 +860,41 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["optic_AMS_khk",1,3],["optic_AMS_snd",1,3],["optic_KHS_blk",1,3],["optic_KHS_hex",1,3],["optic_KHS_old",1,3],["optic_KHS_tan",1,3]
 			],
 			[
-				["CinderBlocks",2,6],
-				["jerrycan_epoch",1,3],
-				["lighter_epoch",1,1],
+				["CinderBlocks",5,15],
+				["jerrycan_epoch",1,2],
+				["lighter_epoch",1,2],
 				["CircuitParts",2,3],
-				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",0,4],
-				["ItemCorrugated",3,6],
+				["WoodLog_EPOCH",5,10],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
-				["MortarBucket",1,8],
-				["PartPlankPack",10,12],
+				["MortarBucket",5,10],
+				["PartPlankPack",10,19],
 				["ItemLockbox",1,2],
-				["EnergyPackLg",0,1]			
+				["ItemSolar",1,2],
+				["ItemCables",1,2],
+				["ItemBattery",1,2],
+				["Pelt_EPOCH",1,2],
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]			
 			],
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,5],["VehicleRepair",1,5],
@@ -811,23 +977,48 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["optic_AMS_khk",1,3],["optic_KHS_blk",1,3],["optic_KHS_hex",1,3],["optic_KHS_old",1,3],["optic_KHS_tan",1,3]
 			],			
 			[	
-				["CinderBlocks",2,7], 
-				["jerrycan_epoch",1,3],
-				["lighter_epoch",1,1],
-				["CircuitParts",2,6],
-				["WoodLog_EPOCH",10,20],
-				["ItemCorrugatedLg",0,5],
-				["ItemCorrugated",3,7],
+				["CinderBlocks",5,15],
+				["jerrycan_epoch",1,2],
+				["lighter_epoch",1,2],
+				["CircuitParts",2,3],
+				["WoodLog_EPOCH",5,10],
+				["ItemCorrugatedLg",1,6],
+				["ItemCorrugated",3,10],
 				["ItemMixOil",1,2],
-				["MortarBucket",2,5],
-				["PartPlankPack",10,12],
+				["MortarBucket",5,10],
+				["PartPlankPack",10,19],
 				["ItemLockbox",1,2],
-				["EnergyPackLg",0,1]
+				["ItemSolar",1,2],
+				["ItemCables",1,2],
+				["ItemBattery",1,2],
+				["Pelt_EPOCH",1,2],
+				["EnergyPackLg",1,3],
+				["ItemCopperBar",1,3],
+				["ItemGoldBar",1,3],
+				["ItemAluminumBar",1,3],
+				["ItemTinBar",1,3],
+				["ItemCanvas",2,4],
+									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				["ItemKiloHemp",1,3],
+				["ItemRope",1,3],
+				["ItemBurlap",1,3],
+				["ItemCanvas",1,3],
+				["ItemCorrugated",1,3],
+				["VehicleRepairLg",1,3],
+				["EngineParts",1,3],
+				["FuelTank",1,3],
+				["CSGAS",1,2],
+				["SpareTire",2,4],
+				["ItemRotor",1,2],
+				["EngineBlock",1,2],
+				["ItemDuctTape",1,3]
 			],
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["VehicleRepair",1,3],
-				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
-				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],["ItemSodaAlpineDude",1,3],
+				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],
+				["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3],["ItemPowderMilk",1,3],["ItemRicebox",1,3],
+				["ItemCereals",1,3],["krypto_candy_epoch",1,3],["ItemBakedBeans",1,3],["HotAxeSauce_epoch",1,3]
 			],
 			[ // Backpacks
 				["B_AssaultPack_dgtl",0,2],["B_AssaultPack_khk",0,2],["B_AssaultPack_mcamo",0,2],["B_AssaultPack_ocamo",0,2],["B_AssaultPack_rgr",0,2],["B_AssaultPack_sgg",0,2],
@@ -838,8 +1029,10 @@ for examples of how you can do this see \Major\Compositions.sqf
 			]
 		];
 
+blck_contructionLoot = blck_BoxLoot_Orange;
+blck_highPoweredLoot = blck_BoxLoot_Orange;
+blck_supportLoot = blck_BoxLoot_Orange;
 
-	// Time the marker remains after completing the mission in seconds - experimental not yet implemented
 
 	blck_crateTypes = ["Box_FIA_Ammo_F","Box_FIA_Support_F","Box_FIA_Wps_F","I_SupplyCrate_F","Box_NATO_AmmoVeh_F","Box_East_AmmoVeh_F","IG_supplyCrate_F","Box_NATO_Wps_F","I_CargoNet_01_ammo_F","O_CargoNet_01_ammo_F","B_CargoNet_01_ammo_F"];  // Default crate type.
 	

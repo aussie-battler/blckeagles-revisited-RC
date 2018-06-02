@@ -18,6 +18,7 @@ params["_patrols","_coords",["_minNoAI",3],["_maxNoAI",6],["_aiDifficultyLevel",
 if (_patrols isEqualTo []) then 
 {
 	// Use the random spawn logic from the regular dyanmic mission system.
+	//params[_coords,"_maxNoAI,_missionGroups,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weapons,sideArms,_isScubaGroup];
 	[_coords,_minNoAI,_maxNoAI,_aiDifficultyLevel,_uniforms,_headGear] call blck_fnc_spawnMissionAI
 } else {
 	{
@@ -30,7 +31,7 @@ if (_patrols isEqualTo []) then
 		_noAI = _x select 2; // Number of AI to spawn with the group
 		_patrolRadius = _x select 3;  // Radius within which AI should patrol
 		//  params["_pos", ["_numai1",5], ["_numai2",10], ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_configureWaypoints",true] ];
-		[_pos,_noAI,_noAI,_difficulty,_pos,_patrolRadius,_patrolRadius,_uniforms,_headGear,true] call blck_fnc_spawnGroup;
+		[_pos,_pos,_noAI,_noAI,_difficulty,_patrolRadius,_patrolRadius,true,_uniforms,_headGear] call blck_fnc_spawnGroup;
 	}forEach _patrols;
 };
 

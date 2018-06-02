@@ -15,7 +15,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_findNew","_tries","_coords","_dist","_xpos","_ypos","_newPos","_townPos","_pole"];
+private["_findNew","_tries","_coords","_dist","_xpos","_ypos","_newPos","_townPos","_pole","_oldPos","_ignore"];
 
 _findNew = true;
 _tries = 0;
@@ -50,7 +50,6 @@ while {_findNew} do {
 	
 	//diag_log format["#- findSafePosn -# blck_recentMissionCoords isEqualTo %1", blck_recentMissionCoords];
 	{
-		private["_oldPos","_ignore"];
 		_ignore = false;
 		//diag_log format["-# findSafePosn.sqf -#  Old Mission element is %1", _x];
 		if (diag_tickTime > ((_x select 1) + 1200)) then // if the prior mission was completed more than 20 min ago then delete it from the list and ignore the check for this location.
@@ -71,7 +70,6 @@ while {_findNew} do {
 	} forEach blck_recentMissionCoords;
 
 	// test for water nearby
-	private ["_i"];
 	_dist = 100;
 	for [{_i=0}, {_i<360}, {_i=_i+20}] do
 	{
