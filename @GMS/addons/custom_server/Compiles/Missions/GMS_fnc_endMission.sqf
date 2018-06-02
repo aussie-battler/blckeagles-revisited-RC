@@ -43,7 +43,7 @@ _fn_missionCleanup = {
 	diag_log format["_fnc_endMission: _this = %1",_this];
 	#endif
 	params["_mines","_objects","_crates","_blck_AllMissionAI","_endMsg","_blck_localMissionMarker","_coords","_mission",["_endCondition",0],["_vehicles",[]],["_isScubaMission",false]];
-	diag_log format["_fnc_endMission (44):  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _endCondition %4",_blck_localMissionMarker,_coords,_mission,_endCondition];
+	//diag_log format["_fnc_endMission (44):  _blck_localMissionMarker %1 | _coords %2 | _mission %3 | _endCondition %4",_blck_localMissionMarker,_coords,_mission,_endCondition];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 0) then 
 	{
