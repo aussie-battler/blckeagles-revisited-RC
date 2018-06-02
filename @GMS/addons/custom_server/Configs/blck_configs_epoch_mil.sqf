@@ -143,8 +143,6 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_AIPatrolVehiclesGreen = blck_AIPatrolVehicles;
 	blck_AIPatrolVehiclesOrange = blck_AIPatrolVehicles;
 	
-	#define useAPEX 1
-	
 	blck_AIPatrolVehicles = 
 	[
 	//"Exile_Car_Offroad_Armed_Guerilla01",
@@ -267,7 +265,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_WeaponList_Green = blck_WeaponList_Green + blck_apexWeapons;
 	#endif
 	
-	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
+	blck_backpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
 	blck_ApexBackpacks = [
 		"B_Bergen_mcamo_F","B_Bergen_dgtl_F","B_Bergen_hex_F","B_Bergen_tna_F","B_AssaultPack_tna_F","B_Carryall_ghex_F",
 		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",

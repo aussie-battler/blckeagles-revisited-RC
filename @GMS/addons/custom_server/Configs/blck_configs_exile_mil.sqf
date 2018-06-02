@@ -314,7 +314,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	
 
 	
-	blck_baseBackpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
+	blck_backpacks = ["B_Carryall_ocamo","B_Carryall_oucamo","B_Carryall_mcamo","B_Carryall_oli","B_Carryall_khk","B_Carryall_cbr" ];  
 		
 	#ifdef useAPEX
 	blck_ApexBackpacks = [
@@ -322,7 +322,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"B_FieldPack_ghex_F","B_ViperHarness_blk_F","B_ViperHarness_ghex_F","B_ViperHarness_hex_F","B_ViperHarness_khk_F",
 		"B_ViperHarness_oli_F","B_ViperLightHarness_blk_F","B_ViperLightHarness_ghex_F","B_ViperLightHarness_hex_F","B_ViperLightHarness_khk_F","B_ViperLightHarness_oli_F"
 		];	
-	blck_backpacks = blck_baseBackpacks + blck_ApexBackpacks;
+	blck_backpacks = blck_backpacks + blck_ApexBackpacks;
 	#endif
 	
 	blck_BanditHeadgear = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_tan","H_ShemagOpen_khk"];
