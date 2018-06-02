@@ -48,7 +48,7 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = true; // 
+	blck_useHC = false; // 
 	
 	///////////////////////////////
 	//  Kill message configurations

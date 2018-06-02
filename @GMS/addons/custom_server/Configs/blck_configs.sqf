@@ -53,7 +53,7 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = true; // Experimental (death messages and rewards not yet working).
+	blck_useHC = false; // Experimental (death messages and rewards not yet working).
 	
 	///////////////////////////////
 	//  Kill message configurations
