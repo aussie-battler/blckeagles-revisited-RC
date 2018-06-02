@@ -8,18 +8,6 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-<<<<<<< HEAD
-<<<<<<< HEAD
-Version 1.80 Build 117
-Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
-     See the medicalCamp.sqf mission for an example of how this is done.
-Added: you can now spawn simple objects as part of your mission landscape. Useful for STATIC missions only. 
-Changed: Default missions reworked to support the above.
-
-=======
-Version 1.80 build 118
-Added: The server now sets simulation on/off and damage on/off for objects at dynamic missions. default missions updated. 
-=======
 Version 1.82 Build 132
 Added: 	blck_killPercentage = 0.9;  // The mission will complete if this fraction of the total AI spawned has been killed.
 								// This facilitates mission completion when one or two AI are spawned into objects.	
@@ -127,19 +115,14 @@ Version 1.80 Build 118
 Added: you can now determine whether objects spawned at dynamic missions have simulation or damage enabled.
      See the medicalCamp.sqf mission for an example of how this is done.
 Added: you can now spawn simple objects as part of your mission landscape. Useful for STATIC missions only. 
->>>>>>> Experimental
 Added: lists of armed vehicles from which you can choose those you wish to spawn at vehicles broken down by category (wheeled, traced APC, Tank, etc)
 Added: Three constants that define how far away missions are from players when they spawn.
 	blck_minDistanceToBases = 900; Minimum distance from any freq jammer or flag
 	blck_minDistanceToPlayer = 900; Minimum distance from any player
 	blck_minDistanceFromTowns = 300; Minimum distance from cites or towns.
 	
-<<<<<<< HEAD
->>>>>>> Experimental
-=======
 Changed: Default missions reworked to support the above.
 
->>>>>>> Experimental
 Version 1.79, Build 116
 Added: Map-specific information for Lythium.
 Added: New configuration setting: blck_showCountAliveAI = true;  When = true, the number of alive AI at a mission will be displayed by the mission marker.
