@@ -529,17 +529,18 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_vests_orange = blck_vests;
 		
 			//CraftingFood
-		blck_Meats=[
-			"SnakeCarcass_EPOCH","RabbitCarcass_EPOCH","ChickenCarcass_EPOCH","GoatCarcass_EPOCH","SheepCarcass_EPOCH"
-		];
-		blck_Drink = [
-			"WhiskeyNoodle","ItemSodaOrangeSherbet","ItemSodaPurple","ItemSodaMocha","ItemSodaBurst","ItemSodaRbull","FoodWalkNSons"
-		];
-		blck_Food = [
-			"FoodBioMeat","FoodMeeps","FoodSnooter","FoodWalkNSons","sardines_epoch","meatballs_epoch","scam_epoch","sweetcorn_epoch","honey_epoch","CookedSheep_EPOCH","CookedGoat_EPOCH","SnakeMeat_EPOCH",
-			"CookedRabbit_EPOCH","CookedChicken_EPOCH","ItemTrout","ItemSeaBass","ItemTuna","TacticalBacon"
-		];
-		blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
+        blck_Meats=[
+            "SnakeCarcass_EPOCH","RabbitCarcass_EPOCH","ChickenCarcass_EPOCH","GoatCarcass_EPOCH","SheepCarcass_EPOCH","DogCarcass_EPOCH","ItemTrout","ItemSeaBass","ItemTuna"
+        ];
+        blck_Drink = [
+            "WhiskeyNoodle","ItemSodaAlpineDude","ItemSodaOrangeSherbet","ItemSodaPurple","ItemSodaMocha","ItemSodaBurst","ItemSodaRbull","FoodWalkNSons"
+        ];
+        blck_Food = [
+            "HotAxeSauce_epoch","gyro_wrap_epoch","icecream_epoch","redburger_epoch","bluburger_epoch","krypto_candy_epoch","ItemBakedBeans","ItemRiceBox","ItemPowderMilk","ItemCereals",
+			"FoodBioMeat","FoodMeeps","FoodSnooter","sardines_epoch","meatballs_epoch","scam_epoch","sweetcorn_epoch","honey_epoch","CookedSheep_EPOCH","CookedGoat_EPOCH","SnakeMeat_EPOCH",
+            "CookedRabbit_EPOCH","CookedChicken_EPOCH","CookedDog_EPOCH","ItemTroutCooked","ItemSeaBassCooked","ItemTunaCooked","TacticalBacon"
+        ];
+        blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
 		blck_throwableExplosives = ["HandGrenade","MiniGrenade"];
 		blck_otherExplosives = ["1Rnd_HE_Grenade_shell","3Rnd_HE_Grenade_shell","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag"];
 		blck_explosives = blck_throwableExplosives + blck_otherExplosives;
