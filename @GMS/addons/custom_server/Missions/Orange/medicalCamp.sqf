@@ -54,8 +54,8 @@ _noVehiclePatrols = blck_SpawnVeh_Orange;
 _noEmplacedWeapons = blck_SpawnEmplaced_Orange;
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines = blck_useMines;
-_uniforms = blck_SkinList;
-_headgear = blck_headgear;
+//_uniforms = blck_SkinList;
+//_headgear = blck_headgear;
 
 _chancePara = 0.75; // Setting this in the mission file overrides the defaults 
 _noPara = 5;  // Setting this in the mission file overrides the defaults 

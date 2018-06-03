@@ -21,9 +21,11 @@
 params["_pos","_numAI","_skillAI",["_uniforms",blck_SkinList],["_headGear",blck_headgearList],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weapons",[]],["_sideArms",blck_Pistols],["_isScuba",false]];
 private["_arc","_dir","_spawnPos","_chute","_unit","_return","_paraGroup"];
 private _params = ["_pos","_numAI","_skillAI"];
+#ifdef blck_debugMode
 {
 	diag_log format["_fnc_spawnParaUnits: %1 = %2",_x, _this select _forEachIndex];
 }forEach _params;
+#endif
 _paraGroup = call blck_fnc_create_AI_Group;
 //diag_log format["_fnc_spawnParaUnits: _paraGroup = %1",_paraGroup];
 //  [_pos,_minDist,_maxDist,_groupSpawned,"random","SAD"] spawn blck_fnc_setupWaypoints;

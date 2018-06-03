@@ -37,6 +37,6 @@ blck_fnc_sm_spawnObjects = compileFinal  preprocessFileLineNumbers "\q\addons\cu
 
 //blck_fnc_sm_spawnVehiclePatrols = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_sm_spawnVehiclePatrols.sqf";
 
-diag_log "[blckeagls] GMS_sm_init_functions.sqf <Loaded>";
+//diag_log "[blckeagls] GMS_sm_init_functions.sqf <Loaded>";
 
 blck_sm_functionsLoaded = true;

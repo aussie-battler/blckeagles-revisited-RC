@@ -8,8 +8,14 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.82 Build 133
-
+Version 1.82 Build 134
+Added: configs for blue, red, green and orange pistol, vest, backpack and uniforms
+Change: 
+	Commented out all configs in missions for uniforms, headgear, backpacks and uniforms.
+	Commented out most configs for helis, paratroops and supplemental loot dropped by paratroops.
+	Removed some logging that is not required.
+	
+Version 1.82 Build 132
 Added: 	blck_killPercentage = 0.9;  // The mission will complete if this fraction of the total AI spawned has been killed.
 								// This facilitates mission completion when one or two AI are spawned into objects.	
 

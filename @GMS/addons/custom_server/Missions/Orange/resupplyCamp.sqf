@@ -45,8 +45,8 @@ _maxNoAI = blck_MaxAI_Orange;
 _noAIGroups = blck_AIGrps_Orange;
 _noVehiclePatrols = blck_SpawnVeh_Orange;
 _noEmplacedWeapons = blck_SpawnEmplaced_Orange;
-_uniforms = blck_SkinList;
-_headgear = blck_headgear;
+//_uniforms = blck_SkinList;
+//_headgear = blck_headgear;
 
 _chancePara = 0.75; // Setting this in the mission file overrides the defaults 
 _noPara = 5;  // Setting this in the mission file overrides the defaults 
@@ -60,6 +60,6 @@ private _paralootCountsChoices = [[0,0,0,10,10,0],[0,0,0,10,10,0],[10,10,0,0,0,0
 _paraLoot = _paralootChoices select _lootIndex;
 _paraLootCounts = _paralootCountsChoices select _lootIndex;  // Throw in something more exotic than found at a normal blue mission.
 
-_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
+//_endCondition = "playerNear";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear"
 //_timeOut = -1;
 #include "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionSpawner.sqf"; 

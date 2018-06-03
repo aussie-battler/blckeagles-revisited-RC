@@ -276,6 +276,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_Pistols = [
 		"hgun_PDW2000_F","hgun_ACPC2_F","hgun_Rook40_F","hgun_P07_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","hgun_Pistol_Signal_F"
 	];	
+	blck_Pistols_blue = blck_Pistols;
+	blck_Pistols_red = blck_Pistols;
+	blck_Pistols_green = blck_Pistols;
+	blck_Pistols_orange = blck_Pistols;
 	
 	blck_DLC_MMG = [
 				"MMG_01_hex_F","MMG_02_sand_F","MMG_01_tan_F","MMG_02_black_F","MMG_02_camo_F"
@@ -312,6 +316,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		];	
 	blck_backpacks = blck_ApexBackpacks + blck_backpacks;
 	#endif
+	blck_backpacks_blue = blck_backpacks;
+	blck_backpacks_red = blck_backpacks;
+	blck_backpacks_green = blck_backpacks;
+	blck_backpacks_orange = blck_backpacks;
 	
 	blck_BanditHeadgear = ["H_Shemag_khk","H_Shemag_olive","H_Shemag_tan","H_ShemagOpen_khk"];
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
@@ -454,6 +462,11 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"H_HelmetCrew_O_ghex_F"			
 	];
 	blck_headgearList = blck_headgear + blck_helmets;
+	blck_headgear_blue = blck_headgearList;
+	blck_headgear_red = blck_headgearList;
+	blck_headgear_green = blck_headgearList;
+	blck_headgear_orange = blck_headgearList;
+	
 	//This defines the skin list, some skins are disabled by default to permit players to have high visibility uniforms distinct from those of the AI.
 	blck_SkinList = [
 		//https://community.bistudio.com/wiki/Arma_3_CfgWeapons_Equipment
@@ -547,6 +560,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		"U_B_CTRG_Soldier_urb_2_F",
 		"U_B_CTRG_Soldier_urb_3_F"
 	];
+	blck_SkinList_blue = blck_SkinList;
+	blck_SkinList_red = blck_SkinList;
+	blck_SkinList_green = blck_SkinList;
+	blck_SkinList_orange = blck_SkinList;
 
 	blck_vests = [
 		"V_Press_F",
@@ -607,7 +624,11 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		#endif
 		"V_PlateCarrier2_rgr_noflag_F"
 		];
-			
+	blck_vests_blue = blck_vests;
+	blck_vests_red = blck_vests;
+	blck_vests_green = blck_vests;
+	blck_vests_orange = blck_vests;		
+		
 	//CraftingFood
 	blck_Meats=[
 		

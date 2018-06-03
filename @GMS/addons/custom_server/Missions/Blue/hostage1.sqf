@@ -116,8 +116,8 @@ _maxNoAI = blck_MaxAI_Blue;
 _noAIGroups = blck_AIGrps_Blue;
 _noVehiclePatrols = blck_SpawnVeh_Blue;
 _noEmplacedWeapons = blck_SpawnEmplaced_Blue;
-_uniforms = blck_SkinList;
-_headgear = blck_headgear;
+//_uniforms = blck_SkinList;
+//_headgear = blck_headgear;
 
 _noPara = blck_noParaBlue;  
 //_chanceHeliPatrol = blck_chanceHeliPatrolBlue;

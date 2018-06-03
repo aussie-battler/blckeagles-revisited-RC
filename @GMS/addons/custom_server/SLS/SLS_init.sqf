@@ -11,7 +11,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #ifdef blck_debugMode
-diag_log "[blckeagls] SLS System: Initializing Static Loot Crate System!";
+//diag_log "[blckeagls] SLS System: Initializing Static Loot Crate System!";
 #endif
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 

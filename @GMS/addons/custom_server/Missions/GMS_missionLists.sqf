@@ -14,15 +14,16 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 _pathBlue = "Blue";
-//_missionListBlue = [/*"default",*/"default2"/*,"medicalCamp","redCamp","resupplyCamp"*/];
-_missionListBlue = ["default"/*,"default2"/*,"medicalCamp","redCamp","resupplyCamp"*/];
+_missionListBlue = ["resupplyCamp"];
+//_missionListBlue = ["captive1"/*,"default2"/*,"medicalCamp","redCamp","resupplyCamp"*/];
 
 _pathRed = "Red";
-_missionListRed = [/*"default","default2","medicalCamp",*/"redCamp"];
-
+_missionListRed = ["resupplyCamp"];
+//_missionListRed = [/*"default","default2","medicalCamp",*/"redCamp"/*,"resupplyCamp"*/];
 _pathGreen = "Green";
-_missionListGreen = [/*"default","default2",/*"redCamp",*//*"resupplyCamp",*/"medicalCamp"];
+_missionListGreen = ["resupplyCamp"];
+//_missionListGreen = [/*"default","default2",/*"redCamp",*//*"resupplyCamp",*/"medicalCamp"];
 
 _pathOrange = "Orange";
-_missionListOrange = [/*"default","default2","medicalCamp","redCamp",*/"resupplyCamp"];
-
+_missionListOrange = ["resupplyCamp"];
+//_missionListOrange = [/*"default","default2","medicalCamp","redCamp",*/"resupplyCamp"];

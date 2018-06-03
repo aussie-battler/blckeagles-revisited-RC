@@ -10,4 +10,4 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 blck_dynamicUMS_MissionList = ["default.sqf"];
-diag_log "[blckeagls] Dynamic UMS Mission List <Loaded>";
+//diag_log "[blckeagls] Dynamic UMS Mission List <Loaded>";

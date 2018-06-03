@@ -101,7 +101,7 @@ _fn_setupCrates = {
 	#endif
 	_crate
 };
-diag_log "[blckeagls] SLS System: Functions Initialized!";
+//diag_log "[blckeagls] SLS System: Functions Initialized!";
 private["_cratePosnList","_no","_ar","_x","_cratePos","_lootType","_randomPos","_useSmoke"];
 
 {

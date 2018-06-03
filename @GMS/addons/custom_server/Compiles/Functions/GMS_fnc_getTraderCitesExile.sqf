@@ -13,7 +13,7 @@
 private _traderCites = allMapMarkers;
 _tc = [];
 {
-	if (blck_debugON) then {diag_log format["[blckeagls]  _fnc_getExileLocations :: -- >> Evaluating Markertype of %1", (getMarkerType _x)];};
+	//if (blck_debugON) then {diag_log format["[blckeagls]  _fnc_getExileLocations :: -- >> Evaluating Markertype of %1", (getMarkerType _x)];};
 	if (getMarkerType _x isEqualTo "ExileTraderZone" && blck_blacklistTraderCities) then {
 		blck_locationBlackList pushback [(getMarkerPos _x),1000];
 		if (blck_debugON) then {diag_log format["[blckeagls]  _fnc_getExileLocations :: -- >> Added Exile Trader location at %1", (getMarkerPos _x)];};

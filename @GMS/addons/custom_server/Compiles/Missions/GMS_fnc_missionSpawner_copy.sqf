@@ -47,65 +47,14 @@ if (isNil "_hostageConfig") 			then {_hostageConfig = []};
 if (isNil "_enemyLeaderConfig") 		then {_enemyLeaderConfig = []};
 if (isNil "_useMines") 					then {_useMines = blck_useMines;};
 if (isNil "_weaponList") 				then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_sideArms = blck_Pistols_blue};
-		case "red": 	{_sideArms = blck_Pistols_red};
-		case "green": 	{_sideArms = blck_Pistols_green};
-		case "orange": 	{_sideArms = blck_Pistols_orange};
-		default 		{_sideArms = blck_Pistols};
-	};
-};
+if (isNil "_sideArms") 					then {_sideArms = blck_Pistols};
+if (isNil "_vests") 					then {_vests = blck_vests};
+if (isNil "_backpacks") 				then {_backpacks = blck_backpacks};
+//diag_log format["_fnc_missionSpawner: -> blck_backpacks = %1", blck_backpacks];
+//diag_log format["_fnc_missionSpawner: -> _backpacks = %1",_backpacks];
+if (isNil "_uniforms") 					then {_uniforms = blck_SkinList};
+if (isNil "_headGear") 					then {_headgear = blck_headgear};
 
-if (isNil "_uniforms") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_uniforms = blck_SkinList_blue};
-		case "red": 	{_uniforms = blck_SkinList_red};
-		case "green": 	{_uniforms = blck_SkinList_green};
-		case "orange": 	{_uniforms = blck_SkinList_orange};
-		default 		{_uniforms = blck_SkinList};
-	};
-};
-
-if (isNil "_headGear") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_headGear = blck_headgear_blue};
-		case "red": 	{_headGear = blck_headgear_red};
-		case "green": 	{_headGear = blck_headgear_green};
-		case "orange": 	{_headGear = blck_headgear_orange};
-		default 		{_headGear = blck_headgear};
-	};
-};
-
-if (isNil "_vests") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_vests = blck_vests_blue};
-		case "red": 	{_vests = blck_vests_red};
-		case "green": 	{_vests = blck_vests_green};
-		case "orange": 	{_vests = blck_vests_orange};
-		default 		{_vests = blck_vests};
-	};
-};
-
-if (isNil "_backpacks") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_backpacks = blck_backpacks_blue};
-		case "red": 	{_backpacks = blck_backpacks_red};
-		case "green": 	{_backpacks = blck_backpacks_green};
-		case "orange": 	{_backpacks = blck_backpacks_orange};
-		default 		{_backpacks = blck_backpacks};
-	};
-};
 if (isNil "_chanceHeliPatrol") then
 {
 	switch (toLower(_aiDifficultyLevel)) do
@@ -163,9 +112,8 @@ if (isNil "_noPara") then
 };
 if (isNil "_chanceLoot") then {_chanceLoot = 1.0}; //0.5}; 
 if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
-if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Green};
+if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Red};
 if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed};
-
 
 _objects = [];
 _mines = [];
@@ -707,6 +655,6 @@ _result = [_mines,_objects,_crates,_blck_AllMissionAI,_endMsg,_blck_localMission
 #ifdef blck_debugMode
 if (blck_debugLevel > 2) then {diag_log format["[blckeagls] missionSpawner:: (507)end of mission: blck_fnc_endMission has returned control to _fnc_missionSpawner"]};
 #endif
-diag_log format["_fnc_missionSpawner (643) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
+//diag_log format["_fnc_missionSpawner (643) Mission Completed | _cords %1 : _markerClass %2 :  _aiDifficultyLevel %3 _markerMissionName %4",_coords,_markerClass,_aiDifficultyLevel,_markerMissionName];
 blck_missionsRun = blck_missionsRun + 1;
 diag_log format["_fnc_missionSpawner (644): Total Dyanamic Land and UMS Run = %1", blck_missionsRun];

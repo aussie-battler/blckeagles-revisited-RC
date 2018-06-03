@@ -10,7 +10,7 @@
 
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
-diag_log "Loading Static Loot Container Spawning System for Epoch";
+//diag_log "Loading Static Loot Container Spawning System for Epoch";
 _lootBoxes = 
 [
 	/*[	

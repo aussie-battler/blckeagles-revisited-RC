@@ -10,7 +10,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-diag_log "[blckeagls] GMS_StaticMissions_init.sqf <Initializing Static Mission System>";
+//diag_log "[blckeagls] GMS_StaticMissions_init.sqf <Initializing Static Mission System>";
 
 //static mission descriptor for code: [position,level, numAI or [min,maxAI],patrolRadius, respawn, group[groupNull],spawnedAt[0],respawn[0]]
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
