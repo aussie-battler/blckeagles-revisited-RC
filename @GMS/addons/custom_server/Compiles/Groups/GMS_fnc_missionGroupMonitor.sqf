@@ -5,7 +5,7 @@
 	If not it directs them to the next waypoint. 
 	It uses a timestamp attached to the group that is cleared upon waypoint completion.
 	
-	By Ghostrider-DbD-
+	By Ghostrider-GRG-
 	Last modified 3/14/17
 	
 	--------------------------

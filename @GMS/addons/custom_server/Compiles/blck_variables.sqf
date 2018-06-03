@@ -42,8 +42,8 @@ blck_HC_monitoredGroups = [];
 "Group" setDynamicSimulationDistance 1800;
 enableDynamicSimulationSystem true;
 #endif
-// Arrays for use during cleanup of alive AI at some time after the end of a mission
-DBD_HeliCrashSites = [];
+
+blck_heliCrashSites = [];
 
 // radius within whih missions are triggered. The trigger causes the crate and AI to spawn.
 blck_TriggerDistance = 1000;

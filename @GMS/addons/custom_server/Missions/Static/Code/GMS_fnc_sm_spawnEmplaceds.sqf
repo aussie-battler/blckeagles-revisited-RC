@@ -46,7 +46,7 @@ if (_missionEmplacedWeapons isEqualTo []) then
 	_wep = [_wepnClassName,[0,0,0],false] call blck_fnc_spawnVehicle;
 	_empGroup setVariable["groupVehicle",_wep];
 	_wep setVariable["vehicleGroup",_empGroup];
-	_wep setVariable["DBD_vehType","emplaced"];	
+	_wep setVariable["GRG_vehType","emplaced"];	
 	_wep setPosATL _pos;
 	[_wep,false] call blck_fnc_configureMissionVehicle;	
 	_units = units _empGroup;

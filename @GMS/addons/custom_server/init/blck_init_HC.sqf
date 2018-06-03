@@ -47,7 +47,7 @@ blck_configsLoaded = nil;
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
 #ifdef GRGserver
-diag_log "[blckegls] Running DBD Clan Version";
+diag_log "[blckegls] Running Ghostridergaming Version";
 #endif
 #ifdef useDynamicSimulation
 diag_log "[blckegls] dynamic simulation manager enabled";

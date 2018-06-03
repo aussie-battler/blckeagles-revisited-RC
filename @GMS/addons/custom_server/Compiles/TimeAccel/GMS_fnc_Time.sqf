@@ -1,6 +1,6 @@
 /*
 	GMS_fnc_time.sqf
-	by Ghostrider-DBD_
+	by Ghostrider-GRG-
 
 	Credits to AWOL, A3W, LouD and Creampie for insights.
 

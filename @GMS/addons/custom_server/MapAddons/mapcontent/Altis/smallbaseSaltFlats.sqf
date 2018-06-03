@@ -1,5 +1,5 @@
 // Small bandit base on the salt flats
-// by Ghostrider-Dbd-
+// by Ghostrider-GRG-
 // 11/8/16
 
 private _objects = [

@@ -1,7 +1,7 @@
 
 	/*
 		Remove all inventory from an object.
-		By Ghostrider-DbD0
+		By Ghostrider-GRG-
 		--------------------------
 	License
 	--------------------------

@@ -1,8 +1,7 @@
 
 /*
 	Killed handler for _units
-	By Ghostrider-DbD
-	Last Modified 4-11-17
+	By Ghostrider-GRG-
 
 	--------------------------
 	License

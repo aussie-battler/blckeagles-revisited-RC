@@ -1,7 +1,7 @@
 /*
   Delete Dead AI and nearby weapons after an appropriate period.
-  by Ghostrider
-  Last updated 1/24/17   
+  by Ghostrider-GRG-
+  
 	--------------------------
 	License
 	--------------------------

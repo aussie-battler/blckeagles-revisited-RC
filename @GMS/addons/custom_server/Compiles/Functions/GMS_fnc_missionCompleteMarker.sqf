@@ -1,7 +1,7 @@
 ////////////////////////////////////////////
 // Create, delete and change Mission Markers
 // 7/10/15
-// by Ghostrider-DbD-
+// by Ghostrider-GRG-
 //////////////////////////////////////////
 // spawn a temporary marker to indicate the position of a 'completed' mission
 // this will not show to JIP players

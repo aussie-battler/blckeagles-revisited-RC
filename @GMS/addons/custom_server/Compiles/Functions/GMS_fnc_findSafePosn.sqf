@@ -30,7 +30,7 @@ while {_findNew} do {
 		if ((_x distance2D _coords) < blck_MinDistanceFromMission) then {
 			_findNew = true;
 		};
-	}forEach DBD_HeliCrashSites;
+	}forEach blck_heliCrashSites;
 	
 	{
 		if ( ((_x select 0) distance2D _coords) < (_x select 1)) exitWith
