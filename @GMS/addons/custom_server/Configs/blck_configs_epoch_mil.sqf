@@ -546,15 +546,18 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_explosives = blck_throwableExplosives + blck_otherExplosives;
 		blck_medicalItems = ["FAK"];
 		blck_specialItems = blck_throwableExplosives + blck_medicalItems;		
-		blck_NVG = ["NVG_EPOCH"];
+		blck_medicalItems = ["FAK","ItemVitamins","morphine_epoch","iodide_pills_epoch","adrenaline_epoch","caffeinepills_epoch","orlistat_epoch",
+							"atropine_epoch","ItemWaterPurificationTablets","ItemPainKillers"," ItemDefibrillator ","ItemBloodBag_Empty",
+							"ItemBloodBag_Full","ItemAntibiotic","nanite_cream_epoch ","nanite_gun_epoch","nanite_pills_epoch"];
 		blck_epochValuables = ["PartOreGold","PartOreSilver","PartOre","ItemGoldBar","ItemSilverBar",
 			"ItemGoldBar10oz","ItemTopaz","ItemOnyx","ItemSapphire","ItemAmethyst",
 			"ItemEmerald","ItemCitrine","ItemRuby","ItemQuartz","ItemJade",
 			"ItemGarnet","ItemKiloHemp"];
-		blck_epochBuildingSupplies = ["PartPlankPack","CinderBlocks","MortarBucket","ItemScraps",
-			"ItemCorrugated","ItemCorrugatedLg","ItemSolar","ItemCables",
-			"ItemBattery","Pelt_EPOCH"];
-		blck_buildingMaterials = blck_epochBuildingSupplies;
+        blck_epochBuildingSupplies = ["PartPlankPack","ItemPlywoodPack","CinderBlocks","MortarBucket","ItemScraps",
+            "ItemCorrugated","ItemCorrugatedLg","CircuitParts","WoodLog_EPOCH","ItemRope","ItemStick","ItemRock","ItemBurlap","ItemBulb","ItemSolar","ItemCables","ItemBattery","Pelt_EPOCH","JackKit","ItemCanvas","ItemSeedBag","ItemPipe"];
+        blck_epochVehicleRepair = ["EngineParts","FuelTank","SpareTire","ItemGlass",
+           "ItemDuctTape","VehicleRepair"];
+        blck_buildingMaterials = blck_epochBuildingSupplies + blck_epochVehicleRepair;
 /***************************************************************************************
 DEFAULT CONTENTS OF LOOT CRATES FOR EACH MISSION
 Note however that these configurations can be used in any way you like or replaced with mission-specific customized loot arrays
