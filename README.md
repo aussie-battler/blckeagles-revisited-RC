@@ -14,6 +14,7 @@ Included is an updated version of blckeagls mission system. This began as an eff
 * Credits
 	Epoch Mod developer team.
 	blckeagls - Mission system 2.0.2
+	Grahame for suggestions for new features, coding improvements and updates to the Epoch-specific Configs.
 	Narines - bug fixes and improvements.
 	Bill (DBD Clan) for example compositions.
 	cyncrwler, Grahamme and many others for help with troubleshooting and testing
