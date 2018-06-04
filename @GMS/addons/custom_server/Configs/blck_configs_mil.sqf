@@ -48,7 +48,7 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = true; // 
+	blck_useHC = false; // Experimental (do not use if you allow players to claim mission vehicles).
 	
 	///////////////////////////////
 	//  Kill message configurations

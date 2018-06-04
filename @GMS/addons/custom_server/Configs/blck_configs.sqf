@@ -53,7 +53,7 @@
 	***********************************************************/
 	////////
 	//  Headless Client Configurations
-	blck_useHC = true; // Experimental (death messages and rewards not yet working).
+	blck_useHC = false; // Experimental (do not use if you allow players to claim mission vehicles).
 	
 	///////////////////////////////
 	//  Kill message configurations
