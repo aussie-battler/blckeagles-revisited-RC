@@ -8,9 +8,10 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.82 Build 134
+Version 1.82 Build 136
+
 Added: configs for blue, red, green and orange pistol, vest, backpack and uniforms
-Change: 
+Changed: 
 	Commented out all configs in missions for uniforms, headgear, backpacks and uniforms.
 	Commented out most configs for helis, paratroops and supplemental loot dropped by paratroops.
 	Removed some logging that is not required.

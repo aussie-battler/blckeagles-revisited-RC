@@ -58,4 +58,4 @@ diag_log "[blckegls] blckegls simulation manager enabled";
 //_marker setMarkerColor "ColorBlack";
 //_marker setMarkerType "hd_flag";
 diag_log format["[blckeagls] for HC version %1 Build %2 Loaded in %3 seconds",_blck_versionDate,_blck_version,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
-[] spawn blck_fnc_HCmonitor;
+[] spawn blck_fnc_HC_monitor;

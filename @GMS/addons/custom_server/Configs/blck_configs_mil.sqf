@@ -201,10 +201,6 @@
 	// Enable / Disable Missions
 	////////////////////
 	
-	// Maximum number of missions shown on the map at any one time.
-	// Change this value to reduce the number of spawned missions at any one time.
-	blck_maxSpawnedMissions = 4;
-	
 	//Set to -1 to disable. Values of 2 or more force the mission spawner to spawn copies of that mission - this feature is not recommended because you may run out of available groups.
 	blck_enableOrangeMissions = 1;  
 	blck_enableGreenMissions = 1;
@@ -212,6 +208,11 @@
 	blck_enableBlueMissions = 2;
 	blck_numberUnderwaterDynamicMissions = 2;  // Values from 0 (no UMS) to N (N Underwater missions will be spawned; static UMS units and subs will be spawned.	
 
+	// Maximum number of missions shown on the map at any one time.
+	// Change this value to reduce the number of spawned missions at any one time.
+	//blck_maxSpawnedMissions = 9;  // Set this to a value lower than the total number of missions if you want only some of the types of missions running at any one time.
+	blck_maxSpawnedMissions = blck_enableOrangeMissions + blck_enableGreenMissions + blck_enableRedMissions + blck_enableBlueMissions + blck_numberUnderwaterDynamicMissions;
+	
 	////////////////////
 	// MISSION TIMERS
 	////////////////////
