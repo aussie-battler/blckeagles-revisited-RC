@@ -9,10 +9,13 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
-params["_group"];
-
-//blck_sm_Groups pushBack [_group,grpNull,0];
-[blck_sm_Groups,_group] call blck_fnc_sm_AddGroupToArray;
-//diag_log format["_sm_AddGroup:: blck_sm_Groups = %1",blck_sm_Groups];
-true
+params["_array","_patrolInformation"];
+waitUntil {blck_sm_monitoring isEqualTo 0};
+_array pushBack [
+	_patrolInformation,
+	grpNull,
+	0, //  spawned at
+	0, // respawn at
+	0  // last time a player was nearby
+];
+_array

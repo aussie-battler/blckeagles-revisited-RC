@@ -20,6 +20,8 @@ blck_sm_submarines = [];
 
 blck_sm_lootContainers = [];
 
+blck_fnc_sm_AddGroupToArray = compileFinal  preprocessFileLineNumbers  "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_AddGroupToArray.sqf";
+
 blck_fnc_sm_AddGroup = compileFinal  preprocessFileLineNumbers  "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_AddGroup.sqf";
 blck_fnc_sm_AddVehicle = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_AddVehicle.sqf";
 blck_fnc_sm_AddAircraft = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_AddAircraft.sqf";

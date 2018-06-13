@@ -17,11 +17,12 @@
 
 private ["_result"];
 
+/*
 _result = [];
 {
 	if (isPlayer _x && alive _x) then { _result pushback _x };
-} forEach playableUnits;
-
-//_result = allPlayers;
+} forEach allPlayers;
+*/
+_result = allPlayers;
 
 _result

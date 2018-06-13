@@ -32,6 +32,9 @@ waitUntil{blck_functionsCompiled};
 blck_functionsCompiled = nil;
 diag_log format["[blckeagls] debug mode settings:blck_debugON = %1 blck_debugLevel = %2",blck_debugON,blck_debugLevel];
 
+blck_modType = call blck_fnc_getModType;
+publicVariable "blck_modType";
+
 execVM "\q\addons\custom_server\Configs\blck_configs.sqf";
 
 waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
@@ -65,7 +68,7 @@ diag_log format["blckeagls] waiting for players to join ----    >>>>"];
 
 if !(blck_debugON || (blck_debugLevel isEqualTo 0)) then
 {
-	waitUntil{{isPlayer _x}count playableUnits > 0};
+	waitUntil{{isPlayer _x}count allPlayers > 0};
 	diag_log "[blckeagls] Player Connected, spawning missions";
 } else {
 	diag_log "[blckeagls] spawning Missions";
@@ -121,9 +124,6 @@ if (blck_enableBlueMissions > 0) then
 	[_missionListBlue,_pathBlue,"BlueMarker","blue",blck_TMin_Blue,blck_TMax_Blue,blck_enableBlueMissions] call blck_fnc_addMissionToQue;
 };
 
-
-blck_modType = call blck_fnc_getModType;
-publicVariable "blck_modType";
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
 [] spawn blck_fnc_mainThread;
 

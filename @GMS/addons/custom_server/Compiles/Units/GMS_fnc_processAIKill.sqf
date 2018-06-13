@@ -80,7 +80,7 @@ if (blck_useKillMessages) then
 	};
 	_message =_message + _killstreakMsg;
 	//diag_log format["[blck] unit killed message is %1",_message,""];
-	[["aikilled",_message,"victory"],playableUnits] call blck_fnc_messageplayers;
+	[["aikilled",_message,"victory"],allPlayers] call blck_fnc_messageplayers;
 };
 
 [_unit,_killer] call blck_fnc_rewardKiller;

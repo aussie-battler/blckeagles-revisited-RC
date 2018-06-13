@@ -50,6 +50,17 @@ blck_fnc_MessagePlayers = compileFinal  preprocessFileLineNumbers "\q\addons\cus
 
 // Mission-related functions
 blck_fnc_selectAILoadout = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAILoadout.sqf";
+blck_fnc_selectAISidearms = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAISidearms.sqf";
+blck_fnc_selectAIUniforms = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAIUniforms.sqf";
+blck_fnc_selectAIHeadgear = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAIHeadgear.sqf";
+blck_fnc_selectAIVests = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAIVests.sqf";
+blck_fnc_selectAIBackpacks = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectAIBackpacks.sqf";
+blck_fnc_selectChanceHeliPatrol = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectChanceHeliPatrol.sqf";
+blck_fnc_selectMissionHelis = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectMissionHelis.sqf";
+blck_fnc_selectNumberAirPatrols = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectNumberAirPatrols.sqf";
+blck_fnc_selectNumberParatroops = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectNumberParatroops.sqf";
+blck_fnc_selectChanceParatroops = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selecctChanceParatroops.sqf";
+
 blck_fnc_addMissionToQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addMissionToQue.sqf";  // 
 blck_fnc_updateMissionQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_updateMissionQue.sqf";  // 
 blck_fnc_spawnPendingMissions = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnPendingMissions.sqf";	  //  

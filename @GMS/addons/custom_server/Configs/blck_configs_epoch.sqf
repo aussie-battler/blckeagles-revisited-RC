@@ -47,6 +47,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	
 	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
 	
+	// When true, AI loadouts will be set from the class names in CfgPricing rather than the settings in the mod-specific configuration files
+	blck_useConfigsGeneratedLoadouts = true;
+	blck_maximumItemPriceInAI_Loadouts = 100;
+	
 	_blck_lightlyArmed_ARMA3 = [
 		"B_G_Offroad_01_armed_F", 
 		"O_G_Offroad_01_armed_F",
@@ -655,7 +659,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["ItemAluminumBar",1,3],
 				["ItemTinBar",1,3],
 				["ItemCanvas",2,4],
-									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
 				["ItemKiloHemp",1,3],
 				["ItemRope",1,3],
 				["ItemBurlap",1,3],
@@ -674,7 +678,11 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,4],["FAK",1,4],["VehicleRepair",1,3],["Rangefinder",1,3],["ItemJade",1,2],["ItemQuartz",1,2],["ItemRuby",1,2],["ItemSapphire",1,2],
 				["ItemKiloHemp",1,2],["ItemRuby",1,2],["ItemSilverBar",1,2],["ItemEmerald",1,2],["ItemTopaz",1,2],["ItemOnyx",1,2],["ItemSapphire",1,2],["ItemAmethyst",1,2],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
-				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3],
+				"Towelette" , "ItemVitamins", "morphine_epoch", "iodide_pills_epoch", "adrenaline_epoch", 
+				"caffeinepills_epoch", "orlistat_epoch", "ItemCanteen_Empty", "ItemCanteen_Clean", "ItemBottlePlastic_Empty", 
+				"ItemBottlePlastic_Clean", "atropine_epoch", "ItemWaterPurificationTablets", "ItemPainKillers", "ItemDefibrillator", 
+				"ItemBloodBag_Empty", "ItemBloodBag_Full", "ItemAntibiotic", "nanite_cream_epoch", "nanite_pills_epoch"
 			],
 			[ // Backpacks
 				["B_AssaultPack_dgtl",1,2],["B_AssaultPack_khk",1,2],["B_AssaultPack_mcamo",1,2],["B_AssaultPack_ocamo",1,2],["B_AssaultPack_rgr",1,2],["B_AssaultPack_sgg",1,2],
@@ -778,7 +786,7 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["ItemAluminumBar",1,3],
 				["ItemTinBar",1,3],
 				["ItemCanvas",2,4],
-									//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
+				//"SeedPacket_Hemp","SeedPacket_GoldenSeal","SeedPacket_Poppy","SeedPacket_Pumpkin","SeedPacket_Sunflower"
 				["ItemKiloHemp",1,3],
 				["ItemRope",1,3],
 				["ItemBurlap",1,3],
@@ -798,7 +806,11 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,2],["FAK",1,2],["FAK",1,2],["FAK",1,2],["FAK",1,2],["FAK",1,2],["VehicleRepair",1,3],["Rangefinder",1,3],
 				["ItemKiloHemp",1,2],["ItemRuby",1,2],["ItemSilverBar",1,2],["ItemGoldBar10oz",1,2],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
-				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3],
+				"Towelette" , "ItemVitamins", "morphine_epoch", "iodide_pills_epoch", "adrenaline_epoch", 
+				"caffeinepills_epoch", "orlistat_epoch", "ItemCanteen_Empty", "ItemCanteen_Clean", "ItemBottlePlastic_Empty", 
+				"ItemBottlePlastic_Clean", "atropine_epoch", "ItemWaterPurificationTablets", "ItemPainKillers", "ItemDefibrillator", 
+				"ItemBloodBag_Empty", "ItemBloodBag_Full", "ItemAntibiotic", "nanite_cream_epoch", "nanite_pills_epoch"
 			],
 			[ // Backpacks
 				["B_AssaultPack_dgtl",1,2],["B_AssaultPack_khk",1,2],["B_AssaultPack_mcamo",1,2],["B_AssaultPack_ocamo",1,2],["B_AssaultPack_rgr",1,2],["B_AssaultPack_sgg",1,2],
@@ -919,7 +931,11 @@ for examples of how you can do this see \Major\Compositions.sqf
 			[//Items
 				["Heal_EPOCH",1,2],["Defib_EPOCH",1,2],["Repair_EPOCH",1,2],["FAK",1,5],["VehicleRepair",1,5],
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],
-				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3]
+				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3],
+				"Towelette" , "ItemVitamins", "morphine_epoch", "iodide_pills_epoch", "adrenaline_epoch", 
+				"caffeinepills_epoch", "orlistat_epoch", "ItemCanteen_Empty", "ItemCanteen_Clean", "ItemBottlePlastic_Empty", 
+				"ItemBottlePlastic_Clean", "atropine_epoch", "ItemWaterPurificationTablets", "ItemPainKillers", "ItemDefibrillator", 
+				"ItemBloodBag_Empty", "ItemBloodBag_Full", "ItemAntibiotic", "nanite_cream_epoch", "nanite_pills_epoch"
 			],
 			[ // Backpacks
 				["B_AssaultPack_dgtl",0,2],["B_AssaultPack_khk",0,2],["B_AssaultPack_mcamo",0,2],["B_AssaultPack_ocamo",0,2],["B_AssaultPack_rgr",0,2],["B_AssaultPack_sgg",0,2],
@@ -1038,7 +1054,11 @@ for examples of how you can do this see \Major\Compositions.sqf
 				["ItemSodaRbull",1,3],["ItemSodaOrangeSherbet",1,3],["ItemSodaPurple",1,3],["ItemSodaMocha",1,3],["ItemSodaBurst",1,3],["ItemSodaAlpineDude",1,3],
 				["CookedChicken_EPOCH",1,3],["CookedGoat_EPOCH",1,3],["CookedSheep_EPOCH",1,3],
 				["FoodSnooter",1,3],["FoodMeeps",1,3],["FoodBioMeat",1,3],["ItemTuna",1,3],["ItemSeaBass",1,3],["ItemTrout",1,3],["ItemPowderMilk",1,3],["ItemRicebox",1,3],
-				["ItemCereals",1,3],["krypto_candy_epoch",1,3],["ItemBakedBeans",1,3],["HotAxeSauce_epoch",1,3]
+				["ItemCereals",1,3],["krypto_candy_epoch",1,3],["ItemBakedBeans",1,3],["HotAxeSauce_epoch",1,3],
+				"Towelette" , "ItemVitamins", "morphine_epoch", "iodide_pills_epoch", "adrenaline_epoch", 
+				"caffeinepills_epoch", "orlistat_epoch", "ItemCanteen_Empty", "ItemCanteen_Clean", "ItemBottlePlastic_Empty", 
+				"ItemBottlePlastic_Clean", "atropine_epoch", "ItemWaterPurificationTablets", "ItemPainKillers", "ItemDefibrillator", 
+				"ItemBloodBag_Empty", "ItemBloodBag_Full", "ItemAntibiotic", "nanite_cream_epoch", "nanite_pills_epoch"
 			],
 			[ // Backpacks
 				["B_AssaultPack_dgtl",0,2],["B_AssaultPack_khk",0,2],["B_AssaultPack_mcamo",0,2],["B_AssaultPack_ocamo",0,2],["B_AssaultPack_rgr",0,2],["B_AssaultPack_sgg",0,2],

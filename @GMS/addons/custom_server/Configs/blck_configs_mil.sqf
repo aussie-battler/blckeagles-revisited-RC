@@ -367,4 +367,12 @@
 		blck_configsExileLoaded = nil;
 		if (blck_blacklistTraderCities || blck_blacklistSpawns || blck_listConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";};
 	};	
+	if (blck_useConfigsGeneratedLoadouts) then
+	{
+		diag_log format["[blckeagles] Dynamic Configs Enabled"];
+		execVM "\q\addons\custom_server\Configs\blck_dynamicConfigs.sqf";
+				waitUntil {(isNil "blck_configsExileLoaded") isEqualTo false;};
+		waitUntil{blck_dynamicConfigsLoaded};
+		blck_dynamicConfigsLoaded = nil;
+	};	
 	blck_configsLoaded = true;

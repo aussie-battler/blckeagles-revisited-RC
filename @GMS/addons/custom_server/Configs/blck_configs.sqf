@@ -280,7 +280,8 @@
 	blck_launcherCleanup = true;// When true, launchers and launcher ammo are removed from dead AI.
 	blck_minimumPatrolRadius = 22;  // AI will patrol within a circle with radius of approximately min-max meters. note that because of the way waypoints are completed they may more more or less than this distance.
 	blck_maximumPatrolRadius = 35;
-	
+
+
 	//This defines how long after an AI dies that it's body disappears.
 	blck_bodyCleanUpTimer = 60*40; // time in seconds after which dead AI bodies are deleted
 	// Each time an AI is killed, the location of the killer will be revealed to all AI within this range of the killed AI, set to -1 to disable
@@ -350,7 +351,7 @@
 		waitUntil {(isNil "blck_configsEpochLoaded") isEqualTo false;};
 		waitUntil{blck_configsEpochLoaded};
 		blck_configsEpochLoaded = nil;
-		diag_log "[blckeagles] Running getTraderCitiesEpoch to get location of trader cities";
+		//diag_log "[blckeagles] Running getTraderCitiesEpoch to get location of trader cities";
 		execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesEpoch.sqf";
 	};
 	if (_modType isEqualTo "Exile") then
@@ -362,4 +363,12 @@
 		blck_configsExileLoaded = nil;
 		if (blck_blacklistTraderCities || blck_blacklistSpawns || blck_listConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";};
 	};	
+	if (true /*blck_useConfigsGeneratedLoadouts*/) then
+	{
+		diag_log format["[blckeagles] Dynamic Configs Enabled"];
+		execVM "\q\addons\custom_server\Configs\blck_dynamicConfigs.sqf";
+				waitUntil {(isNil "blck_configsExileLoaded") isEqualTo false;};
+		waitUntil{blck_dynamicConfigsLoaded};
+		blck_dynamicConfigsLoaded = nil;
+	};
 	blck_configsLoaded = true;

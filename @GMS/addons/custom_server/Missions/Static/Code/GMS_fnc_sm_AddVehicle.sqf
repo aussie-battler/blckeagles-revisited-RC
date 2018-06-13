@@ -11,5 +11,6 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_vehicle"];
-blck_sm_Vehicles pushBack [_vehicle,grpNull,0];
+//blck_sm_Vehicles pushBack [_vehicle,grpNull,0];
+[blck_sm_Vehicles,_vehicle] call blck_fnc_sm_AddGroupToArray;
 true
