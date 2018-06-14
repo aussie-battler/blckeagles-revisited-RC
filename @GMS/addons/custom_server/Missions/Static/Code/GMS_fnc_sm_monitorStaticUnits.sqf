@@ -22,9 +22,13 @@ _fnc_updateGroupSpawnTimerFields = {
 	diag_log format["_fnc_updateGroupSpawnTimerFields::-> _this = %1",_this];
 	params["_array","_element",["_group",grpNull],["_spawnedAt",0]];
 	private _index = _array find _element;
-	_element set[patrolGroup,_group];
-	_element set[spawnedAt,_spawnedAt];
-	_array set[_index,_element];
+	if !(isNull _group) then 
+	{
+		_element set[patrolGroup,_group];
+		_element set[spawnedAt,_spawnedAt];
+		_element set[respawnAt,0];
+		_array set[_index,_element];		
+	};	
 };
 
  triggerRange = 1000;
@@ -142,6 +146,15 @@ _fnc_evaluateSpawnedGroups = {
 
 
 blck_sm_monitoring = 1;
+
+[onFoot,blck_sm_Groups] call _fnc_evaluateSpawnedGroups;
+[inVehicle,blck_sm_Vehicles] call _fnc_evaluateSpawnedGroups;
+[inVehicle,blck_sm_Aircraft] call _fnc_evaluateSpawnedGroups;
+[inVehicle,blck_sm_Emplaced] call _fnc_evaluateSpawnedGroups;
+[onFoot,blck_sm_scubaGroups] call _fnc_evaluateSpawnedGroups;
+[inVehicle,blck_sm_surfaceShips] call _fnc_evaluateSpawnedGroups;
+[inVehicle,blck_sm_submarines] call _fnc_evaluateSpawnedGroups;
+
 _sm_groups = +blck_sm_Groups;
 {
 	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
@@ -169,146 +182,147 @@ _sm_groups = +blck_sm_Groups;
 		};
 	};
 }forEach _sm_groups;
-[onFoot,blck_sm_Groups] call _fnc_evaluateSpawnedGroups;
-
 
 _sm_Vehicles = +blck_sm_Vehicles;
 {
 	// 	["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red",600,0,_group,_spawnAt],
 	//diag_log format["_sm_monitorVehicles::-> _x = %1",_x];
-	_x params["_groupParameters","_group","_spawnAt"];
+	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
 	_groupParameters params["_vehicleType","_pos","_difficulty","_patrolRadius","_respawnInterval"];
 	if ([_pos,triggerRange] call blck_fnc_playerInRange) then
 	{	
-		if ( (_group isEqualTo grpNull) && (diag_tickTime > _spawnAt) && (_spawnAt != -1) ) then  // no group has been spawned, spawn one.
-		{
-			//params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_isScubaGroup",false]];
-			_return = [_pos,1,_difficulty,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
-			//  _return = [_vehicles, _missionAI, _abort];
-			_group = group (_return select 1 select 0);
-			[blck_sm_Vehicles,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
-			//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
+		if ((isNull _group)) then
+		{	
+			if ( ((_spawnedAt == 0) && (_respawnAt == 0)) || ((diag_tickTime > _respawnAt) && (_respawnAt > 0)) ) then  // no group has been spawned, spawn one.
+			{
+				//params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_isScubaGroup",false]];
+				_return = [_pos,1,_difficulty,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
+				//  _return = [_vehicles, _missionAI, _abort];
+				_group = group (_return select 1 select 0);
+				[blck_sm_Vehicles,_x,_group,diag_tickTime] call _fnc_updateGroupSpawnTimerFields;
+				//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
+			};
 		};
 	};	
 }forEach _sm_Vehicles;
-[inVehicle,blck_sm_Vehicles] call _fnc_evaluateSpawnedGroups;
 
 _sm_Aircraft = +blck_sm_Aircraft;
 {
 	// 	["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,0],
-	_x params["_groupParameters","_group","_spawnAt"];
+	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
 	_groupParameters params["_aircraftType","_pos","_difficulty","_patrolRadius","_respawnInterval"];
 	if ([_pos,triggerRange] call blck_fnc_playerInRange) then
 	{
-		if ( (isNull _group) && (diag_tickTime > _spawnAt) && (_spawnAt != -1)) then  // no group has been spawned, spawn one.
-		{
-			_weapon = [toLower _difficulty] call blck_fnc_selectAILoadout;
-			//params["_coords","_skillAI","_helis",["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]]]
-			//diag_log format["[blckeagls static aircraftePatrol spawner]  _weapon = %1 and _difficulty = %2",_weapon,_difficulty];
-			_return = [_pos,_difficulty,[_aircraftType]] call blck_fnc_spawnMissionHeli;  //  Allow the spawner to fit the default AI Loadouts for blckeagls; revisit at a later time when custom uniforms are set up for these AI.
-			diag_log format["[blckeagls] static aircraftePatrol spawner -> _return = %1",_return];
-			_return params ["_patrolHeli","_ai","_abort"];
-			_group = group (_ai select 0);
-			[blck_sm_Aircraft,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
-			diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Aircraft updated to %1",blck_sm_Aircraft];
+		if ((isNull _group)) then
+		{	
+			if ( ((_spawnedAt == 0) && (_respawnAt == 0)) || ((diag_tickTime > _respawnAt) && (_respawnAt > 0)) ) then  // no group has been spawned, spawn one.
+			{
+				_weapon = [toLower _difficulty] call blck_fnc_selectAILoadout;
+				//params["_coords","_skillAI","_helis",["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]]]
+				//diag_log format["[blckeagls static aircraftePatrol spawner]  _weapon = %1 and _difficulty = %2",_weapon,_difficulty];
+				_return = [_pos,_difficulty,[_aircraftType]] call blck_fnc_spawnMissionHeli;  //  Allow the spawner to fit the default AI Loadouts for blckeagls; revisit at a later time when custom uniforms are set up for these AI.
+				diag_log format["[blckeagls] static aircraftePatrol spawner -> _return = %1",_return];
+				_return params ["_patrolHeli","_ai","_abort"];
+				_group = group (_ai select 0);
+				[blck_sm_Aircraft,_x,_group,diag_tickTime] call _fnc_updateGroupSpawnTimerFields;
+				diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Aircraft updated to %1",blck_sm_Aircraft];
+			};
 		};
 	};	
 }forEach _sm_Aircraft;
-[inVehicle,blck_sm_Aircraft] call _fnc_evaluateSpawnedGroups;
 
 _sm_Emplaced = +blck_sm_Emplaced;
 {
 	// 	["B_G_Mortar_01_F",[22944.3,16820.5,3.14243],"green",0,0,_group,_spawnAt]
 	//diag_log format["_sm_monitorEmplacedUnits::-> _x = %1",_x];
-	_x params["_groupParameters","_group","_spawnAt"];	
+	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
 	_groupParameters params["_weapType","_pos","_difficulty","_patrolRadius","_respawnInterval"];
 	if ([_pos,triggerRange] call blck_fnc_playerInRange) then
 	{	
-		if ( (_group isEqualTo grpNull) && (diag_tickTime > _spawnAt) && (_spawnAt != -1) ) then  // no group has been spawned, spawn one.
-		{
-			//diag_log format["[blckeagls static Emplaced spawner] _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
-			// params["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel",["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols]];
-			_group = [_pos,[_groupParameters],false,1,_difficulty] call blck_fnc_spawnEmplacedWeaponArray;
-			[blck_sm_Emplaced,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
-			//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Emplaced updated to %1",blck_sm_Emplaced];
+		if ((isNull _group)) then
+		{	
+			if ( ((_spawnedAt == 0) && (_respawnAt == 0)) || ((diag_tickTime > _respawnAt) && (_respawnAt > 0)) ) then  // no group has been spawned, spawn one.
+			{
+				//diag_log format["[blckeagls static Emplaced spawner] _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
+				// params["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel",["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols]];
+				_group = [_pos,[_groupParameters],false,1,_difficulty] call blck_fnc_spawnEmplacedWeaponArray;
+				[blck_sm_Emplaced,_x,_group,diag_tickTime] call _fnc_updateGroupSpawnTimerFields;
+				//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Emplaced updated to %1",blck_sm_Emplaced];
+			};
 		};
 	};
 }forEach _sm_Emplaced;
-[inVehicle,blck_sm_Emplaced] call _fnc_evaluateSpawnedGroups;
 
 _sm_scubaGroups = +blck_sm_scubaGroups;
 {
 	
 	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 150 /*radius of patrol*/, _respawnInterval, _group, _spawnAt]
-	_x params["_groupParameters","_group","_spawnAt"];
+	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
 	_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnInterval"];
 	//diag_log format["<_sm_monitorScubaUnits:: _group = %1 | _x = %2 |_forEachIndex = %3",_group,_x,_forEachIndex];
 	private _groupSpawned = false;
 	if ([_pos,triggerRange] call blck_fnc_playerInRange) then
 	{
-		if ((isNull _group) && (diag_tickTime > _spawnAt) && (_spawnAt != -1)) then  // no group has been spawned, spawn one.
+		if ((isNull _group)) then
 		{
-			//diag_log format["[blckeagls static scubaGroup spawner] evaluating _x = %1 ",_x];
-			_numAI = [_units] call blck_fnc_getNumberFromRange;
-			//diag_log format["[blckeagls static scubaGroup spawning routine] _units = %1 and _numAI = %2",_units,_numAI];		
-			//params["_pos", "_numUnits", ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_UMS_uniforms], ["_headGear",blck_UMS_headgear],["_configureWaypoints",true],["_weapons",blck_UMS_weapons],["_vests",blck_UMS_vests]];
-			_group = [_pos,_difficulty,_units,_patrolRadius] call blck_fnc_spawnScubaGroup;
-			//diag_log format["[blckeagls static scubaGroup spawner] _group %1",_group];
-			[blck_sm_scubaGroups,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
-			//diag_log format["_sm_monitorStaticUnits | spawn Group step :: blck_sm_Groups updated to %1",blck_sm_Groups];
+			if ( ((_spawnedAt == 0) && (_respawnAt == 0)) || ((diag_tickTime > _respawnAt) && (_respawnAt > 0)) ) then  // no group has been spawned, spawn one.
+			{
+				//diag_log format["[blckeagls static scubaGroup spawner] evaluating _x = %1 ",_x];
+				_numAI = [_units] call blck_fnc_getNumberFromRange;
+				//diag_log format["[blckeagls static scubaGroup spawning routine] _units = %1 and _numAI = %2",_units,_numAI];		
+				//params["_pos", "_numUnits", ["_skillLevel","red"], "_center", ["_minDist",20], ["_maxDist",35], ["_uniforms",blck_UMS_uniforms], ["_headGear",blck_UMS_headgear],["_configureWaypoints",true],["_weapons",blck_UMS_weapons],["_vests",blck_UMS_vests]];
+				_group = [_pos,_difficulty,_units,_patrolRadius] call blck_fnc_spawnScubaGroup;
+				//diag_log format["[blckeagls static scubaGroup spawner] _group %1",_group];
+				[blck_sm_scubaGroups,_x,_group,diag_tickTime] call _fnc_updateGroupSpawnTimerFields;
+				//diag_log format["_sm_monitorStaticUnits | spawn Group step :: blck_sm_Groups updated to %1",blck_sm_Groups];
+			};
 		};
 	};
 }forEach _sm_scubaGroups;
-[onFoot,blck_sm_scubaGroups] call _fnc_evaluateSpawnedGroups;
 
 _sm_surfaceVehicles = +blck_sm_surfaceShips;
 {
 	// 	["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red",600,0,_group,_spawnAt],
-	_x params["_groupParameters","_group","_spawnAt"];
+	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
 	_groupParameters params["_weapType","_pos","_difficulty","_patrolRadius","_respawnInterval"];
 	if ([_pos,triggerRange] call blck_fnc_playerInRange) then
 	{	
-		if ( (_group isEqualTo grpNull) && (diag_tickTime > _spawnAt) && (_spawnAt != -1) ) then  // no group has been spawned, spawn one.
+		if ((isNull _group)) then
 		{
-			//diag_log format["[blckeagls static vehiclePatrol spawner]  _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
-			[_pos,1,_difficulty,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
-			_return params ["_vehicles", "_missionAI", "_abort"];
-			_group = group (_missionAI select 0);  
-			[blck_sm_surfaceShips,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
-			//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
+			if ( ((_spawnedAt == 0) && (_respawnAt == 0)) || ((diag_tickTime > _respawnAt) && (_respawnAt > 0)) ) then  // no group has been spawned, spawn one.
+			{
+				//diag_log format["[blckeagls static vehiclePatrol spawner]  _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
+				[_pos,1,_difficulty,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
+				_return params ["_vehicles", "_missionAI", "_abort"];
+				_group = group (_missionAI select 0);  
+				[blck_sm_surfaceShips,_x,_group,diag_tickTime] call _fnc_updateGroupSpawnTimerFields;
+				//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
+			};
 		};
 	};
 }forEach _sm_surfaceVehicles;
-[inVehicle,blck_sm_surfaceShips] call _fnc_evaluateSpawnedGroups;
 
 _sm_SDVVehicles = +blck_sm_submarines;
 {
 	// 	["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"red",600,0,_group,_spawnAt],
-	_x params["_groupParameters","_group","_spawnAt"];
+	_x params["_groupParameters","_group","_spawnedAt","_respawnAt","_lastTimePlayerNear"];
 	_groupParameters params["_weapType","_pos","_difficulty","_patrolRadius","_respawnInterval"];
 	if ([_pos,triggerRange] call blck_fnc_playerInRange) then
 	{	
-		if ( (_group isEqualTo grpNull) && (diag_tickTime > _spawnAt) && (_spawnAt != -1) ) then  // no group has been spawned, spawn one.
-		{
-			//diag_log format["[blckeagls static sub patrol spawner]  _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
-			//params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_isScubaGroup",false]];
-			_return = [_pos,1,_difficulty,[_groupParameters],false,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,blck_backpacks,blck_UMS_weapons,blck_Pistols,true] call blck_fnc_spawnMissionVehiclePatrols;
-			_return params ["_vehicles", "_missionAI", "_abort"];
-			_group = group (_missionAI select 0);  
-			[blck_sm_submarines,_x,_group,-1] call _fnc_updateGroupSpawnTimerFields;
-			//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
+		if ((isNull _group)) then
+		{	
+			if ( ((_spawnedAt == 0) && (_respawnAt == 0)) || ((diag_tickTime > _respawnAt) && (_respawnAt > 0)) ) then  // no group has been spawned, spawn one.
+			{
+				//diag_log format["[blckeagls static sub patrol spawner]  _weapType = %1 and _difficulty = %2",_weapType,_difficulty];
+				//params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_isScubaGroup",false]];
+				_return = [_pos,1,_difficulty,[_groupParameters],false,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,blck_backpacks,blck_UMS_weapons,blck_Pistols,true] call blck_fnc_spawnMissionVehiclePatrols;
+				_return params ["_vehicles", "_missionAI", "_abort"];
+				_group = group (_missionAI select 0);  
+				[blck_sm_submarines,_x,_group,diag_tickTime] call _fnc_updateGroupSpawnTimerFields;
+				//diag_log format["_sm_monitorStaticUnits | spawn emplaced step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];
+			};
 		};
-	};
-	if ( (_group isEqualTo grpNull) && (_spawnAt == -1) && (_respawnInterval > 0) ) then // a group was spawned and all units are dead
-	{ 
-			[blck_sm_submarines,_x,_group,(diag_tickTime + _respawnInterval)] call _fnc_updateGroupSpawnTimerFields;
-			//diag_log format["_sm_monitorStaticUnits | set Group respawn time step :: blck_sm_Vehicles updated to %1",blck_sm_Vehicles];		
-	};
-	if ( (_group isEqualTo grpNull) && (_spawnAt == -1) && (_respawnInterval == 0) ) then // a group was spawned and all units are dead
-	{
-		blck_sm_submarines deleteAt (blck_sm_submarines find _x);
 	};	
 }forEach _sm_SDVVehicles;
-[inVehicle,blck_sm_submarines] call _fnc_evaluateSpawnedGroups;
 
 blck_sm_monitoring = 0;
