@@ -348,7 +348,7 @@ if (_noChoppers > 0) then
 		if (random(1) < _chanceHeliPatrol) then
 		{
 			//_temp = [_coords,_missionHelis,spawnHeli,_aiDifficultyLevel,_chancePara,_noPara,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnMissionReinforcements;
-			_temp = [_coords,_aiDifficultyLevel,_missionHelis,_uniforms,_headGear,_vests,_backpacks,"none",_weaponList, _sideArms] call blck_fnc_spawnMissionHeli;
+			_temp = [_coords,_aiDifficultyLevel,_missionHelis] call blck_fnc_spawnMissionHeli;
 
 			if (typeName _temp isEqualTo "ARRAY") then
 			{

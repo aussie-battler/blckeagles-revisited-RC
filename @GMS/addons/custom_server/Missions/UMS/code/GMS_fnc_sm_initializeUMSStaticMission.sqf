@@ -31,30 +31,29 @@ _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow
 [_missionLandscape] call blck_fnc_sm_spawnObjects;
 //diag_log format["_fnc_sm_initializeUMSStaticMission: count _airPatrols = %1 | _airPatrols = %2", count _airPatrols, _airPatrols];
 {
-	//diag_log format["_fnc_sm_initializeUMSStaticMission: initialize _airPatrols: _x = %1",_x];
-	[_x] call blck_fnc_sm_AddAircraft; 
+	[blck_sm_Aircraft,_x] call blck_fnc_sm_AddGroupToArray; 
 	
 }forEach _airPatrols;
 //uiSleep 1;
 
 {
-	[_x] call blck_fnc_sm_AddGroup;
+	[blck_sm_Infantry,_x] call blck_fnc_sm_AddGroupToArray;
 }forEach _aiGroupParameters;
 
 {
-	[_x] call blck_fnc_sm_AddScubaGroup;
+	[blck_sm_scubaGroups,_x] call blck_fnc_sm_AddGroupToArray;	
 }forEach _aiScubaGroupParameters;
 
 {
-	[_x] call blck_fnc_sm_AddEmplaced;
+	[blck_sm_Emplaced,_x] call blck_fnc_sm_AddGroupToArray;
 }forEach _missionEmplacedWeapons;
 
 {
-	[_x] call blck_fnc_sm_AddSurfaceVehicle;
+	[blck_sm_surfaceShips,_x] call blck_fnc_sm_AddGroupToArray;
 }forEach _vehiclePatrolParameters;
 
 {
-	[_x] call blck_fnc_sm_AddSDVVehicle;
+	[blck_sm_submarines,_x] call blck_fnc_sm_AddGroupToArray;
 } forEach _submarinePatrolParameters;
 //uiSleep 30;
 // spawn loot chests

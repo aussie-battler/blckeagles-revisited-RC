@@ -40,7 +40,7 @@ while {true} do
 	{
 		_timer5sec = diag_tickTime + 5;
 		[] call blck_fnc_missionGroupMonitor;
-		[] call blck_fnc_sm_monitorStaticMissionUnits;
+		[] call blck_fnc_sm_missionPatrolMonitor;
 		//diag_log format["[blckeagls] _fnc_mainThread 5 Second Timer Handled | Timstamp %1",diag_tickTime];
 	};
 	if (diag_tickTime > _timer20sec) then

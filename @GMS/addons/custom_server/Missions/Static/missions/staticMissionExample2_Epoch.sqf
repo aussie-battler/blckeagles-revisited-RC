@@ -87,7 +87,7 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Red; // Modified as needed; can be a num
 // Note that this value is ignored if you define static weapon positions and types in the array below.
 _missionEmplacedWeapons = [
 	//["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red",0,0],
-	///["B_HMG_01_high_F",[22944.3,16820.5,3.14243],"green",0,0]
+	//["B_HMG_01_high_F",[22825.3,16923.5,3.14243],"blue",0,0]
 ]; 								// example [ ["emplacedClassName",[px, py, pz] /* position to spawn weapon */, difficulty /* difficulty of AI manning weapon (blue, red etc)] ];
 								// can be used to define the precise placement of static weapons [[1,2,3] /*loc 1*/, [2,3,4] /*loc 2*/]; if blank random locations will be used
 								// If the number of possible locations exceeds the number of emplaced weapons specified above then only some of the locations in the array will have emplaced weapons spawned.
@@ -105,14 +105,14 @@ _aiGroupParameters = [
 	//[[22832.9,16805.6,4.59315],"red",4, 75,900],
 //[[22909.8,16778.6,3.19144],"red",4, 75,900],
 	//[[22809.4,16929.5,5.33892],"blue",1, 75,0],
-	//[[22819.4,16929.5,5.33892],"red",1, 75, 90]
+	//[[22819.4,16929.5,5.33892],"red",1, 75, 0]
 ];
 
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
 	//["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"green",600,0],
-	//["B_G_Offroad_01_armed_F",[22809.5,16699.2,8.78706],"orange",600,60]	
+	//["B_G_Offroad_01_armed_F",[22809.5,16699.2,8.78706],"blue",600,0]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
@@ -122,7 +122,7 @@ _noAirPatrols =	blck_noPatrolHelisRed; // You can use one of the pre-defined val
 										//  Note: this value is ignored if you specify air patrols in the array below.
 _airPatrols = [
 	//["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,900]//,
-	[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"green",1000,0]
+	//[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"blue",1000,60]
 ];
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines  = blck_useMines;  // Set to false if you have vehicles patrolling nearby.

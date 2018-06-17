@@ -14,7 +14,13 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 //  [_coords,_aiDifficultyLevel,_chancePara,_noPara,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms]
-params["_coords","_missionHelis","_spawnHeli",["_aiSkillsLevel","Red"],["_chancePara",0],["_noPara",0],["_uniforms",blck_SkinList],["_headGear",blck_headgearList],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weapons",[]],["_sideArms",blck_Pistols]];
+params["_coords","_missionHelis","_spawnHeli",["_aiSkillsLevel","Red"],["_chancePara",0],["_noPara",0],["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]]];
+if (count _uniforms == 0) then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
+if (count _headGear == 0) then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
+if (count _vests == 0) then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
+if (count _backpacks == 0) then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
+if (count _weaponList == 0) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
+if (count _sideArms == 0) then {[_aiDifficultyLevel] call blck_fnc_selectAISidearms};
 #ifdef blck_debugMode
 if (blck_debugLevel >=2) then
 {

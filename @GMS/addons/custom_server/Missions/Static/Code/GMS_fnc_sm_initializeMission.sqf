@@ -30,21 +30,21 @@ _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow
 [_missionLandscape] call blck_fnc_sm_spawnObjects;
 
 {
-	[_x] call blck_fnc_sm_AddAircraft; 
+	[blck_sm_Aircraft,_x] call blck_fnc_sm_AddGroupToArray; 
 	
 }forEach _airPatrols;
 //uiSleep 1;
 
 {
-	[_x] call blck_fnc_sm_AddGroup;
+	[blck_sm_Infantry,_x] call blck_fnc_sm_AddGroupToArray;
 }forEach _aiGroupParameters;
 
 {
-	[_x] call blck_fnc_sm_AddEmplaced;
+	[blck_sm_Emplaced,_x] call blck_fnc_sm_AddGroupToArray;
 }forEach _missionEmplacedWeapons;
 
 {
-	[_x] call blck_fnc_sm_AddVehicle;
+	[blck_sm_Vehicles,_x] call blck_fnc_sm_AddGroupToArray;
 }forEach _vehiclePatrolParameters;
 
 uiSleep 30;

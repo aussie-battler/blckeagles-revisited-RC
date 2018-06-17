@@ -8,10 +8,19 @@ Ideas or code from that by Vampire and KiloSwiss have been used for certain func
 
 Significant Changes:
 =====================
-Version 1.82 Build 136
+6.83
+Added Option to load weapons, pistols, uniforms, headgear, vests and backpacks from CfgPricing or the Arsenal Pricing and exclude items above a certain price
+	Add details on configs for enabeling this and setting the maximum price
+	NOTE: this function overides any loadouts you specify in blck_config.sqf etc.
+	
+Added functions to despawn static patrols invehicles on on foot when no players are nearby. This tracks the number of infantry alive in a group and respawns only the number alive when the group was despawned.
 
-Added: configs for blue, red, green and orange pistol, vest, backpack and uniforms
-Changed: 
+Added: Static units will now be spawned with gear specific to difficulty level (blue, red, green, orange) as specified in blck_config.sqf etc.
+
+
+Version 1.82 Build 134
+Added: configs for blue, red, green and orange pistol, vest, backpack and uniforms (with thanks to Grahame for suggesting this change and doing most of the coding)
+Changes: 
 	Commented out all configs in missions for uniforms, headgear, backpacks and uniforms.
 	Commented out most configs for helis, paratroops and supplemental loot dropped by paratroops.
 	Removed some logging that is not required.

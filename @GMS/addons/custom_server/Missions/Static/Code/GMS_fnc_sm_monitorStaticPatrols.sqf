@@ -1,6 +1,7 @@
 /*
 	by Ghostrider [GRG]
-
+	for ghostridergaming
+	12/5/17
 	--------------------------
 	License
 	--------------------------
@@ -9,14 +10,14 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-params["_array","_patrolInformation",["_timesToRespawn",-1]];
-waitUntil {blck_sm_monitoring isEqualTo 0};
-_array pushBack [
-	_patrolInformation,
-	grpNull,
-	0, // groupSpawned
-	0, //  times Spawned
-	0, // Respawn At
-	_timesToRespawn  // Max Times to Respawn
-];
-_array
+
+
+[] call blck_fnc_sm_monitorInfantry;
+[] call blck_fnc_sm_monitorVehicles;
+[] call blck_fnc_sm_monitorAircraft;
+[] call blck_fnc_sm_monitorEmplaced;
+[] call blck_fnc_sm_monitorScuba;
+[] call blck_fnc_sm_monitorShips;
+[] call blck_fnc_sm_monitorSubs;
+
+
