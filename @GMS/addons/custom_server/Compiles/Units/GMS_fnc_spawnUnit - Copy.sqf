@@ -27,10 +27,10 @@ if (blck_debugLevel >= 2) then
 if (isNull _aiGroup) exitWith {diag_log "[blckeagls] ERROR CONDITION:-->> NULL-GROUP Provided to _fnc_spawnUnit"};
 
 _unit = ObjNull;
-private _unitType = "";
+
 if (blck_modType isEqualTo "Epoch") then
 {
-	_unitType = "I_Soldier_EPOCH"; // createUnit [[0,0,0], _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
+	"I_Soldier_EPOCH" createUnit [[0,0,0], _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
 	_unit setVariable ["LAST_CHECK",28800,true];
 	switch(_skillLevel) do
 	{
@@ -42,7 +42,7 @@ if (blck_modType isEqualTo "Epoch") then
 };
 if (blck_modType isEqualTo "Exile") then
 {
-	_unitType = "i_g_soldier_unarmed_f"; // createUnit [[0,0,0], _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
+	"i_g_soldier_unarmed_f" createUnit [[0,0,0], _aiGroup, "_unit = this", blck_baseSkill, "COLONEL"];
 	switch(_skillLevel) do
 	{
 		case "blue":{_unit setVariable["ExileMoney",2 + floor(random(blck_maxMoneyBlue)),true];};
@@ -51,10 +51,9 @@ if (blck_modType isEqualTo "Exile") then
 		case "orange":{_unit setVariable["ExileMoney",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
 };
-_unit = _aiGroup createUnit[_unitType,_pos,[],5,"FORM"];
+//  findEmptyPosition [minDistance, maxDistance, vehicleType] 
 
-//_unit setPos ( _pos findEmptyPosition [0.1,3,(typeOf _unit)]);
-/*
+_unit setPos ( _pos findEmptyPosition [0.1,3,(typeOf _unit)]);
 _posUnit = getPosATL _unit;
 _start = +_posUnit;
 _start set [2, 100];
@@ -63,7 +62,7 @@ while { (lineIntersects [ATLToASL _start, ATLToASL _posUnit]) } do {
 	_posUnit set[1,((_posUnit select 1) + 0.25)];
 };
 _unit setPosATL _pos;
-*/
+
 #ifdef blck_debugMode
 if (blck_debugLevel >= 2) then
 {

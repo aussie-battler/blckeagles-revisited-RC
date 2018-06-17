@@ -20,7 +20,6 @@ if (blck_debugLevel > 1) then {diag_log format["spawnVehicle.sqf:  _vehType = %1
 #endif
 
 _veh = createVehicle[_vehType, _pos, [], 0, "NONE"];
-_veh setVectorUp surfaceNormal position _veh;
 _veh allowDamage true;
 _veh enableRopeAttach true;
 _veh setVariable["blck_vehicle",true];

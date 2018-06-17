@@ -14,7 +14,7 @@
 
 private["_numbertospawn","_groupSpawned","_safepos","_useLauncher","_launcherType"];	
 // _newGroup = [_groupSpawnPos,_minAI,_maxAI,_skillLevel,_coords,_minPatrolRadius,_maxPatrolRadius,_uniforms,_headGear,_vests,_backpacks,_weapons,_sideArms,true,_isScubaGroup]
-params["_pos",  "_center", ["_numai1",5],  ["_numai2",10],  ["_skillLevel","red"], ["_minDist",20], ["_maxDist",35],["_configureWaypoints",true], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_scuba",false]];
+params["_pos",  "_center", ["_numai1",5],  ["_numai2",10],  ["_skillLevel","red"], ["_minDist",20], ["_maxDist",35],["_configureWaypoints",true], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_scuba",false] ];
 
 #ifdef blck_debugMode
 if (blck_debugLevel >= 2) then
@@ -62,8 +62,7 @@ if !(isNull _groupSpawned) then
 	//Spawns the correct number of AI Groups, each with the correct number of units
 	//Counter variable
 	_i = 0;
-	while {_i < _numbertospawn} do 
-	{
+	while {_i < _numbertospawn} do {
 		_i = _i + 1;
 		if (blck_useLaunchers && _i <= blck_launchersPerGroup) then
 		{
@@ -83,7 +82,7 @@ if !(isNull _groupSpawned) then
 		};
 		#endif
 		 //params["_pos","_aiGroup",_skillLevel,_uniforms, _headGear,_vests,_backpacks,_Launcher,_weaponList,_sideArms,_scuba];
-		[_pos,_groupSpawned,_skillLevel,_uniforms,_headGear,_vests,_backpacks,_launcherType, _weaponList, _sideArms, _scuba, _antiGlitch] call blck_fnc_spawnUnit;
+		[_pos,_groupSpawned,_skillLevel,_uniforms,_headGear,_vests,_backpacks,_launcherType, _weaponList, _sideArms, _scuba] call blck_fnc_spawnUnit;
 	};
 	_groupSpawned selectLeader (units _groupSpawned select 0);
 	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];

@@ -55,20 +55,20 @@ _missionLandscapeMode = "precise"; // acceptable values are "random","precise"
 									// In precise mode objects will be spawned at the relative positions specified.
 									// In the random mode, objects will be randomly spawned within the mission area.
 _missionLandscape = [  //  Paste appropriate lines from M3EDEN output here.
-	["Land_Cargo_HQ_V2_F",[22894.7,16766,3.19],[[0,1,0],[0,0,1]],[true,false]],
-	["Land_Cargo_HQ_V1_F",[22918.1,16761.9,3.18151],[[0,1,0],[0,0,1]],[true,false]],
-	["Land_Cargo_HQ_V3_F",[22907.6,16740.3,3.17544],[[0,1,0],[0,0,1]],[true,false]],
-	["Land_Dome_Small_F",[22908.2,16808.8,3.19],[[0,1,0],[0,0,1]],[true,false]]
+	//["Land_Cargo_HQ_V2_F",[22894.7,16766,3.19],[[0,1,0],[0,0,1]],[true,false]],
+	//["Land_Cargo_HQ_V1_F",[22918.1,16761.9,3.18151],[[0,1,0],[0,0,1]],[true,false]],
+	//["Land_Cargo_HQ_V3_F",[22907.6,16740.3,3.17544],[[0,1,0],[0,0,1]],[true,false]],
+	//["Land_Dome_Small_F",[22908.2,16808.8,3.19],[[0,1,0],[0,0,1]],[true,false]]
 ]; // list of objects to spawn as landscape using output from M3EDEN editor.
 
 _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output here, then add the appropriate lootArray
 	// [["box_classname1",_customLootArray1,[px,py,pz],...,_customLootArray1],["box_classname2",,[px2,py2,pz2],...,_customLootArray2]
 	//  where _customLootArray follows the same format as blck_BoxLoot_Red and the other pre-defined arrays and
 	//  where _customlootcountsarray1 also follows the same format as the predefined arrays like blck_lootCountsRed
-	[selectRandom blck_crateTypes,[22917.4,16763,6.30803],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1] ],
-	[selectRandom blck_crateTypes,[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
+	//[selectRandom blck_crateTypes,[22917.4,16763,6.30803],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1] ],
+	//[selectRandom blck_crateTypes,[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
 	//  0               1                        2                  3             4           5 
-	[selectRandom blck_crateTypes,[22904.8,16742.5,6.30195],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
+	//[selectRandom blck_crateTypes,[22904.8,16742.5,6.30195],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
 ];  // If this array is empty a single loot chest will be added at the center. If you add items loot chest(s) will be spawned in specific positions.
 
 
@@ -87,7 +87,7 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Red; // Modified as needed; can be a num
 // Note that this value is ignored if you define static weapon positions and types in the array below.
 _missionEmplacedWeapons = [
 	//["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red",0,0],
-	//["B_HMG_01_high_F",[22825.3,16923.5,3.14243],"blue",0,0]
+	["B_HMG_01_high_F",[22825.3,16923.5,3.14243],"blue",0,10]
 ]; 								// example [ ["emplacedClassName",[px, py, pz] /* position to spawn weapon */, difficulty /* difficulty of AI manning weapon (blue, red etc)] ];
 								// can be used to define the precise placement of static weapons [[1,2,3] /*loc 1*/, [2,3,4] /*loc 2*/]; if blank random locations will be used
 								// If the number of possible locations exceeds the number of emplaced weapons specified above then only some of the locations in the array will have emplaced weapons spawned.
@@ -105,14 +105,14 @@ _aiGroupParameters = [
 	//[[22832.9,16805.6,4.59315],"red",4, 75,900],
 //[[22909.8,16778.6,3.19144],"red",4, 75,900],
 	//[[22809.4,16929.5,5.33892],"blue",1, 75,0],
-	//[[22819.4,16929.5,5.33892],"red",1, 75, 0]
+	[[22819.4,16929.5,0],"red",1, 75, 10]
 ];
 
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
 	//["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"green",600,0],
-	//["B_G_Offroad_01_armed_F",[22809.5,16699.2,8.78706],"blue",600,0]	
+	["B_G_Offroad_01_armed_F",[22809.5,16699.2,0],"blue",600,10]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
