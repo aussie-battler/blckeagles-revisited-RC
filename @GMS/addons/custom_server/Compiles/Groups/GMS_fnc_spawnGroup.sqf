@@ -83,7 +83,7 @@ if !(isNull _groupSpawned) then
 		};
 		#endif
 		 //params["_pos","_aiGroup",_skillLevel,_uniforms, _headGear,_vests,_backpacks,_Launcher,_weaponList,_sideArms,_scuba];
-		[_pos,_groupSpawned,_skillLevel,_uniforms,_headGear,_vests,_backpacks,_launcherType, _weaponList, _sideArms, _scuba, _antiGlitch] call blck_fnc_spawnUnit;
+		[_pos,_groupSpawned,_skillLevel,_uniforms,_headGear,_vests,_backpacks,_launcherType, _weaponList, _sideArms, _scuba] call blck_fnc_spawnUnit;
 	};
 	_groupSpawned selectLeader (units _groupSpawned select 0);
 	// params["_pos","_minDis","_maxDis","_group",["_mode","random"],["_pattern",["MOVE","SAD"]]];

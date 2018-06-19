@@ -47,124 +47,20 @@ if (isNil "_hostageConfig") 			then {_hostageConfig = []};
 if (isNil "_enemyLeaderConfig") 		then {_enemyLeaderConfig = []};
 if (isNil "_useMines") 					then {_useMines = blck_useMines;};
 if (isNil "_weaponList") 				then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_sideArms = blck_Pistols_blue};
-		case "red": 	{_sideArms = blck_Pistols_red};
-		case "green": 	{_sideArms = blck_Pistols_green};
-		case "orange": 	{_sideArms = blck_Pistols_orange};
-		default 		{_sideArms = blck_Pistols};
-	};
-};
-
-if (isNil "_uniforms") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_uniforms = blck_SkinList_blue};
-		case "red": 	{_uniforms = blck_SkinList_red};
-		case "green": 	{_uniforms = blck_SkinList_green};
-		case "orange": 	{_uniforms = blck_SkinList_orange};
-		default 		{_uniforms = blck_SkinList};
-	};
-};
-
-if (isNil "_headGear") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_headGear = blck_headgear_blue};
-		case "red": 	{_headGear = blck_headgear_red};
-		case "green": 	{_headGear = blck_headgear_green};
-		case "orange": 	{_headGear = blck_headgear_orange};
-		default 		{_headGear = blck_headgear};
-	};
-};
-
-if (isNil "_vests") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_vests = blck_vests_blue};
-		case "red": 	{_vests = blck_vests_red};
-		case "green": 	{_vests = blck_vests_green};
-		case "orange": 	{_vests = blck_vests_orange};
-		default 		{_vests = blck_vests};
-	};
-};
-
-if (isNil "_backpacks") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_backpacks = blck_backpacks_blue};
-		case "red": 	{_backpacks = blck_backpacks_red};
-		case "green": 	{_backpacks = blck_backpacks_green};
-		case "orange": 	{_backpacks = blck_backpacks_orange};
-		default 		{_backpacks = blck_backpacks};
-	};
-};
-if (isNil "_chanceHeliPatrol") then
-{
-	switch (toLower(_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_chanceHeliPatrol = blck_chanceHeliPatrolBlue};
-		case "red": 	{_chanceHeliPatrol = blck_chanceHeliPatrolRed};
-		case "green": 	{_chanceHeliPatrol = blck_chanceHeliPatrolGreen};
-		case "orange": 	{_chanceHeliPatrol = blck_chanceHeliPatrolOrange};
-		default 		{_chanceHeliPatrol = 0};
-	};
-};
-if (isNil "_noChoppers") then
-{
-	switch (toLower(_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_noChoppers = blck_noPatrolHelisBlue};
-		case "red": 	{_noChoppers = blck_noPatrolHelisRed};
-		case "green": 	{_noChoppers = blck_noPatrolHelisGreen};
-		case "orange": 	{_noChoppers = blck_noPatrolHelisOrange};
-		default 		{_noChoppers = 0};
-	};
-};
-if (isNil "_chancePara") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_chancePara = blck_chanceParaBlue};
-		case "red": 	{_chancePara = blck_chanceParaRed};
-		case "green": 	{_chancePara = blck_chanceParaGreen};
-		case "orange": 	{_chancePara = blck_chanceParaOrange};
-		default 		{_chancePara = 0};
-	};
-};
-if (isNil "_missionHelis") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue":	{_missionHelis = blck_patrolHelisBlue};
-		case "red":		{_missionHelis = blck_patrolHelisRed};
-		case "green": 	{_missionHelis = blck_patrolHelisGreen};
-		case "orange": 	{_missionHelis = blck_patrolHelisOrange};
-		default			{_missionHelis = blck_patrolHelisBlue};
-	};
-};
-if (isNil "_noPara") then
-{
-	switch (toLower (_aiDifficultyLevel)) do
-	{
-		case "blue": 	{_noPara = blck_noParaBlue};
-		case "red": 	{_noPara = blck_noParaRed};
-		case "green": 	{_noPara = blck_noParaGreen};
-		case "orange": 	{_noPara = blck_noParaOrange};
-		default 		{_noPara = 0};
-	};
-};
+if (isNil "_sideArms") then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
+if (isNil "_uniforms") then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
+if (isNil "_headGear") then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
+if (isNil "_vests") then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
+if (isNil "_backpacks") then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
+if (isNil "_chanceHeliPatrol") then {_chanceHeliPatrol = [_aiDifficultyLevel] call blck_fnc_selectChanceHeliPatrol};
+if (isNil "_noChoppers") then {_noChoppers = [_aiDifficultyLevel] call blck_fnc_selectNumberAirPatrols};
+if (isNil "_chancePara") then {_chancePara = [_aiDifficultyLevel] call blck_fnc_selectChanceParatroops};
+if (isNil "_missionHelis") then {_missionHelis = [_aiDifficultyLevel] call blck_fnc_selectMissionHelis};
+if (isNil "_noPara") then {_noPara = [_aiDifficultyLevel] call blck_fnc_selectNumberParatroops};
 if (isNil "_chanceLoot") then {_chanceLoot = 1.0}; //0.5}; 
 if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
-if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Green};
-if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed};
+if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Green};  //  Add diffiiculty based settings
+if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed}; // Add difficulty based settings
 
 
 _objects = [];

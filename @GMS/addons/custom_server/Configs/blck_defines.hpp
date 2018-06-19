@@ -29,6 +29,5 @@
 #define groupSpawned 2
 #define timesSpawned 3
 #define respawnAt 4
-#define antiGlitchOn 1
 
 

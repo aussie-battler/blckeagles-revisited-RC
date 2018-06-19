@@ -47,7 +47,7 @@ _sm_groups = +blck_sm_surfaceShips;
 						{
 							_return = [_pos,1,_difficulty,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
 							//diag_log format["_fnc_monitorShips: _return = %1",_return];
-							_group = group ((_return select 0) select 0);							
+							_group = group ((_return select 1) select 0);							
 							_timesSpawned = _timesSpawned + 1;
 							_groupSpawned = 1;
 							_respawnAt = 0;

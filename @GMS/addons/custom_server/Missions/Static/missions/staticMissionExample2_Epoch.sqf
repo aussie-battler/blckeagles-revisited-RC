@@ -55,10 +55,10 @@ _missionLandscapeMode = "precise"; // acceptable values are "random","precise"
 									// In precise mode objects will be spawned at the relative positions specified.
 									// In the random mode, objects will be randomly spawned within the mission area.
 _missionLandscape = [  //  Paste appropriate lines from M3EDEN output here.
-	//["Land_Cargo_HQ_V2_F",[22894.7,16766,3.19],[[0,1,0],[0,0,1]],[true,false]],
-	//["Land_Cargo_HQ_V1_F",[22918.1,16761.9,3.18151],[[0,1,0],[0,0,1]],[true,false]],
-	//["Land_Cargo_HQ_V3_F",[22907.6,16740.3,3.17544],[[0,1,0],[0,0,1]],[true,false]],
-	//["Land_Dome_Small_F",[22908.2,16808.8,3.19],[[0,1,0],[0,0,1]],[true,false]]
+	["Land_Cargo_HQ_V2_F",[22894.7,16766,3.19],[[0,1,0],[0,0,1]],[true,false]],
+	["Land_Cargo_HQ_V1_F",[22918.1,16761.9,3.18151],[[0,1,0],[0,0,1]],[true,false]],
+	["Land_Cargo_HQ_V3_F",[22907.6,16740.3,3.17544],[[0,1,0],[0,0,1]],[true,false]],
+	["Land_Dome_Small_F",[22908.2,16808.8,3.19],[[0,1,0],[0,0,1]],[true,false]]
 ]; // list of objects to spawn as landscape using output from M3EDEN editor.
 
 _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output here, then add the appropriate lootArray
@@ -104,7 +104,7 @@ _aiGroupParameters = [
 	//[[22849,16720.4,7.33123],"red",4, 75,9000],
 	//[[22832.9,16805.6,4.59315],"red",4, 75,900],
 //[[22909.8,16778.6,3.19144],"red",4, 75,900],
-	//[[22809.4,16929.5,5.33892],"blue",1, 75,0],
+	[[22809.4,16929.5,5.33892],"blue",1, 75,0],
 	[[22819.4,16929.5,0],"red",1, 75, 10]
 ];
 
@@ -122,7 +122,7 @@ _noAirPatrols =	blck_noPatrolHelisRed; // You can use one of the pre-defined val
 										//  Note: this value is ignored if you specify air patrols in the array below.
 _airPatrols = [
 	//["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,900]//,
-	//[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"blue",1000,60]
+	[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"blue",1000,60]
 ];
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines  = blck_useMines;  // Set to false if you have vehicles patrolling nearby.

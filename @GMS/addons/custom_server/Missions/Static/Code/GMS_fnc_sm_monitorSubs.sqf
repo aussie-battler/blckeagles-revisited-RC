@@ -47,6 +47,7 @@ _sm_groups = +blck_sm_submarines;
 						{
 							_return = [_pos,1,_difficulty,[_groupParameters],false,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,blck_backpacks,blck_UMS_weapons,blck_Pistols,true] call blck_fnc_spawnMissionVehiclePatrols;
 							//diag_log format["_fnc_monitorSubs: _return = %1",_return];
+							_group = group ((_return select 1) select 0);							
 							_timesSpawned = _timesSpawned + 1;
 							_groupSpawned = 1;
 							_respawnAt = 0;

@@ -51,7 +51,7 @@ if (blck_modType isEqualTo "Exile") then
 		case "orange":{_unit setVariable["ExileMoney",8 + floor(random(blck_maxMoneyOrange)),true];};
 	};
 };
-_unit = _aiGroup createUnit[_unitType,_pos,[],5,"FORM"];
+_unit = _aiGroup createUnit[_unitType,_pos,[],10,"FORM"];
 
 //_unit setPos ( _pos findEmptyPosition [0.1,3,(typeOf _unit)]);
 /*

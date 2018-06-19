@@ -32,19 +32,11 @@ _newObjs = [];
 	{
 		_simDam = _x select 3;
 	};
-	_obj = (_x select 0) createVehicle [0,0,0];
-	//diag_log format["_fnc_spawnBaseObjects: _obj = %1",_obj];
+	//_spawnPos = (_center vectorAdd (_x select 1));	
+	//_obj = (_x select 0) createVehicle [0,0,0];
+	_obj = createVehicle[(_x select 0),_center vectorAdd (_x select 1),[],0,"CAN_COLLIDE"];
 	_newObjs pushback _obj;
-	//diag_log format["_fnc_spawnBaseObjects: _center = %1 and _x select 1 = %2",_center,_x select 1];
-	_spawnPos = (_center vectorAdd (_x select 1));
-	if (surfaceIsWater _spawnPos) then 
-	{
-		_obj setPosASL _spawnPos;
-		//diag_log "_fnc_spawnBaseObjects: detected surface == water";
-	} else {
-		_obj setPosATL _spawnPos;
-		//diag_log "_fnc_spawnBaseObjects: detected surface = Land";
-	};
+
 	_obj setDir (_x select 2);
 	_obj enableDynamicSimulation (_simDam select 0);
 	_obj allowDamage (_simDam select 1);	

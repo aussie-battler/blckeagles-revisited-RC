@@ -17,6 +17,10 @@ Added functions to despawn static patrols invehicles on on foot when no players 
 
 Added: Static units will now be spawned with gear specific to difficulty level (blue, red, green, orange) as specified in blck_config.sqf etc.
 
+Changed: Hostage missions redesigned to reduce chances of AI being glitched into containers and of mission objects flying about when spawned in.
+Fixed: Collisions between objects at missions caused issues.
+Fixed: Attempted a fix to reduce the chance that AI will spawn inside or under objects like rocks or containers.
+Fixed: Captive missions now complete properly. 
 
 Version 1.82 Build 134
 Added: configs for blue, red, green and orange pistol, vest, backpack and uniforms (with thanks to Grahame for suggesting this change and doing most of the coding)

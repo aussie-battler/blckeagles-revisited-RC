@@ -5,7 +5,6 @@
 	for ghostridergaming
 	By Ghostrider [GRG]
 	Copyright 2016
-	Last Modified 1-22-17
 	--------------------------
 	License
 	--------------------------
@@ -15,59 +14,112 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-private["_findNew","_tries","_coords","_dist","_xpos","_ypos","_newPos","_townPos","_pole","_oldPos","_ignore"];
-
+private["_findNew","_tries","_coords","_dist","_xpos","_ypos","_newPos","_townPos","_pole"];
+private["_minDistFromBases","_minDistFromMission","_minDistanceFromTowns","_minSistanceFromPlayers","_weightBlckList","_weightBases","_weightMissions","_weightTowns","_weightPlayers"];
 _findNew = true;
 _tries = 0;
-while {_findNew} do {
-	_findNew = false;
-	//[_centerForSearch,_minDistFromCenter,_maxDistanceFromCenter,_minDistanceFromNearestObj,_waterMode,_maxTerainGradient,_shoreMode] call BIS_fnc_findSafePos
-	// https://community.bistudio.com/wiki/BIS_fnc_findSafePos
-	_coords = [blck_mapCenter,0,blck_mapRange,30,0,5,0] call BIS_fnc_findSafePos;
-	//diag_log format["<<--->> _coords = %1",_coords];
-	
+
+_minDistFromBases = blck_minDistanceToBases;
+_minDistFromMission = blck_MinDistanceFromMission;
+_minDistanceFromTowns = blck_minDistanceFromTowns;
+_minSistanceFromPlayers = blck_minDistanceToPlayer;
+_weightBlckList = 0.95;
+_weightBases = 0.9;
+_weightMissions = 0.8;
+_weightTowns = 0.7;
+_weightPlayers = 0.6;
+if (blck_modType isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
+if (blck_modType isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
+
+{
+	if (diag_tickTime > ((_x select 1) + 1200)) then // if the prior mission was completed more than 20 min ago then delete it from the list and ignore the check for this location.
 	{
-		if ((_x distance2D _coords) < blck_MinDistanceFromMission) then {
-			_findNew = true;
-		};
-	}forEach blck_heliCrashSites;
-	
+		blck_recentMissionCoords deleteAt (blck_recentMissionCoords find _x);
+	};
+}forEach blck_recentMissionCoords;
+
+while {_findNew} do
+{
+	_findNew = false;
+	_coords = [blck_mapCenter,0,blck_mapRange,30,0,5,0] call BIS_fnc_findSafePos;
+	//diag_log format["_fnc_findSafePosn: _coords = %1 | _tries = %2",_coords,_tries];
 	{
 		if ( ((_x select 0) distance2D _coords) < (_x select 1)) exitWith
 		{
 			_findNew = true;
 		};
 	} forEach blck_locationBlackList;
-	
-	//diag_log format["#- findSafePosn -# blck_ActiveMissionCoords isEqualTo %1", blck_ActiveMissionCoords];	
+	if !(_findNew) then
 	{
-		//diag_log format["#- findSafePosn -# blck_ActiveMissionCoords active mission item is %1", _x];
-		if ( (_x distance2D _coords) < blck_MinDistanceFromMission) exitWith
-		{
-			_FindNew = true;
-		};
-	} forEach blck_ActiveMissionCoords;
-	
-	//diag_log format["#- findSafePosn -# blck_recentMissionCoords isEqualTo %1", blck_recentMissionCoords];
 	{
-		_ignore = false;
-		//diag_log format["-# findSafePosn.sqf -#  Old Mission element is %1", _x];
-		if (diag_tickTime > ((_x select 1) + 1200)) then // if the prior mission was completed more than 20 min ago then delete it from the list and ignore the check for this location.
-		{
-			_ignore = true;
-			blck_recentMissionCoords= blck_recentMissionCoords - _x;
-			//diag_log format["-# findSafePosn.sqf -#  Removing Old Mission element: %1", _x];
+		if ((_x distance2D _coords) < _minDistFromMission) then {
+			_findNew = true;
 		};
-		if !(_ignore) then
+		}forEach blck_heliCrashSites;	
+	};	
+	if !(_findNew) then
+	{
 		{
-			//diag_log format["-# findSafePosn.sqf -#  testing _coords against Old Mission coords is %1", _x select 0];
-			if ( ((_x select 0) distance2D _coords) < blck_MinDistanceFromMission) then  
+			if ( (_x distance2D _coords) < _minDistFromMission) exitWith
+			{
+				_FindNew = true;
+			};
+		} forEach blck_ActiveMissionCoords;	
+	};
+	if !(_findNew) then
+	{
+		{
+			if ((_x distance2D _coords) < blck_minDistanceToBases) then
 			{
 				_findNew = true;
-				//diag_log format["-# findSafePosn.sqf -#  Too Close to Old Mission element: %1", _x];
 			};
+		}forEach  nearestObjects[blck_mapCenter, [_pole], blck_minDistanceToBases];		
+	};		
+	if !(_findNew) then
+	{
+		{
+			_townPos = [((locationPosition _x) select 0), ((locationPosition _x) select 1), 0];
+			if (_townPos distance2D _coords < blck_minDistanceFromTowns) exitWith {
+				_findNew = true;
+			};
+		} forEach blck_townLocations;	
+	};		
+	if !(_findNew) then
+	{
+		{
+			if (isPlayer _x && (_x distance2D _coords) < blck_minDistanceToPlayer) then 
+			{
+					_findNew = true;
+			};
+		}forEach playableUnits;	
+	};		
+	if (_findNew) then
+	{
+		if (_tries in [3,6,9,12,15,18,21]) then
+		{
+			_minDistFromMission = _minDistFromMission * _weightMissions;
+			_minDistFromBases = _minDistFromBases * _weightBases;
+			_minSistanceFromPlayers = _minSistanceFromPlayers * _minSistanceFromPlayers;
+			_minDistanceFromTowns = _minDistanceFromTowns * _weightTowns;
 		};
-	} forEach blck_recentMissionCoords;
+		if (_tries > 25) then 
+		{
+			_findNew = false;
+		};
+	};
+};
+if ((count _coords) > 2) then 
+{
+	private["_temp"];
+	_temp = [_coords select 0, _coords select 1];
+	_coords = _temp;
+};
+_coords;
+
+/*
+while {_findNew} do {
+
+
 
 	// test for water nearby
 	_dist = 100;
@@ -82,34 +134,6 @@ while {_findNew} do {
 			_i = 361;
 		};
 	};
-	// check that missions spawn at least 1 kkm from towns
-	{
-		_townPos = [((locationPosition _x) select 0), ((locationPosition _x) select 1), 0];
-		if (_townPos distance2D _coords < blck_minDistanceFromTowns) exitWith {
-			_findNew = true;
-		};
-	} forEach blck_townLocations;
-	
-	// check for nearby plot pole/freq jammer within 800 meters
-	_mod = call blck_fnc_getModType;
-	_pole = "";
-	if (_mod isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
-	if (_mod isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
-	//diag_log format["_fnc_findSafePosn:: -- >> _mod = %1 and _pole = %2",_mod,_pole];	
-	{
-		if ((_x distance2D _coords) < blck_minDistanceToBases) then
-		{
-			_findNew = true;
-		};
-	}forEach  nearestObjects[blck_mapCenter, [_pole], blck_minDistanceToBases];	
-	
-	// check to be sure we do not spawn a mission on top of a player.	
-	{
-		if (isPlayer _x && (_x distance2D _coords) < blck_minDistanceToPlayer) then 
-		{
-				_findNew = true;
-		};
-	}forEach playableUnits;
 	
 	if (toLower(worldName) isEqualTo "taviana") then 
 	{
@@ -121,10 +145,4 @@ while {_findNew} do {
 	_tries = _tries + 1;
 };
 
-if ((count _coords) > 2) then 
-{
-	private["_temp"];
-	_temp = [_coords select 0, _coords select 1];
-	_coords = _temp;
-};
-_coords;
+

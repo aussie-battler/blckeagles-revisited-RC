@@ -82,7 +82,7 @@ _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output her
 _missionLootVehicles = [  // Paste appropriate lines from the output of M3EDEN Editor here and add the loot crate type and loot counts at the end of each entry as shown in the example below.
 						  // Many vehicles have less inventory capacity than crates so you may have to modify _lootcounts to avoid having stuff spawned all over the ground.
 	//["Exile_Car_Van_Box_Guerilla02",[22896.8,16790.1,3.18987],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1]],
-	//["B_T_Boat_Transport_01_F",[22570.1,15235.3,-4.49949],[[0,1,0],[0,0,1]],[true,false],_crateLoot, _lootCounts]
+	["B_T_Boat_Transport_01_F",[22570.1,15235.3,-4.49949],[[0,1,0],[0,0,1]],[true,false],_crateLoot, _lootCounts]
 ]; //  [ ["vehicleClassName", [px, py, pz] /* possition at which to spawn*/, _loot /* pointer to array of loot (see below)]; 
 // When blank nothing is spawned.
 // You can use the same format used for _missionLootBoxes to add vehicles with/without loot.
@@ -110,14 +110,14 @@ _aiGroupParameters = [
 _aiScubaGroupParameters = [
 	// [ [px, py, pz] /* position*/, "difficulty", 4 /*Number to Spawn*/, 150 /*radius of patrol*/]
 	//[[22584.9,15304.8,-4.27578],"red",4, 75,0],
-	//[[22613.5,15269.1,-4.28332],"red",3, 75,900],
-	//[[22549,15288.9,0],"red",1, 75,0]
+	[[22613.5,15269.1,-4.28332],"red",3, 75,900],
+	[[22549,15288.9,0],"red",1, 75,0]
 ];
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
 	//["B_T_Boat_Transport_01_F",[22570.1,15235.3,-4.49949],"red",75,60],
-	//["B_T_Boat_Armed_01_minigun_F",[22578.6,15273.3,-0.0354593],"red",75,0]	
+	["B_T_Boat_Armed_01_minigun_F",[22578.6,15273.3,-0.0354593],"red",75,0]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
