@@ -455,13 +455,13 @@ while {_missionComplete isEqualTo -1} do
 	if (_spawnCratesTiming isEqualTo "atMissionSpawn") then
 	{
 		// Re-evaluate this - may not need the forEach
-		{
-			if ({[_x] call blck_fnc_crateMoved} count _crates > 0) exitWith
+		//{
+			if ({[_x] call blck_fnc_crateMoved} count _crates > 0) then
 			{
 				_missionComplete = 1;
 				_crateStolen = true;
 			};
-		}forEach _crates;
+		//}forEach _crates;
 	};
 	if (_secureAsset) then
 	{

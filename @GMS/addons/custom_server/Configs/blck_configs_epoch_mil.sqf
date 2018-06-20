@@ -49,7 +49,7 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 	blck_allowSalesAtBlackMktTraders = true; // Allow vehicles to be sold at Halvjes black market traders.
 	
 	// When true, AI loadouts will be set from the class names in CfgPricing rather than the settings in the mod-specific configuration files
-	blck_useConfigsGeneratedLoadouts = true;
+	blck_useConfigsGeneratedLoadouts = false;
 	blck_maximumItemPriceInAI_Loadouts = 100;
 	
 	_blck_lightlyArmed_ARMA3 = [
