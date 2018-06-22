@@ -52,5 +52,5 @@ _char allowDamage true;
 _char enableSimulationGlobal true;
 _char setVariable["GMSAnimations",_animations,true];
 _char setUnitPos "UP";
-
+//diag_log format["_fnc_spawncharacter: _char = %1",_char];
 _char

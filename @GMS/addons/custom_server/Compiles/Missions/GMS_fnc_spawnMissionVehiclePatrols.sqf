@@ -14,18 +14,23 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 // params["_pos",  "_center", ["_numai1",5],  ["_numai2",10],  ["_skillLevel","red"], ["_minDist",20], ["_maxDist",35],["_configureWaypoints",true], ["_uniforms",blck_SkinList], ["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weaponList",[]],["_sideArms",blck_Pistols], ["_scuba",false] ];
-params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]], ["_isScubaGroup",false]];
-if (count _uniforms == 0) then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
-if (count _headGear == 0) then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
-if (count _vests == 0) then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
-if (count _backpacks == 0) then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
-if (count _weaponList == 0) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (count _sideArms == 0) then {[_aiDifficultyLevel] call blck_fnc_selectAISidearms};
+params["_coords","_noVehiclePatrols","_skillAI","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]], ["_isScubaGroup",false]];
+//diag_log format["_fnc_spawnMissionVehiclePatrols: _this = %1",_this];
+if (_uniforms isEqualTo []) 		then {_uniforms = [_skillAI] call blck_fnc_selectAIUniforms};
+if (_headGear  isEqualTo [])		then {_headGear = [_skillAI] call blck_fnc_selectAIHeadgear};
+if (_vests isEqualTo []) 			then {_vests = [_skillAI] call blck_fnc_selectAIVests};
+if (_backpacks  isEqualTo []) 		then {_backpacks = [_skillAI] call blck_fnc_selectAIBackpacks};
+if (_weaponList  isEqualTo []) 	then {_weaponList = [_skillAI] call blck_fnc_selectAILoadout};
+if (_sideArms isEqualTo []) 		then {[_skillAI] call blck_fnc_selectAISidearms};
+
+//{
+	//diag_log format["_fnc_spawnMissionVehiclePatrols: %1 = %2",_x select 0, _x select 1];
+//}forEach [["uniforms",_uniforms],["headgear",_headGear],["vests",_vests],["backpacks",_backpacks],["primary weapons",_weaponList],["secondary weapons",_sideArms]];
 
 #ifdef blck_debugMode
 if (blck_debugLevel >=2) then
 {
-	private _params = ["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles","_useRelativePos","_uniforms","_headGear","_vests","_backpacks","_weaponList","_sideArms","_isScubaGroup"];
+	private _params = ["_coords","_noVehiclePatrols","_skillAI","_missionPatrolVehicles","_useRelativePos","_uniforms","_headGear","_vests","_backpacks","_weaponList","_sideArms","_isScubaGroup"];
 	{
 		diag_log format["_fnc_spawnMissionVehiclePatrols:: param %1 | isEqualTo %2 | _forEachIndex %3",_params select _forEachIndex,_this select _forEachIndex, _forEachIndex];
 	}forEach _this;
@@ -42,7 +47,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	_useRelativePos = false;
 	_vehiclePatrolSpawns = [_coords,_noVehiclePatrols,45,60] call blck_fnc_findPositionsAlongARadius;
 	{
-		_v = [_aiDifficultyLevel] call blck_fnc_selectPatrolVehicle;
+		_v = [_skillAI] call blck_fnc_selectPatrolVehicle;
 		//diag_log format["_fnc_spawnMissionVehiclePatrols (36):: position = %1 and vehicle = %2",_x, _v];
 		_missionPatrolVehicles pushBack [_v, _x];
 	}forEach _vehiclePatrolSpawns;
@@ -64,7 +69,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 	};
 	_vehicle = _x select 0;
 	// params["_pos",  "_center", _numai1,  _numai2,  _skillLevel, _minDist, _maxDist, _configureWaypoints, _uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms, _scuba ];
-	_vehGroup = [_spawnPos,_coords,3,3,_aiDifficultyLevel,1,2,false,_uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaGroup] call blck_fnc_spawnGroup;
+	_vehGroup = [_spawnPos,_coords,3,3,_skillAI,1,2,false,_uniforms, _headGear,_vests,_backpacks,_weaponList,_sideArms,_isScubaGroup] call blck_fnc_spawnGroup;
 	if (isNull _vehGroup) exitWith 
 	{
 		_abort = true;

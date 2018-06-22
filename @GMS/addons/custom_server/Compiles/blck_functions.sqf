@@ -60,13 +60,11 @@ blck_fnc_selectMissionHelis = compileFinal  preprocessFileLineNumbers "\q\addons
 blck_fnc_selectNumberAirPatrols = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectNumberAirPatrols.sqf";
 blck_fnc_selectNumberParatroops = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selectNumberParatroops.sqf";
 blck_fnc_selectChanceParatroops = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_selecctChanceParatroops.sqf";
-
 blck_fnc_addMissionToQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addMissionToQue.sqf";  // 
 blck_fnc_updateMissionQue  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_updateMissionQue.sqf";  // 
 blck_fnc_spawnPendingMissions = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnPendingMissions.sqf";	  //  
 blck_fnc_addLiveAItoQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addLiveAItoQue.sqf"; 
 blck_fnc_addObjToQue = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_addObjToQue.sqf";  //
-//blck_fnc_missionTimer = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionTimer.sqf";
 blck_fnc_spawnCrate = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnCrate.sqf"; // Simply spawns a crate of a specified type at a specific position.
 blck_fnc_spawnMissionCrates = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnMissionCrates.sqf";  
 blck_fnc_cleanupObjects = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_cleanUpObjects.sqf";
@@ -82,13 +80,11 @@ blck_fnc_spawnMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_s
 blck_fnc_clearMines = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_clearMines.sqf"; // clears mines in an array passed as a parameter
 blck_fnc_signalEnd = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_signalEnd.sqf"; // deploy smoke grenades at loot crates at the end of the mission.
 blck_fnc_endMission = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_endMission.sqf";
-//blck_fnc_missionAIareDead = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_missionAIareDead.sqf";
-//blck_fnc_countAliveAI = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_countAliveAI.sqf";
 blck_fnc_paraDropObject = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_paraDropObject.sqf";
 blck_fnc_loadMissionCrate = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_loadMissionCrate.sqf";
 blck_fnc_crateMoved = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_crateMoved.sqf";
 blck_fnc_crateMarker = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_crateMarker.sqf";
-//blck_fnc_crateMapMarker = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_crateMapMarker.sqf";
+
 
 // Group-related functions
 blck_fnc_spawnGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_spawnGroup.sqf";  // Spawn a single group and populate it with AI units]
@@ -110,9 +106,6 @@ blck_fnc_configureMissionVehicle = compileFinal preprocessFileLineNumbers "\q\ad
 blck_fnc_vehicleMonitor = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_vehicleMonitor.sqf";  
 blck_fnc_spawnMissionReinforcements  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionReinforcements.sqf"; 
 blck_fnc_spawnMissionHeli = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionHeli.sqf";  
-//blck_fnc_spawnMissionParatroops = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnMissionParatroops.sqf";  // Lumped here because these 'jump' from aircraft
-//blck_fnc_spawnParaUnits = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_spawnParaUnits.sqf";  // Lumped here because these 'jump' from aircraft
-//blck_fnc_releaseVehicleToPlayers = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_releaseVehicleToPlayers.sqf"; //  GMS_fnc_releaseVehicleToPlayers
 blck_EH_AIVehicle_HandleHit = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_AIVehicle_Hit.sqf"; 
 blck_fnc_HandleAIVehicleHit = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Vehicles\GMS_fnc_HandleAIVehicleHit.sqf";
 blck_EH_VehicleKilled = "\q\addons\custom_server\Compiles\Vehicles\GMS_EH_VehicleKilled.sqf"; 
@@ -148,6 +141,7 @@ blck_fnc_spawnLeader = compileFinal  preprocessFileLineNumbers "\q\addons\custom
 blck_fnc_spawnCharacter = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_spawnCharacter.sqf";
 blck_fnc_spawnParaUnits  = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_spawnParaUnits.sqf";
 blck_fnc_nextAnim = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_nextAnim.sqf"; 
+blck_fnc_placeCharacterInBuilding = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Units\GMS_fnc_placeCharacterInBuilding.sqf";
 
 // HC support functions
 blck_fnc_HC_XferGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_XferGroup.sqf"; 

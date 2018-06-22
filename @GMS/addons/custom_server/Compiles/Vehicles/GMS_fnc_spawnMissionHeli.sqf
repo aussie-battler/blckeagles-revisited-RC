@@ -13,12 +13,20 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 private["_grpPilot","_chopperType","_patrolHeli","_launcherType","_unitPilot","_unitCrew","_mags","_turret","_return","_abort","_supplyHeli"];
 params["_coords","_skillAI","_helis",["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]],["_Launcher","none"]];
-if (count _uniforms == 0) then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
-if (count _headGear == 0) then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
-if (count _vests == 0) then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
-if (count _backpacks == 0) then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
-if (count _weaponList == 0) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (count _sideArms == 0) then {[_aiDifficultyLevel] call blck_fnc_selectAISidearms};
+
+if (_uniforms isEqualTo []) 		then {_uniforms = [_skillAI] call blck_fnc_selectAIUniforms};
+if (_headGear  isEqualTo [])		then {_headGear = [_skillAI] call blck_fnc_selectAIHeadgear};
+if (_vests isEqualTo []) 			then {_vests = [_skillAI] call blck_fnc_selectAIVests};
+if (_backpacks  isEqualTo []) 		then {_backpacks = [_skillAI] call blck_fnc_selectAIBackpacks};
+if (_weaponList  isEqualTo []) 	then {_weaponList = [_skillAI] call blck_fnc_selectAILoadout};
+if (_sideArms isEqualTo []) 		then {[_skillAI] call blck_fnc_selectAISidearms};
+
+/*
+{
+	diag_log format["_fnc_spawnMissionHeli: parameter %1 = %2",_foreachIndex,_x];
+}forEach [_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms];
+*/
+
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {
@@ -82,7 +90,7 @@ if !(isNull _grpPilot)  then
 	[_patrolHeli] call blck_fnc_emptyObject;
 
 	_launcherType = "none";
-	//params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false]];
+	//params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", []],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false]];
 	_unitPilot = [[100,100,100],_grpPilot,_skillAI,_uniforms,_headGear,_vests,_backpacks,_Launcher,_weaponList,_sideArms] call blck_fnc_spawnUnit;
 	_unitPilot setSkill 1;
 	_unitPilot assignAsDriver _patrolHeli;

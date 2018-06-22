@@ -13,7 +13,7 @@ private["_mode","_sm_groups"];
 _sm_groups = +blck_sm_Emplaced;
 //diag_log format["_fnc_monitorEmplaced: time %2 |  blck_sm_Emplaced %1",blck_sm_Emplaced,diag_tickTime];
 {
-	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt"];
+	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt","_maxRespawns"];
 	//diag_log format["_fnc_monitorEmplaced: _x %1",_x];
 	//diag_log format["_fnc_monitorEmplaced: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorEmplaced (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];
@@ -45,6 +45,7 @@ _sm_groups = +blck_sm_Emplaced;
 						
 						if ([_pos,staticPatrolTriggerRange] call blck_fnc_playerInRange) then
 						{
+							// params["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel",["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]]];
 							private _return = [_pos,[_groupParameters],false,1,_difficulty] call blck_fnc_spawnEmplacedWeaponArray;
 							_group = group( (_return select 1) select 0);
 							_timesSpawned = _timesSpawned + 1;
@@ -77,7 +78,7 @@ _sm_groups = +blck_sm_Emplaced;
 		} else {
 			if (diag_tickTime > (_group getVariable["playerNearAt",diag_tickTime]) + blck_sm_groupDespawnTime) then
 			{
-				diag_log format["_fnc_monitorEmplaced: despanwing patrol for _element %1",_element];
+				//diag_log format["_fnc_monitorEmplaced: despanwing patrol for _element %1",_element];
 				_groupParameters set [2, {alive _x} count (units _group)];
 				private _veh = vehicle (leader _group);
 				[_veh] call blck_fnc_destroyVehicleAndCrew;

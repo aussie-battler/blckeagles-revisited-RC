@@ -14,12 +14,12 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel",["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]]];
-if (count _uniforms == 0) then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
-if (count _headGear == 0) then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
-if (count _vests == 0) then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
-if (count _backpacks == 0) then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
-if (count _weaponList == 0) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (count _sideArms == 0) then {[_aiDifficultyLevel] call blck_fnc_selectAISidearms};
+if (_uniforms isEqualTo []) 		then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
+if (_headGear  isEqualTo [])		then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
+if (_vests isEqualTo []) 			then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
+if (_backpacks  isEqualTo []) 		then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
+if (_weaponList  isEqualTo []) 	then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
+if (_sideArms isEqualTo []) 		then {[_aiDifficultyLevel] call blck_fnc_selectAISidearms};
 
 #ifdef blck_debugMode
 if (blck_debugLevel >=2) then

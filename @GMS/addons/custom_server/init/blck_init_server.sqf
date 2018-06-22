@@ -129,5 +129,5 @@ if (blck_enableBlueMissions > 0) then
 
 [] execVM "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
 [] execVM "q\addons\custom_server\Missions\UMS\GMS_UMS_init.sqf";  // loads functions and spawns any static missions.
-diag_log "blck_init_server: ->> Static and UMS systems initialized.";
+//diag_log "blck_init_server: ->> Static and UMS systems initialized.";
 diag_log "[blckeagls] Mission spawner started";
