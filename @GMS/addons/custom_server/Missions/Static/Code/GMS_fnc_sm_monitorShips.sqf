@@ -14,7 +14,7 @@ private["_mode","_sm_groups"];
 _sm_groups = +blck_sm_surfaceShips;
 //diag_log format["_fnc_monitorShips: time %2 |  blck_sm_surfaceShips %1",blck_sm_surfaceShips,diag_tickTime];
 {
-	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt","_maxRespawns"];
+	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt"];
 	//diag_log format["_fnc_monitorShips: _x %1",_x];
 	//diag_log format["_fnc_monitorShips: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorShips (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];

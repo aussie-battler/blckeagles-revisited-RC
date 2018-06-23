@@ -11,13 +11,16 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_coords","_hostageConfigs"];
-private["_hostageGroup","_hostage","_building"];
+private["_hostageGroup","_hostage"];
 _hostage = [_coords,_hostageConfigs] call blck_fnc_spawnCharacter;
 _hostage remoteExec["GMS_fnc_initHostage", -2, true];
 _hostage setVariable["assetType",1,true];
-_building = [_hostage,_coords,_hostageConfigs select 7] call blck_fnc_placeCharacterInBuilding;
-_result = [_hostage,_building];
-//diag_log format["_fnd_spawnHostage:  _result = %1",_result];
-_result
+/*
+private _marker = createMarker [format["hostageMarger%1",getPos _hostage], getPos _hostage];
+_marker setMarkerColor "ColorBlack";
+_marker setMarkerType "mil_dot";
+_marker setMarkerText "Hostage";
+*/
+_hostage
 
 

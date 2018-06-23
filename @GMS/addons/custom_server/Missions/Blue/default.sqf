@@ -68,26 +68,11 @@ _markerType = ["ELIPSE",[175,175],"GRID"];
 _markerColor = "ColorBlue";
 _markerMissionName = "Bandit Patrol";
 _missionLandscapeMode = "random"; // acceptable values are "none","random","precise"
-					//  _missionLandscape
 					//  Note that the format for the _missionLandscape is different for the two modes.
 					// In random, the objects are randomly arrayed around the mission center.
 					// In precise, the objects are spawned as closely as possible to the x,y,z offset from mission center specified.
 					//  See default2.sqf for an example of the use of precise base objects.
-/*					
-private _addedLandscape = ["Land_FoodSacks_01_cargo_brown_F","Land_FoodSacks_01_large_brown_F","Land_FoodSack_01_full_brown_F","Land_PaperBox_01_open_boxes_F",
-						"Land_CampingTable_white_F","Land_WoodenPlanks_01_messy_pine_F","Land_CinderBlocks_01_F","Land_WoodenCrate_01_F","Land_WoodenCrate_01_stack_x5_F",
-						"Land_BarrelTrash_grey_F","Land_WoodenTable_large_F","Land_BagFence_Short_F","Land_WoodPile_F"]
-*/
-
-_missionLandscape = ["Flag_AAF_F","Land_TentDome_F","Land_TentDome_F","Land_TentDome_F","Land_TentDome_F","Land_FieldToilet_F","Campfire_burning_F"]; // list of objects to spawn as landscape
-for "_i" from 1 to 8 do 
-{
-	_missionLandscape pushBack selectRandom [
-		"Land_FoodSacks_01_cargo_brown_F","Land_FoodSacks_01_large_brown_F","Land_FoodSack_01_full_brown_F","Land_PaperBox_01_open_boxes_F",
-		"Land_CampingTable_white_F","Land_WoodenPlanks_01_messy_pine_F","Land_CinderBlocks_01_F","Land_WoodenCrate_01_F","Land_WoodenCrate_01_stack_x5_F",
-		"Land_BarrelTrash_grey_F","Land_WoodenTable_large_F","Land_BagFence_Short_F","Land_WoodPile_F"
-	];
-};
+_missionLandscape = ["Land_WoodPile_F","Land_BagFence_Short_F","Land_WoodPile_F","Land_BagFence_Short_F","Land_WoodPile_F","Land_BagFence_Short_F","Land_FieldToilet_F","Land_TentDome_F","Land_TentDome_F","Land_TentDome_F","Land_TentDome_F","Land_CargoBox_V1_F","Land_CargoBox_V1_F"]; // list of objects to spawn as landscape
 _missionLootBoxes = [];  //  Parameters are "Box Item Code", array defining the loot to be spawned, and position.
 					// when empty, a single loot container will be spawned at the center of the mission.
 					// Use this to specify exact spots to spawn crates; see default2.seq for an example.

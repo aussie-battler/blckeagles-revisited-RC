@@ -18,15 +18,7 @@
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-params["_pos","_numAI","_skillAI",["_uniforms",[]],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weapons",[]],["_sideArms",[]],["_isScuba",false]];
-
-if (_weaponList isEqualTo []) then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (_sideArms  isEqualTo [])  then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
-if (_uniforms  isEqualTo [])  then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
-if (_headGear  isEqualTo [])  then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
-if (_vests  isEqualTo [])     then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
-if (_backpacks  isEqualTo []) then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
-
+params["_pos","_numAI","_skillAI",["_uniforms",blck_SkinList],["_headGear",blck_headgearList],["_vests",blck_vests],["_backpacks",blck_backpacks],["_weapons",[]],["_sideArms",blck_Pistols],["_isScuba",false]];
 private["_arc","_dir","_spawnPos","_chute","_unit","_return","_paraGroup"];
 private _params = ["_pos","_numAI","_skillAI"];
 #ifdef blck_debugMode
@@ -50,7 +42,7 @@ for "_i" from 1 to _numAI do
 	_chute = createVehicle ["Steerable_Parachute_F", [_spawnPos select 0, _spawnPos select 1, 250], [], 0, "FLY"];
 	[_chute] call blck_fnc_protectVehicle;
 	// ["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", blck_SkinList],["_headGear",blck_headgear],["_vests",blck_vests],["_backpacks",blck_backpacks],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false]];
-	_unit = [getPos _chute,_paraGroup,_skillAI,_uniforms,_headGear,_vests,_backpacks,launcherType,_weapons,_sideArms,_isScuba] call blck_fnc_spawnUnit;
+	_unit = [getPos _chute,_paraGroup,_skillAI,_uniforms,_headGear,_vests,_backpacks,launcherType,_weapons] call blck_fnc_spawnUnit;
 	
 	#ifdef blck_debugMode
 	diag_log format["_fnc_spawnParaUnits: unit %1 = %2 dropping in chute %3",_i,_unit,_chute];

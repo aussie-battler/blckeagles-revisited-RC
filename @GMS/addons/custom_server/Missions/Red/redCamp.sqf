@@ -26,6 +26,7 @@ _markerColor = "ColorRed";
 _markerMissionName = "Bandit Camp";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [
+		["Flag_AAF_F",[0,0,0],0,[false,false]],
 		["Land_CampingChair_V1_F",[1.32227,2.07813,8.2016e-005],108.293,[false,true]], 
 		["Land_CampingChair_V1_F",[-2.01465,2.91992,3.05176e-005],236.049,[false,true]], 
 		["FirePlace_burning_F",[0.0302734,4.26563,2.47955e-005],359.997,[false,true]], 

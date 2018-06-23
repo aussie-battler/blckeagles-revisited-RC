@@ -14,10 +14,11 @@ private["_mode","_sm_groups"];
 _sm_groups = +blck_sm_Vehicles;
 //diag_log format["_fnc_monitorVehicles: time %2 |  blck_sm_Vehicles %1",blck_sm_Vehicles,diag_tickTime];
 {
-	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt","_maxRespawns"];
+	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt"];
 	//diag_log format["_fnc_monitorVehicles: _x %1",_x];
 	//diag_log format["_fnc_monitorVehicles: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorVehicles (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];
+	//_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnTime"];
 	_groupParameters params["_vehicleType","_pos","_difficulty","_patrolRadius","_respawnTime"];	
 	//diag_log format["_fnc_monitorVehicles: _vehicleType | %1 | _pos = %2 | _difficulty = %3 | _patrolRadius = %4 | _respawnTime = %5",_vehicleType,_pos,_difficulty,_patrolRadius,_respawnTime];
 	private _element = +_x;//
@@ -45,7 +46,6 @@ _sm_groups = +blck_sm_Vehicles;
 						
 						if ([_pos,staticPatrolTriggerRange] call blck_fnc_playerInRange) then
 						{
-							// params["_coords","_noVehiclePatrols","_aiDifficultyLevel","_missionPatrolVehicles",["_useRelativePos",true],["_uniforms",[]], ["_headGear",[]],["_vests",[]],["_backpacks",[]],["_weaponList",[]],["_sideArms",[]], ["_isScubaGroup",false]];
 							_return = [_pos,1,_difficulty,[_groupParameters],false] call blck_fnc_spawnMissionVehiclePatrols;
 							//diag_log format["_fnc_monitorVehicles: _return = %1",_return];
 							_group = group ((_return select 1) select 0);

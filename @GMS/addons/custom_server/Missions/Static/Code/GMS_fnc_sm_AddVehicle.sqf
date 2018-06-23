@@ -1,0 +1,16 @@
+/*
+	by Ghostrider [GRG]
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/	
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
+params["_vehicle"];
+//blck_sm_Vehicles pushBack [_vehicle,grpNull,0];
+[blck_sm_Vehicles,_vehicle] call blck_fnc_sm_AddGroupToArray;
+true
