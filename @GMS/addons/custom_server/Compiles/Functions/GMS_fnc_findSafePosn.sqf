@@ -92,7 +92,23 @@ while {_findNew} do
 					_findNew = true;
 			};
 		}forEach playableUnits;	
-	};		
+	};
+	if !(_findNew) then
+	{
+		// test for water nearby
+		_dist = 50;
+		for [{_i=0}, {_i<360}, {_i=_i+20}] do
+		{
+			_xpos = (_coords select 0) + sin (_i) * _dist;
+			_ypos = (_coords select 1) + cos (_i) * _dist;
+			_newPos = [_xpos,_ypos,0];
+			if (surfaceIsWater _newPos) then
+			{
+				_findNew = true;
+				_i = 361;
+			};
+		};
+	};
 	if (_findNew) then
 	{
 		if (_tries in [3,6,9,12,15,18,21]) then

@@ -532,7 +532,10 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_throwableExplosives = ["HandGrenade","MiniGrenade"];
 		blck_otherExplosives = ["1Rnd_HE_Grenade_shell","3Rnd_HE_Grenade_shell","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag"];
 		blck_explosives = blck_throwableExplosives + blck_otherExplosives;
-		blck_medicalItems = ["FAK"];
+		blck_medicalItems = ["FAK", "ItemVitamins", "morphine_epoch", "iodide_pills_epoch", "adrenaline_epoch", 
+				"caffeinepills_epoch", "orlistat_epoch", "ItemCanteen_Empty", "ItemCanteen_Clean", "ItemBottlePlastic_Empty", 
+				"ItemBottlePlastic_Clean", "atropine_epoch", "ItemWaterPurificationTablets", "ItemPainKillers", "ItemDefibrillator", 
+				"ItemBloodBag_Empty", "ItemBloodBag_Full", "ItemAntibiotic", "nanite_cream_epoch", "nanite_pills_epoch"];
 		blck_specialItems = blck_throwableExplosives + blck_medicalItems;		
 		blck_NVG = ["NVG_EPOCH"];
         blck_epochValuables = ["PartOreGold","PartOreSilver","PartOre","ItemGoldBar","ItemGoldBar2oz","ItemGoldBar3oz","ItemGoldBar4oz","ItemGoldBar5oz","ItemGoldBar6oz","ItemGoldBar7oz","ItemGoldBar8oz","ItemGoldBar9oz","ItemGoldBar10oz","ItemSilverBar","ItemSilverBar2oz","ItemSilverBar3oz","ItemSilverBar4oz","ItemSilverBar5oz","ItemSilverBar6oz","ItemSilverBar7oz","ItemSilverBar8oz","ItemSilverBar9oz","ItemSilverBar10oz","ItemAluminumBar","ItemAluminumBar10oz","ItemCopperBar","ItemCopperBar10oz","ItemTinBar","ItemTinBar10oz","ItemTopaz","ItemOnyx","ItemSapphire","ItemAmethyst","ItemEmerald","ItemCitrine","ItemRuby","ItemQuartz","ItemJade","ItemGarnet","ItemKiloHemp"];

@@ -1,3 +1,7 @@
+setVariable.txt
+
+!="blck_AIState"
+
 Scripts.txt
 
 To a line begining with:

@@ -14,7 +14,7 @@ private["_mode","_sm_groups"];
 _sm_groups = +blck_sm_scubaGroups;
 //diag_log format["_fnc_monitorScubaGroups: time %2 |  blck_sm_scubaGroups %1",blck_sm_scubaGroups,diag_tickTime];
 {
-	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt"];
+	_x params["_groupParameters","_group","_groupSpawned","_timesSpawned","_respawnAt","_maxRespawns"];
 	//diag_log format["_fnc_monitorScubaGroups: _x %1",_x];
 	//diag_log format["_fnc_monitorScubaGroups: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorScubaGroups (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];

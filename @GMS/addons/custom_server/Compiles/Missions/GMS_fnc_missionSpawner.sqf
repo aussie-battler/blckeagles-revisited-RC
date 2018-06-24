@@ -19,16 +19,6 @@ private ["_abort","_crates","_aiGroup","_objects","_groupPatrolRadius","_mission
 		
 params["_coords","_markerClass","_aiDifficultyLevel"];
 
-////////
-// set all variables needed for the missions
-// data is pulled either from the mission description or from the _mission variable passsed as a parameter
-// Deal with situations where some of these variables might not be defined as well.
-////////
-
-// _mission params["OrangeMarker","orange",blck_TMin_Orange,blck_TMax_Orange];
-//_markerClass = _mission select 0;
-// _aiDifficultyLevel = _mission select 1;
-
 [_markerClass,  "active",_coords] call blck_fnc_updateMissionQue;
 blck_ActiveMissionCoords pushback _coords; 
 	blck_missionsRunning = blck_missionsRunning + 1;
@@ -47,21 +37,20 @@ if (isNil "_hostageConfig") 			then {_hostageConfig = []};
 if (isNil "_enemyLeaderConfig") 		then {_enemyLeaderConfig = []};
 if (isNil "_useMines") 					then {_useMines = blck_useMines;};
 if (isNil "_weaponList") 				then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
-if (isNil "_uniforms") then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
-if (isNil "_headGear") then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
-if (isNil "_vests") then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
-if (isNil "_backpacks") then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
-if (isNil "_chanceHeliPatrol") then {_chanceHeliPatrol = [_aiDifficultyLevel] call blck_fnc_selectChanceHeliPatrol};
-if (isNil "_noChoppers") then {_noChoppers = [_aiDifficultyLevel] call blck_fnc_selectNumberAirPatrols};
-if (isNil "_chancePara") then {_chancePara = [_aiDifficultyLevel] call blck_fnc_selectChanceParatroops};
-if (isNil "_missionHelis") then {_missionHelis = [_aiDifficultyLevel] call blck_fnc_selectMissionHelis};
-if (isNil "_noPara") then {_noPara = [_aiDifficultyLevel] call blck_fnc_selectNumberParatroops};
-if (isNil "_chanceLoot") then {_chanceLoot = 1.0}; //0.5}; 
-if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
-if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Green};  //  Add diffiiculty based settings
-if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed}; // Add difficulty based settings
-
+if (isNil "_sideArms") 					then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
+if (isNil "_uniforms") 					then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
+if (isNil "_headGear") 					then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
+if (isNil "_vests") 					then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
+if (isNil "_backpacks") 				then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
+if (isNil "_chanceHeliPatrol") 			then {_chanceHeliPatrol = [_aiDifficultyLevel] call blck_fnc_selectChanceHeliPatrol};
+if (isNil "_noChoppers") 				then {_noChoppers = [_aiDifficultyLevel] call blck_fnc_selectNumberAirPatrols};
+if (isNil "_chancePara") 				then {_chancePara = [_aiDifficultyLevel] call blck_fnc_selectChanceParatroops};
+if (isNil "_missionHelis") 				then {_missionHelis = [_aiDifficultyLevel] call blck_fnc_selectMissionHelis};
+if (isNil "_noPara") 					then {_noPara = [_aiDifficultyLevel] call blck_fnc_selectNumberParatroops};
+if (isNil "_chanceLoot") 				then {_chanceLoot = 1.0}; //0.5}; 
+if (isNil "_paraTriggerDistance") 		then {_paraTriggerDistance = 400;};
+if (isNil "_paraLoot") 					then {_paraLoot = blck_BoxLoot_Green};  //  Add diffiiculty based settings
+if (isNil "_paraLootCounts") 			then {_paraLootCounts = blck_lootCountsRed}; // Add difficulty based settings
 
 _objects = [];
 _mines = [];
@@ -72,7 +61,6 @@ _blck_AllMissionAI = [];
 _AI_Vehicles = [];
 _blck_localMissionMarker = [_markerClass,_coords,"","",_markerColor,_markerType];
 #define delayTime 1
-//_groupPatrolRadius = 50;
 
 #ifdef blck_debugMode
 diag_log "_missionSpawner:  All variables initialized";
@@ -80,12 +68,10 @@ diag_log "_missionSpawner:  All variables initialized";
 
 if (blck_labelMapMarkers select 0) then
 {
-	//diag_log "labeling map markers *****";
 	_blck_localMissionMarker set [2, _markerMissionName];
 };
 if !(blck_preciseMapMarkers) then
 {
-	//diag_log "Map marker will be OFFSET from the mission position";
 	_blck_localMissionMarker set [1,[_coords,75] call blck_fnc_randomPosition];
 };
 _blck_localMissionMarker set [3,blck_labelMapMarkers select 1];  // Use an arrow labeled with the mission name?
@@ -115,7 +101,6 @@ if (blck_debugLevel > 0) then {
 while {_wait} do
 {
 	#ifdef blck_debugMode
-	//diag_log "missionSpawner:: top of mission trigger loop";
 	if (blck_debugLevel > 2) exitWith {_playerInRange = true;diag_log "_fnc_missionSpawner (168): player trigger loop triggered by scripting";};
 	#endif
 
@@ -189,7 +174,6 @@ if (blck_debugLevel > 0) then
 uiSleep  delayTime;;
 
 _temp = [_coords,_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
-//uisleep 1;
 _crates append _temp;
 
 uiSleep  delayTime;
@@ -197,7 +181,6 @@ uiSleep  delayTime;
 _abort = false;
 _temp = [[],[],false];
 
-// params["_coords",_minNoAI,_maxNoAI,_missionGroups,_aiDifficultyLevel,_uniforms,_headGear,_vests",_backpacks,_weapons,sideArms,_isScubaGroup];
 #ifdef blck_debugMode
 private _params = [_coords,_minNoAI,_maxNoAI,_missionGroups,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms];
 {
@@ -240,16 +223,25 @@ if (blck_debugLevel > 0) then
 _assetSpawned = objNull;
 if !(_hostageConfig isEqualTo []) then
 {
-	_assetSpawned = [_coords,_hostageConfig] call blck_fnc_spawnHostage;
+	_temp = [_coords,_hostageConfig] call blck_fnc_spawnHostage;
+	//diag_log format["_fnc_missionSpawner: _fnc_spawnHostage returned %1",_temp];
+	_assetSpawned = _temp select 0;
+	_objects pushBack (_temp select 1);
 	//diag_log format["_fnc_missionSpawner: _assetSpawned = %1",_assetSpawned];
+	//diag_log format["_fnc_missionSpawner:  _fnc_spawnHostage returned object %1",_temp select 1];
 	_blck_AllMissionAI pushBack _assetSpawned;
 };
 
 if !(_enemyLeaderConfig isEqualTo []) then
 {
-	_assetSpawned = [_coords,_enemyLeaderConfig] call blck_fnc_spawnLeader;
+	_temp = [_coords,_enemyLeaderConfig] call blck_fnc_spawnLeader;
+	//diag_log format["_fnc_missionSpawner: _fnc_spawnLeader return _temp = %1",_temp];
+	_assetSpawned = _temp select 0;
+	_objects pushBack (_temp select 1);	
 	//diag_log format["_fnc_missionSpawner: _assetSpawned = %1",_assetSpawned];
+	//diag_log format["_fnc_missionSpawner: building spawned by _fnc_spawnLeader = %1",_temp select 1];
 	_blck_AllMissionAI pushBack _assetSpawned;
+	//diag_log format["_fnc_missionSpawner (261): _blck_AllMissionAI",_blck_AllMissionAI];
 };
 
 #ifdef blck_debugMode
@@ -266,8 +258,6 @@ _vehToSpawn = [_noVehiclePatrols] call blck_fnc_getNumberFromRange;
 if (blck_useVehiclePatrols && ((_vehToSpawn > 0) || count _missionPatrolVehicles > 0)) then
 {
 	#define useRelativePos true
-	//params[_coords,_noVehiclePatrols,_aiDifficultyLevel,_missionPatrolVehicles,_useRelativePos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms, _isScubaGroup];
-	//_temp = [_coords,_vehToSpawn,_aiDifficultyLevel,_uniforms,_headGear,_missionPatrolVehicles] call blck_fnc_spawnMissionVehiclePatrols;
 	_temp = [_coords,_vehToSpawn,_aiDifficultyLevel,_missionPatrolVehicles,useRelativePos,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnMissionVehiclePatrols;
 
 	if (typeName _temp isEqualTo "ARRAY") then
@@ -301,7 +291,6 @@ if (blck_debugLevel > 1) then
 #endif
 
 _noChoppers = [_noChoppers] call blck_fnc_getNumberFromRange;
-//_noPara = [_noPara] call blck_fnc_getNumberFromRange;
 
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["_missionSpawner(322):: _noChoppers = %1  && _chancePara = %2",_noChoppers,_chancePara]};
@@ -312,8 +301,7 @@ if (_noChoppers > 0) then
 	{
 		if (random(1) < _chanceHeliPatrol) then
 		{
-			//_temp = [_coords,_missionHelis,spawnHeli,_aiDifficultyLevel,_chancePara,_noPara,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnMissionReinforcements;
-			_temp = [_coords,_aiDifficultyLevel,_missionHelis,_uniforms,_headGear,_vests,_backpacks,"none",_weaponList, _sideArms] call blck_fnc_spawnMissionHeli;
+			_temp = [_coords,_aiDifficultyLevel,_missionHelis,_uniforms,_headGear,_vests,_backpacks,_weaponList, _sideArms,"none"] call blck_fnc_spawnMissionHeli;
 
 			if (typeName _temp isEqualTo "ARRAY") then
 			{
@@ -342,8 +330,6 @@ _noEmplacedToSpawn = [_noEmplacedWeapons] call blck_fnc_getNumberFromRange;
 //diag_log format["_fnc_missionSpawner: -> _noEmplacedToSpawn = %1 | blck_useStatic = %2",_noEmplacedToSpawn,blck_useStatic];
 if (blck_useStatic && (_noEmplacedToSpawn > 0)) then
 {
-	// _params = ["_coords","_missionEmplacedWeapons","_useRelativePos","_noEmplacedWeapons","_aiDifficultyLevel","_uniforms","_headGear","_vests","_backpacks","_weaponList","_sideArms"];
-	// _temp = [_missionEmplacedWeapons,_noEmplacedToSpawn,_aiDifficultyLevel,_coords,_uniforms,_headGear] call blck_fnc_spawnEmplacedWeaponArray;
 	_temp = [_coords,_missionEmplacedWeapons,useRelativePos,_noEmplacedToSpawn,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnEmplacedWeaponArray;
 	
 	if (typeName _temp isEqualTo "ARRAY") then

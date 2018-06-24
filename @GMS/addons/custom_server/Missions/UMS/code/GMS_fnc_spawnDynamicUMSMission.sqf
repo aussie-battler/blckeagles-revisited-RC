@@ -33,29 +33,24 @@ if (isNil "_endCondition") 		then {_endCondition = blck_missionEndCondition};  /
 if (isNil "_spawnCratesTiming") then {_spawnCratesTiming = blck_spawnCratesTiming}; // Choices: "atMissionSpawnGround","atMissionStartAir","atMissionEndGround","atMissionEndAir". 
 if (isNil "_loadCratesTiming") 	then {_loadCratesTiming = blck_loadCratesTiming}; // valid choices are "atMissionCompletion" and "atMissionSpawn"; 
 if (isNil "_useMines") 			then {_useMines = blck_useMines;};
+
 if (isNil "_weaponList") 		then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") 			then {_sideArms = blck_Pistols};
-if (isNil "_vests") 			then {_vests = blck_vests};
-if (isNil "_backpacks") 		then {_backpacks = blck_backpacks};
-//diag_log format["_fnc_missionSpawner: -> blck_backpacks = %1", blck_backpacks];
-//diag_log format["_fnc_missionSpawner: -> _backpacks = %1",_backpacks];
-if (isNil "_weaponList") 				then {_weaponList = [_aiDifficultyLevel] call blck_fnc_selectAILoadout};
-if (isNil "_sideArms") then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
-if (isNil "_uniforms") then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
-if (isNil "_headGear") then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
-if (isNil "_vests") then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
-if (isNil "_backpacks") then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
+if (isNil "_sideArms") 			then {_sideArms = [_aiDifficultyLevel] call blck_fnc_selectAISidearms};
+if (isNil "_uniforms") 			then {_uniforms = [_aiDifficultyLevel] call blck_fnc_selectAIUniforms};
+if (isNil "_headGear") 			then {_headGear = [_aiDifficultyLevel] call blck_fnc_selectAIHeadgear};
+if (isNil "_vests") 			then {_vests = [_aiDifficultyLevel] call blck_fnc_selectAIVests};
+if (isNil "_backpacks") 		then {_backpacks = [_aiDifficultyLevel] call blck_fnc_selectAIBackpacks};
 
-if (isNil "_chanceHeliPatrol") then {_chanceHeliPatrol = [_aiDifficultyLevel] call blck_fnc_selectChanceHeliPatrol};
-if (isNil "_noChoppers") then {_noChoppers = [_aiDifficultyLevel] call blck_fnc_selectNumberAirPatrols};
-if (isNil "_chancePara") then {_chancePara = [_aiDifficultyLevel] call blck_fnc_selectChanceParatroops};
-if (isNil "_missionHelis") then {_missionHelis = [_aiDifficultyLevel] call blck_fnc_selectMissionHelis};
-if (isNil "_noPara") then {_noPara = [_aiDifficultyLevel] call blck_fnc_selectNumberParatroops};
+if (isNil "_chanceHeliPatrol")  then {_chanceHeliPatrol = [_aiDifficultyLevel] call blck_fnc_selectChanceHeliPatrol};
+if (isNil "_noChoppers") 		then {_noChoppers = [_aiDifficultyLevel] call blck_fnc_selectNumberAirPatrols};
+if (isNil "_chancePara") 		then {_chancePara = [_aiDifficultyLevel] call blck_fnc_selectChanceParatroops};
+if (isNil "_missionHelis") 		then {_missionHelis = [_aiDifficultyLevel] call blck_fnc_selectMissionHelis};
+if (isNil "_noPara") 			then {_noPara = [_aiDifficultyLevel] call blck_fnc_selectNumberParatroops};
 
-if (isNil "_chanceLoot") then {_chanceLoot = 0}; 
+if (isNil "_chanceLoot") 		then {_chanceLoot = 0}; 
 if (isNil "_paraTriggerDistance") then {_paraTriggerDistance = 400;};
-if (isNil "_paraLoot") then {_paraLoot = blck_BoxLoot_Blue};
-if (isNil "_paraLootCounts") then {_paraLootCounts = blck_lootCountsRed};
+if (isNil "_paraLoot") 			then {_paraLoot = blck_BoxLoot_Blue};
+if (isNil "_paraLootCounts") 	then {_paraLootCounts = blck_lootCountsRed};
 
 _objects = [];
 _mines = [];
@@ -451,7 +446,9 @@ if (blck_cleanUpLootChests) then
 if (_noPara > 0 && (random(1) < _chancePara) && _paraTriggerDistance == 0) then
 {
 	diag_log format["_fnc_missionSpawner (435):  spawning %1 paraunits at mission spawn",_noPara];
-	private _paratroops = [_coords,_noPara,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnParaUnits;
+	//private _paratroops = [_coords,_noPara,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_spawnParaUnits;
+	// blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,[],blck_UMS_weapons,[],isScubaMission
+	private _paratroops = [_coords,_noPara,_aiDifficultyLevel,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,[],blck_UMS_weapons,[],isScubaMission] call blck_fnc_spawnParaUnits;
 	if !(isNull _paratroops) then 
 	{
 		_blck_AllMissionAI append (units _paratroops);
@@ -552,7 +549,8 @@ while {_missionComplete isEqualTo -1} do
 			_spawnPara = false; // The player gets one try to spawn these.
 			if (random(1) < _chancePara) then  //  
 			{
-				private _paratroops = [_coords,_noPara,_aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms,true] call blck_fnc_spawnParaUnits;
+				// blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,[],blck_UMS_weapons,[],isScubaMission] call blck_fnc_spawnParaUnits;] call blck_fnc_spawnParaUnits;
+				private _paratroops = [_coords,_noPara,_aiDifficultyLevel,blck_UMS_uniforms,blck_UMS_headgear,blck_UMS_vests,[],blck_UMS_weapons,[],isScubaMission] call blck_fnc_spawnParaUnits;
 				if !(isNull _paratroops) then 
 				{
 					_blck_AllMissionAI append (units _paratroops);

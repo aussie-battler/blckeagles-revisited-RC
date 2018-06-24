@@ -25,7 +25,6 @@ _markerMissionName = "Capture Don";
 _missionLandscapeMode = "precise"; // acceptable values are "none","random","precise"
 _missionLandscape = [
 	["Flag_AAF_F",[-1.44531,-21.2148,0],0,[true,false]],
-	["Land_u_Barracks_V2_F",[-3.79102,2.56055,0],0,[true,false]],
 	["Land_BagBunker_Small_F",[33.8457,18.2461,0],51.9209,[true,false]],
 	["Land_BagBunker_Small_F",[-30.4336,22.9043,0],321.242,[true,false]],
 	["Land_BagBunker_Small_F",[-35.3164,-29.9648,0],237.265,[true,false]],
@@ -63,11 +62,26 @@ _missionLandscape = [
 	["Land_HBarrier_3_F",[8.11914,16.957,0.0400085],88.6077,[true,false]]
 	]; // list of objects to spawn as landscape; // list of objects to spawn as landscape
 	
+_buildings = [
+	"Land_Cargo_HQ_V4_F",
+	"Land_Cargo_HQ_V1_F",
+	"Land_Cargo_HQ_V2_F",
+	"Land_Cargo_HQ_V3_F",
+	"Land_Cargo_Tower_V1_F",
+	"Land_Cargo_Tower_V2_F",
+	"Land_Cargo_Tower_V3_F",
+	"Land_Cargo_Tower_V4_Fv",
+	"Land_BagBunker_01_large_green_F"
+];
 _enemyLeaderConfig = 
-	["I_G_resistanceLeader_F",[-7.83789,13.1465,-0.00143886],126.345,[true,false],
+	["I_G_resistanceLeader_F",								//  select 0
+	[-7.83789,13.1465,-0.00143886],							//  select 1
+	126.345,												// select 2
+	[true,false],											// select 3
 	["Acts_B_briefings"], // Use the animation viewer to see other choices: http://killzonekid.com/arma-3-animation-viewer-jumping-animation/
 	["H_Beret_Colonel"], // array of headgear choices
-	["U_OrestesBody"] // array of uniform choices
+	["U_OrestesBody"], // array of uniform choices
+	[selectRandom _buildings,[-3.79102,2.56055,0],0,[true,false]]
 	];  
 _enemyLeaderConfig set[
 	1, selectRandom [[-7.83789,13.1465,-0.00143886]]
@@ -123,7 +137,7 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Blue;
 //_headgear = blck_headgear;
 _chanceReinforcements = blck_chanceParaBlue; 
 _noPara = blck_noParaBlue;  
-_chanceHeliPatrol = blck_chanceHeliPatrolBlue;
+_chanceHeliPatrol = 0;
 _spawnCratesTiming = "atMissionEndAir";
 _endCondition = "assetSecured";  // Options are "allUnitsKilled", "playerNear", "allKilledOrPlayerNear", "assetSecured"
 //_timeOut = -1;

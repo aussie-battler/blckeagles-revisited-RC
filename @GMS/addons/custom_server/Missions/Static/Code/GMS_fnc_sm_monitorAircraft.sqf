@@ -45,8 +45,7 @@ _sm_groups = +blck_sm_Aircraft;
 			case 1: {
 						
 						if ([_pos,staticPatrolTriggerRange] call blck_fnc_playerInRange) then
-						{
-							private _numAI = [_units] call blck_fnc_getNumberFromRange;							
+						{						
 							_return = [_pos,_difficulty,[_aircraftType]] call blck_fnc_spawnMissionHeli; 
 							_group = group (driver (_return select 0));
 							_timesSpawned = _timesSpawned + 1;

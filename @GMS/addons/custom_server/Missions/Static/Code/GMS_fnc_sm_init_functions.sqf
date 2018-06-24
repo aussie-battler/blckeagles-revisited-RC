@@ -9,7 +9,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/	
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-diag_log "[blckeagls] GMS_fnc_sm_init_functions.sqf <Defining Variables and Compiling Functions>";
+//diag_log "[blckeagls] GMS_fnc_sm_init_functions.sqf <Defining Variables and Compiling Functions>";
 //blck_sm_Groups = [];
 blck_sm_Infantry = [];
 blck_sm_Vehicles = [];
@@ -52,6 +52,6 @@ blck_fnc_sm_spawnLootContainers = compileFinal  preprocessFileLineNumbers "\q\ad
 blck_fnc_sm_spawnObjects = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnObjects.sqf";
 blck_fnc_sm_spawnVehiclePatrols = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnVehiclePatrols.sqf";
 
-diag_log "[blckeagls] GMS_sm_init_functions.sqf <Variables Defined and Functions Loaded>";
+//diag_log "[blckeagls] GMS_sm_init_functions.sqf <Variables Defined and Functions Loaded>";
 
 blck_sm_functionsLoaded = true;

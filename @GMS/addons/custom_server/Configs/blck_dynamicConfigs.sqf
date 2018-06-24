@@ -109,7 +109,7 @@ diag_log format["_fnc_dynamicConfigsConfigurator: count _classnameList = %1",cou
 	//diag_log _temp;
 	_itemCategory = _temp select 0;
 	_itemType = _temp select 1;
-	_price = 1000000;
+	_price = blck_maximumItemPriceInAI_Loadouts;
 	if (blck_modType isEqualTo "Epoch") then
 	{
 		_price = getNumber(missionConfigFile >> "CfgPricing" >> _x >> "price");
