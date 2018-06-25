@@ -30,13 +30,13 @@ _weightTowns = 0.7;
 _weightPlayers = 0.6;
 if (blck_modType isEqualTo "Epoch") then {_pole = "PlotPole_EPOCH"};
 if (blck_modType isEqualTo "Exile") then {_pole = "Exile_Construction_Flag_Static"};
-
+_recentMissionCoords = +blck_recentMissionCoords;
 {
 	if (diag_tickTime > ((_x select 1) + 1200)) then // if the prior mission was completed more than 20 min ago then delete it from the list and ignore the check for this location.
 	{
 		blck_recentMissionCoords deleteAt (blck_recentMissionCoords find _x);
 	};
-}forEach blck_recentMissionCoords;
+}forEach _recentMissionCoords;
 
 while {_findNew} do
 {
