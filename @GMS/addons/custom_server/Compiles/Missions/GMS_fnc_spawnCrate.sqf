@@ -18,13 +18,16 @@
 private ["_crate"];
 params["_coords",["_crateType","Box_NATO_Wps_F"]];
 
-_crate = createVehicle [_crateType,_coords,[], 0, "CAN_COLLIDE"];
+_crate = createVehicle [_crateType,_coords,[], 2, "NONE"];
 _crate setVariable ["LAST_CHECK", 100000];
 _crate allowDamage false;
 _crate enableRopeAttach false;
 [_crate] call blck_fnc_emptyObject;
-_crate setPosATL _coords;
-_crate setVectorUp [0,0,0];
+uiSleep 1;
+//_crate setPosATL _coords;
+//_crate setVectorUp [0,0,1];
+_crate setVectorUp surfaceNormal position _crate;
+// the function to have a lightsource on underwater objects needs work.
 if ((_coords select 2) < 0 || surfaceIsWater (_coords)) then
 {
 
