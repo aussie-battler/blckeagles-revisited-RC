@@ -36,13 +36,11 @@ blck_modType = call blck_fnc_getModType;
 publicVariable "blck_modType";
 
 execVM "\q\addons\custom_server\Configs\blck_configs.sqf";
+
 waitUntil {(isNil "blck_configsLoaded") isEqualTo false;};
 waitUntil{blck_configsLoaded};
 blck_configsLoaded = nil;
 diag_log format["[blckeagls] blck_useHC = %1",blck_useHC];
-// Load any user-defined specifications or overrides
-call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
-
 // spawn map addons to give the server time to position them before spawning in crates etc.
 if (blck_spawnMapAddons) then
 {
@@ -61,17 +59,9 @@ blck_worldSet = nil;
 // set up the lists of available missions for each mission category
 diag_log "[blckeagls] Loading Mission Lists";
 #include "\q\addons\custom_server\Missions\GMS_missionLists.sqf";
-diag_log "[blckeagls] Mission Lists Loaded Successfully";
 
-[] execVM "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
-[] execVM "q\addons\custom_server\Missions\UMS\GMS_UMS_init.sqf";  // loads functions and spawns any static missions.
-diag_log "blck_init_server: ->> Static and UMS systems initialized.";
-
-#ifdef useDynamicSimulation
-diag_log "[blckegls] dynamic simulation manager enabled";
-#else
-diag_log "[blckegls] blckegls simulation manager enabled";
-#endif
+// Load any user-defined specifications or overrides
+call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Configs\blck_custom_config.sqf";
 
 diag_log format["[blckeagls] version %1 Build %2 Loaded in %3 seconds",_blck_versionDate,_blck_version,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
 diag_log format["blckeagls] waiting for players to join ----    >>>>"];
@@ -84,19 +74,33 @@ if !(blck_debugON || (blck_debugLevel isEqualTo 0)) then
 	diag_log "[blckeagls] spawning Missions";
 };
 
-
 if (blck_spawnStaticLootCrates) then
 {
 	// Start the static loot crate spawner
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner Started";
-	[] execVM "\q\addons\custom_server\SLS\SLS_init.sqf";
-	waitUntil {(isNil "blck_SLSComplete") isEqualTo false;};
-	waitUntil {blck_SLSComplete};
-	blck_SLSComplete = nil;
+	[] spawn compileFinal preprocessFileLineNumbers "\q\addons\custom_server\SLS\SLS_init.sqf";
+	_wait = true;
+	while {_wait} do
+	{
+		if !(isNil "blck_SLSComplete") then {
+			if (blck_SLSComplete) then {
+				blck_SLSComplete = nil;
+				_wait = false;
+			};
+		};
+		diag_log format["Waiting for SLS to be completed at %1",diag_tickTime];
+		uiSleep 1;
+	};
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner Done";
 }else{
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
 };
+
+#ifdef useDynamicSimulation
+diag_log "[blckegls] dynamic simulation manager enabled";
+#else
+diag_log "[blckegls] blckegls simulation manager enabled";
+#endif
 
 //Start the mission timers
 if (blck_enableOrangeMissions > 0) then
@@ -123,4 +127,7 @@ if (blck_enableBlueMissions > 0) then
 //  start the main thread for the mission system which monitors missions running and stuff to be cleaned up
 [] spawn blck_fnc_mainThread;
 
-diag_log "[blckeagls] < MISSION SYSTEM FULLY INITIALIZED AND RUNNING >";
+[] execVM "\q\addons\custom_server\Missions\Static\GMS_StaticMissions_init.sqf";
+[] execVM "q\addons\custom_server\Missions\UMS\GMS_UMS_init.sqf";  // loads functions and spawns any static missions.
+//diag_log "blck_init_server: ->> Static and UMS systems initialized.";
+diag_log "[blckeagls] Mission spawner started";

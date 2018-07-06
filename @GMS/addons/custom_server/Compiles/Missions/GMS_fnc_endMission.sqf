@@ -62,12 +62,12 @@ _fn_missionCleanup = {
 			diag_log format["_fnc_endMission: Mission Aborted, setting all timers to 0"];
 		};
 		#endif
-
+		/*
 		if (_endCondition == 2) then
 		{
 			[["warning",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
 		};
-
+		*/
 		[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;
 		_cleanupCompositionTimer = 0;
 		_cleanupAliveAITimer = 0;
@@ -80,7 +80,7 @@ _fn_missionCleanup = {
 			deleteVehicle _x;
 		}forEach _vehicles;
 	};
-	if (_endCondition == 0) then // Normal Mission End State
+	if (_endCondition <= 0) then // Normal Mission End State
 	{
 		//diag_log format["_fnc_endMission: mission end condition == 0 | setting all timers to 0"];
 		private["_cleanupAliveAITimer","_cleanupCompositionTimer"];
@@ -105,7 +105,8 @@ _fn_missionCleanup = {
 		
 		_cleanupCompositionTimer = blck_cleanupCompositionTimer;
 		_cleanupAliveAITimer = blck_AliveAICleanUpTimer;
-		[["end",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;
+		if (_endCondition == 0) then {[["end",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;};
+		if (_endCondition == -1) then {[["warning",_endMsg,_blck_localMissionMarker select 2]] call blck_fnc_messageplayers;};
 		[_blck_localMissionMarker select 0] call blck_fnc_deleteMarker;		
 		[_blck_localMissionMarker select 1, _markerClass] spawn blck_fnc_missionCompleteMarker;
 		// Using a variable attached to the crate rather than the global setting to be sure we do not fill a crate twice.
