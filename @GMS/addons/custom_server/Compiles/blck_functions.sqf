@@ -36,8 +36,8 @@ blck_fnc_missionCompleteMarker  = compileFinal preprocessFileLineNumbers "\q\add
 blck_fnc_deleteMarker  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_deleteMarker.sqf";
 blck_fnc_updateMarkerAliveCount = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_updateMarkerAliveCount.sqf";
 blck_fnc_addMoneyToObject = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_addMoneyToObject.sqf";
-  //  GMS_fnc_addMoneyToObject
-//blck_fnc_updateAllMarkerAliveCounts = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\updateAllMarkerAliveCounts.sqf";  //  GMS_fnc_updateAllMarkerAliveCounts
+//blck_fnc_getTraderCitiesEpoch = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitiesEpoch.sqf";
+//blck_fnc_getTraderCitesExile = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";
 
 #ifdef GRGserver	
 blck_fnc_broadcastServerFPS = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_broadcastServerFPS.sqf"; 

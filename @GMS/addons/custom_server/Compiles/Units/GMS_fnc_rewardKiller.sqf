@@ -18,7 +18,7 @@ params["_unit","_killer"];
 
 private["_reward","_maxReward","_dist","_killstreakReward","_distanceBonus","_newKillerScore","_newKillerFrags","_money"];
 
-//diag_log format["[blckeagles] rewardKiller:: - _modType = %1",_modType];
+//diag_log format["[blckeagls] rewardKiller:: - _modType = %1",_modType];
 //if (_modType isEqualTo "Epoch") exitWith {};  // Have players pull crypto from AI bodies now that this feature is available.
 
 if (blck_modType isEqualTo "Epoch") then

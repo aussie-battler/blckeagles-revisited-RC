@@ -14,8 +14,7 @@ if ( !(isServer) || hasInterface) exitWith{};
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 if !(isNil "blck_Initialized") exitWith{};
-private["_blck_loadingStartTime"];
-_blck_loadingStartTime = diag_tickTime;
+private _blck_loadingStartTime = diag_tickTime;
 #include "\q\addons\custom_server\init\build.sqf";
 diag_log format["[blckeagls] Loading Server Mission System Version %2 Build Date %1",_blck_versionDate,_blck_version];
 
@@ -23,7 +22,6 @@ call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\bl
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
 waitUntil{blck_variablesLoaded};
 blck_variablesLoaded = nil;
-//if !(blck_debugON) then {uiSleep 60;};
 
 // compile functions
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_functions.sqf";
@@ -53,7 +51,7 @@ if (blck_spawnMapAddons) then
 blck_spawnMapAddons = nil;
 
 diag_log "[blckeagls] Loading Map-specific information";
-execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_findWorld.sqf";
+execVM "\q\addons\custom_server\init\GMS_fnc_findWorld.sqf";
 waitUntil {(isNil "blck_worldSet") isEqualTo false;};
 waitUntil{blck_worldSet};
 blck_worldSet = nil;
@@ -72,7 +70,6 @@ diag_log "[blckegls] dynamic simulation manager enabled";
 #else
 diag_log "[blckegls] blckegls simulation manager enabled";
 #endif
-
 diag_log format["[blckeagls] version %1 Build %2 Loaded in %3 seconds",_blck_versionDate,_blck_version,diag_tickTime - _blck_loadingStartTime]; //,blck_modType];
 diag_log format["blckeagls] waiting for players to join ----    >>>>"];
 
@@ -83,7 +80,6 @@ if !(blck_debugON || (blck_debugLevel isEqualTo 0)) then
 } else {
 	diag_log "[blckeagls] spawning Missions";
 };
-
 
 if (blck_spawnStaticLootCrates) then
 {
@@ -96,6 +92,11 @@ if (blck_spawnStaticLootCrates) then
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner Done";
 }else{
 	diag_log "[blckeagls] SLS::  -- >>  Static Loot Spawner disabled";
+};
+
+if (true /*blck_blacklistTraderCities*/) then
+{
+	execVM "\q\addons\custom_server\init\GMS_fnc_getTraderCites.sqf";
 };
 
 //Start the mission timers

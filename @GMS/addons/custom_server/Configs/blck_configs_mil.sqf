@@ -355,8 +355,8 @@
 		waitUntil {(isNil "blck_configsEpochLoaded") isEqualTo false;};
 		waitUntil{blck_configsEpochLoaded};
 		blck_configsEpochLoaded = nil;
-		diag_log "[blckeagles] Running getTraderCitiesEpoch to get location of trader cities";
-		execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesEpoch.sqf";
+		//diag_log "[blckeagls] Running getTraderCitiesEpoch to get location of trader cities";
+		//execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesEpoch.sqf";
 	};
 	if (_modType isEqualTo "Exile") then
 	{
@@ -365,7 +365,7 @@
 		waitUntil {(isNil "blck_configsExileLoaded") isEqualTo false;};
 		waitUntil{blck_configsExileLoaded};
 		blck_configsExileLoaded = nil;
-		if (blck_blacklistTraderCities || blck_blacklistSpawns || blck_listConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";};
+		//if (blck_blacklistTraderCities || blck_blacklistSpawns || blck_listConcreteMixerZones) then {execVM "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";};
 	};	
 	if (blck_useConfigsGeneratedLoadouts) then
 	{

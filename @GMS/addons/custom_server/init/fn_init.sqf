@@ -30,3 +30,8 @@ if(!(isServer) && !(hasInterface)) then
 {
 	execVM "\q\addons\custom_server\init\blck_init_HC.sqf";	
 };
+
+if ((!isServer) && (hasInterface)) then
+{
+	diag_log "[blckeagls] <ERROR CONDITION: this mission system must be run on either a dedicated server or headless client";
+};

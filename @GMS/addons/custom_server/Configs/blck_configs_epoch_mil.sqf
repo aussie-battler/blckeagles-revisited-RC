@@ -541,7 +541,8 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
             "WhiskeyNoodle","ItemSodaAlpineDude","ItemSodaOrangeSherbet","ItemSodaPurple","ItemSodaMocha","ItemSodaBurst","ItemSodaRbull","FoodWalkNSons"
         ];
         blck_Food = [
-            "HotAxeSauce_epoch","gyro_wrap_epoch","icecream_epoch","redburger_epoch","bluburger_epoch","krypto_candy_epoch","ItemBakedBeans","ItemRiceBox","ItemPowderMilk","ItemCereals","FoodBioMeat","FoodMeeps","FoodSnooter","sardines_epoch","meatballs_epoch","scam_epoch","sweetcorn_epoch","honey_epoch","CookedSheep_EPOCH","CookedGoat_EPOCH","SnakeMeat_EPOCH",
+            "HotAxeSauce_epoch","gyro_wrap_epoch","icecream_epoch","redburger_epoch","bluburger_epoch","krypto_candy_epoch","ItemBakedBeans","ItemRiceBox","ItemPowderMilk","ItemCereals",
+			"FoodBioMeat","FoodMeeps","FoodSnooter","sardines_epoch","meatballs_epoch","scam_epoch","sweetcorn_epoch","honey_epoch","CookedSheep_EPOCH","CookedGoat_EPOCH","SnakeMeat_EPOCH",
             "CookedRabbit_EPOCH","CookedChicken_EPOCH","CookedDog_EPOCH","ItemTroutCooked","ItemSeaBassCooked","ItemTunaCooked","TacticalBacon"
         ];
         blck_ConsumableItems = blck_Meats + blck_Drink + blck_Food;
@@ -550,8 +551,13 @@ AI WEAPONS, UNIFORMS, VESTS AND GEAR
 		blck_explosives = blck_throwableExplosives + blck_otherExplosives;
 		blck_medicalItems = ["FAK"];
 		blck_specialItems = blck_throwableExplosives + blck_medicalItems;		
-		blck_NVG = ["NVG_EPOCH"];
-        blck_epochValuables = ["PartOreGold","PartOreSilver","PartOre","ItemGoldBar","ItemGoldBar2oz","ItemGoldBar3oz","ItemGoldBar4oz","ItemGoldBar5oz","ItemGoldBar6oz","ItemGoldBar7oz","ItemGoldBar8oz","ItemGoldBar9oz","ItemGoldBar10oz","ItemSilverBar","ItemSilverBar2oz","ItemSilverBar3oz","ItemSilverBar4oz","ItemSilverBar5oz","ItemSilverBar6oz","ItemSilverBar7oz","ItemSilverBar8oz","ItemSilverBar9oz","ItemSilverBar10oz","ItemAluminumBar","ItemAluminumBar10oz","ItemCopperBar","ItemCopperBar10oz","ItemTinBar","ItemTinBar10oz","ItemTopaz","ItemOnyx","ItemSapphire","ItemAmethyst","ItemEmerald","ItemCitrine","ItemRuby","ItemQuartz","ItemJade","ItemGarnet","ItemKiloHemp"];
+		blck_medicalItems = ["FAK","ItemVitamins","morphine_epoch","iodide_pills_epoch","adrenaline_epoch","caffeinepills_epoch","orlistat_epoch",
+							"atropine_epoch","ItemWaterPurificationTablets","ItemPainKillers"," ItemDefibrillator ","ItemBloodBag_Empty",
+							"ItemBloodBag_Full","ItemAntibiotic","nanite_cream_epoch ","nanite_gun_epoch","nanite_pills_epoch"];
+		blck_epochValuables = ["PartOreGold","PartOreSilver","PartOre","ItemGoldBar","ItemSilverBar",
+			"ItemGoldBar10oz","ItemTopaz","ItemOnyx","ItemSapphire","ItemAmethyst",
+			"ItemEmerald","ItemCitrine","ItemRuby","ItemQuartz","ItemJade",
+			"ItemGarnet","ItemKiloHemp"];
         blck_epochBuildingSupplies = ["PartPlankPack","ItemPlywoodPack","CinderBlocks","MortarBucket","ItemScraps",
             "ItemCorrugated","ItemCorrugatedLg","CircuitParts","WoodLog_EPOCH","ItemRope","ItemStick","ItemRock","ItemBurlap","ItemBulb","ItemSolar","ItemCables","ItemBattery","Pelt_EPOCH","JackKit","ItemCanvas","ItemSeedBag","ItemPipe"];
         blck_epochVehicleRepair = ["EngineParts","FuelTank","SpareTire","ItemGlass",

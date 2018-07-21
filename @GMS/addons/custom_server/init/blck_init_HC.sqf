@@ -23,7 +23,7 @@ if !(isNil "blck_Initialized") exitWith{};
 private["_blck_loadingStartTime"];
 _blck_loadingStartTime = diag_tickTime;
 #include "\q\addons\custom_server\init\build.sqf";
-diag_log format["[blckeagls] Loading Version %2 Build Date %1",_blck_versionDate,_blck_version];
+diag_log format["[blckeagls] Loading Headless Client Version %2 Build Date %1",_blck_versionDate,_blck_version];
 
 call compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\blck_variables.sqf";
 waitUntil {(isNil "blck_variablesLoaded") isEqualTo false;};
