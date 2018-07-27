@@ -21,6 +21,7 @@ if !(_objects isEqualTo []) exitWith
 		{
 			diag_log format["_fnc_sm_spawnLootContainers (21):->  _x = %1",_x];
 		};
+		#endif
 		_crate = [_x select 1, _x select 0] call blck_fnc_spawnCrate;
 		[_crate, _x select 4, _x select 5] call blck_fnc_fillBoxes;
 	} forEach _objects;
@@ -35,6 +36,7 @@ if (_objects isEqualTo []) then
 		diag_log format["_fnc_sm_spawnLootContainers: _this = %1",_this];
 		diag_log format["_fnc_sm_spawnLootContainers: _coords = %1",_coords];
 	};
+	#endif
 	_crateType = selectRandom blck_crateTypes;
 	_crate = [_coords,_crateType] call blck_fnc_spawnCrate;
 	[_crate,blck_BoxLoot_Red,blck_lootCountsGreen] call blck_fnc_fillBoxes;
