@@ -454,6 +454,7 @@ while {_missionComplete isEqualTo -1} do
 		if !(alive _assetSpawned) then 
 		{
 			_missionComplete = 1;
+			[_assetSpawned] remoteExec["GMS_fnc_clearAllActions",-2, true];		
 		} else {
 			
 			if (({alive _x} count _blck_AllMissionAI) <= _minNoAliveForCompletion) then
@@ -467,6 +468,7 @@ while {_missionComplete isEqualTo -1} do
 				{
 					_missionComplete = 1;
 					_assetSpawned allowdamage false;
+					[_assetSpawned] remoteExec["GMS_fnc_clearAllActions",-2, true];
 				};
 				
 			};
@@ -575,7 +577,7 @@ if (_secureAsset && (alive _assetSpawned)) then
 	if (_assetSpawned getVariable["assetType",0] isEqualTo 1) then
 	{
 		//diag_log "Processing Mission End for Hostage Rescue";
-		_assetSpawned setCaptive false;
+		//_assetSpawned setCaptive false;
 		_assetSpawned setVariable["GMSAnimations",[""],true];
 		[_assetSpawned,""] remoteExec["switchMove",-2];;
 		uiSleep 0.1;
