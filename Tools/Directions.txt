@@ -1,0 +1,53 @@
+Tools for blckeagls
+
+These tools should facilitate exporting information from the editor when creating new static or dynamic missions.
+
+I will cover configuration of Static Missions first.
+
+Because the tools are not yet available as a plug in for the editor, you need to do a bit of preparation to use them but its nothing too difficult.
+
+/////////////////////
+The basic steps are:
+/////////////////////
+Lay out your mission in the editor. 
+Note that the first thing you do should be to place a unit who will be your player character while you use the tools.
+Then, place the units, vehicles, structures, loot crates, and any other elements. 
+Ror static missions be sure to also place a marker.
+
+Now, copy the sqf files from the tool folders into your mission folder.
+'Play' the mission. 
+Tools will be available through the action menu.
+
+For static missions, just scrolll through the options with your mouse wheel and select the option to "".
+The mission configurations will be copied to the clipboard.
+Alt-Tab out and open your favorite text editor, then paste the output into a new file.
+You are now ready to modify the static mission template by pasting in the information about markers and various units.
+Note that you will have to defin a few variables like _crateLoot and_lootCounts.
+
+Any other variables you wish to adjust in the template can be modified at this time.
+
+
+For dynamic missions, the steps are similar but a bit more is involved.
+
+First, configure yoru mission as above.
+
+Hit Play.
+Set a mission center which is used to calculate the relative position of objects. 
+You can define it by placing a traffic cone with a light on it then selecting the action menu choice to use it a the center OR
+by moving to the spot you want to be the center and selecting the appropriate option.
+Next just select the menu option you want for the mode in which configs are exported. There are two possible methods to export configurations
+the first dumps everything into a single list of objects.
+The second pre-configures the definitions used in the mission file.
+The output is copied to the clipboard as above.
+Once the script is done just paste ito you script editor and merge that content with a mission template.
+
+////////////////
+CONFIGURATION
+///////////////
+
+Variables used are defined in init.sqf
+
+//////////////
+Limitations
+/////////////
+For some reason, at this time, the Z coordinate of objects is corrupted during export of dynamic missions.
