@@ -16,11 +16,11 @@ if (isNil "CENTER") exitWith {systemChat "Please define the mission center"};
 
 diag_log "==========  <START>  ==========================";
 _fn_getRelPos_x = {
-	_opz = (getPos (_this select 0)) select 2;
-	_cpz = CENTER select 2;
-	_zd = _opz - _cpz;
-	private _p = (getPos (_this select 0)) vectorDiff CENTER;
-	_p set [2,_zd];
+	//_opz = (getPos (_this select 0)) select 2;
+	//_cpz = CENTER select 2;
+	//_zd = _opz - _cpz;
+	private _p = (getPosASL (_this select 0)) vectorDiff CENTER;
+	//_p set [2,_zd];
 	_p;
 };
 ///////////////////

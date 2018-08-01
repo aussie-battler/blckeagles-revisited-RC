@@ -4,7 +4,7 @@ _obj = [];
 _cb = "";
 _mo = allMissionObjects "All";
 {
-	_line = format["[%1,%2,%3]",typeOf _x, (CENTER vectorDiff (getPosASL _x)),getDir _x];
+	_line = format["[%1,%2,%3]",typeOf _x, ((getPosASL _x) vectorDiff CENTER),getDir _x]; // (CENTER vectorDiff (getPosATL _x)),getDir _x];
 	systemChat format["%1",_line];
 	_obj pushBack _line;
 	_cb = _cb + format["%1,%2",_line,endl];
