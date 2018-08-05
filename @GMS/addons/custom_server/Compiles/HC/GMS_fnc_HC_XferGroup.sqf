@@ -11,10 +11,10 @@
 */
 //#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
-diag_log format["_fnc_HC_XferGroup:: _this = %1",_this];
+//diag_log format["_fnc_HC_XferGroup:: _this = %1",_this];
 private["_group","_client","_unit","_tempEH"];
 _group = _this select 0;
-blck_HC_monitoredGroups pushBack _group;
+//blck_HC_monitoredGroups pushBack _group;
 _client = clientOwner;
 {
 	_unit = _x;

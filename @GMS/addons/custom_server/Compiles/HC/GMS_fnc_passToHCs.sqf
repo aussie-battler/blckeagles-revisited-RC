@@ -41,8 +41,8 @@ if ( (count blck_connectedHCs) > 0) then
 			if ((groupOwner _x) == 2) then 
 			{
 				//diag_log format["blckeagls group %1 is on the server: we should be moved to HC %2 with _idHC %3",_x,_idHC];
-				_x setVariable["owner",owner _idHC];				
-				_x setVariable["Group",group (driver _x)),true]
+				//_x setVariable["owner",owner _idHC];				
+				//_x setVariable["Group",group (driver _x)),true]
 				private _sgor = _x setGroupOwner (owner _idHC);
 				//diag_log format["setGroupOwner returned %1",_sgor];
 				//diag_log format["_veh %1 variable owner set to %2",getVariable _veh["owner",-1]];
