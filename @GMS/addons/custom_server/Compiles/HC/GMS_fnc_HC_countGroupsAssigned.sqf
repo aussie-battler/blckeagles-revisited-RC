@@ -1,19 +1,15 @@
-
 /*
-blck_fnc_HC_XferGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_XferGroup.sqf"; 
-//blck_fnc_HC_XferVehicle = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_XferVehicle.sqf";
-blck_fnc_onPlayerDisconnected = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_onPlayerDisconnected.sqf";
-//blck_fnc_HC_groupsAssigned = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_groupsAssigned.sqf";
-blck_fnc_HC_monitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HCmonitor.sqf";
-blck_fnc_HC_vehicleMonitor = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_vehicleMonitor.sqf";
-blck_fnc_monitorHC = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_monitorHC.sqf";
-blck_fnc_passToHCs = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_passToHCs.sqf";
-blck_fnc_HC_getListConnected = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_getListConnected.sqf";
-blck_fnc_HC_leastBurdened = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_leastBurdened.sqf";
-blck_fnc_HC_countGroupsAssigned = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\HC\GMS_fnc_HC_countGroupsAssigned.sqf";
+	Killed handler for _units
+	By Ghostrider-GRG-
 
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
-//blck_fnc_HC_countGroupsAssigned = 
+//#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 params["_HC"];
 private["_result"];

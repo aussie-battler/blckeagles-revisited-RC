@@ -74,10 +74,10 @@ if (_missionPatrolVehicles isEqualTo []) then
 	{
 		_abort = true;
 	};
-	if !(isNull _vehGroup) then
-	{
-		blck_monitoredMissionAIGroups pushBack _vehGroup;
-	};
+	//if !(isNull _vehGroup) then
+	//{
+		//blck_monitoredMissionAIGroups pushBack _vehGroup;
+	//};
 
 	
 	#ifdef blck_debugMode

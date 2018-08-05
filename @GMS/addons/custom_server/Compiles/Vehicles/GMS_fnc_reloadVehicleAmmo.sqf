@@ -1,6 +1,18 @@
 
 
-//_fn_reloadAmmo = {
+/*
+	Killed handler for _units
+	By Ghostrider-GRG-
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 	params["_veh"];
 	private ["_crew","_mag","_allMags","_cnt"];
 	//  https://community.bistudio.com/wiki/fullCrew

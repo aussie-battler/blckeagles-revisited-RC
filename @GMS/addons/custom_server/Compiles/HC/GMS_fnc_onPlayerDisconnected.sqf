@@ -1,3 +1,16 @@
+/*
+	Killed handler for _units
+	By Ghostrider-GRG-
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+//#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
 params["_name","_owner"];
 //diag_log format["_fnc_onPlayerDisconnected triggered with _name = %1 and _owner = %2",_name,_owner];
 private["_HCownerids","_groupLocalEH","_vehicleLocalEH"];

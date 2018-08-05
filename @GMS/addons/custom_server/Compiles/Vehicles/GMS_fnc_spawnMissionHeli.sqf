@@ -149,7 +149,7 @@ if !(isNull _grpPilot)  then
 	};
 	#endif
 
-	blck_monitoredMissionAIGroups pushBack _grpPilot;
+	//blck_monitoredMissionAIGroups pushBack _grpPilot;
 };
 //diag_log format["[blckeagls] _fnc_spawnMissionHeli:: _patrolHeli %1 | _grpPilot %2 | _abort %3",_patrolHeli,_grpPilot,_abort];
 _return = [_patrolHeli,units _grpPilot,_abort];

@@ -67,6 +67,6 @@ for "_i" from 1 to _numAI do
 };
 
 
-blck_monitoredMissionAIGroups pushback _paraGroup;
+//blck_monitoredMissionAIGroups pushback _paraGroup;
 
 _paraGroup

@@ -1,18 +1,19 @@
 /*
- * passToHCs.sqf
- *
- * In the mission editor, name the Headless Clients "HC", "HC2", "HC3" without the quotes
- *
- * In the mission init.sqf, call passToHCs.sqf with:
- * execVM "passToHCs.sqf";
- *
- * It seems that the dedicated server and headless client processes never use more than 20-22% CPU each.
- * With a dedicated server and 3 headless clients, that's about 88% CPU with 10-12% left over.  Far more efficient use of your processing power.
- *
- */
+	Killed handler for _units
+	By Ghostrider-GRG-
 
-_clientId = clientOwner;
-_allGroups = allGroups;
-_groupsOwned = {groupOwner _x isEqualTo _clientId)} count allGroups;
-[_clientId,_groupsOwned] remoteExec ["blck_fnc_updateClientGroupCounts",2];
-diag_log format["_fnc_HC_groupsAssigned:: %1 groups running on client %2",_groupsOwned,_clientId];
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+//#include "\q\addons\custom_server\Configs\blck_defines.hpp";
+
+private _clientId = clientOwner;
+private _groupsOwned = {groupOwner _x isEqualTo _clientId)} count allGroups;
+//diag_log format["_fnc_HC_groupsAssigned:: %1 groups running on client %2",_groupsOwned,_clientId];
+_groupsOwned
+//[_clientId,_groupsOwned] remoteExec ["blck_fnc_updateClientGroupCounts",2];
+

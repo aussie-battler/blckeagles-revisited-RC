@@ -1,10 +1,15 @@
-////////////////////////////////////////////
-// Create, delete and change Mission Markers
-// 7/10/15
-// by Ghostrider-GRG-
-//////////////////////////////////////////
-// spawn a temporary marker to indicate the position of a 'completed' mission
-// this will not show to JIP players
+/*
+	Killed handler for _units
+	By Ghostrider-GRG-
+
+	--------------------------
+	License
+	--------------------------
+	All the code and information provided here is provided under an Attribution Non-Commercial ShareAlike 4.0 Commons License.
+
+	http://creativecommons.org/licenses/by-nc-sa/4.0/
+*/
+//#include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private["_location","_MainMarker","_name"];
 //diag_log format["blck_fnc_missionCompleteMarker:: _this = %1",_this];
