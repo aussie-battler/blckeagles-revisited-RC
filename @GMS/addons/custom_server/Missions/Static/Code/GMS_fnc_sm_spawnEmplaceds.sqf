@@ -44,7 +44,7 @@ if (_missionEmplacedWeapons isEqualTo []) then
 	[_pos,0.01,0.02,_empGroup,"random","SAD","emplaced"] spawn blck_fnc_setupWaypoints;
 	//if (isNull _empGroup) exitWith {_abort = _true};
 	_wep = [_wepnClassName,[0,0,0],false] call blck_fnc_spawnVehicle;
-	_empGroup setVariable["groupVehicle",_wep];
+	//_empGroup setVariable["groupVehicle",_wep];
 	_wep setVariable["vehicleGroup",_empGroup];
 	_wep setVariable["GRG_vehType","emplaced"];	
 	_wep setPosATL _pos;

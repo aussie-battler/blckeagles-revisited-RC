@@ -19,7 +19,7 @@ _sm_groups = +blck_sm_submarines;
 	//diag_log format["_fnc_monitorSubs: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorSubs (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];
 	//_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnTime"];
-	_groupParameters params["_vehicleType","_pos","_difficulty","_patrolRadius","_respawnTime"];	
+	_groupParameters params["_vehicleType","_pos","_difficulty","_patrolRadius","_respawnTime","_maxRespawns"];	
 	//diag_log format["_fnc_monitorVehicles: _vehicleType | %1 | _pos = %2 | _difficulty = %3 | _patrolRadius = %4 | _respawnTime = %5",_vehicleType,_pos,_difficulty,_patrolRadius,_respawnTime];
 	private _element = +_x;//
 	
@@ -35,6 +35,7 @@ _sm_groups = +blck_sm_submarines;
 		if (_timesSpawned > 0) then
 		{
 			if ((_groupSpawned == 1) && (_respawnTime == 0)) then {_mode = 0}; // remove patrol from further evaluation
+			if ((_timesSpawned > _maxRespawns) && (_maxRespawns != -1)) then {_mode = 0}; 			
 			if ((_groupSpawned == 1) && (_respawnTime > 0)) then {_mode = 2}; // set up for respawn at a later time 
 			if ((_groupSpawned == 0) && (diag_tickTime > _respawnAt)) then {_mode = 1};
 		};

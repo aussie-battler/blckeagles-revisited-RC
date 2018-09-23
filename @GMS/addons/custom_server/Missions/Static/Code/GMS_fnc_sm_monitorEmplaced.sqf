@@ -17,7 +17,7 @@ _sm_groups = +blck_sm_Emplaced;
 	//diag_log format["_fnc_monitorEmplaced: _x %1",_x];
 	//diag_log format["_fnc_monitorEmplaced: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorEmplaced (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];
-	//_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnTime"];
+	_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnTime"];
 	_groupParameters params["_vehicleType","_pos","_difficulty","_patrolRadius","_respawnTime"];	
 	//diag_log format["_fnc_monitorEmplaced: _vehicleType | %1 | _pos = %2 | _difficulty = %3 | _patrolRadius = %4 | _respawnTime = %5",_vehicleType,_pos,_difficulty,_patrolRadius,_respawnTime];
 	private _element = +_x;//

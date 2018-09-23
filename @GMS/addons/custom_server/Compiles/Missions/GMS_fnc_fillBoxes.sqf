@@ -22,15 +22,18 @@
 	}foreach _this;
 	#endif
 	_itemCnts params["_wepCnt","_magCnt","_opticsCnt","_materialsCnt","_itemCnt","_bkcPckCnt"];
-	_tries = [_wepCnt] call blck_fnc_getNumberFromRange;
-	//diag_log format["_fnc_fillBoxes (26): loading %1 weapons",_wepCnt];
-	if (_tries > 0) then
+	_boxLoot params["_weapons","_magazines","_optics","_materials","_items","_backpacks"];
+
+	//diag_log format["_fnc_fillBoxes: _weapons = %1",_weapons];
+	if !(_weapons isEqualTo []) then
 	{
-		_a1 = _boxLoot select 0; // choose the subarray of weapons and corresponding magazines
+		_tries = [_wepCnt] call blck_fnc_getNumberFromRange;
+		//diag_log format["_fnc_fillBoxes (31): loading %1 weapons",_tries];
 		// Add some randomly selected weapons and corresponding magazines
-		for "_i" from 1 to _tries do {
-			_item = selectRandom _a1;
-			//diag_log format["_fnc_fillBoxes: _item = %1",_item];
+		for "_i" from 0 to (_tries - 1) do 
+		{
+			_item = selectRandom _weapons;
+			//diag_log format["_fnc_fillBoxes with weapons: _item = %1",_item];
 			if (typeName _item isEqualTo "ARRAY") then  //  Check whether weapon name is part of an array that might also specify an ammo to use
 			{ 
 				_crate addWeaponCargoGlobal [_item select 0,1];  // if yes then assume the first element in the array is the weapon name
@@ -48,104 +51,115 @@
 			};
 		};
 	};
-	_tries = [_magCnt] call blck_fnc_getNumberFromRange;
-	//diag_log format["_fnc_fillBoxes (26): loading %1 magazines",_magCnt];	
-	if (_tries > 0) then
-	{	
-	// Add Magazines, grenades, and 40mm GL shells
-		_a1 = _boxLoot select 1;
-		for "_i" from 1 to _tries do {
-			_item = selectRandom _a1;
-			//diag_log format["_fnc_fillBoxes: _item = %1",_item];
-			if (typeName _item isEqualTo "ARRAY") then
-			{
-				_diff = (_item select 2) - (_item select 1);  // Take difference between max and min number of items to load and randomize based on this value
-				_crate addMagazineCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
-			};
-			if (typeName _item isEqualTo "STRING") then
-			{
-				_crate addMagazineCargoGlobal [_item, 1];
-			};
-		};
-	};
-	_tries = [_opticsCnt] call blck_fnc_getNumberFromRange;
-	//diag_log format["_fnc_fillBoxes (72): loading %1 weapons",_wepCnt];	
-	if (_tries > 0) then
+
+	//diag_log format["_fnc_fillBoxes: _magazines = %1",_magazines];
+	if !(_magazines isEqualTo []) then
 	{
-		// Add Optics
-		_a1 = _boxLoot select 2;
-		for "_i" from 1 to _tries do {
-			_item = selectRandom _a1;
-			//diag_log format["_fnc_fillBoxes: _item = %1",_item];
-			if (typeName _item isEqualTo "ARRAY") then
-			{
-				_diff = (_item select 2) - (_item select 1); 
-				_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
-			};
-			if (typeName _item isEqualTo "STRING") then
-			{
-				_crate addItemCargoGlobal [_item,1];
-			};
-		};
-	};
-	_tries = [_materialsCnt] call blck_fnc_getNumberFromRange;
-	//diag_log format["_fnc_fillBoxes (92): loading %1 materials",_materialsCnt];	
-	if (_tries > 0) then
-	{
-		// Add materials (cindar, mortar, electrical parts etc)
-		_a1 = _boxLoot select 3;
-		for "_i" from 1 to _tries do {
-			_item = selectRandom _a1;
-			//diag_log format["_fnc_fillBoxes: _item = %1",_item];
-			if (typeName _item isEqualTo "ARRAY") then
-			{
-				_diff = (_item select 2) - (_item select 1); 
-				_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
-			};
-			if (typeName _item isEqualTo "STRING") then
-			{
-				_crate addItemCargoGlobal [_item, 1];
-			};
-		};
-	};
-	_tries = [_itemCnt] call blck_fnc_getNumberFromRange;
-	//diag_log format["_fnc_fillBoxes (112): loading %1 items",_itemCnt];	
-	if (_tries > 0) then
-	{
-		// Add Items (first aid kits, multitool bits, vehicle repair kits, food and drinks)
-		_a1 = _boxLoot select 4;
-		for "_i" from 1 to _tries do {
-			_item = selectRandom _a1;
-			//diag_log format["_fnc_fillBoxes: _item = %1",_item];
-			if (typeName _item isEqualTo "ARRAY") then
-			{
-				_diff = (_item select 2) - (_item select 1); 
-				_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
-			};
-			if (typeName _item isEqualTo "STRING") then
-			{
-				_crate addItemCargoGlobal [_item, 1];
-			};
-		};
-	};	
-	_tries = [_bkcPckCnt] call blck_fnc_getNumberFromRange;
-	//diag_log format["_fnc_fillBoxes (132): loading %1 backpacs",_bkcPckCnt];	
-	if (_tries > 0) then
-	{
-		_a1 = _boxLoot select 5;
-		for "_i" from 1 to _tries do {
-			_item = selectRandom _a1;
-			//diag_log format["_fnc_fillBoxes: _item = %1",_item];			
-			if (typeName _item isEqualTo "ARRAY") then
-			{
-				_diff = (_item select 2) - (_item select 1); 
-				_crate addbackpackcargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
-			};
-			if (typeName _item isEqualTo "STRING") then
-			{
-				_crate addbackpackcargoGlobal [_item, 1];
-			};
+		_tries = [_magCnt] call blck_fnc_getNumberFromRange;
+		//diag_log format["_fnc_fillBoxes (26): loading %1 magazines",_tries];	
+		// Add Magazines, grenades, and 40mm GL shells
+		for "_i" from 0 to (_tries - 1) do 
+		{
+				_item = selectRandom _magazines;
+				//diag_log format["_fnc_fillBoxes with magazines: _item = %1",_item];
+				if (typeName _item isEqualTo "ARRAY") then
+				{
+					_diff = (_item select 2) - (_item select 1);  // Take difference between max and min number of items to load and randomize based on this value
+					_crate addMagazineCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
+				};
+				if (typeName _item isEqualTo "STRING") then
+				{
+					_crate addMagazineCargoGlobal [_item, 1];
+				};
 		};
 	};
 
+	//diag_log format["_fnc_fillBoxes: _optics = %1",_optics];
+	if !(_optics isEqualTo []) then
+	{
+		_tries = [_opticsCnt] call blck_fnc_getNumberFromRange;
+		//diag_log format["_fnc_fillBoxes (72): loading %1 optics",_tries];	
+		// Add Optics
+		for "_i" from 0 to (_tries - 1) do 
+		{
+				_item = selectRandom _optics;
+				//diag_log format["_fnc_fillBoxes with optics: _item = %1",_item];
+				if (typeName _item isEqualTo "ARRAY") then
+				{
+					_diff = (_item select 2) - (_item select 1); 
+					_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
+				};
+				if (typeName _item isEqualTo "STRING") then
+				{
+					_crate addItemCargoGlobal [_item,1];
+				};
+		};
+	};
+
+	//diag_log format["_fnc_fillBoxes: _materials = %1",_materials];
+	if !(_materials isEqualTo []) then
+	{
+		_tries = [_materialsCnt] call blck_fnc_getNumberFromRange;
+		//diag_log format["_fnc_fillBoxes (92): loading %1 materials",_materialsCnt];	
+		// Add materials (cindar, mortar, electrical parts etc)
+		for "_i" from 0 to (_tries - 1) do 
+		{
+				_item = selectRandom _materials;
+				//diag_log format["_fnc_fillBoxes with materials: _item = %1",_item];
+				if (typeName _item isEqualTo "ARRAY") then
+				{
+					_diff = (_item select 2) - (_item select 1); 
+					_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
+				};
+				if (typeName _item isEqualTo "STRING") then
+				{
+					_crate addItemCargoGlobal [_item, 1];
+				};
+		};
+	};
+
+	//diag_log format["_fnc_fillBoxes: _items = %1",_items];
+	if !(_items isEqualTo []) then
+	{
+		_tries = [_itemCnt] call blck_fnc_getNumberFromRange;
+		//diag_log format["_fnc_fillBoxes (112): loading %1 items",_itemCnt];	
+		// Add Items (first aid kits, multitool bits, vehicle repair kits, food and drinks)
+		for "_i" from 0 to (_tries - 1) do 
+		{
+				_item = selectRandom _items;
+				//diag_log format["_fnc_fillBoxes with items: _item = %1",_item];
+				if (typeName _item isEqualTo "ARRAY") then
+				{
+					_diff = (_item select 2) - (_item select 1); 
+					_crate additemCargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];		
+				};
+				if (typeName _item isEqualTo "STRING") then
+				{
+					_crate addItemCargoGlobal [_item, 1];
+				};
+		};	
+	};
+
+	//diag_log format["_fnc_fillBoxes: _backpacks = %1",_backpacks];
+	if !(_backpacks isEqualTo []) then
+	{	
+		_tries = [_bkcPckCnt] call blck_fnc_getNumberFromRange;
+		//diag_log format["_fnc_fillBoxes (132): loading %1 backpacks",_tries];	
+		for "_i" from 0 to (_tries - 1) do 
+		{
+				_item = selectRandom _backpacks;
+				//diag_log format["_fnc_fillBoxes with backpacks: _item = %1",_item];			
+				if (typeName _item isEqualTo "ARRAY") then
+				{
+					_diff = (_item select 2) - (_item select 1); 
+					_crate addbackpackcargoGlobal [_item select 0, (_item select 1) + round(random(_diff))];
+				};
+				if (typeName _item isEqualTo "STRING") then
+				{
+					_crate addbackpackcargoGlobal [_item, 1];
+				};
+		};
+	};
+	//diag_log "_fnc_fillBoxes <END>";
+	//diag_log format["testCrateLoading:  crate inventory = %1",getItemCargo _crate];
 	//diag_log "_fnc_fillBoxes <END>";

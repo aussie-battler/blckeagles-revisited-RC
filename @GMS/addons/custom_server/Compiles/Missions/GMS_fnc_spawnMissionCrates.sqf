@@ -32,7 +32,7 @@ if ((count _coords) == 2) then // assume only X and Y offsets are provided
 _cratesSpawned = [];
 
 {
-	_x params["_crateType","_crateOffset","_lootArray","_lootCounts"];
+	_x params["_crateType","_crateOffset","_lootArray","_lootCounts",["_crateDir",0]];
 	//_pos = [(_coords select 0)+(_crateOffset select 0),(_coords select 1) + (_crateOffset select 1),(_coords select 2)+(_crateOffset select 2)]; // calculate the world coordinates
 	private _xParams = ["_crateType","_crateOffset","_lootArray","_lootCounts"];
 	{
@@ -41,6 +41,7 @@ _cratesSpawned = [];
 	}forEach _x;
 	_pos = _coords vectorAdd _crateOffset;
 	_crate = [_pos,_crateType] call blck_fnc_spawnCrate;
+	_crate setDir _crateDir;
 	_crate setVariable["lootArray",_lootArray];
 	_crate setVariable["lootCounts",_lootCounts];
 	_crate setVariable["difficulty",_difficulty];

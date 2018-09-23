@@ -18,8 +18,9 @@ blck_sm_Emplaced = [];
 blck_sm_scubaGroups = [];
 blck_sm_surfaceShips = [];
 blck_sm_submarines = [];
-
 blck_sm_lootContainers = [];
+blck_sm_garrisonBuildings_ASL = [];
+blcl_sm_garrisonBuilding_relPos = [];
 
 blck_fnc_sm_AddGroupToArray = compileFinal  preprocessFileLineNumbers  "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_AddGroupToArray.sqf";
 
@@ -38,6 +39,8 @@ blck_fnc_sm_monitorAircraft = compileFinal  preprocessFileLineNumbers "\q\addons
 blck_fnc_sm_monitorShips = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_monitorShips.sqf";
 blck_fnc_sm_monitorSubs = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_monitorSubs.sqf";
 blck_fnc_sm_monitorEmplaced = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_monitorEmplaced.sqf";
+blck_fnc_sm_monitorGarrisonsASL = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_monitorGarrisonsASL.sqf";
+blck_fnc_sm_monitorGarrisons_relPos = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_monitorGarrisons_relPos.sqf";
 
 blck_fnc_sm_spawnVehiclePatrol = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnVehiclePatrol.sqf";
 blck_fnc_sm_spawnAirPatrol = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnAirPatrol.sqf";
@@ -51,7 +54,10 @@ blck_fnc_sm_spawnInfantryPatrols = compileFinal  preprocessFileLineNumbers "\q\a
 blck_fnc_sm_spawnLootContainers = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnLootContainers.sqf";
 blck_fnc_sm_spawnObjects = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnObjects.sqf";
 blck_fnc_sm_spawnVehiclePatrols = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnVehiclePatrols.sqf";
+blck_fnc_sm_spawnBuildingGarrison_ASL = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnBuildingGarrisonASL.sqf";
+blck_fnc_sm_spawnBuildingGarrison_relPos = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnBuildingGarrison_relPos.sqf";
+blck_fnc_sm_spawnObjectASLVectorDirUp = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Missions\Static\Code\GMS_fnc_sm_spawnObjectASLVectorDirUp.sqf";
 
-//diag_log "[blckeagls] GMS_sm_init_functions.sqf <Variables Defined and Functions Loaded>";
+diag_log "[blckeagls] GMS_sm_init_functions.sqf <Variables Defined and Functions Loaded>";
 
 blck_sm_functionsLoaded = true;

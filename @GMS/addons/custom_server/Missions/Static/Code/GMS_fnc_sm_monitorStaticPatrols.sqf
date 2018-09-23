@@ -19,5 +19,7 @@
 [] call blck_fnc_sm_monitorScuba;
 [] call blck_fnc_sm_monitorShips;
 [] call blck_fnc_sm_monitorSubs;
+[] call blck_fnc_sm_monitorGarrisonsASL;
+[] call blck_fnc_sm_monitorGarrisons_relPos;
 
 

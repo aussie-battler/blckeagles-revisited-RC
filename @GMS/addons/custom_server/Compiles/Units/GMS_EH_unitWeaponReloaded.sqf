@@ -32,7 +32,7 @@
 //_mag = _this select 3 select 0;
 (_this select 0) addMagazine (_this select 3 select 0);
 #ifdef blck_debugMode
-if (blck_debugON  || blck_debugLevel > 2) then {
+if (blck_debugLevel > 2) then {
 	//diag_log format["_EH_unitWeaponReloaded:: unit %1 reloaded weapon %2 with magazine %3",_this select 0, (_this select 3 select 0)];
 	//diag_log format["_EH_unitWeaponReloaded:: unit %1 currently has the following magazines 2",_this select 0,magazines (_this select 0)];
 	diag_log format["_EH_unitWeaponReloaded:: one magazine of type %1 added to inventory of unit %2",_mag,_unit];

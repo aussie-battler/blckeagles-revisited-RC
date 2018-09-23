@@ -40,7 +40,7 @@ if (_numai2 > _numai1) then
 };
 
 #ifdef blck_debugMode
-if (blck_debugLevel  >= 1) then
+if (blck_debugLevel  >= 2) then
 {
 	diag_log format["spawnGroup.sqf:  _numbertospawn = %1",_numbertospawn];
 };

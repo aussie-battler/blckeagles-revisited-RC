@@ -72,7 +72,7 @@ if !(isNull _grpPilot)  then
 	#endif
 
 	_patrolHeli = createVehicle [_chopperType, _coords, [], 90, "FLY"];
-	_grpPilot setVariable["groupVehicle",_patrolHeli];
+	//_grpPilot setVariable["groupVehicle",_patrolHeli];
 	[_patrolHeli] call blck_fnc_protectVehicle;
 	_patrolHeli setFuel 1;
 	_patrolHeli engineOn true;

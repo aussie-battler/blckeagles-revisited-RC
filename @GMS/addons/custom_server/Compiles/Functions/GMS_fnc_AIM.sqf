@@ -9,7 +9,7 @@
 	http://creativecommons.org/licenses/by-nc-sa/4.0/
 */
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
-
+if !(isServer) exitWith {};
 params["_msg",["_players",allplayers]];
 #ifdef blck_debugMode
 if (blck_debugLevel > 1) then {diag_log format["AIM.sqf ===]  _this = %1 | _msg = %2 | _players = %3",_this,_msg, _players];};

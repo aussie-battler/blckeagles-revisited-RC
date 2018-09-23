@@ -17,7 +17,7 @@ _sm_groups = +blck_sm_Infantry;
 	//diag_log format["_fnc_monitorInfantry: _x %1",_x];
 	//diag_log format["_fnc_monitorInfantry: _groupParameters = %1",_groupParameters];
 	//diag_log format["_fnc_monitorInfantry (9): _group %1 | _groupSpawned %2 | _timesSpawned %3 | _respawnAt %4",_group,_groupSpawned,_timesSpawned,_respawnAt];
-	_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnTime"];
+	_groupParameters params["_pos","_difficulty","_units","_patrolRadius","_respawnTime","_maxRespawns"];
 	//diag_log format["_fnc_monitorInfantry: _pos = %1 | _difficulty = 2 | _units = %3 | _patrolRadius = %4 | _respawnTime = %5",_pos,_difficulty,_units,_patrolRadius,_respawnTime];
 	private _element = +_x;//
 	

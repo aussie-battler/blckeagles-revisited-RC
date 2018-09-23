@@ -97,7 +97,7 @@ if (_missionPatrolVehicles isEqualTo []) then
 
 	//params["_center","_pos",["_vehType","I_G_Offroad_01_armed_F"],["_minDis",30],["_maxDis",45],["_group",grpNull]];
 	_patrolVehicle = [_coords,_spawnPos,_vehicle,30,45,_vehGroup,true] call blck_fnc_spawnVehiclePatrol;
-	_vehGroup setVariable["groupVehicle",_vehicle];
+	//_vehGroup setVariable["groupVehicle",_vehicle];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{

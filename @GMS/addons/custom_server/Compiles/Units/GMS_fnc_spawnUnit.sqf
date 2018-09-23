@@ -13,7 +13,7 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private ["_i","_weap","_skin","_unit","_skillLevel","_aiSkills","_launcherRound","_index","_ammoChoices","_optics","_pointers","_muzzles","_underbarrel","_legalOptics"];
-params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", []],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false]];
+params["_pos","_aiGroup",["_skillLevel","red"],["_uniforms", []],["_headGear",[]],["_vests",[]],["_backpacks",[]],["_Launcher","none"],["_weaponList",[]],["_sideArms",[]],["_scuba",false],["_garrison",false]];
 
 if (_weaponList isEqualTo []) then {_weaponList = [_skillLevel] call blck_fnc_selectAILoadout};
 if (_sideArms  isEqualTo [])  then {_sideArms = [_skillLevel] call blck_fnc_selectAISidearms};
@@ -25,7 +25,7 @@ if (_backpacks  isEqualTo []) then {_backpacks = [_skillLevel] call blck_fnc_sel
 #ifdef blck_debugMode
 if (blck_debugLevel >= 2) then
 {
-	private _params = ["_pos","_aiGroup","_skillLevel","_uniforms","_headGear","_vests","_backpacks","_Launcher","_weaponList","_sideArms","_scuba"];  //"_weaponList",  "_Launcher"
+	private _params = ["_pos","_aiGroup","_skillLevel","_uniforms","_headGear","_vests","_backpacks","_Launcher","_weaponList","_sideArms","_scuba","_garrison"];  //"_weaponList",  "_Launcher"
 	{
 		diag_log format["_fnc_spawnUnit::-> _this select %1 (%2) = %3",_forEachIndex, _params select _forEachIndex, _this select _forEachIndex];
 	}forEach _this;
@@ -79,6 +79,7 @@ if (_scuba) then
 	};
 	#endif
 };
+
 _skin = "";
 _counter = 1;
 //diag_log format["_fnc_spawnUnit: _uniforms = %1",_uniforms];
@@ -96,6 +97,10 @@ while {_skin isEqualTo "" && _counter < 10} do
 };
 //Sets AI Tactics
 _unit enableAI "ALL";
+if(_garrison) then
+{
+	_unit disableAI "PATH";
+};
 _unit allowDammage true;
 _unit setBehaviour "COMBAT";
 _unit setunitpos "AUTO";

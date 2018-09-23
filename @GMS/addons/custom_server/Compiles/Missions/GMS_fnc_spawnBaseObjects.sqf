@@ -15,7 +15,7 @@
 
 params["_center","_objects"];
 if (count _center == 2) then {_center pushBack 0};
-private ["_newObjs","_simDam","_obj","_spawnPos"];
+private ["_newObjs","_sim","_dam","_obj","_spawnPos"];
 _newObjs = [];
 _obj = createVehicle ["RoadCone_L_F", _coords];  //  To designate the mission center
 _obj allowDamage true;
@@ -24,20 +24,23 @@ _obj enableSimulationGlobal false;
 _obj enableDynamicSimulation false;
 _newObjs pushBack _obj;
 {
-	if (count _x == 3) then 
+	if (typeName (_x select 3) isEqualTo "ARRAY") then // assum simulation and damage settings are defined in the old way as [bool,bool]
 	{
-		_simDam = [false,false];
-	}
-	else
+		_sim = (_x select 3) select 0;
+		_dam = (_x select 3) select 1;
+	};
+	if (typeName (_x select 3) isEqualTo "BOOL") then // assume simulation and damage settings are defined in the new way as , bool, bool, ...
 	{
-		_simDam = _x select 3;
+		_sim = _x select 3;
+		_dam = _x select 4;
 	};
 	_obj = createVehicle[(_x select 0),_center vectorAdd (_x select 1),[],0,"CAN_COLLIDE"];
 	//diag_log format["_fnc_spawnBaseObjects::-->> _x = %1 | _obj = %2",_x,_obj];	
 	_newObjs pushback _obj;
 	_obj setDir (_x select 2);
-	_obj enableDynamicSimulation (_simDam select 0);
-	_obj allowDamage (_simDam select 1);	
+	
+	_obj enableDynamicSimulation _sim;
+	_obj allowDamage _dam;	
 	if ((typeOf _obj) isKindOf "LandVehicle" || (typeOf _obj) isKindOf "Air" || (typeOf _obj) isKindOf "Sea") then
 	{
 		[_obj] call blck_fnc_configureMissionVehicle;

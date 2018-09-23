@@ -107,7 +107,7 @@ if (blck_debugLevel > 1) then
 	_wep = [(_x select 0),[0,0,0],false,true] call blck_fnc_spawnVehicle;
 	//_wep addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_wep addMPEventHandler["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
-	_empGroup setVariable["groupVehicle",_wep];
+	//_empGroup setVariable["groupVehicle",_wep];
 	_wep setVariable["vehicleGroup",_empGroup];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then

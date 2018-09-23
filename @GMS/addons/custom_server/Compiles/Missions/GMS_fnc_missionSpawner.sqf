@@ -51,6 +51,9 @@ if (isNil "_chanceLoot") 				then {_chanceLoot = 1.0}; //0.5};
 if (isNil "_paraTriggerDistance") 		then {_paraTriggerDistance = 400;};
 if (isNil "_paraLoot") 					then {_paraLoot = blck_BoxLoot_Green};  //  Add diffiiculty based settings
 if (isNil "_paraLootCounts") 			then {_paraLootCounts = blck_lootCountsRed}; // Add difficulty based settings
+if (isNil "_missionLootVehicles") 		then {_missionLootVehicles = []};
+if (isNil "_garrisonedBuilding_ATLsystem") then {_garrisonedBuilding_ATLsystem = []};
+if (isNil "_garrisonedBuildings_BuildingPosnSystem") then {_garrisonedBuildings_BuildingPosnSystem = []};
 
 _objects = [];
 _mines = [];
@@ -100,9 +103,9 @@ if (blck_debugLevel > 0) then {
 
 while {_wait} do
 {
-	#ifdef blck_debugMode
+	//ifdef blck_debugMode
 	if (blck_debugLevel > 2) exitWith {_playerInRange = true;diag_log "_fnc_missionSpawner (168): player trigger loop triggered by scripting";};
-	#endif
+	//endif
 
 	if ([_coords, blck_TriggerDistance, false] call blck_fnc_playerInRange) exitWith {_playerInRange = true;};
 	if ([_missionStartTime,blck_MissionTimeout] call blck_fnc_timedOut) exitWith {_missionTimedOut = true;};
@@ -124,9 +127,9 @@ if (_missionTimedOut) exitWith
 	[_mines,_objects,_crates, _blck_AllMissionAI,_endMsg,_blck_localMissionMarker,_coords,_markerClass,  1] call blck_fnc_endMission;
 };
 
-////////
+////////////////////////////////////////////////
 // Spawn the mission objects, loot chest, and AI
-////////
+///////////////////////////////////////////////
 #ifdef blck_debugMode
 if (blck_debugLevel > 0) then
 {		
@@ -173,8 +176,11 @@ if (blck_debugLevel > 0) then
 
 uiSleep  delayTime;;
 
-_temp = [_coords,_missionLootVehicles] call blck_fnc_spawnMissionLootVehicles;
-_crates append _temp;
+if (count _missionLootVehicles > 0) then
+{
+	_temp = [_coords,_missionLootVehicles,_loadCratesTiming] call blck_fnc_spawnMissionLootVehicles;
+	_crates append _temp;
+};
 
 uiSleep  delayTime;
 
@@ -318,6 +324,29 @@ if (_noChoppers > 0) then
 	};
 };
 
+uisleep 3;
+if (count _garrisonedBuilding_ATLsystem > 0) then
+{
+	_temp = [_coords, _garrisonedBuilding_ATLsystem, _aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_garrisonBuilding_ATLsystem;
+	diag_log format["_missionspawner: garrisoned a building using ATL format, function returned %1",_temp];
+	//      _return = [_group,_buildingsSpawned,_staticsSpawned];
+	_objects append (_temp select 1);
+	blck_monitoredVehicles append (_temp select 2);
+	_blck_AllMissionAI append (units (_temp select 0));
+};
+
+uiSleep 3;
+diag_log format["_missionSpawner:  _garrisonedBuildings_BuildingPosnSystem = %1",_garrisonedBuildings_BuildingPosnSystem];
+if (count _garrisonedBuildings_BuildingPosnSystem > 0) then
+{
+	//     params["_center","_garrison","_aiDifficultyLevel","_uniforms","_headGear","_vests","_backpacks","_weaponList","_sideArms"];
+	_temp = [_coords, _garrisonedBuildings_BuildingPosnSystem, _aiDifficultyLevel,_uniforms,_headGear,_vests,_backpacks,_weaponList,_sideArms] call blck_fnc_garrisonBuilding_RelPosSystem;
+	diag_log format["_missionspawner: garrisoned a building using relPos format, function returned %1",_temp];
+	//      _return = [_group,_buildingsSpawned,_staticsSpawned];
+	_objects append (_temp select 1);
+	blck_monitoredVehicles append (_temp select 2);
+	_blck_AllMissionAI append (units (_temp select 0));
+};
 
 //////////////////////////
 // Spawn Crates and Emplaced Weapons Last to try to force them to correct positions relative to spawned buildinga or other objects.

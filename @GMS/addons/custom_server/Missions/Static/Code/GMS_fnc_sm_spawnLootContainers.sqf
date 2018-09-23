@@ -22,8 +22,11 @@ if !(_objects isEqualTo []) exitWith
 			diag_log format["_fnc_sm_spawnLootContainers (21):->  _x = %1",_x];
 		};
 		#endif
-		_crate = [_x select 1, _x select 0] call blck_fnc_spawnCrate;
-		[_crate, _x select 4, _x select 5] call blck_fnc_fillBoxes;
+		diag_log format["_fnc_sm_spawnLootContainers (21):->  _x = %1",_x];	
+		// 	[selectRandom blck_crateTypes,[22904.8,16742.5,6.30195],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
+		_x params["_crateClassName","_cratePosASL","_vectorDirUp","_allowDamageSim","_crateLoot","_lootCounts"];	
+		_crate = [_cratePosASL, _crateClassName] call blck_fnc_spawnCrate;
+		[_crate, _crateLoot,_lootCounts] call blck_fnc_fillBoxes;
 	} forEach _objects;
 };
 

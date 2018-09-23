@@ -40,7 +40,7 @@ if !(isNull _group) then
 	_veh = [_vehType,_pos] call blck_fnc_spawnVehicle;
 //	_veh addEventHandler["HandleDamage",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleDamage}];
 	_veh addMPEventHandler["MPHit",{ [_this] call compile preprocessFileLineNumbers blck_EH_AIVehicle_HandleHit}];
-	_group setVariable["groupVehicle",_veh];
+	//_group setVariable["groupVehicle",_veh];
 	#ifdef blck_debugMode
 	if (blck_debugLevel > 1) then
 	{

@@ -21,6 +21,7 @@ private["_mod","_map","_missionMod","_missionMap","_missionLocation","_missionDa
 blck_sm_monitoring = 0;
 blck_sm_groupDespawnTime = 30;
 blck_sm_patrolRespawnInterval = 30;
+uiSleep 10;
 _map = toLower worldName;
 {
 	if ((_map) isEqualTo toLower(_x select 1)) then

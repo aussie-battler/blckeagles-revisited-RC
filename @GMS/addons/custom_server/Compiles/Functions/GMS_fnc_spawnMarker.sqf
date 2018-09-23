@@ -13,12 +13,11 @@
 
 private["_blck_fn_configureRoundMarker"];
 _blck_fn_configureRoundMarker = {
+	//diag_log format["_blck_fn_configureRoundMarker: _this = %1",_this];
+	//  [[""OrangeMarker1"",[11736.1,9272.76,0],""Soylent Green"",""center"",""ColorPink"",[""ellipse"",[250,250],""Cross""]]]"
 	private["_name","_pos","_color","_size","_MainMarker","_arrowMarker","_labelMarker","_labelType"];
-	//diag_log format["_blck_fn_configureRoundMarker: -: _this = %1", _this];
-	params["_name","_pos","_color","_text","_size","_labelType"];
-
-	//diag_log format["_blck_fn_configureRoundMarker: _pos = %1, _color = %2, _size = %3, _name = %4, label %5",_pos, _color, _size, _name, _text];
-	// Do not show the marker if it is in the left upper corner
+	// [_missionType,_markerPos,_markerColor,_markerLabel, _mSize,_markerLabelType,_mShape,_mBrush]
+	params["_name","_pos","_color","_text","_size","_labelType","_mShape","_mBrush"];
 	if ((_pos distance [0,0,0]) < 10) exitWith {};
 	
 	_MainMarker = createMarker [_name, _pos];
@@ -60,9 +59,8 @@ _blck_fn_configureRoundMarker = {
 
 _blck_fn_configureIconMarker = {
 	private["_MainMarker"];
+	//diag_log format["_blck_fn_configureIconMarker: _this = %1",_this];
 	params["_name","_pos",["_color","ColorBlack"],["_text",""],["_icon","mil_triangle"]];
-	//diag_log format["_blck_fn_configureIconMarker: _name=%1;  _pos=%2;  _color=%3;  _text=%4",_name,_pos,_color,_text];
-	
 	_name = "label" + _name;
 	_MainMarker = createMarker [_name, _pos];
 	_MainMarker setMarkerShape "Icon";
@@ -73,25 +71,20 @@ _blck_fn_configureIconMarker = {
 };
 
 //diag_log format["spawnMarker::  --  >> _this = %1",_this];
-//  _this = [[""BlueMarker"",[12524.1,18204.7,0],""Bandit Patrol"",""center"",""ColorBlue"",[""ELIPSE"",[175,175]]],""ColorBlue"",""BlueMarker""]"
 params["_mArray"];
 private["_marker"];
-_mArray params["_missionType","_markerPos","_markerLabel","_markerLabelType","_markerColor","_markerType"];
-_markerType params["_mShape","_mSize","_mBrush"];
-//diag_log format["spawnMarker.sqf::  --  >> _missionType %1 | _markerPos %2 | _markerLabel %3 | _markerLabelType %4 | _markerColor %5 | _markerType %6",_missionType,_markerPos,_markerLabel,_markerLabelType,_markerColor,_markerType];
+_mArray params["_missionMarkerName","_markerPos","_markerLabel","_markerLabelType","_markerColor","_markerTypeInfo"];
+//  add defaults to provide backward compatibility for older missions that do not specify a brush.
+_markerTypeInfo params["_mShape",["_mSize",[0,0]],["_mBrush","GRID"]];
+//diag_log format["spawnMarker.sqf::  --  >> _missionMarkerName %1 | _markerPos %2 | _markerLabel %3 | _markerLabelType %4 | _markerColor %5 | _markerTypeInfo %6 | _mShape %7",_missionMarkerName,_markerPos,_markerLabel,_markerLabelType,_markerColor,_markerTypeInfo,_mShape];
 
-if ((_markerType select 0) in ["ELIPSE","RECTANGLE"]) then // not an Icon .... 
+if (toUpper(_mShape) in ["ELIPSE","ELLIPSE","RECTANGLE"]) then // not an Icon .... 
 {		
-	switch (_missionType) do {
-		// params["_missionType","_pos","_text","_labelType","_color","_type","_size","_brush"];
-		// Type					Size				Brush
-		default {_marker = [_missionType,_markerPos,_markerColor,_markerLabel, _mSize,_markerLabelType,_mShape,_mBrush] call _blck_fn_configureRoundMarker;};
-	};
+	_marker = [_missionMarkerName,_markerPos,_markerColor,_markerLabel, _mSize,_markerLabelType,_mShape,_mBrush] call _blck_fn_configureRoundMarker;
 };
-if !((_markerType select 0) in ["ELIPSE","RECTANGLE"]) then 
-{  //  Deal with case of an icon
-	//  params["_name","_pos",["_color","ColorBlack"],["_text",""],["_icon","mil_triangle"]];
-	_marker = [_missionType,_markerPos, _markerColor,_markerLabel,_markerType select 0] call _blck_fn_configureIconMarker;
+if !(toUpper(_mShape) in ["ELIPSE","ELLIPSE","RECTANGLE"]) then 
+{  
+	_marker = [_missionMarkerName,_markerPos, _markerColor,_markerLabel,_mShape] call _blck_fn_configureIconMarker;
 };
 //diag_log format["spawnMarker complete script with _marker = %1",_marker];
 if (isNil "_marker") then {_marker = ""};

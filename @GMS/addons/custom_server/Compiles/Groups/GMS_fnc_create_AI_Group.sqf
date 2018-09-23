@@ -15,7 +15,7 @@
 private["_groupSpawned"];
 
 _groupSpawned = createGroup [blck_AI_Side, true]; 
-_groupSpawned setVariable["groupVehicle",objNull];
+//_groupSpawned setVariable["groupVehicle",objNull];
 #ifdef useDynamicSimulation
 _groupSpawned enableDynamicSimulation true;
 #endif
@@ -27,7 +27,7 @@ _groupSpawned setFormation blck_groupFormation;
 _groupSpawned setVariable ["blck_group",true,true];
 
 #ifdef blck_debugMode
-diag_log format["_fnc_create_AI_Group: _groupSpawned = %1",_groupSpawned];
+if (blck_debugLevel >= 2) then {diag_log format["_fnc_create_AI_Group: _groupSpawned = %1",_groupSpawned]};
 #endif
 
 _groupSpawned

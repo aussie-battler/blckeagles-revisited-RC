@@ -48,6 +48,7 @@ while {true} do
 		[] call blck_fnc_cleanupAliveAI;
 		[] call blck_fnc_cleanupObjects;
 		[] call blck_fnc_cleanupDeadAI;
+		[] call blck_fnc_cleanEmptyGroups;
 		_timer20sec = diag_tickTime + 20;
 		//diag_log format["[blckeagls] _fnc_mainThread 20 Second Timer Handled | Timstamp %1",diag_tickTime];
 	};

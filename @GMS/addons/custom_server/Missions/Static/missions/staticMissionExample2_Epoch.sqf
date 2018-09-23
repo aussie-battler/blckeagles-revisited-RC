@@ -3,9 +3,8 @@
 	See the accompanying example mission in the exampleMission folder to get an idea how I laid this out.
 	Note that I exported the mission using the exportAll function of M3EDEN editor.
 */
-private ["_markerLabel","_endMsg","_startMsg","_lootCounts","_crateLoot","_markerMissionName","_missionLandscapeMode","_missionLandscape",
-	"_missionLootBoxes","_missionLootVehicles","_missionEmplacedWeapons","_minNoAI","_maxNoAI","_noAIGroups","_noVehiclePatrols","_noEmplacedWeapons",
-	"_uniforms","_headgear","_weaponList","_sideArms","_vests","_backpacks","_weapons","_sideArms","_chanceReinforcements","_noPara","_helipatrol","_endCondition","_markerColor","_markerType","_useMines"];
+
+#include "privateVars.sqf";
 
 _mission = "static mission example #2";  //  Included for additional documentation. Not intended to be spawned as a mission per se.
 _missionCenter = [22907,16789,0];  // I pulled this from the position of the marker.
@@ -46,7 +45,7 @@ _lootCounts = blck_lootCountsRed; // You can use a customized set of loot counts
 								  //  blck_lootCountsOrange = [[6,8],[24,32],[5,10],[25,35],16,1];   // Orange
 
 _markerLabel = "";
-//_markerType = ["ELIPSE",[200,200],"GRID"];
+//_markerType = ["ellipse",[200,200],"GRID"];
 // An alternative would be:
 _markerType = ["mil_triangle",[0,0]];  // You can replace mil_triangle with any other valid Arma 3 marker type https://community.bistudio.com/wiki/cfgMarkers
 _markerColor = "ColorRed";  //  This can be any valid Arma Marker Color  
@@ -55,7 +54,7 @@ _missionLandscapeMode = "precise"; // acceptable values are "random","precise"
 									// In precise mode objects will be spawned at the relative positions specified.
 									// In the random mode, objects will be randomly spawned within the mission area.
 _missionLandscape = [  //  Paste appropriate lines from M3EDEN output here.
-	["Land_Cargo_HQ_V2_F",[22894.7,16766,3.19],[[0,1,0],[0,0,1]],[true,false]],
+	["Land_Cargo_HQ_V2_F",[22885.4,16756.8,3.19],[[0,1,0],[0,0,1]],[true,false]],
 	["Land_Cargo_HQ_V1_F",[22918.1,16761.9,3.18151],[[0,1,0],[0,0,1]],[true,false]],
 	["Land_Cargo_HQ_V3_F",[22907.6,16740.3,3.17544],[[0,1,0],[0,0,1]],[true,false]],
 	["Land_Dome_Small_F",[22908.2,16808.8,3.19],[[0,1,0],[0,0,1]],[true,false]]
@@ -65,10 +64,10 @@ _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output her
 	// [["box_classname1",_customLootArray1,[px,py,pz],...,_customLootArray1],["box_classname2",,[px2,py2,pz2],...,_customLootArray2]
 	//  where _customLootArray follows the same format as blck_BoxLoot_Red and the other pre-defined arrays and
 	//  where _customlootcountsarray1 also follows the same format as the predefined arrays like blck_lootCountsRed
-	//[selectRandom blck_crateTypes,[22917.4,16763,6.30803],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1] ],
-	//[selectRandom blck_crateTypes,[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
+	[selectRandom blck_crateTypes,[22917.4,16763,6.30803],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1] ],
+	[selectRandom blck_crateTypes,[22893,16766.8,6.31652],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts],
 	//  0               1                        2                  3             4           5 
-	//[selectRandom blck_crateTypes,[22904.8,16742.5,6.30195],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
+	[selectRandom blck_crateTypes,[22904.8,16742.5,6.30195],[[0,1,0],[0,0,1]],[true,false], _crateLoot, _lootCounts]
 ];  // If this array is empty a single loot chest will be added at the center. If you add items loot chest(s) will be spawned in specific positions.
 
 
@@ -76,7 +75,7 @@ _missionLootBoxes = [  //  Paste appropriate lines from M3EDEN editor output her
 _missionLootVehicles = [  // Paste appropriate lines from the output of M3EDEN Editor here and add the loot crate type and loot counts at the end of each entry as shown in the example below.
 						  // Many vehicles have less inventory capacity than crates so you may have to modify _lootcounts to avoid having stuff spawned all over the ground.
 	//["Exile_Car_Van_Box_Guerilla02",[22896.8,16790.1,3.18987],[[0,1,0],[0,0,1]],[true,false], _crateLoot, [[1,2],[4,6],[2,6],[5,8],6,1]],
-	//["Exile_Car_Van_Fuel_Guerilla02",[22919,16782.7,3.18132],[[0,1,0],[0.00129187,0,0.999999]],[true,false],_crateLoot, _lootCounts]
+	["Exile_Car_Van_Fuel_Guerilla02",[22919,16782.7,3.18132],[[0,1,0],[0.00129187,0,0.999999]],[true,false],_crateLoot, _lootCounts]
 ]; //  [ ["vehicleClassName", [px, py, pz] /* possition at which to spawn*/, _loot /* pointer to array of loot (see below)]; 
 // When blank nothing is spawned.
 // You can use the same format used for _missionLootBoxes to add vehicles with/without loot.
@@ -86,8 +85,8 @@ _noEmplacedWeapons = blck_SpawnEmplaced_Red; // Modified as needed; can be a num
 // or _noEmplacedWeapons = 3; // a constant number of emplaced weps per misison
 // Note that this value is ignored if you define static weapon positions and types in the array below.
 _missionEmplacedWeapons = [
-	//["B_G_Mortar_01_F",[22867.3,16809.1,3.17968],"red",0,0],
-	["B_HMG_01_high_F",[22825.3,16923.5,3.14243],"blue",0,10]
+	["B_G_Mortar_01_F",[22922.7,16763.9,6.30801],"red",0,0],
+	["B_HMG_01_high_F",[22883.5,16757.6,6.31652],"blue",0,10]
 ]; 								// example [ ["emplacedClassName",[px, py, pz] /* position to spawn weapon */, difficulty /* difficulty of AI manning weapon (blue, red etc)] ];
 								// can be used to define the precise placement of static weapons [[1,2,3] /*loc 1*/, [2,3,4] /*loc 2*/]; if blank random locations will be used
 								// If the number of possible locations exceeds the number of emplaced weapons specified above then only some of the locations in the array will have emplaced weapons spawned.
@@ -101,18 +100,18 @@ _aiGroupParameters = [
 	//[[22920.4,16887.3,3.19144],"red",[1,2], 75,120],
 	//[[22993.3,16830.8,5.6292],"red",4, 75,9000],
 	//[[22947.8,16717,6.80305],"red",4, 75,900],
-	//[[22849,16720.4,7.33123],"red",4, 75,9000],
+//	[[22849,16720.4,7.33123],"red",4, 75,9000],
 	//[[22832.9,16805.6,4.59315],"red",4, 75,900],
 //[[22909.8,16778.6,3.19144],"red",4, 75,900],
 	//[[22809.4,16929.5,5.33892],"blue",1, 75,0],
-	[[22819.4,16929.5,0],"red",1, 75, 10]
+	[[22819.4,16929.5,0],"red",1, 75, 10, 1]
 ];
 
 _noVehiclePatrols = blck_SpawnVeh_Red; // Modified as needed; can be a numberic value (e.g. 3) or range presented as [2,4]; 
 										//  Note that this value is ignored if you define vehicle patrols in the array below.
 _vehiclePatrolParameters = [
 	//["B_G_Offroad_01_armed_F",[22819.4,16929.5,3.17413],"green",600,0],
-	["B_G_Offroad_01_armed_F",[22809.5,16699.2,0],"blue",600,10]	
+	["B_G_Offroad_01_armed_F",[22809.5,16699.2,0],"blue",600,10,1]	
 ]; 							//[ ["vehicleClassName",[px,py,pz] /* center of patrol area */, difficulty /* blue, red etc*/, patrol radius] ]
 							// When this array is empty, vehicle patrols will be scattered randomely around the mission.
 							// Allows you to define the location of the center of the patrol, vehicle type spawned, radius to patrol, and AI difficulty (blue, red, green etc).
@@ -121,8 +120,8 @@ _aircraftTypes = blck_patrolHelisRed;  //  You can use one of the pre-defined li
 _noAirPatrols =	blck_noPatrolHelisRed; // You can use one of the pre-defined values or a custom one. acceptable values are integers (1,2,3) or a range such as [2,4]; 
 										//  Note: this value is ignored if you specify air patrols in the array below.
 _airPatrols = [
-	//["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,900]//,
-	[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"blue",1000,60]
+	["Exile_Chopper_Huey_Armed_Green",[22923.4,16953,3.19],"red",1000,10,1]//,
+	//[selectRandom _aircraftTypes,[22830.2,16618.1,11.4549],"blue",1000,60]
 ];
 //  Change _useMines to true/false below to enable mission-specific settings.
 _useMines  = blck_useMines;  // Set to false if you have vehicles patrolling nearby.

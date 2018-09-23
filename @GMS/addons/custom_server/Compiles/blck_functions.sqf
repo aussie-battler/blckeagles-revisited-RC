@@ -36,6 +36,12 @@ blck_fnc_missionCompleteMarker  = compileFinal preprocessFileLineNumbers "\q\add
 blck_fnc_deleteMarker  = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_deleteMarker.sqf";
 blck_fnc_updateMarkerAliveCount = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_updateMarkerAliveCount.sqf";
 blck_fnc_addMoneyToObject = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_addMoneyToObject.sqf";
+blck_fnc_spawnMissionEmplacedRelative = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_spawnMissionEmplacedRelative.sqf";
+blck_fnc_spawnMissionLootBoxesRelative = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_spawnMissionLootBoxesRelative.sqf";
+blck_fnc_spawnSingleObject = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_spawnSingleObject.sqf";
+blck_fnc_emptyObjectInventory = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_emptyObjectInventory.sqf";
+blck_fnc_spawnMissionLandscapeRelative = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_spawnMissionLandscapeRelative.sqf";
+
 //blck_fnc_getTraderCitiesEpoch = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitiesEpoch.sqf";
 //blck_fnc_getTraderCitesExile = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Functions\GMS_fnc_getTraderCitesExile.sqf";
 
@@ -84,8 +90,10 @@ blck_fnc_paraDropObject = compileFinal preprocessFileLineNumbers "\q\addons\cust
 blck_fnc_loadMissionCrate = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_loadMissionCrate.sqf";
 blck_fnc_crateMoved = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_crateMoved.sqf";
 blck_fnc_crateMarker = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_crateMarker.sqf";
-
-
+blck_fnc_garrisonBuilding_RelPosSystem = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_garrisonBuilding_relPosSystem.sqf";
+blck_fnc_garrisonBuilding_ATLsystem = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_garrisonBuilding_ATLsystem.sqf";
+blck_fnc_spawnGarrisonInsideBuilding_ATL = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnGarrisonInsideBuilding_ATL.sqf";
+blck_fnc_spawnGarrisonInsideBuilding_relPos = compileFinal preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Missions\GMS_fnc_spawnGarrisonInsideBuilding_relPos.sqf";
 // Group-related functions
 blck_fnc_spawnGroup = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_spawnGroup.sqf";  // Spawn a single group and populate it with AI units]
 blck_fnc_setupWaypoints = compileFinal  preprocessFileLineNumbers "\q\addons\custom_server\Compiles\Groups\GMS_fnc_setupWaypoints.sqf";  // Set default waypoints for a group

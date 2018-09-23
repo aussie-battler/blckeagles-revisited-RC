@@ -16,15 +16,16 @@
 #include "\q\addons\custom_server\Configs\blck_defines.hpp";
 
 private ["_crate"];
-params["_coords",["_crateType","Box_NATO_Wps_F"]];
+params["_coords",["_crateType","Box_NATO_Wps_F"],["_crateDir",0]];
 
-_crate = createVehicle [_crateType,_coords,[], 2, "NONE"];
+_crate = createVehicle [_crateType,[0,0,0],[], 2, "NONE"];
 _crate setVariable ["LAST_CHECK", 100000];
 _crate allowDamage false;
 _crate enableRopeAttach false;
 [_crate] call blck_fnc_emptyObject;
 uiSleep 1;
-//_crate setPosATL _coords;
+_crate setPosATL _coords;
+_crate setDir _crateDir;
 //_crate setVectorUp [0,0,1];
 _crate setVectorUp surfaceNormal position _crate;
 // the function to have a lightsource on underwater objects needs work.
